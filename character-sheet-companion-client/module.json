@@ -1,0 +1,11 @@
+{
+  "name": "character-sheet-companion-client",
+  "title": "Character Sheet Companion Client",
+  "description": "<p>Client for the character sheet companion application</p>",
+  "version": "1.0.0",
+  "author": "zachsand",
+  "esmodules": [
+    "src/character-sheet-companion.js"
+  ],
+  "minimumCoreVersion": "0.8.5"
+}
