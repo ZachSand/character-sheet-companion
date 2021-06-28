@@ -4,6 +4,9 @@ import Logger from "./loaders/logger";
 import loaders from "./loaders";
 import http from "http";
 import { Server } from "socket.io";
+import { IUser } from "./interfaces/IUser";
+import { IActor } from "./interfaces/IActor";
+import { IActorAbility } from "./interfaces/IActorAbility";
 
 async function startServer() {
   const app = express();
@@ -11,7 +14,7 @@ async function startServer() {
   const server = http.createServer(app);
   const io = new Server(server, {
     cors: {
-      origin: "*",
+      origin: "http://localhost:30000",
       methods: ["GET", "POST"],
     },
   });
@@ -19,7 +22,7 @@ async function startServer() {
     .listen(config.port, () => {
       Logger.info(`
       ################################################
-      🛡️  Server listening on port: ${config.port} 🛡️
+          Server listening on port: ${config.port}
       ################################################
     `);
     })
@@ -28,8 +31,23 @@ async function startServer() {
       process.exit(1);
     });
 
-  io.on("connection", (socket) => {
-    Logger.info("a user connected");
+  io.on("connection", (connectedSocket) => {
+    let user: IUser;
+    let actor: IActor;
+    connectedSocket.on("users", (users: Array<IUser>) => {
+      user = users[0];
+      connectedSocket.emit("userActors", user.userId);
+    });
+
+    connectedSocket.on("actors", (actors: Array<IActor>) => {
+      actor = actors[0];
+      connectedSocket.emit("userActor", actor.actorId);
+    });
+
+    connectedSocket.on("actorAbilities", (abilities: Array<IActorAbility>) => {
+      abilities.forEach((ability) => Logger.info(ability.abilityName));
+      connectedSocket.emit("abilityCheck", "str", actor.actorId);
+    });
   });
 }
 
