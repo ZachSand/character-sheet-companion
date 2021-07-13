@@ -1,5 +1,5 @@
 import { Router } from "express";
 
-export default () => {
+export default (): Router => {
   return Router();
 };
