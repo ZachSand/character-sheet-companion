@@ -27,6 +27,7 @@ export class CharacterSheetCompanionSetup {
             socket.on("connect", () => {
                 socket.emit(SOCKET_EVENTS.FOUNDRY.JOIN_ROOM, game.settings.get("character-sheet-companion", CHARACTER_SHEET_COMPANION_SETTING_KEY));
             });
+            sendActorData(socket, "dTiwAAZLSHn8TXLm");
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USERS, () => sendUsers(socket));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USER_ACTORS, (userId) => sendUserActors(socket, userId));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ACTOR_DATA, (actorId) => sendActorData(socket, actorId));

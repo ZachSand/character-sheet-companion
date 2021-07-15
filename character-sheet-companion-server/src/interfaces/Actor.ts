@@ -1,16 +1,8 @@
 export interface Actor {
-  id: string;
+  actorData: ActorData;
+  actorItems: ActorItem[];
   name: string;
-  type: string;
-  img: string;
-  data: ActorData;
-  token: Token;
-  items: Item[];
-  effects: Effect[];
-  folder: null;
-  sort: number;
-  permission: never;
-  flags: never;
+  id: string;
 }
 
 export interface ActorData {
@@ -20,9 +12,12 @@ export interface ActorData {
   traits: Traits;
   currency: Currency;
   skills: { [key: string]: Skill };
-  spells: { [key: string]: SpellValue };
+  spells: Spells;
   bonuses: Bonuses;
   resources: Resources;
+  prof: number;
+  classes: Class[];
+  mod: number;
 }
 
 export interface Abilities {
@@ -37,10 +32,18 @@ export interface Abilities {
 export interface Ability {
   value: number;
   proficient: number;
+  min: number;
+  max: number;
+  mod: number;
+  prof: number;
+  saveBonus: number;
+  checkBonus: number;
+  save: number;
+  dc: number;
 }
 
 export interface Attributes {
-  ac: number;
+  ac: AC;
   hp: AttributesHP;
   init: Init;
   movement: Movement;
@@ -49,11 +52,29 @@ export interface Attributes {
   death: Death;
   exhaustion: number;
   inspiration: boolean;
+  hd: number;
+  prof: number;
+  spelldc: number;
+  encumbrance: Encumbrance;
+}
+
+export interface AC {
+  value: number;
+  type: string;
+  label: string;
 }
 
 export interface Death {
   success: number;
   failure: number;
+}
+
+export interface Encumbrance {
+  value: number;
+  max: number;
+  pct: number;
+  encumbered?: boolean;
+  min?: number;
 }
 
 export interface AttributesHP {
@@ -67,6 +88,9 @@ export interface AttributesHP {
 export interface Init {
   value: number;
   bonus: number;
+  mod: number;
+  prof: number;
+  total: number;
 }
 
 export interface Movement {
@@ -94,7 +118,7 @@ export interface Bonuses {
   msak: Msak;
   rsak: Msak;
   abilities: BonusesAbilities;
-  spell: BonusesSpell;
+  spell: SpellDC;
 }
 
 export interface BonusesAbilities {
@@ -108,8 +132,38 @@ export interface Msak {
   damage: string;
 }
 
-export interface BonusesSpell {
-  dc: string;
+export interface SpellDC {
+  dc: number;
+}
+
+export interface Class {
+  description: ClassDescription;
+  source: string;
+  levels: number;
+  subclass: string;
+  hitDice: string;
+  hitDiceUsed: number;
+  saves: string[];
+  skills: Skills;
+  spellcasting: Spellcasting;
+  name: string;
+}
+
+export interface ClassDescription {
+  value: string;
+  chat: string;
+  unidentified: boolean;
+}
+
+export interface Skills {
+  number: number;
+  choices: string[];
+  value: string[];
+}
+
+export interface Spellcasting {
+  progression: string;
+  ability: string;
 }
 
 export interface Currency {
@@ -126,23 +180,24 @@ export interface Details {
   race: string;
   background: string;
   originalClass: string;
-  xp: XP;
+  xp: Encumbrance;
   appearance: string;
   trait: string;
   ideal: string;
   bond: string;
   flaw: string;
+  gender: string;
+  age: number;
+  height: string;
+  weight: number;
+  eyes: string;
+  skin: string;
+  hair: string;
+  level: number;
 }
 
 export interface Biography {
   value: string;
-  public: string;
-}
-
-export interface XP {
-  value: number;
-  min: number;
-  max: number;
 }
 
 export interface Resources {
@@ -152,8 +207,8 @@ export interface Resources {
 }
 
 export interface Resource {
-  value: null;
-  max: null;
+  value: number;
+  max: number;
   sr: boolean;
   lr: boolean;
   label: string;
@@ -162,108 +217,66 @@ export interface Resource {
 export interface Skill {
   value: number;
   ability: string;
+  type: string;
+  label: string;
+  mod: number;
+  bonus: number;
+  prof: number;
+  total: number;
+  passive: number;
 }
 
-export interface SpellValue {
+export interface Spells {
+  spell0: Spell;
+  spell1: Spell;
+  spell2: Spell;
+  spell3: Spell;
+  spell4: Spell;
+  spell5: Spell;
+  spell6: Spell;
+  spell7: Spell;
+  spell8: Spell;
+  spell9: Spell;
+  pact: Spell;
+}
+
+export interface Spell {
   value: number;
   override: null;
+  max: number;
+  level?: number;
 }
 
 export interface Traits {
   size: string;
-  di: TraitData;
-  dr: TraitData;
-  dv: TraitData;
-  ci: TraitData;
-  languages: TraitData;
-  weaponProf: TraitData;
-  armorProf: TraitData;
-  toolProf: TraitData;
+  di: Trait;
+  dr: Trait;
+  dv: Trait;
+  ci: Trait;
+  languages: Trait;
+  weaponProf: Trait;
+  armorProf: Trait;
+  toolProf: Trait;
+  senses: Senses;
 }
 
-export interface TraitData {
+export interface Trait {
   value: string[];
   custom: string;
 }
 
-export interface Effect {
-  id: string;
-  changes: Change[];
-  disabled: boolean;
-  duration: EffectDuration;
-  icon: string;
-  label: string;
-  origin: string;
-  tint: null;
-  transfer: boolean;
-  flags: never;
-}
-
-export interface Change {
-  key: string;
-  value: string;
-  mode: number;
-}
-
-export interface EffectDuration {
-  startTime: number | null;
-  seconds: number;
-  rounds: number;
-}
-
-export interface Item {
+export interface ActorItem {
   id: string;
   name: string;
   type: string;
   img: string;
   data: ItemData;
-  effects: Effect[];
-  folder: null;
-  sort: number;
-  permission: never;
-  flags: ItemFlags;
+  effects: any[];
 }
 
 export interface ItemData {
   description: ItemDescription;
-  source: string;
-  activation?: Activation;
-  duration?: DataDuration;
-  target?: Target;
-  range?: Range;
-  uses?: Uses;
-  consume?: Consume;
-  ability?: null | string;
-  actionType?: null | string;
-  attackBonus?: number;
-  chatFlavor?: string;
-  critical?: null;
-  damage: DamageClass;
-  formula?: string;
-  save?: Save;
-  requirements?: string;
-  recharge?: Recharge;
-  quantity?: number;
-  weight?: number;
-  price?: number | string;
-  attuned?: boolean;
-  attunement?: number;
-  equipped?: boolean;
-  rarity?: string;
-  identified?: boolean;
-  armor?: Armor;
-  hp?: ItemHp;
-  weaponType?: string;
-  properties?: { [key: string]: boolean };
-  proficient?: boolean | number;
-  attributes?: ItemAttributes;
-  bonus?: never;
-  damageType?: never;
-  damage2?: never;
-  damage2Type?: never;
-  speed?: Speed;
-  strength?: number | string;
-  stealth?: boolean;
+  source: null | string;
   levels?: number;
   subclass?: string;
   hitDice?: string;
@@ -271,32 +284,59 @@ export interface ItemData {
   saves?: string[];
   skills?: Skills;
   spellcasting?: Spellcasting;
+  activation?: Activation;
+  duration?: Duration;
+  target?: Range;
+  range?: Range;
+  uses?: Uses;
+  consume?: Consume;
+  ability?: string[] | null | string;
+  actionType?: null | string;
+  attackBonus?: number | string;
+  chatFlavor?: string;
+  critical?: null;
+  damage?: Damage;
+  formula?: string;
+  save?: Save;
+  requirements?: string;
+  recharge?: Recharge;
+  quantity?: number;
+  weight?: number;
+  price?: number;
+  attuned?: boolean;
+  attunement?: number;
+  equipped?: boolean;
+  rarity?: string;
+  identified?: boolean;
+  armor?: Armor;
+  hp?: DataHP;
+  weaponType?: string;
+  properties?: { [key: string]: boolean };
+  proficient?: boolean | number;
+  speed?: Speed;
+  strength?: number;
+  stealth?: boolean;
+  consumableType?: string;
+  capacity?: Capacity;
+  currency?: Currency;
   level?: number;
   school?: string;
   components?: Components;
   materials?: Materials;
   preparation?: Preparation;
-  scaling?: ScalingClass;
-  capacity?: Capacity;
-  currency?: Currency;
-  consumableType?: string;
+  scaling?: Scaling;
 }
 
 export interface Activation {
   type: string;
-  cost: number | null;
+  cost: number;
   condition: string;
 }
 
 export interface Armor {
-  value: number | null;
+  value: number;
   type?: string;
-  dex?: number | null;
-  label?: string;
-}
-
-export interface ItemAttributes {
-  spelldc: number;
+  dex?: null;
 }
 
 export interface Capacity {
@@ -320,26 +360,23 @@ export interface Consume {
   amount: null;
 }
 
-export interface DamageClass {
+export interface Damage {
   parts: Array<string[]>;
-  versatile?: string;
+  versatile: string;
   value?: string;
 }
 
 export interface ItemDescription {
   value: string;
-  chat: string;
-  unidentified: string;
-  type?: string;
-  label?: string;
+  unidentified: boolean | string;
 }
 
-export interface DataDuration {
+export interface Duration {
   value: number | null | string;
   units: string;
 }
 
-export interface ItemHp {
+export interface DataHP {
   value: number;
   max: number;
   dt: null;
@@ -359,9 +396,11 @@ export interface Preparation {
 }
 
 export interface Range {
-  value: number | null | string;
-  long: number | null;
-  units: string;
+  value: number | null;
+  long?: number | null | string;
+  units: null | string;
+  type?: null | string;
+  width?: null;
 }
 
 export interface Recharge {
@@ -371,20 +410,13 @@ export interface Recharge {
 
 export interface Save {
   ability: string;
-  dc: number | null;
+  dc: null;
   scaling: string;
-  value?: string;
 }
 
-export interface ScalingClass {
+export interface Scaling {
   mode: string;
   formula: string;
-}
-
-export interface Skills {
-  number: number;
-  choices: string[];
-  value: string[];
 }
 
 export interface Speed {
@@ -392,78 +424,10 @@ export interface Speed {
   conditions: string;
 }
 
-export interface Spellcasting {
-  progression: string;
-  ability: string;
-}
-
-export interface Target {
-  value: number | null | string;
-  width: null;
-  units: string | null;
-  type: string;
-}
-
 export interface Uses {
-  value: number;
-  max: number | string;
+  value: number | null;
+  max: number | null | string;
   per: null | string;
-  type?: string;
   autoDestroy?: boolean;
   autoUse?: boolean;
-}
-
-export interface ItemFlags {
-  core?: Core;
-  exportSource?: ExportSource;
-}
-
-export interface Core {
-  sourceID: string;
-}
-
-export interface ExportSource {
-  world: string;
-  system: string;
-  coreVersion: string;
-  systemVersion: string;
-}
-
-export interface Token {
-  name: string;
-  img: string;
-  displayName: number;
-  actorLink: boolean;
-  width: number;
-  height: number;
-  scale: number;
-  mirrorX: boolean;
-  mirrorY: boolean;
-  lockRotation: boolean;
-  rotation: number;
-  alpha: number;
-  vision: boolean;
-  dimSight: number;
-  brightSight: number;
-  dimLight: number;
-  brightLight: number;
-  sightAngle: number;
-  lightAngle: number;
-  lightAlpha: number;
-  lightAnimation: LightAnimation;
-  disposition: number;
-  displayBars: number;
-  bar1: Bar;
-  bar2: Bar;
-  flags: never;
-  randomImg: boolean;
-}
-
-export interface Bar {
-  attribute: null | string;
-}
-
-export interface LightAnimation {
-  speed: number;
-  intensity: number;
 }
