@@ -3,6 +3,8 @@ import { SOCKET_EVENTS } from "../events/events.js";
 import { sendUsers } from "../handlers/user-handler.js"
 import { sendUserActors} from "../handlers/user-actor-handler.js";
 import { sendActorData} from "../handlers/actor-handler.js";
+import { sendAbilityRoll } from "../handlers/ability-roll-handler.js";
+import { sendSkillRoll } from "../handlers/skill-roll-handler.js";
 
 export class CharacterSheetCompanionSetup {
     static setup() {
@@ -30,6 +32,8 @@ export class CharacterSheetCompanionSetup {
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USERS, () => sendUsers(socket));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USER_ACTORS, (userId) => sendUserActors(socket, userId));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ACTOR_DATA, (actorId) => sendActorData(socket, actorId));
+            socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ABILITY_ROLL, (abilityRoll) => sendAbilityRoll(socket, abilityRoll));
+            socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_SKILL_ROLL, (skillRoll) => sendSkillRoll(socket, skillRoll));
         });
     }
 }

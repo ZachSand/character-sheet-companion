@@ -7,6 +7,8 @@ import { foundryActorDataListener } from "./foundryActorDataListener";
 import { validEventListener } from "./socketAuthorizationHandler";
 import { socketErrorListener } from "./socketErrorHandler";
 import { socketDisconnectListener } from "./socketDisconnectHandler";
+import { foundryAbilityRollListener } from "./foundryAbilityRollListener";
+import { foundrySkillRollListener } from "./foundySkillRollListener";
 
 export const socketHandlerWrapper = (io: Server, socket: Socket): void => {
   Logger.debug(`Client socket connected: ${socket.id}`);
@@ -16,6 +18,8 @@ export const socketHandlerWrapper = (io: Server, socket: Socket): void => {
   foundryUserListener(io, socket);
   foundryUserActorListener(io, socket);
   foundryActorDataListener(io, socket);
+  foundryAbilityRollListener(io, socket);
+  foundrySkillRollListener(io, socket);
 
   // Common Events
   validEventListener(io, socket);
