@@ -1,6 +1,6 @@
 export interface Actor {
   actorData: ActorData;
-  actorItems: ActorItem[];
+  actorItems: ActorItems;
   name: string;
   id: string;
 }
@@ -18,6 +18,26 @@ export interface ActorData {
   prof: number;
   classes: Class[];
   mod: number;
+}
+
+export interface ActorItems {
+  inventory: Inventory;
+  spells: ActorItem[];
+  features: Features;
+}
+
+export interface Features {
+  active: ActorItem[];
+  passive: ActorItem[];
+}
+
+export interface Inventory {
+  weapon: ActorItem[];
+  equipment: ActorItem[];
+  consumable: ActorItem[];
+  tool: ActorItem[];
+  backpack: ActorItem[];
+  loot: ActorItem[];
 }
 
 export interface Abilities {

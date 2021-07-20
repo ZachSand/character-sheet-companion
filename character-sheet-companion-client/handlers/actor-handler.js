@@ -2,7 +2,6 @@ import {SOCKET_EVENTS} from "../events/events.js";
 
 export function sendActorData(socket, actorId) {
     let actor5eData = getSanitizedActorData();
-
     if(actor5eData) {
         socket.emit(SOCKET_EVENTS.FOUNDRY.SEND_ACTOR_DATA, actor5eData)
     }
@@ -13,6 +12,7 @@ export function sendActorData(socket, actorId) {
             sanitizeActorData(actor5eData);
             if (actor5eData.actor.hasOwnProperty("actorItems")) {
                 sanitizeActorItems(actor5eData);
+                cleanUpActorItems(actor5eData);
             }
         }
         return actor5eData;
@@ -64,30 +64,70 @@ export function sendActorData(socket, actorId) {
     }
 
     function sanitizeActorItems(actor5eData) {
-        for (let index in actor5eData.actor.actorItems) {
-            if (actor5eData.actor.actorItems.hasOwnProperty(index)) {
-                let item = actor5eData.actor.actorItems[index];
-                if (item.hasOwnProperty("flags")) {
-                    delete item.flags;
-                }
-                if (item.hasOwnProperty("permission")) {
-                    delete item.permission;
-                }
-                if (item.hasOwnProperty("folder")) {
-                    delete item.folder;
-                }
-                if (item.hasOwnProperty("sort")) {
-                    delete item.sort;
-                }
-                if (item.hasOwnProperty("data")) {
-                    if (item.data.hasOwnProperty("description") && item.data.description.hasOwnProperty("chat")) {
+        for (let item of actor5eData.actor.actorItems) {
+            if (item.hasOwnProperty("flags")) {
+                delete item.flags;
+            }
+            if (item.hasOwnProperty("permission")) {
+                delete item.permission;
+            }
+            if (item.hasOwnProperty("folder")) {
+                delete item.folder;
+            }
+            if (item.hasOwnProperty("sort")) {
+                delete item.sort;
+            }
+            if (item.hasOwnProperty("data")) {
+                if (item.data.hasOwnProperty("description")) {
+                    if(item.data.description.hasOwnProperty("chat")) {
                         delete item.data.description.chat;
                     }
-                    if (item.data.hasOwnProperty("chatFlavor")) {
-                        delete item.data.description.chatFlavor
-                    }
+                }
+                if (item.data.hasOwnProperty("chatFlavor")) {
+                    delete item.data.chatFlavor;
                 }
             }
+        }
+    }
+
+    function cleanUpActorItems(actor5eData) {
+        const inventory = {
+            weapon: [],
+            equipment: [],
+            consumable: [],
+            tool: [],
+            backpack: [],
+            loot: []
+        };
+
+        let [items, spells, feats] = actor5eData.actor.actorItems.reduce((arr, item) => {
+            if ( item.type === "spell" ) arr[1].push(item);
+            else if ( item.type === "feat" ) arr[2].push(item);
+            else if ( Object.keys(inventory).includes(item.type ) ) arr[0].push(item);
+            return arr;
+        }, [[], [], [], []]);
+
+        for ( let i of items ) {
+            i.data.quantity = i.data.quantity || 0;
+            i.data.weight = i.data.weight || 0;
+            i.totalWeight = (i.data.quantity * i.data.weight).toNearest(0.1);
+            inventory[i.type].push(i);
+        }
+
+        const features = {
+            active: [],
+            passive: []
+        };
+
+        for (let f of feats) {
+            if ( f.data.activation.type ) features.active.push(f);
+            else features.passive.push(f);
+        }
+
+        actor5eData.actor.actorItems = {
+            "inventory": inventory,
+            "spells": spells,
+            "features": features
         }
     }
 }

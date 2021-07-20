@@ -33,9 +33,29 @@ struct FoundryActor: Codable {
 // MARK: - Actor
 struct Actor: Codable {
     var actorData: ActorData
-    var actorItems: [ActorItem]
+    var actorItems: ActorItems
     var name: String
     var id: String
+}
+
+struct ActorItems: Codable {
+    var inventory: Inventory
+    var spells: [ActorItem]
+    var features: Features
+}
+
+struct Features: Codable {
+    var active: [ActorItem]
+    var passive: [ActorItem]
+}
+
+struct Inventory: Codable {
+    var weapon: [ActorItem]
+    var equipment: [ActorItem]
+    var consumable: [ActorItem]
+    var tool: [ActorItem]
+    var backpack: [ActorItem]
+    var loot: [ActorItem]
 }
 
 // MARK: - ActorData

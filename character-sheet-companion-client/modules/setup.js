@@ -34,6 +34,11 @@ export class CharacterSheetCompanionSetup {
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ACTOR_DATA, (actorId) => sendActorData(socket, actorId));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ABILITY_ROLL, (abilityRoll) => sendAbilityRoll(socket, abilityRoll));
             socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_SKILL_ROLL, (skillRoll) => sendSkillRoll(socket, skillRoll));
+
+            // Select the token, get the image data, then unselect the token
+            // Get the canvas (~168Kb)
+            //game.canvas.app.renderer.plugins.extract.base64(game.canvas.app.stage, "image/jpeg", 0.15)
+
         });
     }
 }
