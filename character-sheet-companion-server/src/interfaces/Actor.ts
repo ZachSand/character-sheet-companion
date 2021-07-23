@@ -3,6 +3,7 @@ export interface Actor {
   actorItems: ActorItems;
   name: string;
   id: string;
+  img: string;
 }
 
 export interface ActorData {
