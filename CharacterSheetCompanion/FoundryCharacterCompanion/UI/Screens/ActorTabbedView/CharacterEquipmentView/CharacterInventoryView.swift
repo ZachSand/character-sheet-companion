@@ -76,6 +76,18 @@ struct ItemView : View {
                                 Text("Attack")
                             }
                         }
+                        if inventoryItemSummary.hasDamage {
+                            Button(action: {
+                                characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary)
+                            })
+                            {
+                                if characterInventoryVM.isConsumable(inventoryItemSummary: inventoryItemSummary) {
+                                    Text("Use")
+                                } else {
+                                    Text("Damage")
+                                }
+                            }
+                        }
                     }.buttonStyle(RoundedRectangleButtonStyle())
                     Text(inventoryItemSummary.description).font(.footnote)
                 }

@@ -14,37 +14,53 @@ struct UserActorPickerView: View {
     
     init() {
         self.userActorPickerVM = UserActorPickerViewModel()
+        if let users = userActorPickerVM.foundryUsers {
+            selectedUser = users[0]
+        }
+        if let userActors = userActorPickerVM.foundryUserActors {
+            selectedActor = userActors[0]
+        }
     }
     
     var body: some View {
         VStack {
             if let worldData = userActorPickerVM.worldData {
                 VStack{
-                    Text("World: " + worldData.title).font(.title2)
-                    Text("Version: " + worldData.version)
-                    Text("World Description:" + worldData.description)
+                    Text(worldData.title).font(.title)
+                    Text("World Version: " + worldData.version).font(.footnote)
+                    Text(worldData.description).font(.footnote)
                 }
             }
             
-            if let users = userActorPickerVM.foundryUsers {
-                VStack {
-                    Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
-                        ForEach(users) {user in
-                            Text(user.userName).tag(user as UserModel?)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    if let users = userActorPickerVM.foundryUsers {
+                        HStack{
+                            Text("User").bold()
+                            Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
+                                ForEach(users) {user in
+                                    Text(user.userName).tag(user as UserModel?)
+                                }
+                            }
+                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2)
+                            .clipped()
                         }
-                    }.scaledToFit()
-                }
-            } else {
-                Text("No Users Found")
-            }
-            
-            if let userActors = userActorPickerVM.foundryUserActors {
-                VStack{
-                    Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
-                        ForEach(userActors) {userActor in
-                            Text(userActor.name).tag(userActor as UserActorModel?)
+                    } else {
+                        Text("No Users Found")
+                    }
+                    
+                    if let userActors = userActorPickerVM.foundryUserActors {
+                        HStack {
+                            Text("Actor").bold()
+                            Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
+                                ForEach(userActors) {userActor in
+                                    Text(userActor.name).tag(userActor as UserActorModel?)
+                                }
+                            }
+                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2)
+                            .clipped()
                         }
-                    }.scaledToFit()
+                    }
                 }
             }
             
@@ -65,6 +81,7 @@ struct UserActorPickerView: View {
                     .background(Color.green)
                     .cornerRadius(15.0)
             }
+            Spacer()
         }
         .background(
             LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .top, endPoint: .bottom)

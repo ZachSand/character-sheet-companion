@@ -1,4 +1,4 @@
-export function displayItemCard(socket, displayItem) {
+export function displayItemCard(displayItem) {
     let displayItemObj = JSON.parse(displayItem);
     let actor = game.actors.get(displayItemObj.actorId);
     let item = actor.items.get(displayItemObj.itemId);

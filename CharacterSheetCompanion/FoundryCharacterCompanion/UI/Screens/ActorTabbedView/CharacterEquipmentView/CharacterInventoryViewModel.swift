@@ -32,12 +32,27 @@ class CharacterInventoryViewModel: ObservableObject {
         return false
     }
     
+    func isConsumable(inventoryItemSummary: InventoryItemSummary) -> Bool {
+        return inventoryItemSummary.type == "consumable"
+    }
+    
     func rollItemAttack(inventoryItemSummary: InventoryItemSummary) {
         let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: false, disadvantage: false, result: 0)
         FoundrySocketIOManager.sharedInstance.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
             DispatchQueue.main.async {
                 if let itemAttackRollResult = attackRollResult {
                     print(itemAttackRollResult)
+                }
+            }
+        }
+    }
+    
+    func rollItemDamage(inventoryItemSummary: InventoryItemSummary) {
+        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: false, versatile: false, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+            DispatchQueue.main.async {
+                if let itemDamageRollResult = damageRollResult {
+                    print(itemDamageRollResult)
                 }
             }
         }
@@ -75,12 +90,18 @@ class CharacterInventoryViewModel: ObservableObject {
     private func getItemSummary(itemData: [ActorItem]) -> [InventoryItemSummary] {
         var itemSummaries: [InventoryItemSummary] = []
         for item in itemData {
+            var hasDamage = false
+            if let damage = item.data.damage {
+                hasDamage = damage.parts.count > 0
+            }
             itemSummaries.append(
                 InventoryItemSummary(
                     id: item.id,
                     img: item.img,
                     name: item.name,
                     description: item.data.dataDescription.value,
+                    type: item.type,
+                    hasDamage: hasDamage,
                     actionType: item.data.actionType,
                     quantity: item.data.quantity,
                     weight: item.data.weight,
@@ -100,6 +121,8 @@ struct InventoryItemSummary: Identifiable, Hashable {
     var img: String
     var name: String
     var description: String
+    var type: String
+    var hasDamage: Bool
     
     var actionType: String?
     var quantity: Int?

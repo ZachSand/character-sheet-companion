@@ -38,6 +38,7 @@ class FoundrySocketIOManager: NSObject {
     var abilityRollCallback: ((AbilityRollModel?)->Void)?
     var skillRollCallback: ((SkillRollModel?)->Void)?
     var itemAttackRollCallback: ((ItemAttackRollModel?)->Void)?
+    var itemDamageRollCallback: ((ItemDamageRollModel?)->Void)?
     var worldDataCallback: ((WorldDataModel?)->Void)?
     
     
@@ -96,6 +97,18 @@ class FoundrySocketIOManager: NSObject {
             if let json = String(data: jsonData, encoding: .utf8) {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL, json)
                 itemAttackRollCallback = completionHandler
+            }
+        } catch {
+            
+        }
+    }
+    
+    func rollItemDamage(damageRoll: ItemDamageRollModel, completionHandler: @escaping (ItemDamageRollModel?) -> Void) {
+        do {
+            let jsonData = try jsonEncoder.encode(damageRoll)
+            if let json = String(data: jsonData, encoding: .utf8) {
+                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, json)
+                itemDamageRollCallback = completionHandler
             }
         } catch {
             
@@ -175,6 +188,16 @@ class FoundrySocketIOManager: NSObject {
         socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_ATTACK_ROLL) {data, ack in
             do {
                 try self.itemAttackRollCallback?(self.parseSocketEventData(data))
+            } catch FoundryJSONError.errorMessage(let errorMessage) {
+                print(errorMessage)
+            } catch {
+                print(error)
+            }
+        }
+        
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_DAMAGE_ROLL) {data, ack in
+            do {
+                try self.itemDamageRollCallback?(self.parseSocketEventData(data))
             } catch FoundryJSONError.errorMessage(let errorMessage) {
                 print(errorMessage)
             } catch {

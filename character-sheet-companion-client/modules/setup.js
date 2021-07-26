@@ -8,6 +8,7 @@ import { createAndEmitSkillRoll } from "../listeners/skillRollListener.js";
 import { createAndEmitAttackRoll } from "../listeners/itemAttackRollListener.js";
 import { displayItemCard } from "../listeners/displayItemListener.js";
 import { getAndEmitWorldData } from "../listeners/worldDataListener.js";
+import { createAndEmitItemDamageRoll } from "../listeners/itemDamageRollListener.js";
 
 export class CharacterSheetCompanionSetup {
     static setup() {
@@ -65,8 +66,12 @@ export class CharacterSheetCompanionSetup {
                     createAndEmitAttackRoll(socket, itemAttackRoll, iosSocketId)
                 });
 
+                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, (itemDamageRoll, iosSocketId) => {
+                    createAndEmitItemDamageRoll(socket, itemDamageRoll, iosSocketId)
+                });
+
                 socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_DISPLAY_ITEM, (displayItem) => {
-                    displayItemCard(socket, displayItem)
+                    displayItemCard(displayItem)
                 });
 
                 socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_WORLD_DATA, (iosSocketId) => {
