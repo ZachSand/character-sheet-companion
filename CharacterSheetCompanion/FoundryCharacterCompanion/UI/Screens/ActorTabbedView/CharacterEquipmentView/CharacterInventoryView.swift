@@ -46,6 +46,9 @@ struct ItemView : View {
     var characterInventoryVM: CharacterInventoryViewModel
     let inventoryItemSummary: InventoryItemSummary
     let isExpanded: Bool
+    @State private var showingAttackSheet = false
+    @State private var showingDamageSheet = false
+    @State private var showingConsumableSheet = false
     
     var body: some View {
         VStack{
@@ -62,30 +65,34 @@ struct ItemView : View {
             if isExpanded {
                 VStack {
                     HStack{
-                        Button(action: {
+                        Button("Display") {
                             characterInventoryVM.displayItem(inventoryItemSummary: inventoryItemSummary)
-                        })
-                        {
-                            Text("Display")
                         }
+                        
                         if characterInventoryVM.hasAttack(inventoryItemSummary: inventoryItemSummary) {
-                            Button(action: {
-                                characterInventoryVM.rollItemAttack(inventoryItemSummary: inventoryItemSummary)
-                            })
-                            {
-                                Text("Attack")
+                            Button("Attack") {
+                                showingAttackSheet.toggle()
                             }
-                        }
-                        if inventoryItemSummary.hasDamage {
-                            Button(action: {
-                                characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary)
+                            .sheet(isPresented: $showingAttackSheet, content: {
+                                AttackSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                             })
-                            {
-                                if characterInventoryVM.isConsumable(inventoryItemSummary: inventoryItemSummary) {
-                                    Text("Use")
-                                } else {
-                                    Text("Damage")
+                        }
+                        
+                        if inventoryItemSummary.hasDamage {
+                            if characterInventoryVM.isConsumable(inventoryItemSummary: inventoryItemSummary) {
+                                Button("Use") {
+                                    showingConsumableSheet.toggle()
                                 }
+                                .sheet(isPresented: $showingConsumableSheet, content: {
+                                    ConsumableSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                                })
+                            } else {
+                                Button("Damage") {
+                                    showingDamageSheet.toggle()
+                                }
+                                .sheet(isPresented: $showingDamageSheet, content: {
+                                    DamageSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                                })
                             }
                         }
                     }.buttonStyle(RoundedRectangleButtonStyle())
@@ -94,6 +101,73 @@ struct ItemView : View {
             }
         }
         .contentShape(Rectangle())
+    }
+}
+
+struct AttackSheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @State var inventoryItemSummary: InventoryItemSummary
+    @State private var advantage = false
+    @State private var disadvantage = false
+
+        var body: some View {
+            VStack {
+                Toggle("Advantage", isOn: $advantage)
+                Toggle("Disadvantage", isOn: $disadvantage)
+                
+                Button("Roll Attack for " + inventoryItemSummary.name) {
+                    characterInventoryVM.rollItemAttack(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .font(.title)
+                .padding()
+                .background(Color.black)
+            }
+        }
+}
+
+struct DamageSheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @State var inventoryItemSummary: InventoryItemSummary
+    @State private var versatile = false
+    @State private var critical = false
+
+    var body: some View {
+        VStack {
+            Toggle("Versatile", isOn: $versatile)
+            Toggle("Critical", isOn: $critical)
+            
+            Button("Roll Damage for " + inventoryItemSummary.name) {
+                characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary, critical: critical, versatile: versatile)
+                presentationMode.wrappedValue.dismiss()
+            }
+            .font(.title)
+            .padding()
+            .background(Color.black)
+        }
+    }
+}
+
+struct ConsumableSheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @State var inventoryItemSummary: InventoryItemSummary
+    
+    @State private var consume = false
+    var body: some View {
+        VStack {
+            Toggle("Consume", isOn: $consume)
+            
+            Button("Consume " + inventoryItemSummary.name) {
+                characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary, critical: false, versatile: false)
+                presentationMode.wrappedValue.dismiss()
+            }
+            .font(.title)
+            .padding()
+            .background(Color.black)
+        }
     }
 }
 

@@ -36,8 +36,8 @@ class CharacterInventoryViewModel: ObservableObject {
         return inventoryItemSummary.type == "consumable"
     }
     
-    func rollItemAttack(inventoryItemSummary: InventoryItemSummary) {
-        let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: false, disadvantage: false, result: 0)
+    func rollItemAttack(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
+        let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
         FoundrySocketIOManager.sharedInstance.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
             DispatchQueue.main.async {
                 if let itemAttackRollResult = attackRollResult {
@@ -47,8 +47,8 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
     
-    func rollItemDamage(inventoryItemSummary: InventoryItemSummary) {
-        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: false, versatile: false, result: 0)
+    func rollItemDamage(inventoryItemSummary: InventoryItemSummary, critical: Bool, versatile: Bool) {
+        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: critical, versatile: versatile, result: 0)
         FoundrySocketIOManager.sharedInstance.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
             DispatchQueue.main.async {
                 if let itemDamageRollResult = damageRollResult {
