@@ -49,6 +49,7 @@ struct ItemView : View {
     @State private var showingAttackSheet = false
     @State private var showingDamageSheet = false
     @State private var showingConsumableSheet = false
+    @State private var showingToolSheet = false
     
     var body: some View {
         VStack{
@@ -69,12 +70,20 @@ struct ItemView : View {
                             characterInventoryVM.displayItem(inventoryItemSummary: inventoryItemSummary)
                         }
                         
+                        if inventoryItemSummary.type == "tool" {
+                            Button("Use Tool") {
+                                showingToolSheet.toggle()
+                            }.sheet(isPresented: $showingToolSheet, content: {
+                                InventoryItemToolSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                            })
+                        }
+                        
                         if characterInventoryVM.hasAttack(inventoryItemSummary: inventoryItemSummary) {
                             Button("Attack") {
                                 showingAttackSheet.toggle()
                             }
                             .sheet(isPresented: $showingAttackSheet, content: {
-                                AttackSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                                InventoryItemAttackSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                             })
                         }
                         
@@ -84,14 +93,14 @@ struct ItemView : View {
                                     showingConsumableSheet.toggle()
                                 }
                                 .sheet(isPresented: $showingConsumableSheet, content: {
-                                    ConsumableSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                                    InventoryItemConsumableSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                                 })
                             } else {
                                 Button("Damage") {
                                     showingDamageSheet.toggle()
                                 }
                                 .sheet(isPresented: $showingDamageSheet, content: {
-                                    DamageSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
+                                    InventoryItemDamageSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                                 })
                             }
                         }
@@ -104,7 +113,7 @@ struct ItemView : View {
     }
 }
 
-struct AttackSheetView: View {
+struct InventoryItemAttackSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State var inventoryItemSummary: InventoryItemSummary
@@ -122,12 +131,11 @@ struct AttackSheetView: View {
                 }
                 .font(.title)
                 .padding()
-                .background(Color.black)
             }
         }
 }
 
-struct DamageSheetView: View {
+struct InventoryItemDamageSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State var inventoryItemSummary: InventoryItemSummary
@@ -145,12 +153,12 @@ struct DamageSheetView: View {
             }
             .font(.title)
             .padding()
-            .background(Color.black)
+            .buttonStyle(RoundedRectangleButtonStyle())
         }
     }
 }
 
-struct ConsumableSheetView: View {
+struct InventoryItemConsumableSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State var inventoryItemSummary: InventoryItemSummary
@@ -159,16 +167,38 @@ struct ConsumableSheetView: View {
     var body: some View {
         VStack {
             Toggle("Consume", isOn: $consume)
-            
+            Text(characterInventoryVM.getConsumeText(inventoryItemSummary: inventoryItemSummary)).font(.footnote)
             Button("Consume " + inventoryItemSummary.name) {
-                characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary, critical: false, versatile: false)
+                characterInventoryVM.rollItemConsume(inventoryItemSummary: inventoryItemSummary, consume: consume)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
             .padding()
-            .background(Color.black)
-        }
+            
+        }.buttonStyle(RoundedRectangleButtonStyle())
     }
+}
+
+struct InventoryItemToolSheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @State var inventoryItemSummary: InventoryItemSummary
+    @State private var advantage = false
+    @State private var disadvantage = false
+
+        var body: some View {
+            VStack {
+                Toggle("Advantage", isOn: $advantage)
+                Toggle("Disadvantage", isOn: $disadvantage)
+                
+                Button("Use " + inventoryItemSummary.name) {
+                    characterInventoryVM.rollItemToolRoll(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .font(.title)
+                .padding()
+            }
+        }
 }
 
 struct RoundedRectangleButtonStyle: ButtonStyle {

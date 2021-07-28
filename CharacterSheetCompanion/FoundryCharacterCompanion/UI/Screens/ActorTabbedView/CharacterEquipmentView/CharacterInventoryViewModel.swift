@@ -58,9 +58,38 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
     
+    func rollItemConsume(inventoryItemSummary: InventoryItemSummary, consume: Bool) {
+        let itemConsumeRoll = ItemConsumeRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, consume: consume, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
+            DispatchQueue.main.async {
+                if let itemConsumeRollResult = consumeRollResult {
+                    print(itemConsumeRollResult)
+                }
+            }
+        }
+    }
+    
+    func rollItemToolRoll(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
+        let itemToolRoll = ItemToolRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollItemTool(itemToolRoll: itemToolRoll) { toolRollResult in
+            DispatchQueue.main.async {
+                if let itemToolRollResult = toolRollResult {
+                    print(itemToolRollResult)
+                }
+            }
+        }
+    }
+    
     func displayItem(inventoryItemSummary: InventoryItemSummary) {
         let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id)
         FoundrySocketIOManager.sharedInstance.displayItemCard(displayItem: displayItem)
+    }
+    
+    func getConsumeText(inventoryItemSummary: InventoryItemSummary) -> String {
+        if let usageRemaining = inventoryItemSummary.useRemaining, let useMax = inventoryItemSummary.useMax {
+            return "This item has \(usageRemaining) of \(useMax) uses remaining. Consuming will remove one use."
+        }
+        return "This item has no usage data"
     }
     
     private func getWeapons() -> [InventoryItemSummary] {
@@ -103,6 +132,8 @@ class CharacterInventoryViewModel: ObservableObject {
                     type: item.type,
                     hasDamage: hasDamage,
                     actionType: item.data.actionType,
+                    useRemaining: item.data.uses?.value,
+                    useMax: item.data.uses?.max,
                     quantity: item.data.quantity,
                     weight: item.data.weight,
                     price: item.data.price))
@@ -125,6 +156,8 @@ struct InventoryItemSummary: Identifiable, Hashable {
     var hasDamage: Bool
     
     var actionType: String?
+    var useRemaining: Int?
+    var useMax: IntegerOrStringOrNull?
     var quantity: Int?
     var weight: StringOrDouble?
     var price: StringOrDouble?

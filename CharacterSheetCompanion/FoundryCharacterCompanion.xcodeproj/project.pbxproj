@@ -27,6 +27,8 @@
 		BC7CC2F326AB5CC100FE2D1E /* UserActorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */; };
 		BC7CC2F526AB5CCD00FE2D1E /* UserActorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */; };
 		BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */; };
+		BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */; };
+		BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */; };
 		BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */; };
 		BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */; };
 		BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */; };
@@ -76,6 +78,8 @@
 		BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerViewModel.swift; sourceTree = "<group>"; };
 		BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerView.swift; sourceTree = "<group>"; };
 		BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRollModel.swift; sourceTree = "<group>"; };
+		BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConsumeRollModel.swift; sourceTree = "<group>"; };
+		BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolRollModel.swift; sourceTree = "<group>"; };
 		BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedView.swift; sourceTree = "<group>"; };
 		BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedViewModel.swift; sourceTree = "<group>"; };
 		BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 				BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */,
 				BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */,
 				BC4F094526AF5B7200B7E707 /* ItemDamageRollModel.swift */,
+				BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */,
+				BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -421,12 +427,14 @@
 				BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */,
 				BC53CD8E26A769C30021C176 /* CharacterSkillViewModel.swift in Sources */,
 				BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */,
+				BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */,
 				BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */,
 				BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */,
 				BC53CD9626A78BB20021C176 /* CharacterSpellView.swift in Sources */,
 				BC0442CE268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift in Sources */,
 				BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */,
 				BCF623C426A8CBDF001B1C18 /* CharacterOverviewViewModel.swift in Sources */,
+				BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */,
 				BCF623BF26A8C88D001B1C18 /* ItemDisplayModel.swift in Sources */,
 				BC53CD8926A766600021C176 /* CharacterAbilityViewModel.swift in Sources */,
 				BC4F094626AF5B7200B7E707 /* ItemDamageRollModel.swift in Sources */,

@@ -27,12 +27,42 @@ class CharacterSpellViewModel: ObservableObject {
         self.foundryActor = foundryActor;
     }
     
+    func rollItemAttack(spellSummary: SpellSummary, advantage: Bool, disadvantage: Bool, consumeSpellSlot: Bool) {
+        let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
+            DispatchQueue.main.async {
+                if let itemAttackRollResult = attackRollResult {
+                    print(itemAttackRollResult)
+                }
+            }
+        }
+    }
+    
+    func rollItemDamage(spellSummary: SpellSummary, critical: Bool, versatile: Bool) {
+        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, critical: critical, versatile: versatile, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+            DispatchQueue.main.async {
+                if let itemDamageRollResult = damageRollResult {
+                    print(itemDamageRollResult)
+                }
+            }
+        }
+    }
+    
     func getSpellCategories() -> [SpellCategory] {
         var spells: [SpellCategory] = []
         spellLevelMapping.sorted( by: { $0.0 < $1.0 }).forEach { (key: Int, value: String) in
             let spellsForLevel = getSpellForLevel(spellLevel: key)
             if !spellsForLevel.isEmpty {
-                spells.append(SpellCategory(id: value, items: spellsForLevel))
+                if(key > 0) {
+                    spells.append(SpellCategory(
+                        id: value,
+                        items: spellsForLevel,
+                        spellSlotRemaining: foundryActor.actor.actorData.spells.spell1.value,
+                        maxSpellSlot: foundryActor.actor.actorData.spells.spell1.max))
+                } else {
+                    spells.append(SpellCategory(id: value, items: spellsForLevel))
+                }
             }
         }
         return spells
@@ -43,7 +73,19 @@ class CharacterSpellViewModel: ObservableObject {
         for spell in foundryActor.actor.actorItems.spells {
             if let sLevel = spell.data.level {
                 if(sLevel == spellLevel) {
-                    spellSummaries.append(SpellSummary(id: spell.id, img: spell.img, name: spell.name, description: spell.data.dataDescription.value, actionType: spell.data.actionType, quantity: spell.data.uses?.value))
+                    var hasDamage = false
+                    if let damage = spell.data.damage {
+                        hasDamage = damage.parts.count > 0
+                    }
+                    spellSummaries.append(SpellSummary(
+                        id: spell.id,
+                        img: spell.img,
+                        name: spell.name,
+                        description: spell.data.dataDescription.value,
+                        level: sLevel,
+                        hasDamage: hasDamage,
+                        actionType: spell.data.actionType,
+                        quantity: spell.data.uses?.value))
                 }
             }
         }
@@ -66,6 +108,9 @@ class CharacterSpellViewModel: ObservableObject {
 struct SpellCategory: Identifiable {
     var id: String
     var items: [SpellSummary]
+    
+    var spellSlotRemaining: Int?
+    var maxSpellSlot: Int?
 }
 
 struct SpellSummary: Identifiable, Hashable {
@@ -73,6 +118,8 @@ struct SpellSummary: Identifiable, Hashable {
     var img: String
     var name: String
     var description: String
+    var level: Int
+    var hasDamage: Bool
     
     var actionType: String?
     var quantity: Int?

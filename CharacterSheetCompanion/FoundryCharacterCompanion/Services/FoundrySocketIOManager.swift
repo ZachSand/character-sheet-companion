@@ -39,6 +39,8 @@ class FoundrySocketIOManager: NSObject {
     var skillRollCallback: ((SkillRollModel?)->Void)?
     var itemAttackRollCallback: ((ItemAttackRollModel?)->Void)?
     var itemDamageRollCallback: ((ItemDamageRollModel?)->Void)?
+    var itemConsumeRollCallback: ((ItemConsumeRollModel?)->Void)?
+    var itemToolRollCallback: ((ItemToolRollModel?)->Void)?
     var worldDataCallback: ((WorldDataModel?)->Void)?
     
     
@@ -109,6 +111,30 @@ class FoundrySocketIOManager: NSObject {
             if let json = String(data: jsonData, encoding: .utf8) {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, json)
                 itemDamageRollCallback = completionHandler
+            }
+        } catch {
+            
+        }
+    }
+    
+    func rollItemConsume(itemConsumeRoll: ItemConsumeRollModel, completionHandler: @escaping (ItemConsumeRollModel?) -> Void) {
+        do {
+            let jsonData = try jsonEncoder.encode(itemConsumeRoll)
+            if let json = String(data: jsonData, encoding: .utf8) {
+                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, json)
+                itemConsumeRollCallback = completionHandler
+            }
+        } catch {
+            
+        }
+    }
+    
+    func rollItemTool(itemToolRoll: ItemToolRollModel, completionHandler: @escaping (ItemToolRollModel?) -> Void) {
+        do {
+            let jsonData = try jsonEncoder.encode(itemToolRoll)
+            if let json = String(data: jsonData, encoding: .utf8) {
+                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_TOOL_ROLL, json)
+                itemToolRollCallback = completionHandler
             }
         } catch {
             
@@ -208,6 +234,26 @@ class FoundrySocketIOManager: NSObject {
         socket.on(SocketEvents.SERVER.SEND_FOUNDRY_WORLD_DATA) {data, ack in
             do {
                 try self.worldDataCallback?(self.parseSocketEventData(data))
+            } catch FoundryJSONError.errorMessage(let errorMessage) {
+                print(errorMessage)
+            } catch {
+                print(error)
+            }
+        }
+        
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_CONSUME_ROLL) {data, ack in
+            do {
+                try self.worldDataCallback?(self.parseSocketEventData(data))
+            } catch FoundryJSONError.errorMessage(let errorMessage) {
+                print(errorMessage)
+            } catch {
+                print(error)
+            }
+        }
+        
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_TOOL_ROLL) {data, ack in
+            do {
+                try self.itemToolRollCallback?(self.parseSocketEventData(data))
             } catch FoundryJSONError.errorMessage(let errorMessage) {
                 print(errorMessage)
             } catch {

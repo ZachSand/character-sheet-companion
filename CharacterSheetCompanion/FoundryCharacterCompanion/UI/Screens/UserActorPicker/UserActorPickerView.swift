@@ -42,7 +42,7 @@ struct UserActorPickerView: View {
                                     Text(user.userName).tag(user as UserModel?)
                                 }
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2)
+                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
                             .clipped()
                         }
                     } else {
@@ -57,7 +57,7 @@ struct UserActorPickerView: View {
                                     Text(userActor.name).tag(userActor as UserActorModel?)
                                 }
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2)
+                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
                             .clipped()
                         }
                     }
