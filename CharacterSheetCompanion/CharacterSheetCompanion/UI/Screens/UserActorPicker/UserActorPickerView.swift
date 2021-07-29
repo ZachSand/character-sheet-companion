@@ -27,23 +27,24 @@ struct UserActorPickerView: View {
             if let worldData = userActorPickerVM.worldData {
                 VStack{
                     Text(worldData.title).font(.title)
-                    Text("World Version: " + worldData.version).font(.footnote)
+                    Text(worldData.version).font(.footnote)
                     Text(worldData.description).font(.footnote)
                 }
             }
             
             GeometryReader { geometry in
-                VStack(spacing: 0) {
+                VStack(spacing: 5) {
                     if let users = userActorPickerVM.foundryUsers {
                         HStack{
-                            Text("User").bold()
-                            Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
-                                ForEach(users) {user in
-                                    Text(user.userName).tag(user as UserModel?)
+                            Section(header: Text("User")) {
+                                Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
+                                    ForEach(users) {user in
+                                        Text(user.userName).tag(user as UserModel?)
+                                    }
                                 }
+                                .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
+                                .clipped()
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
-                            .clipped()
                         }
                     } else {
                         Text("No Users Found")
@@ -51,14 +52,15 @@ struct UserActorPickerView: View {
                     
                     if let userActors = userActorPickerVM.foundryUserActors {
                         HStack {
-                            Text("Actor").bold()
-                            Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
-                                ForEach(userActors) {userActor in
-                                    Text(userActor.name).tag(userActor as UserActorModel?)
+                            Section(header: Text("Actor")) {
+                                Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
+                                    ForEach(userActors) {userActor in
+                                        Text(userActor.name).tag(userActor as UserActorModel?)
+                                    }
                                 }
+                                .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
+                                .clipped()
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
-                            .clipped()
                         }
                     }
                 }

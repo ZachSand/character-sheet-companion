@@ -13,7 +13,7 @@ class CharacterAbilityViewModel: ObservableObject {
     let abilityNameMapping: [String: String] = [
         "str": "Strength",
         "con": "Constitution",
-        "wis": "Wisdome",
+        "wis": "Wisdom",
         "cha": "Charisma",
         "dex": "Dexterity",
         "int": "Intelligence",
@@ -37,7 +37,9 @@ class CharacterAbilityViewModel: ObservableObject {
     func getAbilities() -> [ActorAbility] {
         var abilityMap: [ActorAbility] = []
         foundryActor.actor.actorData.abilities.sorted( by: { $0.0 < $1.0 }).forEach { (key: String, value: Ability) in
-            abilityMap.append(ActorAbility(id: key, ability: value))
+            if let abilityName = abilityNameMapping[key] {
+                abilityMap.append(ActorAbility(id: key, name: abilityName, total: "(\( value.value))", mod: getMod(mod: value.mod), savingMod: getSavingMod(ability: value)))
+            }
         }
         return abilityMap
     }
@@ -52,9 +54,46 @@ class CharacterAbilityViewModel: ObservableObject {
             }
         }
     }
+    
+    func getSenses() -> [String] {
+        var sensesText: [String] = []
+        if let senses = foundryActor.actor.actorData.traits.senses {
+            if senses.blindsight > 0  {
+                sensesText.append("Blindsight: \(senses.blindsight)\(senses.units)")
+            }
+            if senses.darkvision > 0 {
+                sensesText.append("Darkvision: \(senses.darkvision)\(senses.units)")
+            }
+            if senses.tremorsense > 0 {
+                sensesText.append("Tremorsense: \(senses.tremorsense)\(senses.units)")
+            }
+            if senses.truesight > 0 {
+                sensesText.append("Truesight: \(senses.truesight)\(senses.units)")
+            }
+        }
+        return sensesText
+    }
+    
+    private func getSavingMod(ability: Ability) -> String {
+        var savingMod = ability.mod
+        if(ability.prof > 0) {
+            savingMod += foundryActor.actor.actorData.prof
+        }
+        return getMod(mod: savingMod)
+    }
+    
+    private func getMod(mod: Int) -> String {
+        if mod > 0 {
+            return "+\(mod)"
+        }
+        return String(mod)
+    }
 }
 
 struct ActorAbility: Identifiable {
     var id: String
-    var ability: Ability
+    var name: String
+    var total: String
+    var mod: String
+    var savingMod: String
 }

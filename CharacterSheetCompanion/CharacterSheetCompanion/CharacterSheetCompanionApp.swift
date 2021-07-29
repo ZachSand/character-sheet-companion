@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct FoundryCharacterCompanionApp: App {
+struct CharacterSheetCompanionApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

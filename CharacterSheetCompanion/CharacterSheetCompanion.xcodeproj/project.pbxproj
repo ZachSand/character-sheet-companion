@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC0442CE268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0442CD268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift */; };
+		BC0442CE268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0442CD268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift */; };
 		BC0442D0268AD92F00B49CC8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0442CF268AD92F00B49CC8 /* ContentView.swift */; };
 		BC0442D2268AD93000B49CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0442D1268AD93000B49CC8 /* Assets.xcassets */; };
 		BC0442D5268AD93000B49CC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */; };
@@ -56,8 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BC0442CA268AD92F00B49CC8 /* FoundryCharacterCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoundryCharacterCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC0442CD268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryCharacterCompanionApp.swift; sourceTree = "<group>"; };
+		BC0442CA268AD92F00B49CC8 /* CharacterSheetCompanion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterSheetCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC0442CD268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSheetCompanionApp.swift; sourceTree = "<group>"; };
 		BC0442CF268AD92F00B49CC8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BC0442D1268AD93000B49CC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		BC0442C1268AD92F00B49CC8 = {
 			isa = PBXGroup;
 			children = (
-				BC0442CC268AD92F00B49CC8 /* FoundryCharacterCompanion */,
+				BC0442CC268AD92F00B49CC8 /* CharacterSheetCompanion */,
 				BCF7F4B52694F054009E7A60 /* UnitTests */,
 				BC0442CB268AD92F00B49CC8 /* Products */,
 			);
@@ -128,30 +128,30 @@
 		BC0442CB268AD92F00B49CC8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BC0442CA268AD92F00B49CC8 /* FoundryCharacterCompanion.app */,
+				BC0442CA268AD92F00B49CC8 /* CharacterSheetCompanion.app */,
 				BCF7F4B42694F054009E7A60 /* UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BC0442CC268AD92F00B49CC8 /* FoundryCharacterCompanion */ = {
+		BC0442CC268AD92F00B49CC8 /* CharacterSheetCompanion */ = {
 			isa = PBXGroup;
 			children = (
 				BCF7F4AB2694ED21009E7A60 /* Services */,
 				BCF7F4A82694EAC7009E7A60 /* UI */,
 				BCF7F4A72694E938009E7A60 /* Resources */,
 				BCF7F4A62694E8A9009E7A60 /* Models */,
-				BC0442CD268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift */,
+				BC0442CD268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift */,
 			);
-			path = FoundryCharacterCompanion;
+			path = CharacterSheetCompanion;
 			sourceTree = "<group>";
 		};
-		BC0442D3268AD93000B49CC8 /* Preview Content */ = {
+		BC0442D3268AD93000B49CC8 /* PreviewContent */ = {
 			isa = PBXGroup;
 			children = (
 				BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */,
 			);
-			path = "Preview Content";
+			path = PreviewContent;
 			sourceTree = "<group>";
 		};
 		BC53CD8526A766320021C176 /* CharacterAbilityView */ = {
@@ -243,7 +243,7 @@
 		BCF7F4A72694E938009E7A60 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC0442D3268AD93000B49CC8 /* Preview Content */,
+				BC0442D3268AD93000B49CC8 /* PreviewContent */,
 				BC0442D6268AD93000B49CC8 /* Info.plist */,
 				BC0442D1268AD93000B49CC8 /* Assets.xcassets */,
 			);
@@ -316,9 +316,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BC0442C9268AD92F00B49CC8 /* FoundryCharacterCompanion */ = {
+		BC0442C9268AD92F00B49CC8 /* CharacterSheetCompanion */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC0442EF268AD93000B49CC8 /* Build configuration list for PBXNativeTarget "FoundryCharacterCompanion" */;
+			buildConfigurationList = BC0442EF268AD93000B49CC8 /* Build configuration list for PBXNativeTarget "CharacterSheetCompanion" */;
 			buildPhases = (
 				BC0442C6268AD92F00B49CC8 /* Sources */,
 				BC0442C7268AD92F00B49CC8 /* Frameworks */,
@@ -328,12 +328,12 @@
 			);
 			dependencies = (
 			);
-			name = FoundryCharacterCompanion;
+			name = CharacterSheetCompanion;
 			packageProductDependencies = (
 				BCE08585268F779000026F46 /* SocketIO */,
 			);
 			productName = CharacterSheetCompanion;
-			productReference = BC0442CA268AD92F00B49CC8 /* FoundryCharacterCompanion.app */;
+			productReference = BC0442CA268AD92F00B49CC8 /* CharacterSheetCompanion.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BCF7F4B32694F054009E7A60 /* UnitTests */ = {
@@ -372,7 +372,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BC0442C5268AD92F00B49CC8 /* Build configuration list for PBXProject "FoundryCharacterCompanion" */;
+			buildConfigurationList = BC0442C5268AD92F00B49CC8 /* Build configuration list for PBXProject "CharacterSheetCompanion" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -388,7 +388,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BC0442C9268AD92F00B49CC8 /* FoundryCharacterCompanion */,
+				BC0442C9268AD92F00B49CC8 /* CharacterSheetCompanion */,
 				BCF7F4B32694F054009E7A60 /* UnitTests */,
 			);
 		};
@@ -431,7 +431,7 @@
 				BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */,
 				BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */,
 				BC53CD9626A78BB20021C176 /* CharacterSpellView.swift in Sources */,
-				BC0442CE268AD92F00B49CC8 /* FoundryCharacterCompanionApp.swift in Sources */,
+				BC0442CE268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift in Sources */,
 				BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */,
 				BCF623C426A8CBDF001B1C18 /* CharacterOverviewViewModel.swift in Sources */,
 				BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */,
@@ -466,7 +466,7 @@
 /* Begin PBXTargetDependency section */
 		BCF7F4BA2694F054009E7A60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BC0442C9268AD92F00B49CC8 /* FoundryCharacterCompanion */;
+			target = BC0442C9268AD92F00B49CC8 /* CharacterSheetCompanion */;
 			targetProxy = BCF7F4B92694F054009E7A60 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -594,9 +594,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"FoundryCharacterCompanion/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = FoundryCharacterCompanion/Resources/Info.plist;
+				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -615,9 +615,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"FoundryCharacterCompanion/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = FoundryCharacterCompanion/Resources/Info.plist;
+				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -645,7 +645,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoundryCharacterCompanion.app/FoundryCharacterCompanion";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CharacterSheetCompanion.app/CharacterSheetCompanion";
 			};
 			name = Debug;
 		};
@@ -664,14 +664,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoundryCharacterCompanion.app/FoundryCharacterCompanion";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CharacterSheetCompanion.app/CharacterSheetCompanion";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BC0442C5268AD92F00B49CC8 /* Build configuration list for PBXProject "FoundryCharacterCompanion" */ = {
+		BC0442C5268AD92F00B49CC8 /* Build configuration list for PBXProject "CharacterSheetCompanion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC0442ED268AD93000B49CC8 /* Debug */,
@@ -680,7 +680,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC0442EF268AD93000B49CC8 /* Build configuration list for PBXNativeTarget "FoundryCharacterCompanion" */ = {
+		BC0442EF268AD93000B49CC8 /* Build configuration list for PBXNativeTarget "CharacterSheetCompanion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC0442F0268AD93000B49CC8 /* Debug */,
