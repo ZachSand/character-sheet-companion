@@ -2,7 +2,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import Client from "socket.io-client";
 import { AddressInfo } from "net";
-import { foundryActorDataListener } from "../../src/handlers/foundryActorDataListener";
+import { actorDataListener } from "../../src/listeners/setup/actorDataListener";
 import { SOCKET_EVENTS } from "../../src/constants/events";
 
 describe("foundry data actor handler", () => {
@@ -16,7 +16,7 @@ describe("foundry data actor handler", () => {
       clientSocket = Client(`http://localhost:${addressInfo.port}`);
       io.on("connection", (socket) => {
         serverSocket = socket;
-        foundryActorDataListener(io, socket);
+        actorDataListener(io, socket);
       });
       clientSocket.on("connect", done);
     });

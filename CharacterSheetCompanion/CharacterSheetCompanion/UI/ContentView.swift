@@ -13,16 +13,10 @@ struct ContentView: View {
     var body: some View {
         return Group {
             if(socketConnectSuccess) {
-                UserList()
+                UserActorPickerView()
             } else {
                 FoundryConnectView(connectSuccess: $socketConnectSuccess)
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

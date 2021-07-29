@@ -12,22 +12,37 @@
 		BC0442D2268AD93000B49CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0442D1268AD93000B49CC8 /* Assets.xcassets */; };
 		BC0442D5268AD93000B49CC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */; };
 		BC20163526A0FABD009C1CB6 /* AbilityRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC20163426A0FABD009C1CB6 /* AbilityRollModel.swift */; };
+		BC4F094626AF5B7200B7E707 /* ItemDamageRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4F094526AF5B7200B7E707 /* ItemDamageRollModel.swift */; };
+		BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD8626A7664C0021C176 /* CharacterAbilityView.swift */; };
+		BC53CD8926A766600021C176 /* CharacterAbilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD8826A766600021C176 /* CharacterAbilityViewModel.swift */; };
+		BC53CD8C26A769B50021C176 /* CharacterSkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD8B26A769B50021C176 /* CharacterSkillView.swift */; };
+		BC53CD8E26A769C30021C176 /* CharacterSkillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD8D26A769C30021C176 /* CharacterSkillViewModel.swift */; };
+		BC53CD9126A76B590021C176 /* CharacterInventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD9026A76B590021C176 /* CharacterInventoryView.swift */; };
+		BC53CD9326A76B680021C176 /* CharacterInventoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD9226A76B680021C176 /* CharacterInventoryViewModel.swift */; };
+		BC53CD9626A78BB20021C176 /* CharacterSpellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD9526A78BB20021C176 /* CharacterSpellView.swift */; };
+		BC53CD9826A78BEC0021C176 /* CharacterSpellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC53CD9726A78BEC0021C176 /* CharacterSpellViewModel.swift */; };
+		BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */; };
+		BC7CC2EE26AB4EB300FE2D1E /* UserActorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */; };
+		BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */; };
+		BC7CC2F326AB5CC100FE2D1E /* UserActorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */; };
+		BC7CC2F526AB5CCD00FE2D1E /* UserActorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */; };
 		BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */; };
-		BCD4D0D526963B1200E991B5 /* ActorDetailSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4D0D426963B1200E991B5 /* ActorDetailSummary.swift */; };
-		BCD7ED05269DFC38001D9F88 /* UserActorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED04269DFC38001D9F88 /* UserActorList.swift */; };
-		BCD7ED07269E1472001D9F88 /* UserActorListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED06269E1472001D9F88 /* UserActorListViewModel.swift */; };
-		BCD7ED09269E1574001D9F88 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED08269E1574001D9F88 /* UserListViewModel.swift */; };
-		BCD7ED0B269E2402001D9F88 /* ActorDetailSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0A269E2402001D9F88 /* ActorDetailSummaryViewModel.swift */; };
+		BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */; };
+		BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */; };
+		BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */; };
+		BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */; };
 		BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */; };
 		BCE008D42698E3590093EC25 /* SocketEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE008D32698E3590093EC25 /* SocketEvents.swift */; };
 		BCE08583268F6F2D00026F46 /* FoundryConnectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE08582268F6F2D00026F46 /* FoundryConnectViewModel.swift */; };
 		BCE08586268F779000026F46 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = BCE08585268F779000026F46 /* SocketIO */; };
 		BCE08588268F97DF00026F46 /* FoundrySocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */; };
-		BCE0858A268FD15F00026F46 /* FoundryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE08589268FD15F00026F46 /* FoundryModels.swift */; };
+		BCE0858A268FD15F00026F46 /* ActorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE08589268FD15F00026F46 /* ActorModel.swift */; };
+		BCF623BD26A8BF63001B1C18 /* ItemAttackRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF623BC26A8BF63001B1C18 /* ItemAttackRollModel.swift */; };
+		BCF623BF26A8C88D001B1C18 /* ItemDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF623BE26A8C88D001B1C18 /* ItemDisplayModel.swift */; };
+		BCF623C226A8CBD0001B1C18 /* CharacterOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF623C126A8CBD0001B1C18 /* CharacterOverviewView.swift */; };
+		BCF623C426A8CBDF001B1C18 /* CharacterOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF623C326A8CBDF001B1C18 /* CharacterOverviewViewModel.swift */; };
 		BCF7F4A52694E771009E7A60 /* FoundryConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7F4A42694E770009E7A60 /* FoundryConnectView.swift */; };
 		BCF7F4B72694F054009E7A60 /* UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7F4B62694F054009E7A60 /* UnitTests.swift */; };
-		BCF7F4C32694F480009E7A60 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7F4C22694F480009E7A60 /* UserList.swift */; };
-		BCF7F4C72694FCA9009E7A60 /* FoundryMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF7F4C62694FCA9009E7A60 /* FoundryMockedData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,23 +63,38 @@
 		BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC0442D6268AD93000B49CC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC20163426A0FABD009C1CB6 /* AbilityRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityRollModel.swift; sourceTree = "<group>"; };
+		BC4F094526AF5B7200B7E707 /* ItemDamageRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDamageRollModel.swift; sourceTree = "<group>"; };
+		BC53CD8626A7664C0021C176 /* CharacterAbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAbilityView.swift; sourceTree = "<group>"; };
+		BC53CD8826A766600021C176 /* CharacterAbilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAbilityViewModel.swift; sourceTree = "<group>"; };
+		BC53CD8B26A769B50021C176 /* CharacterSkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSkillView.swift; sourceTree = "<group>"; };
+		BC53CD8D26A769C30021C176 /* CharacterSkillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSkillViewModel.swift; sourceTree = "<group>"; };
+		BC53CD9026A76B590021C176 /* CharacterInventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInventoryView.swift; sourceTree = "<group>"; };
+		BC53CD9226A76B680021C176 /* CharacterInventoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInventoryViewModel.swift; sourceTree = "<group>"; };
+		BC53CD9526A78BB20021C176 /* CharacterSpellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSpellView.swift; sourceTree = "<group>"; };
+		BC53CD9726A78BEC0021C176 /* CharacterSpellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSpellViewModel.swift; sourceTree = "<group>"; };
+		BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorModel.swift; sourceTree = "<group>"; };
+		BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDataModel.swift; sourceTree = "<group>"; };
+		BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerViewModel.swift; sourceTree = "<group>"; };
+		BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerView.swift; sourceTree = "<group>"; };
 		BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRollModel.swift; sourceTree = "<group>"; };
-		BCD4D0D426963B1200E991B5 /* ActorDetailSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetailSummary.swift; sourceTree = "<group>"; };
-		BCD7ED04269DFC38001D9F88 /* UserActorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorList.swift; sourceTree = "<group>"; };
-		BCD7ED06269E1472001D9F88 /* UserActorListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorListViewModel.swift; sourceTree = "<group>"; };
-		BCD7ED08269E1574001D9F88 /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
-		BCD7ED0A269E2402001D9F88 /* ActorDetailSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDetailSummaryViewModel.swift; sourceTree = "<group>"; };
+		BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConsumeRollModel.swift; sourceTree = "<group>"; };
+		BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolRollModel.swift; sourceTree = "<group>"; };
+		BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedView.swift; sourceTree = "<group>"; };
+		BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedViewModel.swift; sourceTree = "<group>"; };
 		BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		BCE008D32698E3590093EC25 /* SocketEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketEvents.swift; sourceTree = "<group>"; };
 		BCE08582268F6F2D00026F46 /* FoundryConnectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryConnectViewModel.swift; sourceTree = "<group>"; };
 		BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundrySocketIOManager.swift; sourceTree = "<group>"; };
-		BCE08589268FD15F00026F46 /* FoundryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryModels.swift; sourceTree = "<group>"; };
+		BCE08589268FD15F00026F46 /* ActorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorModel.swift; sourceTree = "<group>"; };
+		BCF623BC26A8BF63001B1C18 /* ItemAttackRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAttackRollModel.swift; sourceTree = "<group>"; };
+		BCF623BE26A8C88D001B1C18 /* ItemDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDisplayModel.swift; sourceTree = "<group>"; };
+		BCF623C126A8CBD0001B1C18 /* CharacterOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOverviewView.swift; sourceTree = "<group>"; };
+		BCF623C326A8CBDF001B1C18 /* CharacterOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOverviewViewModel.swift; sourceTree = "<group>"; };
 		BCF7F4A42694E770009E7A60 /* FoundryConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryConnectView.swift; sourceTree = "<group>"; };
 		BCF7F4B42694F054009E7A60 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF7F4B62694F054009E7A60 /* UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTests.swift; sourceTree = "<group>"; };
 		BCF7F4B82694F054009E7A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BCF7F4C22694F480009E7A60 /* UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
-		BCF7F4C62694FCA9009E7A60 /* FoundryMockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryMockedData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,45 +146,96 @@
 			path = CharacterSheetCompanion;
 			sourceTree = "<group>";
 		};
-		BC0442D3268AD93000B49CC8 /* Preview Content */ = {
+		BC0442D3268AD93000B49CC8 /* PreviewContent */ = {
 			isa = PBXGroup;
 			children = (
 				BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */,
 			);
-			path = "Preview Content";
+			path = PreviewContent;
 			sourceTree = "<group>";
 		};
-		BCD4D0D326963AEC00E991B5 /* ActorDetailSummary */ = {
+		BC53CD8526A766320021C176 /* CharacterAbilityView */ = {
 			isa = PBXGroup;
 			children = (
-				BCD4D0D426963B1200E991B5 /* ActorDetailSummary.swift */,
-				BCD7ED0A269E2402001D9F88 /* ActorDetailSummaryViewModel.swift */,
+				BC53CD8626A7664C0021C176 /* CharacterAbilityView.swift */,
+				BC53CD8826A766600021C176 /* CharacterAbilityViewModel.swift */,
 			);
-			path = ActorDetailSummary;
+			path = CharacterAbilityView;
 			sourceTree = "<group>";
 		};
-		BCD7ED03269DFC23001D9F88 /* UserActorList */ = {
+		BC53CD8A26A769980021C176 /* CharacterSkillView */ = {
 			isa = PBXGroup;
 			children = (
-				BCD7ED06269E1472001D9F88 /* UserActorListViewModel.swift */,
-				BCD7ED04269DFC38001D9F88 /* UserActorList.swift */,
+				BC53CD8B26A769B50021C176 /* CharacterSkillView.swift */,
+				BC53CD8D26A769C30021C176 /* CharacterSkillViewModel.swift */,
 			);
-			path = UserActorList;
+			path = CharacterSkillView;
 			sourceTree = "<group>";
 		};
-		BCE008D22698E3300093EC25 /* Foundry */ = {
+		BC53CD8F26A76B400021C176 /* CharacterEquipmentView */ = {
 			isa = PBXGroup;
 			children = (
-				BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */,
-				BCE008D32698E3590093EC25 /* SocketEvents.swift */,
+				BC53CD9026A76B590021C176 /* CharacterInventoryView.swift */,
+				BC53CD9226A76B680021C176 /* CharacterInventoryViewModel.swift */,
 			);
-			path = Foundry;
+			path = CharacterEquipmentView;
+			sourceTree = "<group>";
+		};
+		BC53CD9426A78B9A0021C176 /* CharacterSpellView */ = {
+			isa = PBXGroup;
+			children = (
+				BC53CD9526A78BB20021C176 /* CharacterSpellView.swift */,
+				BC53CD9726A78BEC0021C176 /* CharacterSpellViewModel.swift */,
+			);
+			path = CharacterSpellView;
+			sourceTree = "<group>";
+		};
+		BC7CC2F126AB5CA800FE2D1E /* UserActorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */,
+				BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */,
+			);
+			path = UserActorPicker;
+			sourceTree = "<group>";
+		};
+		BCD4D0D326963AEC00E991B5 /* ActorTabbedView */ = {
+			isa = PBXGroup;
+			children = (
+				BCF623C026A8CBC0001B1C18 /* CharacterOverviewView */,
+				BC53CD9426A78B9A0021C176 /* CharacterSpellView */,
+				BC53CD8F26A76B400021C176 /* CharacterEquipmentView */,
+				BC53CD8A26A769980021C176 /* CharacterSkillView */,
+				BC53CD8526A766320021C176 /* CharacterAbilityView */,
+				BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */,
+				BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */,
+			);
+			path = ActorTabbedView;
+			sourceTree = "<group>";
+		};
+		BCF623C026A8CBC0001B1C18 /* CharacterOverviewView */ = {
+			isa = PBXGroup;
+			children = (
+				BCF623C126A8CBD0001B1C18 /* CharacterOverviewView.swift */,
+				BCF623C326A8CBDF001B1C18 /* CharacterOverviewViewModel.swift */,
+			);
+			path = CharacterOverviewView;
 			sourceTree = "<group>";
 		};
 		BCF7F4A62694E8A9009E7A60 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BCF7F4C82694FCD0009E7A60 /* Foundry */,
+				BCF623BE26A8C88D001B1C18 /* ItemDisplayModel.swift */,
+				BCF623BC26A8BF63001B1C18 /* ItemAttackRollModel.swift */,
+				BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */,
+				BC20163426A0FABD009C1CB6 /* AbilityRollModel.swift */,
+				BCE08589268FD15F00026F46 /* ActorModel.swift */,
+				BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */,
+				BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */,
+				BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */,
+				BC4F094526AF5B7200B7E707 /* ItemDamageRollModel.swift */,
+				BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */,
+				BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,7 +243,7 @@
 		BCF7F4A72694E938009E7A60 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC0442D3268AD93000B49CC8 /* Preview Content */,
+				BC0442D3268AD93000B49CC8 /* PreviewContent */,
 				BC0442D6268AD93000B49CC8 /* Info.plist */,
 				BC0442D1268AD93000B49CC8 /* Assets.xcassets */,
 			);
@@ -182,26 +263,18 @@
 		BCF7F4A92694EBE6009E7A60 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				BCF7F4AA2694EC46009E7A60 /* Foundry */,
+				BC7CC2F126AB5CA800FE2D1E /* UserActorPicker */,
+				BCF7F4C02694F42B009E7A60 /* Connect */,
+				BCD4D0D326963AEC00E991B5 /* ActorTabbedView */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		BCF7F4AA2694EC46009E7A60 /* Foundry */ = {
-			isa = PBXGroup;
-			children = (
-				BCD7ED03269DFC23001D9F88 /* UserActorList */,
-				BCD4D0D326963AEC00E991B5 /* ActorDetailSummary */,
-				BCF7F4C12694F438009E7A60 /* UserList */,
-				BCF7F4C02694F42B009E7A60 /* Connect */,
-			);
-			path = Foundry;
 			sourceTree = "<group>";
 		};
 		BCF7F4AB2694ED21009E7A60 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BCE008D22698E3300093EC25 /* Foundry */,
+				BCE008D32698E3590093EC25 /* SocketEvents.swift */,
+				BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -230,26 +303,6 @@
 				BCE08582268F6F2D00026F46 /* FoundryConnectViewModel.swift */,
 			);
 			path = Connect;
-			sourceTree = "<group>";
-		};
-		BCF7F4C12694F438009E7A60 /* UserList */ = {
-			isa = PBXGroup;
-			children = (
-				BCD7ED08269E1574001D9F88 /* UserListViewModel.swift */,
-				BCF7F4C22694F480009E7A60 /* UserList.swift */,
-			);
-			path = UserList;
-			sourceTree = "<group>";
-		};
-		BCF7F4C82694FCD0009E7A60 /* Foundry */ = {
-			isa = PBXGroup;
-			children = (
-				BCF7F4C62694FCA9009E7A60 /* FoundryMockedData.swift */,
-				BCE08589268FD15F00026F46 /* FoundryModels.swift */,
-				BC20163426A0FABD009C1CB6 /* AbilityRollModel.swift */,
-				BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */,
-			);
-			path = Foundry;
 			sourceTree = "<group>";
 		};
 		BCF7F4D2269502B4009E7A60 /* Components */ = {
@@ -365,23 +418,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCD4D0D526963B1200E991B5 /* ActorDetailSummary.swift in Sources */,
-				BCE0858A268FD15F00026F46 /* FoundryModels.swift in Sources */,
+				BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */,
+				BCE0858A268FD15F00026F46 /* ActorModel.swift in Sources */,
 				BC0442D0268AD92F00B49CC8 /* ContentView.swift in Sources */,
+				BC53CD9126A76B590021C176 /* CharacterInventoryView.swift in Sources */,
 				BC20163526A0FABD009C1CB6 /* AbilityRollModel.swift in Sources */,
-				BCF7F4C72694FCA9009E7A60 /* FoundryMockedData.swift in Sources */,
+				BC53CD9826A78BEC0021C176 /* CharacterSpellViewModel.swift in Sources */,
 				BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */,
-				BCD7ED09269E1574001D9F88 /* UserListViewModel.swift in Sources */,
+				BC53CD8E26A769C30021C176 /* CharacterSkillViewModel.swift in Sources */,
+				BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */,
+				BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */,
+				BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */,
 				BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */,
+				BC53CD9626A78BB20021C176 /* CharacterSpellView.swift in Sources */,
 				BC0442CE268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift in Sources */,
+				BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */,
+				BCF623C426A8CBDF001B1C18 /* CharacterOverviewViewModel.swift in Sources */,
+				BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */,
+				BCF623BF26A8C88D001B1C18 /* ItemDisplayModel.swift in Sources */,
+				BC53CD8926A766600021C176 /* CharacterAbilityViewModel.swift in Sources */,
+				BC4F094626AF5B7200B7E707 /* ItemDamageRollModel.swift in Sources */,
 				BCE08588268F97DF00026F46 /* FoundrySocketIOManager.swift in Sources */,
-				BCD7ED05269DFC38001D9F88 /* UserActorList.swift in Sources */,
+				BCF623C226A8CBD0001B1C18 /* CharacterOverviewView.swift in Sources */,
+				BC7CC2F526AB5CCD00FE2D1E /* UserActorPickerView.swift in Sources */,
+				BC53CD9326A76B680021C176 /* CharacterInventoryViewModel.swift in Sources */,
 				BCE008D42698E3590093EC25 /* SocketEvents.swift in Sources */,
+				BC53CD8C26A769B50021C176 /* CharacterSkillView.swift in Sources */,
 				BCF7F4A52694E771009E7A60 /* FoundryConnectView.swift in Sources */,
+				BC7CC2F326AB5CC100FE2D1E /* UserActorPickerViewModel.swift in Sources */,
+				BC7CC2EE26AB4EB300FE2D1E /* UserActorModel.swift in Sources */,
 				BCE08583268F6F2D00026F46 /* FoundryConnectViewModel.swift in Sources */,
-				BCF7F4C32694F480009E7A60 /* UserList.swift in Sources */,
-				BCD7ED07269E1472001D9F88 /* UserActorListViewModel.swift in Sources */,
-				BCD7ED0B269E2402001D9F88 /* ActorDetailSummaryViewModel.swift in Sources */,
+				BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */,
+				BCF623BD26A8BF63001B1C18 /* ItemAttackRollModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,7 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"CharacterSheetCompanion/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -547,7 +615,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"CharacterSheetCompanion/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

@@ -4,13 +4,14 @@ import Logger from "./loaders/logger";
 import loaders from "./loaders";
 import http from "http";
 import { Server, Socket } from "socket.io";
-import { socketHandlerWrapper } from "./handlers/socketHandlerWrapper";
+import { socketHandlerWrapper } from "./listeners/socketHandlerWrapper";
 
 async function startServer() {
   const app = express();
   await loaders({ expressApp: app });
   const server = http.createServer(app);
   const io = new Server(server, {
+    maxHttpBufferSize: 1e7,
     cors: {
       origin: "*",
       methods: ["GET", "POST"],
