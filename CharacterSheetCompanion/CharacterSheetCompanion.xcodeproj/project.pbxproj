@@ -24,14 +24,32 @@
 		BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */; };
 		BC7CC2EE26AB4EB300FE2D1E /* UserActorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */; };
 		BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */; };
-		BC7CC2F326AB5CC100FE2D1E /* UserActorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */; };
-		BC7CC2F526AB5CCD00FE2D1E /* UserActorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */; };
+		BC7CC2F326AB5CC100FE2D1E /* WorldUserActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */; };
+		BC7CC2F526AB5CCD00FE2D1E /* WorldUserActorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */; };
+		BC8E2C2826B89612008619F7 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2726B89612008619F7 /* AbilityView.swift */; };
+		BC8E2C2A26B8963E008619F7 /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */; };
+		BC8E2C2C26B8968B008619F7 /* SpellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2B26B8968B008619F7 /* SpellView.swift */; };
+		BC8E2C2E26B89AC0008619F7 /* InitiativeRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2D26B89AC0008619F7 /* InitiativeRollModel.swift */; };
+		BC8E2C3126B89C4D008619F7 /* SocketConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3026B89C4D008619F7 /* SocketConnectionListener.swift */; };
+		BC8E2C3326B89C6B008619F7 /* UsersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3226B89C6B008619F7 /* UsersListener.swift */; };
+		BC8E2C3526B89C7A008619F7 /* UserActorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3426B89C7A008619F7 /* UserActorListener.swift */; };
+		BC8E2C3726B89C98008619F7 /* ActorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3626B89C98008619F7 /* ActorListener.swift */; };
+		BC8E2C3926B89CA6008619F7 /* AbilityListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3826B89CA6008619F7 /* AbilityListener.swift */; };
+		BC8E2C3B26B89CB7008619F7 /* SkillListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3A26B89CB7008619F7 /* SkillListener.swift */; };
+		BC8E2C3D26B89CC6008619F7 /* ItemAttackListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3C26B89CC6008619F7 /* ItemAttackListener.swift */; };
+		BC8E2C3F26B89CD8008619F7 /* ItemDamageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C3E26B89CD8008619F7 /* ItemDamageListener.swift */; };
+		BC8E2C4126B89CE6008619F7 /* ItemConsumeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4026B89CE6008619F7 /* ItemConsumeListener.swift */; };
+		BC8E2C4326B89D04008619F7 /* ItemToolListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4226B89D04008619F7 /* ItemToolListener.swift */; };
+		BC8E2C4526B89D16008619F7 /* WorldDataListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4426B89D16008619F7 /* WorldDataListener.swift */; };
+		BC8E2C4726B89D22008619F7 /* InitiativeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4626B89D22008619F7 /* InitiativeListener.swift */; };
+		BC8E2C4926B89F92008619F7 /* SocketListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4826B89F92008619F7 /* SocketListener.swift */; };
+		BC8E2C4C26B8A763008619F7 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = BC8E2C4B26B8A763008619F7 /* ToastUI */; };
+		BC8E2C4E26B8A8D6008619F7 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C4D26B8A8D6008619F7 /* Stack.swift */; };
 		BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */; };
 		BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */; };
 		BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */; };
 		BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */; };
 		BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */; };
-		BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */; };
 		BCE008D42698E3590093EC25 /* SocketEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE008D32698E3590093EC25 /* SocketEvents.swift */; };
 		BCE08583268F6F2D00026F46 /* FoundryConnectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE08582268F6F2D00026F46 /* FoundryConnectViewModel.swift */; };
 		BCE08586268F779000026F46 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = BCE08585268F779000026F46 /* SocketIO */; };
@@ -75,14 +93,31 @@
 		BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BC7CC2ED26AB4EB300FE2D1E /* UserActorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorModel.swift; sourceTree = "<group>"; };
 		BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDataModel.swift; sourceTree = "<group>"; };
-		BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerViewModel.swift; sourceTree = "<group>"; };
-		BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorPickerView.swift; sourceTree = "<group>"; };
+		BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldUserActorViewModel.swift; sourceTree = "<group>"; };
+		BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldUserActorView.swift; sourceTree = "<group>"; };
+		BC8E2C2726B89612008619F7 /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
+		BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
+		BC8E2C2B26B8968B008619F7 /* SpellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellView.swift; sourceTree = "<group>"; };
+		BC8E2C2D26B89AC0008619F7 /* InitiativeRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeRollModel.swift; sourceTree = "<group>"; };
+		BC8E2C3026B89C4D008619F7 /* SocketConnectionListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnectionListener.swift; sourceTree = "<group>"; };
+		BC8E2C3226B89C6B008619F7 /* UsersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListener.swift; sourceTree = "<group>"; };
+		BC8E2C3426B89C7A008619F7 /* UserActorListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorListener.swift; sourceTree = "<group>"; };
+		BC8E2C3626B89C98008619F7 /* ActorListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorListener.swift; sourceTree = "<group>"; };
+		BC8E2C3826B89CA6008619F7 /* AbilityListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityListener.swift; sourceTree = "<group>"; };
+		BC8E2C3A26B89CB7008619F7 /* SkillListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillListener.swift; sourceTree = "<group>"; };
+		BC8E2C3C26B89CC6008619F7 /* ItemAttackListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAttackListener.swift; sourceTree = "<group>"; };
+		BC8E2C3E26B89CD8008619F7 /* ItemDamageListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDamageListener.swift; sourceTree = "<group>"; };
+		BC8E2C4026B89CE6008619F7 /* ItemConsumeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConsumeListener.swift; sourceTree = "<group>"; };
+		BC8E2C4226B89D04008619F7 /* ItemToolListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolListener.swift; sourceTree = "<group>"; };
+		BC8E2C4426B89D16008619F7 /* WorldDataListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDataListener.swift; sourceTree = "<group>"; };
+		BC8E2C4626B89D22008619F7 /* InitiativeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitiativeListener.swift; sourceTree = "<group>"; };
+		BC8E2C4826B89F92008619F7 /* SocketListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketListener.swift; sourceTree = "<group>"; };
+		BC8E2C4D26B8A8D6008619F7 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		BC8FD2C926A23C51005ECB36 /* SkillRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRollModel.swift; sourceTree = "<group>"; };
 		BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConsumeRollModel.swift; sourceTree = "<group>"; };
 		BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolRollModel.swift; sourceTree = "<group>"; };
 		BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedView.swift; sourceTree = "<group>"; };
 		BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedViewModel.swift; sourceTree = "<group>"; };
-		BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		BCE008D32698E3590093EC25 /* SocketEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketEvents.swift; sourceTree = "<group>"; };
 		BCE08582268F6F2D00026F46 /* FoundryConnectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundryConnectViewModel.swift; sourceTree = "<group>"; };
 		BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundrySocketIOManager.swift; sourceTree = "<group>"; };
@@ -102,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC8E2C4C26B8A763008619F7 /* ToastUI in Frameworks */,
 				BCE08586268F779000026F46 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +195,7 @@
 			children = (
 				BC53CD8626A7664C0021C176 /* CharacterAbilityView.swift */,
 				BC53CD8826A766600021C176 /* CharacterAbilityViewModel.swift */,
+				BC8E2C2726B89612008619F7 /* AbilityView.swift */,
 			);
 			path = CharacterAbilityView;
 			sourceTree = "<group>";
@@ -186,17 +223,38 @@
 			children = (
 				BC53CD9526A78BB20021C176 /* CharacterSpellView.swift */,
 				BC53CD9726A78BEC0021C176 /* CharacterSpellViewModel.swift */,
+				BC8E2C2B26B8968B008619F7 /* SpellView.swift */,
 			);
 			path = CharacterSpellView;
 			sourceTree = "<group>";
 		};
-		BC7CC2F126AB5CA800FE2D1E /* UserActorPicker */ = {
+		BC7CC2F126AB5CA800FE2D1E /* WorldUserActorView */ = {
 			isa = PBXGroup;
 			children = (
-				BC7CC2F226AB5CC100FE2D1E /* UserActorPickerViewModel.swift */,
-				BC7CC2F426AB5CCD00FE2D1E /* UserActorPickerView.swift */,
+				BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */,
+				BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */,
 			);
-			path = UserActorPicker;
+			path = WorldUserActorView;
+			sourceTree = "<group>";
+		};
+		BC8E2C2F26B89C2D008619F7 /* SocketListeners */ = {
+			isa = PBXGroup;
+			children = (
+				BC8E2C3026B89C4D008619F7 /* SocketConnectionListener.swift */,
+				BC8E2C3226B89C6B008619F7 /* UsersListener.swift */,
+				BC8E2C3426B89C7A008619F7 /* UserActorListener.swift */,
+				BC8E2C3626B89C98008619F7 /* ActorListener.swift */,
+				BC8E2C3826B89CA6008619F7 /* AbilityListener.swift */,
+				BC8E2C3A26B89CB7008619F7 /* SkillListener.swift */,
+				BC8E2C3C26B89CC6008619F7 /* ItemAttackListener.swift */,
+				BC8E2C3E26B89CD8008619F7 /* ItemDamageListener.swift */,
+				BC8E2C4026B89CE6008619F7 /* ItemConsumeListener.swift */,
+				BC8E2C4226B89D04008619F7 /* ItemToolListener.swift */,
+				BC8E2C4426B89D16008619F7 /* WorldDataListener.swift */,
+				BC8E2C4626B89D22008619F7 /* InitiativeListener.swift */,
+				BC8E2C4826B89F92008619F7 /* SocketListener.swift */,
+			);
+			path = SocketListeners;
 			sourceTree = "<group>";
 		};
 		BCD4D0D326963AEC00E991B5 /* ActorTabbedView */ = {
@@ -236,6 +294,7 @@
 				BC4F094526AF5B7200B7E707 /* ItemDamageRollModel.swift */,
 				BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */,
 				BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */,
+				BC8E2C2D26B89AC0008619F7 /* InitiativeRollModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,7 +322,7 @@
 		BCF7F4A92694EBE6009E7A60 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				BC7CC2F126AB5CA800FE2D1E /* UserActorPicker */,
+				BC7CC2F126AB5CA800FE2D1E /* WorldUserActorView */,
 				BCF7F4C02694F42B009E7A60 /* Connect */,
 				BCD4D0D326963AEC00E991B5 /* ActorTabbedView */,
 			);
@@ -273,6 +332,7 @@
 		BCF7F4AB2694ED21009E7A60 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BC8E2C2F26B89C2D008619F7 /* SocketListeners */,
 				BCE008D32698E3590093EC25 /* SocketEvents.swift */,
 				BCE08587268F97DF00026F46 /* FoundrySocketIOManager.swift */,
 			);
@@ -308,7 +368,8 @@
 		BCF7F4D2269502B4009E7A60 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BCD7ED0D269E3E3E001D9F88 /* NavigationLazyView.swift */,
+				BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */,
+				BC8E2C4D26B8A8D6008619F7 /* Stack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -331,6 +392,7 @@
 			name = CharacterSheetCompanion;
 			packageProductDependencies = (
 				BCE08585268F779000026F46 /* SocketIO */,
+				BC8E2C4B26B8A763008619F7 /* ToastUI */,
 			);
 			productName = CharacterSheetCompanion;
 			productReference = BC0442CA268AD92F00B49CC8 /* CharacterSheetCompanion.app */;
@@ -383,6 +445,7 @@
 			mainGroup = BC0442C1268AD92F00B49CC8;
 			packageReferences = (
 				BCE08584268F779000026F46 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				BC8E2C4A26B8A763008619F7 /* XCRemoteSwiftPackageReference "ToastUI" */,
 			);
 			productRefGroup = BC0442CB268AD92F00B49CC8 /* Products */;
 			projectDirPath = "";
@@ -418,15 +481,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC8E2C3D26B89CC6008619F7 /* ItemAttackListener.swift in Sources */,
 				BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */,
 				BCE0858A268FD15F00026F46 /* ActorModel.swift in Sources */,
+				BC8E2C4126B89CE6008619F7 /* ItemConsumeListener.swift in Sources */,
 				BC0442D0268AD92F00B49CC8 /* ContentView.swift in Sources */,
 				BC53CD9126A76B590021C176 /* CharacterInventoryView.swift in Sources */,
+				BC8E2C4526B89D16008619F7 /* WorldDataListener.swift in Sources */,
+				BC8E2C3726B89C98008619F7 /* ActorListener.swift in Sources */,
+				BC8E2C3126B89C4D008619F7 /* SocketConnectionListener.swift in Sources */,
 				BC20163526A0FABD009C1CB6 /* AbilityRollModel.swift in Sources */,
+				BC8E2C3326B89C6B008619F7 /* UsersListener.swift in Sources */,
 				BC53CD9826A78BEC0021C176 /* CharacterSpellViewModel.swift in Sources */,
-				BCD7ED0E269E3E3E001D9F88 /* NavigationLazyView.swift in Sources */,
 				BC53CD8E26A769C30021C176 /* CharacterSkillViewModel.swift in Sources */,
 				BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */,
+				BC8E2C4926B89F92008619F7 /* SocketListener.swift in Sources */,
 				BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */,
 				BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */,
 				BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */,
@@ -434,19 +503,30 @@
 				BC0442CE268AD92F00B49CC8 /* CharacterSheetCompanionApp.swift in Sources */,
 				BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */,
 				BCF623C426A8CBDF001B1C18 /* CharacterOverviewViewModel.swift in Sources */,
+				BC8E2C2C26B8968B008619F7 /* SpellView.swift in Sources */,
+				BC8E2C3F26B89CD8008619F7 /* ItemDamageListener.swift in Sources */,
 				BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */,
 				BCF623BF26A8C88D001B1C18 /* ItemDisplayModel.swift in Sources */,
 				BC53CD8926A766600021C176 /* CharacterAbilityViewModel.swift in Sources */,
 				BC4F094626AF5B7200B7E707 /* ItemDamageRollModel.swift in Sources */,
 				BCE08588268F97DF00026F46 /* FoundrySocketIOManager.swift in Sources */,
 				BCF623C226A8CBD0001B1C18 /* CharacterOverviewView.swift in Sources */,
-				BC7CC2F526AB5CCD00FE2D1E /* UserActorPickerView.swift in Sources */,
+				BC8E2C2826B89612008619F7 /* AbilityView.swift in Sources */,
+				BC7CC2F526AB5CCD00FE2D1E /* WorldUserActorView.swift in Sources */,
 				BC53CD9326A76B680021C176 /* CharacterInventoryViewModel.swift in Sources */,
+				BC8E2C4326B89D04008619F7 /* ItemToolListener.swift in Sources */,
 				BCE008D42698E3590093EC25 /* SocketEvents.swift in Sources */,
+				BC8E2C2A26B8963E008619F7 /* CheckboxToggleStyle.swift in Sources */,
+				BC8E2C3B26B89CB7008619F7 /* SkillListener.swift in Sources */,
+				BC8E2C4E26B8A8D6008619F7 /* Stack.swift in Sources */,
 				BC53CD8C26A769B50021C176 /* CharacterSkillView.swift in Sources */,
 				BCF7F4A52694E771009E7A60 /* FoundryConnectView.swift in Sources */,
-				BC7CC2F326AB5CC100FE2D1E /* UserActorPickerViewModel.swift in Sources */,
+				BC7CC2F326AB5CC100FE2D1E /* WorldUserActorViewModel.swift in Sources */,
+				BC8E2C3526B89C7A008619F7 /* UserActorListener.swift in Sources */,
+				BC8E2C2E26B89AC0008619F7 /* InitiativeRollModel.swift in Sources */,
 				BC7CC2EE26AB4EB300FE2D1E /* UserActorModel.swift in Sources */,
+				BC8E2C4726B89D22008619F7 /* InitiativeListener.swift in Sources */,
+				BC8E2C3926B89CA6008619F7 /* AbilityListener.swift in Sources */,
 				BCE08583268F6F2D00026F46 /* FoundryConnectViewModel.swift in Sources */,
 				BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */,
 				BCF623BD26A8BF63001B1C18 /* ItemAttackRollModel.swift in Sources */,
@@ -701,6 +781,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC8E2C4A26B8A763008619F7 /* XCRemoteSwiftPackageReference "ToastUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quanshousio/ToastUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BCE08584268F779000026F46 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
@@ -712,6 +800,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC8E2C4B26B8A763008619F7 /* ToastUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8E2C4A26B8A763008619F7 /* XCRemoteSwiftPackageReference "ToastUI" */;
+			productName = ToastUI;
+		};
 		BCE08585268F779000026F46 /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BCE08584268F779000026F46 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;

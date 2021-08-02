@@ -42,6 +42,7 @@ class FoundrySocketIOManager: NSObject {
     var itemConsumeRollCallback: ((ItemConsumeRollModel?)->Void)?
     var itemToolRollCallback: ((ItemToolRollModel?)->Void)?
     var worldDataCallback: ((WorldDataModel?)->Void)?
+    var initiativeRollCallback: ((InitiativeRollModel?)->Void)?
     
     
     func socketConnect(completionHandler: @escaping (Bool) -> Void) {
@@ -141,6 +142,18 @@ class FoundrySocketIOManager: NSObject {
         }
     }
     
+    func rollInitiative(initiativeRoll: InitiativeRollModel, completionHandler: @escaping (InitiativeRollModel?) -> Void) {
+        do {
+            let jsonData = try jsonEncoder.encode(initiativeRoll)
+            if let json = String(data: jsonData, encoding: .utf8) {
+                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_INITIATIVE_ROLL, json)
+                initiativeRollCallback = completionHandler
+            }
+        } catch {
+            
+        }
+    }
+    
     func displayItemCard(displayItem: ItemDisplayModel) {
         do {
             let jsonData = try jsonEncoder.encode(displayItem)
@@ -230,6 +243,16 @@ class FoundrySocketIOManager: NSObject {
                 print(error)
             }
         }
+            
+        socket.on(SocketEvents.SERVER.SEND_INITIATIVE_ROLL) {data, ack in
+            do {
+                try self.initiativeRollCallback?(self.parseSocketEventData(data))
+            } catch FoundryJSONError.errorMessage(let errorMessage) {
+                print(errorMessage)
+            } catch {
+                print(error)
+            }
+        }
         
         socket.on(SocketEvents.SERVER.SEND_FOUNDRY_WORLD_DATA) {data, ack in
             do {
@@ -243,7 +266,7 @@ class FoundrySocketIOManager: NSObject {
         
         socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_CONSUME_ROLL) {data, ack in
             do {
-                try self.worldDataCallback?(self.parseSocketEventData(data))
+                try self.itemConsumeRollCallback?(self.parseSocketEventData(data))
             } catch FoundryJSONError.errorMessage(let errorMessage) {
                 print(errorMessage)
             } catch {

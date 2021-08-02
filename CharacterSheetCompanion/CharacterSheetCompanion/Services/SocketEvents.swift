@@ -20,6 +20,7 @@ struct SocketEvents {
         static let REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL = "ios:requestFoundryItemDamageRoll"
         static let REQUEST_FOUNDRY_ITEM_CONSUME_ROLL = "ios:requestFoundryItemConsumeRoll"
         static let REQUEST_FOUNDRY_ITEM_TOOL_ROLL = "ios:requestFoundryItemToolRoll"
+        static let REQUEST_FOUNDRY_INITIATIVE_ROLL = "ios:requestFoundryInitiativeRoll"
         static let REQUEST_FOUNDRY_DISPLAY_ITEM = "ios:requestFoundryDisplayItem"
         static let REQUEST_FOUNDRY_WORLD_DATA = "ios:requestFoundryWorldData"
     }
@@ -33,6 +34,8 @@ struct SocketEvents {
         static let SEND_FOUNDRY_ITEM_DAMAGE_ROLL = "server:sendFoundryItemDamageRoll"
         static let SEND_FOUNDRY_ITEM_CONSUME_ROLL = "server:sendFoundryItemConsumeRoll"
         static let SEND_FOUNDRY_ITEM_TOOL_ROLL = "server:sendFoundryItemToolRoll"
+        static let SEND_INITIATIVE_ROLL = "foundry:sendInitiativeRoll"
         static let SEND_FOUNDRY_WORLD_DATA = "server:sendFoundryWorldData"
+        
     }
 }

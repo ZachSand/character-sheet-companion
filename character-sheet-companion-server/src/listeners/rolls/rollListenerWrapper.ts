@@ -5,6 +5,7 @@ import { itemAttackRollListener } from "./itemAttackRollListener";
 import { itemDamageRollListener } from "./itemDamageRollListener";
 import { itemConsumeRollListener } from "./itemConsumeRollListener";
 import { itemToolRollListener } from "./itemToolRollListener";
+import { initiativeRollListener } from "./initiativeRollListener";
 
 export const rollListenerWrapper = (io: Server, socket: Socket): void => {
   abilityRollListener(io, socket);
@@ -13,4 +14,5 @@ export const rollListenerWrapper = (io: Server, socket: Socket): void => {
   itemDamageRollListener(io, socket);
   itemConsumeRollListener(io, socket);
   itemToolRollListener(io, socket);
+  initiativeRollListener(io, socket);
 };

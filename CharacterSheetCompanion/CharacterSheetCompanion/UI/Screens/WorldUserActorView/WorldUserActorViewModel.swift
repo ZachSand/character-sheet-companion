@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserActorPickerViewModel: ObservableObject {
+class WorldUserActorViewModel: ObservableObject {
     @Published var worldData: WorldDataModel?
     @Published var foundryUserActors: [UserActorModel]?
     @Published var foundryUsers: [UserModel]?

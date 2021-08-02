@@ -19,14 +19,13 @@ export function createAndEmitAbilityRoll(socket, abilityRoll, iosSocketId) {
                     abilityRollObj.result = roll._total;
                     socket.emit(SOCKET_EVENTS.FOUNDRY.SEND_ABILITY_ROLL, abilityRollObj, iosSocketId);
 
-                })
+                });
             } else {
                 actor.rollAbilityTest(abilityRollObj.ability, rollOptions)
                 .then(roll => {
                     abilityRollObj.result = roll._total;
                     socket.emit(SOCKET_EVENTS.FOUNDRY.SEND_ABILITY_ROLL, abilityRollObj, iosSocketId);
-                    console.log(abilityRollObj);
-                })
+                });
             }
         }
     }

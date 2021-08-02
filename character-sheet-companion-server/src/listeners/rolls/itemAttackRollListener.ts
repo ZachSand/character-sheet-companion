@@ -26,7 +26,7 @@ export const itemAttackRollListener = (io: Server, socket: Socket): void => {
     if (iosSocket) {
       iosSocket.emit(
         SOCKET_EVENTS.SERVER.SEND_FOUNDRY_ITEM_ATTACK_ROLL,
-        itemAttackRoll
+        JSON.stringify(itemAttackRoll)
       );
     }
   };

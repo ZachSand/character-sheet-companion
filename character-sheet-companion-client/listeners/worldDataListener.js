@@ -9,5 +9,7 @@ export function getAndEmitWorldData(socket, iosSocketId) {
         title: game.world.data.title,
         version: game.world.data.version,
         description: description,
+        coreVersion: game.world.data.coreVersion,
+        system: game.world.data.system
     }, iosSocketId);
 }

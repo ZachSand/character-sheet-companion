@@ -27,12 +27,10 @@ struct CharacterOverviewView: View {
             }
             HStack{
                 Spacer()
-                if let imageData = Data(base64Encoded: foundryActor.actor.img) {
-                    if let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .frame(width: 75, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }
+                if let imageData = Data(base64Encoded: foundryActor.actor.img), let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .frame(width: 75, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
                 Spacer()
             }
@@ -41,11 +39,10 @@ struct CharacterOverviewView: View {
                 Spacer()
                 Text(characterOverviewVM.getClassInfo())
                 Spacer()
-                Text(characterOverviewVM.getInitiativeBonus())
+                Button(characterOverviewVM.getInitiativeBonus()) {
+                    characterOverviewVM.rollInitiative()
+                }
             }
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.orange, .white]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all))
     }
 }

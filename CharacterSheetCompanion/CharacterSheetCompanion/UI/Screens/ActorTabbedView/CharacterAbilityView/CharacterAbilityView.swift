@@ -17,28 +17,26 @@ struct CharacterAbilityView: View {
     }
     
     var body: some View {
-        VStack {
-            CharacterOverviewView(foundryActor: foundryActor)
-                .frame(alignment: .top)
+        ZStack {
             ScrollView {
-                
                 let abilities = characterAbilityVM.getAbilities()
                 Group {
-                    Spacer()
-                    Divider()
-                    
                     Section(header: Text("Abilities")) {
                         HStack {
-                            AbilityView(ability: abilities[0])
-                            AbilityView(ability: abilities[1])
-                            AbilityView(ability: abilities[2])
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[0])
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[1])
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[2])
                         }
-                        .frame(maxHeight: 100)
+                        .frame(minHeight: 150, maxHeight: 150)
+                        .padding([.leading, .trailing], 5)
+                        
                         HStack {
-                            AbilityView(ability: abilities[3])
-                            AbilityView(ability: abilities[4])
-                            AbilityView(ability: abilities[5])
-                        }.frame(maxHeight: 100)
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[3])
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[4])
+                            AbilityView(characterAbilityVM: characterAbilityVM, ability: abilities[5])
+                        }
+                        .frame(minHeight: 150, maxHeight: 150)
+                        .padding([.leading, .trailing], 5)
                     }
                 }
                 
@@ -48,16 +46,20 @@ struct CharacterAbilityView: View {
                     
                     Section(header: Text("Saving Throws")) {
                         HStack {
-                            SavingThrowView(ability: abilities[0])
-                            SavingThrowView(ability: abilities[1])
-                            SavingThrowView(ability: abilities[2])
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[0])
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[1])
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[2])
                         }
-                        .frame(maxHeight: 100)
+                        .frame(minHeight: 150, maxHeight: 150)
+                        .padding([.leading, .trailing], 5)
+                        
                         HStack {
-                            SavingThrowView(ability: abilities[3])
-                            SavingThrowView(ability: abilities[4])
-                            SavingThrowView(ability: abilities[5])
-                        }.frame(maxHeight: 100)
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[3])
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[4])
+                            AbilityView(characterAbilityVM: characterAbilityVM, isSave: true, ability: abilities[5])
+                        }
+                        .frame(minHeight: 150, maxHeight: 150)
+                        .padding([.leading, .trailing], 5)
                     }
                 }
                 
@@ -66,11 +68,10 @@ struct CharacterAbilityView: View {
                     Divider()
                     
                     Section(header: Text("Senses")) {
-                        VStack {
-                            ForEach(characterAbilityVM.getSenses(), id: \.self) { sense in
-                                Text(sense)
-                            }
-                        }
+                        ForEach(characterAbilityVM.getSenses(), id: \.self) { sense in
+                            Text(sense)
+                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+
                     }
                 }
                 
@@ -79,50 +80,12 @@ struct CharacterAbilityView: View {
                     Divider()
                     
                     Section(header: Text("Languages")) {
-                        VStack {
-                            ForEach(foundryActor.actor.actorData.traits.languages.value, id: \.self) { language in
-                                Text(language)
-                            }
-                        }
+                        ForEach(characterAbilityVM.getLanguages(), id: \.self) { language in
+                            Text(language)
+                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+
                     }
                 }
-            }
-        }
-    }
-}
-
-struct SavingThrowView: View {
-    @State var ability: ActorAbility
-    
-    var body: some View {
-        GroupBox(label:
-            Text(ability.name)
-                .font(.system(size: 10))
-            .frame(maxWidth: .infinity, alignment: .top)
-        ){
-            VStack {
-                Text(ability.savingMod)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-        }
-    }
-}
-
-struct AbilityView: View {
-    @State var ability: ActorAbility
-    
-    var body: some View {
-        GroupBox(label:
-            Text(ability.name)
-                .font(.system(size: 10))
-            .frame(maxWidth: .infinity, alignment: .top)
-        ){
-            VStack {
-                Spacer()
-                Text(ability.mod)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                Spacer()
-                Text(ability.total).font(.footnote)
             }
         }
     }

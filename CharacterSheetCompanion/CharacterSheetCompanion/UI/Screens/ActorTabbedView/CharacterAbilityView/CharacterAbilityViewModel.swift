@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CharacterAbilityViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
+    @Published var showRollResult: Bool
     
     let abilityNameMapping: [String: String] = [
         "str": "Strength",
@@ -19,8 +21,11 @@ class CharacterAbilityViewModel: ObservableObject {
         "int": "Intelligence",
     ]
     
+    var rollResultStack = Stack<AbilityRollModel>()
+    
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
+        showRollResult = false
     }
     
     
@@ -46,13 +51,22 @@ class CharacterAbilityViewModel: ObservableObject {
     
     func rollAbility(actorAbility: ActorAbility, isSave: Bool, advantage: Bool, disadvantage: Bool) {
         let roll = AbilityRollModel(actorId: self.foundryActor.actor.id, ability: actorAbility.id, advantage: advantage, disadvantage: disadvantage, isSave: isSave, result: 0)
-        DispatchQueue.main.async {
-            FoundrySocketIOManager.sharedInstance.rollAbility(abilityRoll: roll) { abilityRollModel in
+        FoundrySocketIOManager.sharedInstance.rollAbility(abilityRoll: roll) { abilityRollModel in
+            DispatchQueue.main.async {
                 if let rollResult = abilityRollModel {
-                    print(rollResult.result)
+                    self.rollResultStack.push(rollResult)
+                    self.showRollResult = true
                 }
             }
         }
+    }
+    
+    func getRollResult() -> AbilityRollModel {
+        //
+        if !rollResultStack.items.isEmpty {
+            return rollResultStack.pop()
+        }
+        return AbilityRollModel(actorId: foundryActor.actor.id, ability: "Unknown", advantage: false, disadvantage: false, isSave: false, result: 0)
     }
     
     func getSenses() -> [String] {
@@ -72,6 +86,12 @@ class CharacterAbilityViewModel: ObservableObject {
             }
         }
         return sensesText
+    }
+    
+    func getLanguages() -> [String] {
+        return foundryActor.actor.actorData.traits.languages.value.map { language in
+            language.capitalizingFirstLetter()
+        }
     }
     
     private func getSavingMod(ability: Ability) -> String {
@@ -96,4 +116,14 @@ struct ActorAbility: Identifiable {
     var total: String
     var mod: String
     var savingMod: String
+}
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }

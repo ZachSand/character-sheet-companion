@@ -18,10 +18,16 @@ export const skillRollListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveFoundrySkillRoll = (rollResult: number, iosSocketId: string) => {
+  const receiveFoundrySkillRoll = (
+    skillRoll: SkillRoll,
+    iosSocketId: string
+  ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
-      iosSocket.emit(SOCKET_EVENTS.SERVER.SEND_FOUNDRY_SKILL_ROLL, rollResult);
+      iosSocket.emit(
+        SOCKET_EVENTS.SERVER.SEND_FOUNDRY_SKILL_ROLL,
+        JSON.stringify(skillRoll)
+      );
     }
   };
 

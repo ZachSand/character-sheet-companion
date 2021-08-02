@@ -10,5 +10,7 @@ import Foundation
 struct WorldDataModel: Codable {
     var title: String
     var version: String
+    var coreVersion: String
+    var system: String
     var description: String
 }

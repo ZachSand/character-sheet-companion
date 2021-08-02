@@ -17,47 +17,36 @@ struct ActorTabbedView : View {
     }
     
     var body: some View {
-        if actorTabbedVM.foundryActor != nil {
+        if let foundryActor = actorTabbedVM.foundryActor {
+            CharacterOverviewView(foundryActor: foundryActor)
+                .frame(alignment: .top)
+            Divider()
             TabView {
-                CharacterAbilityView(foundryActor: actorTabbedVM.foundryActor!)
+                CharacterAbilityView(foundryActor: foundryActor)
                     .tabItem{
                         Label("Character", systemImage: "person.crop.circle")
                     }
                     .tag(1)
-                CharacterSkillView(foundryActor: actorTabbedVM.foundryActor!)
+                CharacterSkillView(foundryActor: foundryActor)
                     .tabItem{
                         Label("Skills", systemImage: "list.dash")
                     }
-                CharacterSpellView(foundryActor: actorTabbedVM.foundryActor!)
+                CharacterSpellView(foundryActor: foundryActor)
                     .tabItem{
                         Label("Spells", systemImage: "book")
                     }
                     .tag(3)
-                CharacterInventoryView(foundryActor: actorTabbedVM.foundryActor!)
+                CharacterInventoryView(foundryActor: foundryActor)
                     .tabItem{
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
             }
-            .accentColor(.black)
-            .onAppear() {
-                UITabBar.appearance().barTintColor = .orange
-            }
-            .navigationTitle("")
-            .navigationBarTitle("")
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         } else {
             Text("Loading Actor data for \(userActor.name)")
             ProgressView()
         }
     }
-}
-
-struct SomeProgressViewStyle: ProgressViewStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        
-    }
-    
-    
 }

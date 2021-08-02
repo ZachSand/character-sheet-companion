@@ -106,7 +106,8 @@ struct Death: Codable {
 
 // MARK: - Encumbrance
 struct Encumbrance: Codable {
-    var value, pct: Double
+    var value: Double
+    var xp: Double?
     var max: Int
     var encumbered: Bool?
     var min: Int?

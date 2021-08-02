@@ -19,7 +19,7 @@ struct CharacterInventoryView: View {
     
     var body: some View {
         VStack {
-            CharacterOverviewView(foundryActor: foundryActor)
+            Text("Inventory")
             List {
                 ForEach(characterInventoryVM.getInventoryCategories()) { inventoryCategory in
                     Section(header: Text(inventoryCategory.id)) {

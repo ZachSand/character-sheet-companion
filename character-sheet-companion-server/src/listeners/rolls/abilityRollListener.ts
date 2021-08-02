@@ -26,7 +26,7 @@ export const abilityRollListener = (io: Server, socket: Socket): void => {
     if (iosSocket) {
       iosSocket.emit(
         SOCKET_EVENTS.SERVER.SEND_FOUNDRY_ABILITY_ROLL,
-        abilityRoll
+        JSON.stringify(abilityRoll)
       );
     }
   };

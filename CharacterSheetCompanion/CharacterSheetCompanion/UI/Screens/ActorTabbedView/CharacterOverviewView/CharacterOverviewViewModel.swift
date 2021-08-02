@@ -48,4 +48,13 @@ class CharacterOverviewViewModel: ObservableObject {
         classInfo.removeLast()
         return classInfo
     }
+    
+    func rollInitiative() {
+        let rollModel = InitiativeRollModel(actorId: foundryActor.actor.id, result: 0)
+        FoundrySocketIOManager.sharedInstance.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
+            if let rollResult = initiativeRollResult {
+                print(rollResult)
+            }
+        }
+    }
 }

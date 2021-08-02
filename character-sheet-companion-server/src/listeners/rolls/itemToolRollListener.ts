@@ -26,7 +26,7 @@ export const itemToolRollListener = (io: Server, socket: Socket): void => {
     if (iosSocket) {
       iosSocket.emit(
         SOCKET_EVENTS.SERVER.SEND_FOUNDRY_ITEM_TOOL_ROLL,
-        itemToolRoll
+        JSON.stringify(itemToolRoll)
       );
     }
   };

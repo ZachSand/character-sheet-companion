@@ -10,6 +10,7 @@ export const SOCKET_EVENTS = {
         SEND_ITEM_DAMAGE_ROLL: "foundry:sendItemDamageRoll",
         SEND_ITEM_CONSUME_ROLL: "foundry:sendItemConsumeRoll",
         SEND_ITEM_TOOL_ROLL: "foundry:sendItemToolRoll",
+        SEND_INITIATIVE_ROLL: "foundry:sendInitiativeRoll",
         SEND_WORLD_DATA: "foundry:sendWorldData",
     },
     SERVER: {
@@ -22,6 +23,7 @@ export const SOCKET_EVENTS = {
         REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL: "server:requestFoundryItemDamageRoll",
         REQUEST_FOUNDRY_ITEM_CONSUME_ROLL: "server:requestFoundryItemConsumeRoll",
         REQUEST_FOUNDRY_ITEM_TOOL_ROLL: "server:requestFoundryItemToolRoll",
+        REQUEST_FOUNDRY_INITIATIVE_ROLL: "server:requestFoundryInitiativeRoll",
         REQUEST_FOUNDRY_DISPLAY_ITEM: "server:requestFoundryDisplayItem",
         REQUEST_FOUNDRY_WORLD_DATA: "server:requestFoundryWorldData",
     },

@@ -38,7 +38,12 @@ class CharacterSkillViewModel: ObservableObject {
     func getSkills() -> [ActorSkill] {
         var skillMap: [ActorSkill] = []
         foundryActor.actor.actorData.skills.sorted( by: { $0.0 < $1.0 }).forEach { (key: String, value: Skill) in
-            skillMap.append(ActorSkill(id: key, skill: value))
+            skillMap.append(ActorSkill(id: key,
+                name: getSkillText(skillId: key),
+                ability: value.ability,
+                modifier: getModifierText(modifier: value.total),
+                passive: String(value.passive),
+                prof: value.prof > 0))
         }
         return skillMap
     }
@@ -48,6 +53,13 @@ class CharacterSkillViewModel: ObservableObject {
             return skillText
         }
         return "Unknown"
+    }
+    
+    func getModifierText(modifier: Int) -> String {
+        if modifier > 0 {
+            return "+\(modifier)"
+        }
+        return String(modifier)
     }
     
     func rollSkillCheck(actorSkill: ActorSkill, advantage: Bool, disadvantage: Bool) {
@@ -64,5 +76,9 @@ class CharacterSkillViewModel: ObservableObject {
 
 struct ActorSkill: Identifiable {
     var id: String
-    var skill: Skill
+    var name: String
+    var ability: String
+    var modifier: String
+    var passive: String
+    var prof: Bool
 }

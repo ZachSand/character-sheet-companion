@@ -11,6 +11,7 @@ import { getAndEmitWorldData } from "../listeners/worldDataListener.js";
 import { createAndEmitItemDamageRoll } from "../listeners/itemDamageRollListener.js";
 import { createAndEmitItemConsumeRoll } from "../listeners/itemConsumeRollListener.js";
 import { createAndEmitItemToolRoll } from "../listeners/itemToolRollListener.js";
+import { createAndEmitInitiativeRoll } from "../listeners/initiativeRollListener.js";
 
 export class CharacterSheetCompanionSetup {
     static setup() {
@@ -79,6 +80,10 @@ export class CharacterSheetCompanionSetup {
                 socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_TOOL_ROLL, (itemToolRoll, iosSocketId) => {
                     createAndEmitItemToolRoll(socket, itemToolRoll, iosSocketId);
                 })
+
+                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_INITIATIVE_ROLL, (initiativeRoll, iosSocketId) => {
+                    createAndEmitInitiativeRoll(socket, initiativeRoll, iosSocketId);
+                });
 
                 socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_DISPLAY_ITEM, (displayItem) => {
                     displayItemCard(displayItem)

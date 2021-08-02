@@ -7,34 +7,37 @@
 
 import SwiftUI
 
-struct UserActorPickerView: View {
-    @ObservedObject var userActorPickerVM: UserActorPickerViewModel
+struct WorldUserActorView: View {
+    @ObservedObject var worldUserActorVM: WorldUserActorViewModel
     @State var selectedUser: UserModel?
     @State var selectedActor: UserActorModel?
     
     init() {
-        self.userActorPickerVM = UserActorPickerViewModel()
-        if let users = userActorPickerVM.foundryUsers {
+        self.worldUserActorVM = WorldUserActorViewModel()
+        if let users = worldUserActorVM.foundryUsers {
             selectedUser = users[0]
         }
-        if let userActors = userActorPickerVM.foundryUserActors {
+        if let userActors = worldUserActorVM.foundryUserActors {
             selectedActor = userActors[0]
         }
     }
     
     var body: some View {
         VStack {
-            if let worldData = userActorPickerVM.worldData {
-                VStack{
+            if let worldData = worldUserActorVM.worldData {
+                VStack {
                     Text(worldData.title).font(.title)
-                    Text(worldData.version).font(.footnote)
-                    Text(worldData.description).font(.footnote)
+                    Text("World Version: \(worldData.version)").font(.footnote)
+                    Text("Foundry Version: \(worldData.coreVersion)").font(.footnote)
+                    Text("Foundry System: \(worldData.system)").font(.footnote)
                 }
             }
             
+            Divider()
+            
             GeometryReader { geometry in
                 VStack(spacing: 5) {
-                    if let users = userActorPickerVM.foundryUsers {
+                    if let users = worldUserActorVM.foundryUsers {
                         HStack{
                             Section(header: Text("User")) {
                                 Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
@@ -50,11 +53,11 @@ struct UserActorPickerView: View {
                         Text("No Users Found")
                     }
                     
-                    if let userActors = userActorPickerVM.foundryUserActors {
+                    if let userActors = worldUserActorVM.foundryUserActors {
                         HStack {
                             Section(header: Text("Actor")) {
                                 Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
-                                    ForEach(userActors) {userActor in
+                                    ForEach(userActors) { userActor in
                                         Text(userActor.name).tag(userActor as UserActorModel?)
                                     }
                                 }
@@ -75,7 +78,7 @@ struct UserActorPickerView: View {
                 }
             })
             {
-                Text("Go to Character")
+                Text("Load Character Sheet")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -85,9 +88,5 @@ struct UserActorPickerView: View {
             }
             Spacer()
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all))
     }
 }
-
