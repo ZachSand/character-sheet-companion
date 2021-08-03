@@ -46,10 +46,18 @@ export async function getAndEmitActorData(socket, actorId, iosSocketId) {
                 actor5eData.actor.actorData.classes = classes;
             }
 
-            if(actor5eData.actor.actorData.hasOwnProperty("details") &&
-                actor5eData.actor.actorData.details.hasOwnProperty("biography") &&
-                actor5eData.actor.actorData.details.biography.hasOwnProperty("public")) {
-                    delete actor5eData.actor.actorData.details.biography.public;
+            if(actor5eData.actor.actorData.hasOwnProperty("details")) {
+                actor5eData.actor.actorData.details.appearance = sanitizeHtml(actor5eData.actor.actorData.details.appearance);
+                actor5eData.actor.actorData.details.trait = sanitizeHtml(actor5eData.actor.actorData.details.trait);
+                actor5eData.actor.actorData.details.ideal = sanitizeHtml(actor5eData.actor.actorData.details.ideal);
+                actor5eData.actor.actorData.details.bond = sanitizeHtml(actor5eData.actor.actorData.details.bond);
+                actor5eData.actor.actorData.details.flaw = sanitizeHtml(actor5eData.actor.actorData.details.flaw);
+                if(actor5eData.actor.actorData.details.hasOwnProperty("biography")) {
+                    actor5eData.actor.actorData.details.biography.value = sanitizeHtml(actor5eData.actor.actorData.details.biography.value);
+                    if(actor5eData.actor.actorData.details.biography.hasOwnProperty("public")) {
+                        delete actor5eData.actor.actorData.details.biography.public;
+                    }
+                }
             }
         }
     }
@@ -108,7 +116,7 @@ export async function getAndEmitActorData(socket, actorId, iosSocketId) {
                         .then(imageData => new Promise((resolve) => {
                             resolve(item.img = imageData.split(',')[1]);
                         })))
-                item.data.description.value = jQuery("<p>" + item.data.description.value + "</p>").text();
+                item.data.description.value = sanitizeHtml(item.data.description.value)
                 if (item.type === "spell") {
                     arr[1].push(item);
                 } else if (item.type === "feat") {
@@ -148,5 +156,9 @@ export async function getAndEmitActorData(socket, actorId, iosSocketId) {
                 resolve(actor5eData.actor.img = imageData.split(',')[1]);
         })));
         return Promise.all(imageDataPromises);
+    }
+
+    function sanitizeHtml(string) {
+        return jQuery("<p>" + string + "</p>").text();
     }
 }

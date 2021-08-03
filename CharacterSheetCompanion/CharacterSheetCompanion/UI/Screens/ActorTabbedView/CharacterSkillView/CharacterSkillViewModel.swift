@@ -9,6 +9,7 @@ import Foundation
 
 class CharacterSkillViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
+    var skillListener: SkillListener?
     
     let skillNameMapping: [String: String] = [
         "acr": "Acrobatics",
@@ -33,6 +34,11 @@ class CharacterSkillViewModel: ObservableObject {
     
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
+        do {
+            try skillListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
     }
     
     func getSkills() -> [ActorSkill] {
@@ -64,10 +70,12 @@ class CharacterSkillViewModel: ObservableObject {
     
     func rollSkillCheck(actorSkill: ActorSkill, advantage: Bool, disadvantage: Bool) {
         let roll = SkillRollModel(actorId: self.foundryActor.actor.id, skill: actorSkill.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-        DispatchQueue.main.async {
-            FoundrySocketIOManager.sharedInstance.rollSkill(skillRoll: roll) { skillRollModel in
-                if let rollResult = skillRollModel {
-                    print(rollResult.result)
+        if let listener = skillListener {
+            DispatchQueue.main.async {
+                listener.rollSkill(skillRoll: roll) { skillRollModel in
+                    if let rollResult = skillRollModel {
+                        print(rollResult.result)
+                    }
                 }
             }
         }

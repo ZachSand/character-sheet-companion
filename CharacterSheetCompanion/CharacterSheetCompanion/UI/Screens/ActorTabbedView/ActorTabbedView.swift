@@ -41,6 +41,11 @@ struct ActorTabbedView : View {
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
+                CharacterBiographyView(foundryActor: foundryActor) 
+                    .tabItem{
+                        Label("Biography", systemImage: "info.circle")
+                    }
+                    .tag(5)
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))

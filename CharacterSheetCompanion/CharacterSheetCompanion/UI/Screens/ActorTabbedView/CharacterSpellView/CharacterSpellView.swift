@@ -19,7 +19,6 @@ struct CharacterSpellView: View {
     
     var body: some View {
         VStack {
-            Text("Spells")
             List {
                 ForEach(characterSpellVM.getSpellCategories()) { spellCategory in
                     Section(header: HStack{

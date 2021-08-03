@@ -9,6 +9,9 @@ import Foundation
 
 class CharacterSpellViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
+    var itemAttackListener: ItemAttackListener?
+    var itemDamageListener: ItemDamageListener?
+    var itemDisplayListener: ItemDisplayListener?
     
     var spellLevelMapping: [Int: String] = [
         0: "Cantrip",
@@ -25,25 +28,36 @@ class CharacterSpellViewModel: ObservableObject {
     
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
+        do {
+            try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemDamageListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
     }
     
     func rollItemAttack(spellSummary: SpellSummary, advantage: Bool, disadvantage: Bool, consumeSpellSlot: Bool) {
-        let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
+        if let listener = itemAttackListener {
+            let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
-                if let itemAttackRollResult = attackRollResult {
-                    print(itemAttackRollResult)
+                listener.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
+                    if let itemAttackRollResult = attackRollResult {
+                        print(itemAttackRollResult)
+                    }
                 }
             }
         }
     }
     
     func rollItemDamage(spellSummary: SpellSummary, critical: Bool, versatile: Bool) {
-        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, critical: critical, versatile: versatile, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+        if let listener = itemDamageListener {
+            let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, critical: critical, versatile: versatile, result: 0)
             DispatchQueue.main.async {
-                if let itemDamageRollResult = damageRollResult {
-                    print(itemDamageRollResult)
+                listener.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+                    if let itemDamageRollResult = damageRollResult {
+                        print(itemDamageRollResult)
+                    }
                 }
             }
         }
@@ -100,8 +114,10 @@ class CharacterSpellViewModel: ObservableObject {
     }
     
     func displayItem(spellSummary: SpellSummary) {
-        let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: spellSummary.id)
-        FoundrySocketIOManager.sharedInstance.displayItemCard(displayItem: displayItem)
+        if let listener = itemDisplayListener {
+            let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: spellSummary.id)
+            listener.displayItemCard(displayItem: displayItem)
+        }
     }
 }
 

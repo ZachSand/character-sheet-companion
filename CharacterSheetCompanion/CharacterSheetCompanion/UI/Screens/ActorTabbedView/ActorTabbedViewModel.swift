@@ -9,17 +9,25 @@ import Foundation
 
 class ActorTabbedViewModel: ObservableObject {
     @Published var foundryActor: ActorModel?
+    var actorDataListener: ActorListener?
     var userActor: UserActorModel
     
     init(userActor: UserActorModel) {
         self.userActor = userActor;
+        do {
+            try actorDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
         fetchActorData(actorId: self.userActor.actorId)
     }
     
     func fetchActorData(actorId: String) {
-        DispatchQueue.main.async {
-            FoundrySocketIOManager.sharedInstance.getActorData(actorId: actorId) { actor in
-                self.foundryActor = actor;
+        if let listener = actorDataListener {
+            DispatchQueue.main.async {
+                listener.getActorData(actorId: actorId) { actor in
+                    self.foundryActor = actor;
+                }
             }
         }
     }

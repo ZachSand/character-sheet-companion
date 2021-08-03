@@ -8,15 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var socketConnectSuccess = false
     
     var body: some View {
-        return Group {
-            if(socketConnectSuccess) {
-                WorldUserActorView()
-            } else {
-                FoundryConnectView(connectSuccess: $socketConnectSuccess)
-            }
-        }
+        FoundryConnectView()
     }
 }

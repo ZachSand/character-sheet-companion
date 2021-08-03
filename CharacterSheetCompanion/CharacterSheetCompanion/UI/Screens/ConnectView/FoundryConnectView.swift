@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct FoundryConnectView : View {
-    @ObservedObject var foundryConnectionVM = FoundryConnectViewModel()
-    @Binding var connectSuccess: Bool
+    @ObservedObject var foundryConnectVM: FoundryConnectViewModel
+    
+    init() {
+        foundryConnectVM = FoundryConnectViewModel()
+    }
     
     var body: some View {
         VStack {
@@ -21,7 +24,7 @@ struct FoundryConnectView : View {
                 .padding(.bottom, 50)
             
             TextField(
-                "Character Sheet Companion ID", text: $foundryConnectionVM.id)
+                "Character Sheet Companion ID", text: $foundryConnectVM.id)
                 .padding()
                 .background(Color.themeTextField)
                 .cornerRadius(20.0)
@@ -32,10 +35,11 @@ struct FoundryConnectView : View {
                 .font(Font.system(size: 15, design: .default))
             
             Button(action: {
-                FoundrySocketIOManager.sharedInstance.roomId = foundryConnectionVM.id
-                FoundrySocketIOManager.sharedInstance.socketConnect { connectionStatus in
-                    DispatchQueue.main.async {
-                        connectSuccess = connectionStatus
+                foundryConnectVM.connect()
+                if foundryConnectVM.connectSuccess {
+                    if let window = UIApplication.shared.windows.first {
+                        window.rootViewController = UIHostingController(rootView: WorldUserActorView())
+                        window.makeKeyAndVisible()
                     }
                 }
             }) {
@@ -46,8 +50,8 @@ struct FoundryConnectView : View {
                     .frame(width: 300, height: 30)
                     .background(Color.green)
                     .cornerRadius(15.0)
-                    .opacity(foundryConnectionVM.isIdValid() ? 1 : 0.6)
-            }.disabled(!foundryConnectionVM.isIdValid())
+                    .opacity(foundryConnectVM.isIdValid() ? 1 : 0.6)
+            }.disabled(!foundryConnectVM.isIdValid())
             
             Spacer()
             

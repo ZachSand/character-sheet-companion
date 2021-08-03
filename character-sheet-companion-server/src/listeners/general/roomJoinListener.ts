@@ -9,7 +9,7 @@ export const roomJoinListener = (io: Server, socket: Socket): void => {
     socket.data.foundry = true;
     socket.data.ios = false;
     socket.data.fccId = roomId;
-    socket.emit(SOCKET_EVENTS.FOUNDRY.JOINED_ROOM);
+    socket.emit(SOCKET_EVENTS.SERVER.SEND_FOUNDRY_JOINED_ROOM);
   };
 
   const iosJoin = (roomId: string) => {
@@ -41,7 +41,7 @@ export const roomJoinListener = (io: Server, socket: Socket): void => {
       socket.data.foundry = false;
       socket.data.ios = true;
       socket.data.fccId = roomId;
-      socket.emit(SOCKET_EVENTS.IOS.JOINED_ROOM);
+      socket.emit(SOCKET_EVENTS.SERVER.SEND_IOS_JOINED_ROOM);
     }
 
     function handleSocketRoomMissing() {

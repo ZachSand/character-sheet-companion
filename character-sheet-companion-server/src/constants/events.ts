@@ -1,7 +1,6 @@
 export const SOCKET_EVENTS = {
   FOUNDRY: {
     JOIN_ROOM: "foundry:join",
-    JOINED_ROOM: "foundry:joinedRoom",
     SEND_USERS: "foundry:sendUsers",
     SEND_USER_ACTORS: "foundry:sendUserActors",
     SEND_ACTOR_DATA: "foundry:sendActorData",
@@ -16,7 +15,6 @@ export const SOCKET_EVENTS = {
   },
   IOS: {
     JOIN_ROOM: "ios:join",
-    JOINED_ROOM: "ios:joinedRoom",
     REQUEST_FOUNDRY_USERS: "ios:requestFoundryUsers",
     REQUEST_FOUNDRY_USER_ACTORS: "ios:requestFoundryUserActor",
     REQUEST_FOUNDRY_ACTOR_DATA: "ios:requestFoundryActorData",
@@ -55,6 +53,8 @@ export const SOCKET_EVENTS = {
     SEND_FOUNDRY_INITIATIVE_ROLL: "server:sendFoundryInitiativeRoll",
     SEND_FOUNDRY_DISPLAY_ITEM: "server:sendFoundryDisplayItem",
     SEND_FOUNDRY_WORLD_DATA: "server:sendFoundryWorldData",
+    SEND_IOS_JOINED_ROOM: "server:sendIosJoinedRoom",
+    SEND_FOUNDRY_JOINED_ROOM: "server:sendFoundryJoinedRoom",
   },
   ERROR: {
     GENERAL_ERROR: "error",

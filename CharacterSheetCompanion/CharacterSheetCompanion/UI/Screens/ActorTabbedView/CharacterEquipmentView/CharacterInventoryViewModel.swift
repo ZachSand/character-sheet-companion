@@ -9,9 +9,23 @@ import Foundation
 
 class CharacterInventoryViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
+    var itemAttackListener: ItemAttackListener?
+    var itemDamageListener: ItemDamageListener?
+    var itemConsumeListener: ItemConsumeListener?
+    var itemDisplayListener: ItemDisplayListener?
+    var itemToolListener: ItemToolListener?
     
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
+        do {
+            try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemDamageListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemConsumeListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try itemToolListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
     }
     
     func getInventoryCategories() -> [InventoryCategory] {
@@ -37,52 +51,64 @@ class CharacterInventoryViewModel: ObservableObject {
     }
     
     func rollItemAttack(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
-        let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
+        if let listener = itemAttackListener {
+            let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
-                if let itemAttackRollResult = attackRollResult {
-                    print(itemAttackRollResult)
+                listener.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
+                    if let itemAttackRollResult = attackRollResult {
+                        print(itemAttackRollResult)
+                    }
                 }
             }
         }
     }
     
     func rollItemDamage(inventoryItemSummary: InventoryItemSummary, critical: Bool, versatile: Bool) {
-        let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: critical, versatile: versatile, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+        if let listener = itemDamageListener {
+            let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: critical, versatile: versatile, result: 0)
             DispatchQueue.main.async {
-                if let itemDamageRollResult = damageRollResult {
-                    print(itemDamageRollResult)
+                listener.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
+                    if let itemDamageRollResult = damageRollResult {
+                        print(itemDamageRollResult)
+                    }
                 }
             }
         }
     }
     
     func rollItemConsume(inventoryItemSummary: InventoryItemSummary, consume: Bool) {
-        let itemConsumeRoll = ItemConsumeRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, consume: consume, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
+        if let listener = itemConsumeListener {
+            let itemConsumeRoll = ItemConsumeRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, consume: consume, result: 0)
             DispatchQueue.main.async {
-                if let itemConsumeRollResult = consumeRollResult {
-                    print(itemConsumeRollResult)
+                listener.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
+                    if let itemConsumeRollResult = consumeRollResult {
+                        print(itemConsumeRollResult)
+                    }
                 }
             }
         }
     }
     
     func rollItemToolRoll(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
-        let itemToolRoll = ItemToolRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollItemTool(itemToolRoll: itemToolRoll) { toolRollResult in
+        if let listener = itemToolListener {
+            let itemToolRoll = ItemToolRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
-                if let itemToolRollResult = toolRollResult {
-                    print(itemToolRollResult)
+                listener.rollItemTool(itemToolRoll: itemToolRoll) { toolRollResult in
+                    if let itemToolRollResult = toolRollResult {
+                        print(itemToolRollResult)
+                    }
                 }
             }
         }
     }
     
     func displayItem(inventoryItemSummary: InventoryItemSummary) {
-        let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id)
-        FoundrySocketIOManager.sharedInstance.displayItemCard(displayItem: displayItem)
+        if let listener = itemDisplayListener {
+            let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id)
+            DispatchQueue.main.async {
+                listener.displayItemCard(displayItem: displayItem)
+            }
+        }
     }
     
     func getConsumeText(inventoryItemSummary: InventoryItemSummary) -> String {

@@ -9,9 +9,15 @@ import Foundation
 
 class CharacterOverviewViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
+    var initiativeListener: InitiativeListener?
     
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
+        do {
+            try initiativeListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
     }
     
     func getAC() -> String {
@@ -50,10 +56,14 @@ class CharacterOverviewViewModel: ObservableObject {
     }
     
     func rollInitiative() {
-        let rollModel = InitiativeRollModel(actorId: foundryActor.actor.id, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
-            if let rollResult = initiativeRollResult {
-                print(rollResult)
+        if let listener = initiativeListener {
+            let rollModel = InitiativeRollModel(actorId: foundryActor.actor.id, result: 0)
+            DispatchQueue.main.async {
+                listener.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
+                    if let rollResult = initiativeRollResult {
+                        print(rollResult)
+                    }
+                }
             }
         }
     }

@@ -12,6 +12,8 @@ class CharacterAbilityViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
     @Published var showRollResult: Bool
     
+    var abilityListener: AbilityListener?
+    
     let abilityNameMapping: [String: String] = [
         "str": "Strength",
         "con": "Constitution",
@@ -26,6 +28,11 @@ class CharacterAbilityViewModel: ObservableObject {
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
         showRollResult = false
+        do {
+            try abilityListener = FoundrySocketIOManager.sharedInstance.getListener()
+        } catch {
+            
+        }
     }
     
     
@@ -50,23 +57,24 @@ class CharacterAbilityViewModel: ObservableObject {
     }
     
     func rollAbility(actorAbility: ActorAbility, isSave: Bool, advantage: Bool, disadvantage: Bool) {
-        let roll = AbilityRollModel(actorId: self.foundryActor.actor.id, ability: actorAbility.id, advantage: advantage, disadvantage: disadvantage, isSave: isSave, result: 0)
-        FoundrySocketIOManager.sharedInstance.rollAbility(abilityRoll: roll) { abilityRollModel in
+        if let listener = abilityListener {
+            let roll = AbilityRollModel(actorId: self.foundryActor.actor.id, ability: actorAbility.id, advantage: advantage, disadvantage: disadvantage, isSave: isSave, result: 0)
             DispatchQueue.main.async {
-                if let rollResult = abilityRollModel {
-                    self.rollResultStack.push(rollResult)
-                    self.showRollResult = true
+                listener.rollAbility(abilityRoll: roll) { abilityRollModel in
+                    if let rollResult = abilityRollModel {
+                        self.rollResultStack.push(rollResult)
+                        self.showRollResult = true
+                    }
                 }
             }
         }
     }
     
     func getRollResult() -> AbilityRollModel {
-        //
-        if !rollResultStack.items.isEmpty {
-            return rollResultStack.pop()
+        if rollResultStack.items.isEmpty {
+            return AbilityRollModel(actorId: foundryActor.actor.id, ability: "Unknown", advantage: false, disadvantage: false, isSave: false, result: 0)
         }
-        return AbilityRollModel(actorId: foundryActor.actor.id, ability: "Unknown", advantage: false, disadvantage: false, isSave: false, result: 0)
+        return rollResultStack.pop()
     }
     
     func getSenses() -> [String] {
