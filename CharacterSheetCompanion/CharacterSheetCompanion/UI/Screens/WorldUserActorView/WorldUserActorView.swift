@@ -71,8 +71,8 @@ struct WorldUserActorView: View {
             
             Button(action: {
                 if let window = UIApplication.shared.windows.first {
-                    if let userActor = selectedActor {
-                           window.rootViewController = UIHostingController(rootView: ActorTabbedView(userActor: userActor))
+                    if let userActor = selectedActor, let user = selectedUser {
+                        window.rootViewController = UIHostingController(rootView: ActorTabbedView(userActor: userActor, user: user))
                            window.makeKeyAndVisible()
                        }
                 }

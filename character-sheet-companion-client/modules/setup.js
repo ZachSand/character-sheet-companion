@@ -12,6 +12,7 @@ import { createAndEmitItemDamageRoll } from "../listeners/itemDamageRollListener
 import { createAndEmitItemConsumeRoll } from "../listeners/itemConsumeRollListener.js";
 import { createAndEmitItemToolRoll } from "../listeners/itemToolRollListener.js";
 import { createAndEmitInitiativeRoll } from "../listeners/initiativeRollListener.js";
+import { createAndEmitChatData, createChatMessage } from "../listeners/chatListener.js";
 
 export class CharacterSheetCompanionSetup {
     static setup() {
@@ -89,6 +90,14 @@ export class CharacterSheetCompanionSetup {
                     displayItemCard(displayItem)
                 });
 
+                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_CHAT_DATA, (userId, actorId, iosSocketId) => {
+                    createAndEmitChatData(socket, userId, actorId, iosSocketId);
+                });
+
+                socket.on(SOCKET_EVENTS.SERVER.SEND_IOS_CHAT_MESSAGE, (userId, actorId, message) => {
+                    createChatMessage(userId, actorId, message);
+                });
+
                 socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_WORLD_DATA, (iosSocketId) => {
                     getAndEmitWorldData(socket, iosSocketId)
                 });
@@ -99,6 +108,10 @@ export class CharacterSheetCompanionSetup {
                 // Get the canvas (~168Kb)
                 //game.canvas.app.renderer.plugins.extract.base64(game.canvas.app.stage, "image/jpeg", 0.15)
             }
+            // only activates after initial chat log rendering
+            // Hooks.on("renderChatMessage", () => {
+            //     createAndEmitChatData()
+            // });
         });
     }
 }

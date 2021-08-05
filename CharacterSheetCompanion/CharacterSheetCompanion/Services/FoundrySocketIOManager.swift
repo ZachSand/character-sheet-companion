@@ -39,7 +39,8 @@ class FoundrySocketIOManager: NSObject {
             InitiativeListener(socket: socket),
             
             // Display Listeners
-            ItemDisplayListener(socket: socket)
+            ItemDisplayListener(socket: socket),
+            ChatMessageListener(socket: socket)
         ]
         
         super.init()

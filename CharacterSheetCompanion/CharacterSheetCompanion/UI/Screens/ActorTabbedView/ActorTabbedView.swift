@@ -10,9 +10,11 @@ import SwiftUI
 struct ActorTabbedView : View {
     @ObservedObject var actorTabbedVM: ActorTabbedViewModel
     var userActor: UserActorModel
+    var user: UserModel
     
-    init(userActor: UserActorModel) {
+    init(userActor: UserActorModel, user: UserModel) {
         self.userActor = userActor
+        self.user = user
         actorTabbedVM = ActorTabbedViewModel(userActor: userActor)
     }
     
@@ -46,6 +48,11 @@ struct ActorTabbedView : View {
                         Label("Biography", systemImage: "info.circle")
                     }
                     .tag(5)
+                ChatView(user: user, foundryActor: foundryActor )
+                    .tabItem{
+                        Label("Chat", systemImage: "message")
+                    }
+                    .tag(6)
             }
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))

@@ -46,6 +46,11 @@ class CharacterInventoryViewModel: ObservableObject {
         return false
     }
     
+    func getCurrency() -> String {
+        let currency = foundryActor.actor.actorData.currency;
+        return "Currency: \(currency.cp) Copper, \(currency.sp) Silver, \(currency.ep) Electrum, \(currency.gp) Gold, \(currency.pp) Platinum"
+    }
+    
     func isConsumable(inventoryItemSummary: InventoryItemSummary) -> Bool {
         return inventoryItemSummary.type == "consumable"
     }

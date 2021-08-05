@@ -1,8 +1,10 @@
 export interface ChatMessage {
-  actorId: string;
-  speakerAlias: string;
+  id: string;
+  speaker: string;
+  userId: string;
+  isCurrentUser: boolean;
   content: string;
   chatFlavor: string;
   timestamp: number;
-  isWhisper: boolean;
+  whisperUsers: string[];
 }

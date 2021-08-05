@@ -11,6 +11,7 @@ export const SOCKET_EVENTS = {
     SEND_ITEM_CONSUME_ROLL: "foundry:sendItemConsumeRoll",
     SEND_ITEM_TOOL_ROLL: "foundry:sendItemToolRoll",
     SEND_INITIATIVE_ROLL: "foundry:sendInitiativeRoll",
+    SEND_CHAT_DATA: "foundry:sendChatData",
     SEND_WORLD_DATA: "foundry:sendWorldData",
   },
   IOS: {
@@ -26,7 +27,9 @@ export const SOCKET_EVENTS = {
     REQUEST_FOUNDRY_ITEM_TOOL_ROLL: "ios:requestFoundryItemToolRoll",
     REQUEST_FOUNDRY_INITIATIVE_ROLL: "ios:requestFoundryInitiativeRoll",
     REQUEST_FOUNDRY_DISPLAY_ITEM: "ios:requestFoundryDisplayItem",
+    REQUEST_FOUNDRY_CHAT_DATA: "ios:requestFoundryChatData",
     REQUEST_FOUNDRY_WORLD_DATA: "ios:requestFoundryWorldData",
+    SEND_FOUNDRY_CHAT_MESSAGE: "ios:sendFoundryChatMessage",
   },
   SERVER: {
     REQUEST_FOUNDRY_USERS: "server:requestFoundryUsers",
@@ -40,6 +43,7 @@ export const SOCKET_EVENTS = {
     REQUEST_FOUNDRY_ITEM_TOOL_ROLL: "server:requestFoundryItemToolRoll",
     REQUEST_FOUNDRY_INITIATIVE_ROLL: "server:requestFoundryInitiativeRoll",
     REQUEST_FOUNDRY_DISPLAY_ITEM: "server:requestFoundryDisplayItem",
+    REQUEST_FOUNDRY_CHAT_DATA: "server:requestFoundryChatData",
     REQUEST_FOUNDRY_WORLD_DATA: "server:requestFoundryWorldData",
     SEND_FOUNDRY_USERS: "server:sendFoundryUsers",
     SEND_FOUNDRY_USER_ACTORS: "server:sendFoundryUserActor",
@@ -52,9 +56,11 @@ export const SOCKET_EVENTS = {
     SEND_FOUNDRY_ITEM_TOOL_ROLL: "server:sendFoundryItemToolRoll",
     SEND_FOUNDRY_INITIATIVE_ROLL: "server:sendFoundryInitiativeRoll",
     SEND_FOUNDRY_DISPLAY_ITEM: "server:sendFoundryDisplayItem",
+    SEND_FOUNDRY_CHAT_DATA: "server:sendFoundryChatData",
     SEND_FOUNDRY_WORLD_DATA: "server:sendFoundryWorldData",
     SEND_IOS_JOINED_ROOM: "server:sendIosJoinedRoom",
     SEND_FOUNDRY_JOINED_ROOM: "server:sendFoundryJoinedRoom",
+    SEND_IOS_CHAT_MESSAGE: "server:sendIosChatMessage",
   },
   ERROR: {
     GENERAL_ERROR: "error",

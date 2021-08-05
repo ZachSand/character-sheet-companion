@@ -11,6 +11,7 @@ export const SOCKET_EVENTS = {
         SEND_ITEM_CONSUME_ROLL: "foundry:sendItemConsumeRoll",
         SEND_ITEM_TOOL_ROLL: "foundry:sendItemToolRoll",
         SEND_INITIATIVE_ROLL: "foundry:sendInitiativeRoll",
+        SEND_CHAT_DATA: "foundry:sendChatData",
         SEND_WORLD_DATA: "foundry:sendWorldData",
     },
     SERVER: {
@@ -25,7 +26,9 @@ export const SOCKET_EVENTS = {
         REQUEST_FOUNDRY_ITEM_TOOL_ROLL: "server:requestFoundryItemToolRoll",
         REQUEST_FOUNDRY_INITIATIVE_ROLL: "server:requestFoundryInitiativeRoll",
         REQUEST_FOUNDRY_DISPLAY_ITEM: "server:requestFoundryDisplayItem",
+        REQUEST_FOUNDRY_CHAT_DATA: "server:requestFoundryChatData",
         REQUEST_FOUNDRY_WORLD_DATA: "server:requestFoundryWorldData",
+        SEND_IOS_CHAT_MESSAGE: "server:sendIosChatMessage",
     },
     ERROR: {
         JOIN_ROOM: "error:join-room",

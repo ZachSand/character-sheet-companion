@@ -20,6 +20,12 @@ struct CharacterInventoryView: View {
     var body: some View {
         VStack {
             Text("Inventory")
+            HStack{
+                Image(systemName: "dollarsign.square")
+                    .resizable()
+                    .frame(width: 15, height: 15, alignment: .leading)
+                Text(characterInventoryVM.getCurrency()).font(.footnote)
+            }
             List {
                 ForEach(characterInventoryVM.getInventoryCategories()) { inventoryCategory in
                     Section(header: Text(inventoryCategory.id)) {
