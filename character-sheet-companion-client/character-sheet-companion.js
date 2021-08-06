@@ -1,4 +1,4 @@
-import { CharacterSheetCompanionSetup } from "./modules/setup.js";
+import {CharacterSheetCompanionSetup} from "./modules/setup.js";
 
 /**
  * Setup the module

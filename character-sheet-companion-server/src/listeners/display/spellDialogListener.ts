@@ -36,8 +36,5 @@ export const spellDialogListener = (io: Server, socket: Socket): void => {
     SOCKET_EVENTS.IOS.REQUEST_FOUNDRY_SPELL_DIALOG,
     requestFoundrySpellDialog
   );
-  socket.on(
-    SOCKET_EVENTS.FOUNDRY.SEND_SPELL_DIALOG,
-    receiveFoundrySpellDialog
-  );
+  socket.on(SOCKET_EVENTS.FOUNDRY.SEND_SPELL_DIALOG, receiveFoundrySpellDialog);
 };

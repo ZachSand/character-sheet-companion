@@ -1,5 +1,5 @@
 import Logger from "../../loaders/logger";
-import { Socket, Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { SOCKET_EVENTS } from "../../constants/events";
 
 export const roomJoinListener = (io: Server, socket: Socket): void => {
