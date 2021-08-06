@@ -14,6 +14,6 @@ struct Stack<Element> {
     }
 
     mutating func pop() -> Element {
-        return items.removeLast()
+        items.removeLast()
     }
 }

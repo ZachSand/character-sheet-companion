@@ -68,6 +68,6 @@ struct FoundryConnectView: View {
 
 extension Color {
     static var themeTextField: Color {
-        return Color(red: 220.0 / 255.0, green: 230.0 / 255.0, blue: 230.0 / 255.0, opacity: 1.0)
+        Color(red: 220.0 / 255.0, green: 230.0 / 255.0, blue: 230.0 / 255.0, opacity: 1.0)
     }
 }

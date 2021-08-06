@@ -13,5 +13,5 @@ struct UserActorModel: Decodable, Hashable {
 }
 
 extension UserActorModel: Identifiable {
-    var id: String { return actorId }
+    var id: String { actorId }
 }

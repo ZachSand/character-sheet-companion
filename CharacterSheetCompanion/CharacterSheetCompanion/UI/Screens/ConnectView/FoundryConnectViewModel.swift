@@ -21,7 +21,7 @@ class FoundryConnectViewModel: ObservableObject {
     }
 
     func isIdValid() -> Bool {
-        return UUID(uuidString: characterCompanionId) != nil
+        UUID(uuidString: characterCompanionId) != nil
     }
 
     func connect() {

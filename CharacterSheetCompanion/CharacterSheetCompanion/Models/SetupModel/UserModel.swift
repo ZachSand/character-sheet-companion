@@ -14,5 +14,5 @@ struct UserModel: Decodable, Hashable {
 }
 
 extension UserModel: Identifiable {
-    var id: String { return userId }
+    var id: String { userId }
 }

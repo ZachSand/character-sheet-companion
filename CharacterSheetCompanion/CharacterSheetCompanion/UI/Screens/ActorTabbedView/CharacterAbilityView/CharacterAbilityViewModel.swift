@@ -94,7 +94,7 @@ class CharacterAbilityViewModel: ObservableObject {
     }
 
     func getLanguages() -> [String] {
-        return foundryActor.actor.actorData.traits.languages.value.map { language in
+        foundryActor.actor.actorData.traits.languages.value.map { language in
             language.capitalizingFirstLetter()
         }
     }
@@ -125,7 +125,7 @@ struct ActorAbility: Identifiable {
 
 extension String {
     func capitalizingFirstLetter() -> String {
-        return prefix(1).capitalized + dropFirst()
+        prefix(1).capitalized + dropFirst()
     }
 
     mutating func capitalizeFirstLetter() {

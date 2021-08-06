@@ -161,7 +161,7 @@ struct SpellSummary: Identifiable, Hashable {
     var quantity: Int?
 
     static func == (lhs: SpellSummary, rhs: SpellSummary) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {

@@ -19,7 +19,7 @@ class CharacterOverviewViewModel: ObservableObject {
     }
 
     func getAC() -> String {
-        return "AC " + String(foundryActor.actor.actorData.attributes.ac.value)
+        "AC " + String(foundryActor.actor.actorData.attributes.ac.value)
     }
 
     func getHealth() -> String {

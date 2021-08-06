@@ -50,7 +50,7 @@ class CharacterInventoryViewModel: ObservableObject {
     }
 
     func isConsumable(inventoryItemSummary: InventoryItemSummary) -> Bool {
-        return inventoryItemSummary.type == "consumable"
+        inventoryItemSummary.type == "consumable"
     }
 
     func rollItemAttack(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
@@ -122,27 +122,27 @@ class CharacterInventoryViewModel: ObservableObject {
     }
 
     private func getWeapons() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.weapon)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.weapon)
     }
 
     private func getEquipment() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.equipment)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.equipment)
     }
 
     private func getConsumables() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.consumable)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.consumable)
     }
 
     private func getTools() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.tool)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.tool)
     }
 
     private func getContainers() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.backpack)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.backpack)
     }
 
     private func getLoot() -> [InventoryItemSummary] {
-        return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.loot)
+        getItemSummary(itemData: foundryActor.actor.actorItems.inventory.loot)
     }
 
     private func getItemSummary(itemData: [ActorItem]) -> [InventoryItemSummary] {
@@ -193,7 +193,7 @@ struct InventoryItemSummary: Identifiable, Hashable {
     var price: StringOrDouble?
 
     static func == (lhs: InventoryItemSummary, rhs: InventoryItemSummary) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {

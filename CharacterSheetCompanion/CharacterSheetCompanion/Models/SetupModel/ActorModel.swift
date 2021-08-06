@@ -692,7 +692,7 @@ enum StringOrDouble: Codable {
 
 @objcMembers class JSONNull: NSObject, Codable {
     public static func == (_: JSONNull, _: JSONNull) -> Bool {
-        return true
+        true
     }
 
     override public init() {}
@@ -714,7 +714,7 @@ class JSONCodingKey: CodingKey {
     let key: String
 
     required init?(intValue _: Int) {
-        return nil
+        nil
     }
 
     required init?(stringValue: String) {
@@ -722,11 +722,11 @@ class JSONCodingKey: CodingKey {
     }
 
     var intValue: Int? {
-        return nil
+        nil
     }
 
     var stringValue: String {
-        return key
+        key
     }
 }
 
