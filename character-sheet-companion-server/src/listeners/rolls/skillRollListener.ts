@@ -4,7 +4,7 @@ import {
   getFoundrySocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { SkillRoll } from "../../interfaces/SkillRoll";
+import { SkillRoll } from "../../interfaces/rolls/SkillRoll";
 
 export const skillRollListener = (io: Server, socket: Socket): void => {
   const requestFoundrySkillRoll = (skillRoll: SkillRoll) => {

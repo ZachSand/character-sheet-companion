@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ChatMessage } from "../../interfaces/ChatMessage";
+import { ChatMessage } from "../../interfaces/display/ChatMessage";
 
 export const chatMessageListener = (io: Server, socket: Socket): void => {
   const requestFoundryChatData = (userId: string, actorId: string) => {

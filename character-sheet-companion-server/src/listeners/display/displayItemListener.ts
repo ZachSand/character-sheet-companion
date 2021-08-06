@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { getFoundrySocketFromRoom } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ItemDisplay } from "../../interfaces/ItemDisplay";
+import { ItemDisplay } from "../../interfaces/display/ItemDisplay";
 
 export const displayItemListener = (io: Server, socket: Socket): void => {
   const requestFoundryDisplayItem = (itemDisplay: ItemDisplay) => {

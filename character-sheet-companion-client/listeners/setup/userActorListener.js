@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../events/events.js";
+import { SOCKET_EVENTS } from "../../events/events.js";
 
 export function getAndEmitUserActors(socket, iosSocketId) {
     let userActors = game.actors.filter(actor => actor.type === "character");

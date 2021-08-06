@@ -12,6 +12,7 @@ class CharacterSpellViewModel: ObservableObject {
     var itemAttackListener: ItemAttackListener?
     var itemDamageListener: ItemDamageListener?
     var itemDisplayListener: ItemDisplayListener?
+    var spellDialogListener: SpellDialogListener?
     
     var spellLevelMapping: [Int: String] = [
         0: "Cantrip",
@@ -26,12 +27,17 @@ class CharacterSpellViewModel: ObservableObject {
         9: "9th Level"
     ]
     
+    var spellDialogMapping: [String: [SpellDialogModel]]
+    
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor;
+        self.spellDialogMapping = [:]
+        
         do {
             try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDamageListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try spellDialogListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {
             
         }
@@ -57,6 +63,18 @@ class CharacterSpellViewModel: ObservableObject {
                 listener.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
                     if let itemDamageRollResult = damageRollResult {
                         print(itemDamageRollResult)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getSpellDialog(spellId: String) {
+        if let listener = spellDialogListener {
+            DispatchQueue.main.async {
+                listener.getSpellDialog(actorId: self.foundryActor.actor.id, spellId: spellId) { spellDialogs in
+                    if let dialogs = spellDialogs {
+                        self.spellDialogMapping[spellId] = dialogs
                     }
                 }
             }
@@ -118,6 +136,10 @@ class CharacterSpellViewModel: ObservableObject {
             let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: spellSummary.id)
             listener.displayItemCard(displayItem: displayItem)
         }
+    }
+    
+    func getSpellDialog() {
+        
     }
 }
 

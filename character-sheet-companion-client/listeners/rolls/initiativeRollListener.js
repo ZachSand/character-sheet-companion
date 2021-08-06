@@ -1,4 +1,4 @@
-import {SOCKET_EVENTS} from "../events/events.js";
+import {SOCKET_EVENTS} from "../../events/events.js";
 
 export function createAndEmitInitiativeRoll(socket, initiativeRoll, iosSocketId) {
     let initiativeRollObj = JSON.parse(initiativeRoll);

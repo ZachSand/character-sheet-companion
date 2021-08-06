@@ -1,4 +1,4 @@
-import { User } from "../../interfaces/User";
+import { User } from "../../interfaces/setup/User";
 import { Server, Socket } from "socket.io";
 import { SOCKET_EVENTS } from "../../constants/events";
 import {

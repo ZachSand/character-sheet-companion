@@ -4,7 +4,7 @@ import {
   getFoundrySocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { Actor } from "../../interfaces/Actor";
+import { Actor } from "../../interfaces/setup/Actor";
 
 export const actorDataListener = (io: Server, socket: Socket): void => {
   const getFoundryActorData = (actorId: string) => {

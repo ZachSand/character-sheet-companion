@@ -1,18 +1,8 @@
 import { generateId, CHARACTER_SHEET_COMPANION_SETTING_KEY } from "../utils/id-generator.js";
 import { SOCKET_EVENTS } from "../events/events.js";
-import { getAndEmitUsers } from "../listeners/userListener.js"
-import { getAndEmitUserActors} from "../listeners/userActorListener.js";
-import { getAndEmitActorData} from "../listeners/actorDataListener.js";
-import { createAndEmitAbilityRoll } from "../listeners/abilityRollListener.js";
-import { createAndEmitSkillRoll } from "../listeners/skillRollListener.js";
-import { createAndEmitAttackRoll } from "../listeners/itemAttackRollListener.js";
-import { displayItemCard } from "../listeners/displayItemListener.js";
-import { getAndEmitWorldData } from "../listeners/worldDataListener.js";
-import { createAndEmitItemDamageRoll } from "../listeners/itemDamageRollListener.js";
-import { createAndEmitItemConsumeRoll } from "../listeners/itemConsumeRollListener.js";
-import { createAndEmitItemToolRoll } from "../listeners/itemToolRollListener.js";
-import { createAndEmitInitiativeRoll } from "../listeners/initiativeRollListener.js";
-import { createAndEmitChatData, createChatMessage } from "../listeners/chatListener.js";
+import {addDisplayListeners} from "../listeners/display/displayListenerWrapper.js";
+import {addSetupListeners} from "../listeners/setup/setupListenerWrapper.js";
+import {addRollListeners} from "../listeners/rolls/rollListenerWrapper.js";
 
 export class CharacterSheetCompanionSetup {
     static setup() {
@@ -42,76 +32,26 @@ export class CharacterSheetCompanionSetup {
                     reconnectionAttempts: 10,      // Max of 10 attempts of reconnection before stopping
                     transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
                 });
+
                 socket.on("connect", () => {
                     socket.emit(SOCKET_EVENTS.FOUNDRY.JOIN_ROOM, game.settings.get("character-sheet-companion", CHARACTER_SHEET_COMPANION_SETTING_KEY));
                 });
 
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USERS, (iosSocketId) => {
-                    getAndEmitUsers(socket, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USER_ACTORS, (iosSocketId) => {
-                    getAndEmitUserActors(socket, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ACTOR_DATA, async (actorId, iosSocketId) => {
-                    await getAndEmitActorData(socket, actorId, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ABILITY_ROLL, (abilityRoll, iosSocketId) => {
-                    createAndEmitAbilityRoll(socket, abilityRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_SKILL_ROLL, (skillRoll, iosSocketId) => {
-                    createAndEmitSkillRoll(socket, skillRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL, (itemAttackRoll, iosSocketId) => {
-                    createAndEmitAttackRoll(socket, itemAttackRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, (itemDamageRoll, iosSocketId) => {
-                    createAndEmitItemDamageRoll(socket, itemDamageRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, (itemConsumeRoll, iosSocketId) => {
-                    createAndEmitItemConsumeRoll(socket, itemConsumeRoll, iosSocketId);
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_TOOL_ROLL, (itemToolRoll, iosSocketId) => {
-                    createAndEmitItemToolRoll(socket, itemToolRoll, iosSocketId);
-                })
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_INITIATIVE_ROLL, (initiativeRoll, iosSocketId) => {
-                    createAndEmitInitiativeRoll(socket, initiativeRoll, iosSocketId);
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_DISPLAY_ITEM, (displayItem) => {
-                    displayItemCard(displayItem)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_CHAT_DATA, (userId, actorId, iosSocketId) => {
-                    createAndEmitChatData(socket, userId, actorId, iosSocketId);
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.SEND_IOS_CHAT_MESSAGE, (userId, actorId, message) => {
-                    createChatMessage(userId, actorId, message);
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_WORLD_DATA, (iosSocketId) => {
-                    getAndEmitWorldData(socket, iosSocketId)
-                });
+                addDisplayListeners(socket);
+                addSetupListeners(socket);
+                addRollListeners(socket);
 
                 socket.connect();
 
                 // Select the token, get the image data, then unselect the token
                 // Get the canvas (~168Kb)
                 //game.canvas.app.renderer.plugins.extract.base64(game.canvas.app.stage, "image/jpeg", 0.15)
+
+                // only activates after initial chat log rendering
+                // Hooks.on("renderChatMessage", () => {
+                //     createAndEmitChatData()
+                // });
             }
-            // only activates after initial chat log rendering
-            // Hooks.on("renderChatMessage", () => {
-            //     createAndEmitChatData()
-            // });
         });
     }
 }

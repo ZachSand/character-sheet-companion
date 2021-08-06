@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../events/events.js";
+import { SOCKET_EVENTS } from "../../events/events.js";
 
 export function createAndEmitSkillRoll(socket, skillRoll, iosSocketId) {
     if(skillRoll) {

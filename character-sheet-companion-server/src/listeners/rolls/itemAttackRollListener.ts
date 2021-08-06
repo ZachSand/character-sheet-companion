@@ -4,7 +4,7 @@ import {
   getFoundrySocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ItemAttackRoll } from "../../interfaces/ItemAttackRoll";
+import { ItemAttackRoll } from "../../interfaces/rolls/ItemAttackRoll";
 
 export const itemAttackRollListener = (io: Server, socket: Socket): void => {
   const requestFoundryItemAttackRoll = (itemAttackRoll: ItemAttackRoll) => {

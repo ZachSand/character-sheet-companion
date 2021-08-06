@@ -88,7 +88,7 @@ struct AbilityView: View {
         .cornerRadius(10)
         .shadow(color: .white, radius: 10, x: -10, y: -10)
         .shadow(color: Color(red: 164/255, green: 174/255, blue: 192/255).opacity(0.4), radius: 10, x: 10, y: 10)
-        .toast(isPresented: $characterAbilityVM.showRollResult, dismissAfter: 3.5) {
+        .toast(isPresented: $characterAbilityVM.showRollResult, dismissAfter: 2.5) {
             let rollResult = characterAbilityVM.getRollResult()
             ToastView("\(rollResult.ability) Roll: \(rollResult.result)!")
         }

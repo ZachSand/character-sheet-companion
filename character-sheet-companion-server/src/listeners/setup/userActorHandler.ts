@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
   getFoundrySocketFromRoom,
 } from "../../utilities/SocketUtilities";
-import { UserActor } from "../../interfaces/UserActor";
+import { UserActor } from "../../interfaces/setup/UserActor";
 
 export const userActorListener = (io: Server, socket: Socket): void => {
   const getFoundryUserActors = () => {

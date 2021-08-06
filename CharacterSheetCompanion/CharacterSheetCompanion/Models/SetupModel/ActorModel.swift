@@ -583,7 +583,7 @@ enum BoolOrInt: Codable {
     }
 }
 
-enum StringOrInt: Codable {
+enum StringOrInt: Codable, Hashable {
     case integer(Int)
     case string(String)
 

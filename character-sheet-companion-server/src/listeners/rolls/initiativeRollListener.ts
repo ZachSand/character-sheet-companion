@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { InitiativeRoll } from "../../interfaces/InitiativeRoll";
+import { InitiativeRoll } from "../../interfaces/rolls/InitiativeRoll";
 
 export const initiativeRollListener = (io: Server, socket: Socket): void => {
   const requestFoundryInitiativeRoll = (initiativeRoll: InitiativeRoll) => {

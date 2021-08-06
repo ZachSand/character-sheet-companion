@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { World } from "../../interfaces/World";
+import { World } from "../../interfaces/setup/World";
 
 export const worldDataListener = (io: Server, socket: Socket): void => {
   const getWorldData = () => {
