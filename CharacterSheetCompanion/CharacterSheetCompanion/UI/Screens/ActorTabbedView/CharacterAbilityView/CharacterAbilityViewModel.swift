@@ -11,9 +11,9 @@ import SwiftUI
 class CharacterAbilityViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
     @Published var showRollResult: Bool
-    
+
     var abilityListener: AbilityListener?
-    
+
     let abilityNameMapping: [String: String] = [
         "str": "Strength",
         "con": "Constitution",
@@ -22,20 +22,17 @@ class CharacterAbilityViewModel: ObservableObject {
         "dex": "Dexterity",
         "int": "Intelligence",
     ]
-    
+
     var rollResultStack = Stack<AbilityRollModel>()
-    
+
     init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor;
+        self.foundryActor = foundryActor
         showRollResult = false
         do {
             try abilityListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {
-            
-        }
+        } catch {}
     }
-    
-    
+
     func getClassInfo() -> String {
         var classInfo = ""
         for data in foundryActor.actor.actorData.classes {
@@ -45,20 +42,20 @@ class CharacterAbilityViewModel: ObservableObject {
         classInfo.removeLast()
         return classInfo
     }
-    
+
     func getAbilities() -> [ActorAbility] {
         var abilityMap: [ActorAbility] = []
-        foundryActor.actor.actorData.abilities.sorted( by: { $0.0 < $1.0 }).forEach { (key: String, value: Ability) in
+        foundryActor.actor.actorData.abilities.sorted(by: { $0.0 < $1.0 }).forEach { (key: String, value: Ability) in
             if let abilityName = abilityNameMapping[key] {
-                abilityMap.append(ActorAbility(id: key, name: abilityName, total: "(\( value.value))", mod: getMod(mod: value.mod), savingMod: getSavingMod(ability: value)))
+                abilityMap.append(ActorAbility(id: key, name: abilityName, total: "(\(value.value))", mod: getMod(mod: value.mod), savingMod: getSavingMod(ability: value)))
             }
         }
         return abilityMap
     }
-    
+
     func rollAbility(actorAbility: ActorAbility, isSave: Bool, advantage: Bool, disadvantage: Bool) {
         if let listener = abilityListener {
-            let roll = AbilityRollModel(actorId: self.foundryActor.actor.id, ability: actorAbility.id, advantage: advantage, disadvantage: disadvantage, isSave: isSave, result: 0)
+            let roll = AbilityRollModel(actorId: foundryActor.actor.id, ability: actorAbility.id, advantage: advantage, disadvantage: disadvantage, isSave: isSave, result: 0)
             DispatchQueue.main.async {
                 listener.rollAbility(abilityRoll: roll) { abilityRollModel in
                     if let rollResult = abilityRollModel {
@@ -69,18 +66,18 @@ class CharacterAbilityViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getRollResult() -> AbilityRollModel {
         if rollResultStack.items.isEmpty {
             return AbilityRollModel(actorId: foundryActor.actor.id, ability: "Unknown", advantage: false, disadvantage: false, isSave: false, result: 0)
         }
         return rollResultStack.pop()
     }
-    
+
     func getSenses() -> [String] {
         var sensesText: [String] = []
         if let senses = foundryActor.actor.actorData.traits.senses {
-            if senses.blindsight > 0  {
+            if senses.blindsight > 0 {
                 sensesText.append("Blindsight: \(senses.blindsight)\(senses.units)")
             }
             if senses.darkvision > 0 {
@@ -95,21 +92,21 @@ class CharacterAbilityViewModel: ObservableObject {
         }
         return sensesText
     }
-    
+
     func getLanguages() -> [String] {
         return foundryActor.actor.actorData.traits.languages.value.map { language in
             language.capitalizingFirstLetter()
         }
     }
-    
+
     private func getSavingMod(ability: Ability) -> String {
         var savingMod = ability.mod
-        if(ability.prof > 0) {
+        if ability.prof > 0 {
             savingMod += foundryActor.actor.actorData.prof
         }
         return getMod(mod: savingMod)
     }
-    
+
     private func getMod(mod: Int) -> String {
         if mod > 0 {
             return "+\(mod)"
@@ -132,6 +129,6 @@ extension String {
     }
 
     mutating func capitalizeFirstLetter() {
-        self = self.capitalizingFirstLetter()
+        self = capitalizingFirstLetter()
     }
 }

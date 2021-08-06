@@ -9,6 +9,6 @@ import Foundation
 import SocketIO
 
 protocol SocketListener {
-    var socket: SocketIOClient {get}
+    var socket: SocketIOClient { get }
     func addSocketHandlers()
 }

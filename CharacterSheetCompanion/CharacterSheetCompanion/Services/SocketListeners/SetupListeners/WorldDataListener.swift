@@ -10,25 +10,25 @@ import SocketIO
 
 class WorldDataListener: SocketListener {
     let socket: SocketIOClient
-    
-    var worldDataCallback: ((WorldDataModel?)->Void)?
-    
+
+    var worldDataCallback: ((WorldDataModel?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_WORLD_DATA) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_WORLD_DATA) { data, _ in
             do {
                 try self.worldDataCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func getWorldData(completionHandler: @escaping (WorldDataModel?) -> Void) {
         socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_WORLD_DATA)
         worldDataCallback = completionHandler

@@ -10,25 +10,25 @@ import SocketIO
 
 class UsersListener: SocketListener {
     let socket: SocketIOClient
-    
-    var usersCallback: (([UserModel]?)->Void)?
-    
+
+    var usersCallback: (([UserModel]?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_USERS) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_USERS) { data, _ in
             do {
                 try self.usersCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func getUsers(completionHandler: @escaping ([UserModel]?) -> Void) {
         socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_USERS)
         usersCallback = completionHandler
@@ -44,5 +44,5 @@ extension SocketEvents.SERVER {
 }
 
 extension ListenerEvents {
-     static let USERS = "USERS"
+    static let USERS = "USERS"
 }

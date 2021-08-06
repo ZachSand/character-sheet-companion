@@ -7,9 +7,9 @@
 
 import Foundation
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 final class KeyboardResponder: ObservableObject {
     private var notificationCenter: NotificationCenter
@@ -31,7 +31,7 @@ final class KeyboardResponder: ObservableObject {
         }
     }
 
-    @objc func keyBoardWillHide(notification: Notification) {
+    @objc func keyBoardWillHide(notification _: Notification) {
         currentHeight = 0
     }
 }

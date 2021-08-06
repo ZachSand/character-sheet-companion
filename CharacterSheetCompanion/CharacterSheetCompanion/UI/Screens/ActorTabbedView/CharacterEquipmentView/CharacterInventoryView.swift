@@ -11,16 +11,16 @@ struct CharacterInventoryView: View {
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State private var selection: Set<InventoryItemSummary> = []
     var foundryActor: ActorModel
-    
+
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
         characterInventoryVM = CharacterInventoryViewModel(foundryActor: foundryActor)
     }
-    
+
     var body: some View {
         VStack {
             Text("Inventory")
-            HStack{
+            HStack {
                 Image(systemName: "dollarsign.square")
                     .resizable()
                     .frame(width: 15, height: 15, alignment: .leading)
@@ -38,17 +38,17 @@ struct CharacterInventoryView: View {
             }
         }
     }
-    
+
     private func selectDeselect(_ inventoryItemSummary: InventoryItemSummary) {
-            if selection.contains(inventoryItemSummary) {
-                selection.remove(inventoryItemSummary)
-            } else {
-                selection.insert(inventoryItemSummary)
-            }
+        if selection.contains(inventoryItemSummary) {
+            selection.remove(inventoryItemSummary)
+        } else {
+            selection.insert(inventoryItemSummary)
         }
+    }
 }
 
-struct ItemView : View {
+struct ItemView: View {
     var characterInventoryVM: CharacterInventoryViewModel
     let inventoryItemSummary: InventoryItemSummary
     let isExpanded: Bool
@@ -56,10 +56,10 @@ struct ItemView : View {
     @State private var showingDamageSheet = false
     @State private var showingConsumableSheet = false
     @State private var showingToolSheet = false
-    
+
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 if let imageData = Data(base64Encoded: inventoryItemSummary.img) {
                     if let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
@@ -71,11 +71,11 @@ struct ItemView : View {
             }
             if isExpanded {
                 VStack {
-                    HStack{
+                    HStack {
                         Button("Display") {
                             characterInventoryVM.displayItem(inventoryItemSummary: inventoryItemSummary)
                         }
-                        
+
                         if inventoryItemSummary.type == "tool" {
                             Button("Use Tool") {
                                 showingToolSheet.toggle()
@@ -83,7 +83,7 @@ struct ItemView : View {
                                 InventoryItemToolSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                             })
                         }
-                        
+
                         if characterInventoryVM.hasAttack(inventoryItemSummary: inventoryItemSummary) {
                             Button("Attack") {
                                 showingAttackSheet.toggle()
@@ -92,7 +92,7 @@ struct ItemView : View {
                                 InventoryItemAttackSheetView(characterInventoryVM: characterInventoryVM, inventoryItemSummary: inventoryItemSummary)
                             })
                         }
-                        
+
                         if inventoryItemSummary.hasDamage {
                             if characterInventoryVM.isConsumable(inventoryItemSummary: inventoryItemSummary) {
                                 Button("Use") {
@@ -126,19 +126,19 @@ struct InventoryItemAttackSheetView: View {
     @State private var advantage = false
     @State private var disadvantage = false
 
-        var body: some View {
-            VStack {
-                Toggle("Advantage", isOn: $advantage)
-                Toggle("Disadvantage", isOn: $disadvantage)
-                
-                Button("Roll Attack for " + inventoryItemSummary.name) {
-                    characterInventoryVM.rollItemAttack(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
-                    presentationMode.wrappedValue.dismiss()
-                }
-                .font(.title)
-                .padding()
+    var body: some View {
+        VStack {
+            Toggle("Advantage", isOn: $advantage)
+            Toggle("Disadvantage", isOn: $disadvantage)
+
+            Button("Roll Attack for " + inventoryItemSummary.name) {
+                characterInventoryVM.rollItemAttack(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
+                presentationMode.wrappedValue.dismiss()
             }
+            .font(.title)
+            .padding()
         }
+    }
 }
 
 struct InventoryItemDamageSheetView: View {
@@ -152,7 +152,7 @@ struct InventoryItemDamageSheetView: View {
         VStack {
             Toggle("Versatile", isOn: $versatile)
             Toggle("Critical", isOn: $critical)
-            
+
             Button("Roll Damage for " + inventoryItemSummary.name) {
                 characterInventoryVM.rollItemDamage(inventoryItemSummary: inventoryItemSummary, critical: critical, versatile: versatile)
                 presentationMode.wrappedValue.dismiss()
@@ -168,7 +168,7 @@ struct InventoryItemConsumableSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State var inventoryItemSummary: InventoryItemSummary
-    
+
     @State private var consume = false
     var body: some View {
         VStack {
@@ -180,7 +180,7 @@ struct InventoryItemConsumableSheetView: View {
             }
             .font(.title)
             .padding()
-            
+
         }.buttonStyle(RoundedRectangleButtonStyle())
     }
 }
@@ -192,30 +192,30 @@ struct InventoryItemToolSheetView: View {
     @State private var advantage = false
     @State private var disadvantage = false
 
-        var body: some View {
-            VStack {
-                Toggle("Advantage", isOn: $advantage)
-                Toggle("Disadvantage", isOn: $disadvantage)
-                
-                Button("Use " + inventoryItemSummary.name) {
-                    characterInventoryVM.rollItemToolRoll(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
-                    presentationMode.wrappedValue.dismiss()
-                }
-                .font(.title)
-                .padding()
+    var body: some View {
+        VStack {
+            Toggle("Advantage", isOn: $advantage)
+            Toggle("Disadvantage", isOn: $disadvantage)
+
+            Button("Use " + inventoryItemSummary.name) {
+                characterInventoryVM.rollItemToolRoll(inventoryItemSummary: inventoryItemSummary, advantage: advantage, disadvantage: disadvantage)
+                presentationMode.wrappedValue.dismiss()
             }
+            .font(.title)
+            .padding()
         }
+    }
 }
 
 struct RoundedRectangleButtonStyle: ButtonStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    HStack {
-      Spacer()
-      configuration.label.foregroundColor(.black)
-      Spacer()
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            Spacer()
+            configuration.label.foregroundColor(.black)
+            Spacer()
+        }
+        .padding()
+        .background(Color.yellow.cornerRadius(8))
+        .scaleEffect(configuration.isPressed ? 0.95 : 1)
     }
-    .padding()
-    .background(Color.yellow.cornerRadius(8))
-    .scaleEffect(configuration.isPressed ? 0.95 : 1)
-  }
 }

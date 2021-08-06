@@ -9,18 +9,17 @@ import Foundation
 import SocketIO
 
 class FoundrySocketIOManager: NSObject {
-    
     static let sharedInstance = FoundrySocketIOManager()
-    
+
     let manager: SocketManager
-    let socket:SocketIOClient
-    
+    let socket: SocketIOClient
+
     let listeners: [SocketListener]
-    
+
     override init() {
         manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(false), .compress])
-        socket = manager.defaultSocket;
-        
+        socket = manager.defaultSocket
+
         listeners = [
             // Setup Listeners
             ConnectionListener(socket: socket),
@@ -28,7 +27,7 @@ class FoundrySocketIOManager: NSObject {
             UserActorListener(socket: socket),
             ActorListener(socket: socket),
             WorldDataListener(socket: socket),
-            
+
             // Roll Listeners
             AbilityListener(socket: socket),
             SkillListener(socket: socket),
@@ -37,26 +36,26 @@ class FoundrySocketIOManager: NSObject {
             ItemConsumeListener(socket: socket),
             ItemToolListener(socket: socket),
             InitiativeListener(socket: socket),
-            
+
             // Display Listeners
             ItemDisplayListener(socket: socket),
             ChatMessageListener(socket: socket),
-            SpellDialogListener(socket: socket)
+            SpellDialogListener(socket: socket),
         ]
-        
+
         super.init()
-        addSocketHandlers();
+        addSocketHandlers()
     }
-    
+
     func getListener<Listener: SocketListener>() throws -> Listener {
-        if let concreteListener = listeners.filter({ $0 is Listener}).first {
+        if let concreteListener = listeners.filter({ $0 is Listener }).first {
             if let downcastListener = concreteListener as? Listener {
                 return downcastListener
             }
         }
         throw SocketListenerError.errorMessage("Could not find Socket Listener")
     }
-    
+
     private func addSocketHandlers() {
         listeners.forEach { listener in
             listener.addSocketHandlers()

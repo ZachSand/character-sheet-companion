@@ -12,6 +12,7 @@ struct ActorModel: Codable {
 }
 
 // MARK: - Actor
+
 struct Actor: Codable {
     var actorData: ActorData
     var actorItems: ActorItems
@@ -41,6 +42,7 @@ struct Inventory: Codable {
 }
 
 // MARK: - ActorData
+
 struct ActorData: Codable {
     var abilities: [String: Ability]
     var attributes: Attributes
@@ -57,6 +59,7 @@ struct ActorData: Codable {
 }
 
 // MARK: - Ability
+
 struct Ability: Codable {
     var value, proficient: Int
     var mod, prof, saveBonus, checkBonus: Int
@@ -66,6 +69,7 @@ struct Ability: Codable {
 }
 
 // MARK: - Attributes
+
 struct Attributes: Codable {
     var ac: AC
     var hp: AttributesHP
@@ -87,6 +91,7 @@ struct Attributes: Codable {
 }
 
 // MARK: - AC
+
 struct AC: Codable {
     var value: Int
     var label: String?
@@ -94,17 +99,20 @@ struct AC: Codable {
 }
 
 // MARK: - Init
+
 struct Init: Codable {
     var value, bonus, mod, prof: Int
     var total: Int
 }
 
 // MARK: - Death
+
 struct Death: Codable {
     var success, failure: Int
 }
 
 // MARK: - Encumbrance
+
 struct Encumbrance: Codable {
     var value: Double
     var xp: Double?
@@ -114,12 +122,14 @@ struct Encumbrance: Codable {
 }
 
 // MARK: - AttributesHP
+
 struct AttributesHP: Codable {
     var value, min, max: Int
     var temp, tempmax: Int?
 }
 
 // MARK: - Movement
+
 struct Movement: Codable {
     var burrow, climb, fly, swim: Int
     var walk: Int
@@ -128,12 +138,14 @@ struct Movement: Codable {
 }
 
 // MARK: - Senses
+
 struct Senses: Codable {
     var darkvision, blindsight, tremorsense, truesight: Int
     var units, special: String
 }
 
 // MARK: - Bonuses
+
 struct Bonuses: Codable {
     var mwak, rwak, msak, rsak: Msak
     var abilities: BonusesAbilities
@@ -141,21 +153,25 @@ struct Bonuses: Codable {
 }
 
 // MARK: - BonusesAbilities
+
 struct BonusesAbilities: Codable {
     var check, save, skill: String
 }
 
 // MARK: - Msak
+
 struct Msak: Codable {
     var attack, damage: String
 }
 
 // MARK: - Spell
+
 struct SpellBonusDC: Codable {
     var dc: StringOrInt
 }
 
 // MARK: - Class
+
 struct Class: Codable {
     var classDescription: ClassDescription
     var source: String
@@ -174,29 +190,34 @@ struct Class: Codable {
 }
 
 // MARK: - ClassDescription
+
 struct ClassDescription: Codable {
     var value, chat: String
     var unidentified: BoolOrString
 }
 
 // MARK: - Skills
+
 struct Skills: Codable {
     var number: Int
     var choices, value: [String]
 }
 
 // MARK: - Spellcasting
+
 struct Spellcasting: Codable {
     var progression, ability: String
 }
 
 // MARK: - Currency
+
 struct Currency: Codable {
     var pp, gp, ep, sp: Int
     var cp: Int
 }
 
 // MARK: - Details
+
 struct Details: Codable {
     var biography: Biography
     var alignment, race, background, originalClass: String
@@ -208,16 +229,19 @@ struct Details: Codable {
 }
 
 // MARK: - Biography
+
 struct Biography: Codable {
     var value: String
 }
 
 // MARK: - Resources
+
 struct Resources: Codable {
     var primary, secondary, tertiary: Resource
 }
 
 // MARK: - Resource
+
 struct Resource: Codable {
     var value, max: Int?
     var sr, lr: Bool
@@ -225,6 +249,7 @@ struct Resource: Codable {
 }
 
 // MARK: - Skill
+
 struct Skill: Codable {
     var value: Int
     var type, label: String?
@@ -234,6 +259,7 @@ struct Skill: Codable {
 }
 
 // MARK: - Spells
+
 struct Spells: Codable {
     var spell1, spell2, spell3, spell4: Spell
     var spell5, spell6, spell7, spell8: Spell
@@ -242,6 +268,7 @@ struct Spells: Codable {
 }
 
 // MARK: - Pact
+
 struct Spell: Codable {
     var value: Int
     var pactOverride: Bool?
@@ -256,11 +283,13 @@ struct Spell: Codable {
 }
 
 // MARK: - Spell0
+
 struct Spell0: Codable {
     var value, max: Int
 }
 
 // MARK: - Traits
+
 struct Traits: Codable {
     var size: String
     var di, dr, dv, ci: Trait
@@ -269,12 +298,14 @@ struct Traits: Codable {
 }
 
 // MARK: - ArmorProf
+
 struct Trait: Codable {
     var value: [String]
     var custom: String
 }
 
 // MARK: - ActorItem
+
 struct ActorItem: Codable {
     var id, name, type, img: String
     var data: ItemData
@@ -287,6 +318,7 @@ struct ActorItem: Codable {
 }
 
 // MARK: - DataClass
+
 struct ItemData: Codable {
     var dataDescription: ItemDescription
     var source: String?
@@ -343,6 +375,7 @@ struct ItemData: Codable {
 }
 
 // MARK: - Activation
+
 struct Activation: Codable {
     var type: String
     var cost: Int?
@@ -350,6 +383,7 @@ struct Activation: Codable {
 }
 
 // MARK: - Armor
+
 struct Armor: Codable {
     var value: Int?
     var type: String?
@@ -357,6 +391,7 @@ struct Armor: Codable {
 }
 
 // MARK: - Capacity
+
 struct Capacity: Codable {
     var type: String?
     var value: Double
@@ -364,6 +399,7 @@ struct Capacity: Codable {
 }
 
 // MARK: - Components
+
 struct Components: Codable {
     var value: String
     var vocal, somatic, material, ritual: Bool
@@ -371,6 +407,7 @@ struct Components: Codable {
 }
 
 // MARK: - Consume
+
 struct Consume: Codable {
     var type: String
     var target: String?
@@ -378,6 +415,7 @@ struct Consume: Codable {
 }
 
 // MARK: - Damage
+
 struct Damage: Codable {
     var parts: [[String]]
     var versatile: String?
@@ -385,18 +423,21 @@ struct Damage: Codable {
 }
 
 // MARK: - DataDescription
+
 struct ItemDescription: Codable {
     var value: String
     var unidentified: BoolOrString
 }
 
 // MARK: - Duration
+
 struct Duration: Codable {
     var value: IntegerOrStringOrNull
     var units: String
 }
 
 // MARK: - DataHP
+
 struct DataHP: Codable {
     var value, max: Int
     var dt: Int?
@@ -404,6 +445,7 @@ struct DataHP: Codable {
 }
 
 // MARK: - Materials
+
 struct Materials: Codable {
     var value: String
     var consumed: Bool
@@ -411,12 +453,14 @@ struct Materials: Codable {
 }
 
 // MARK: - Preparation
+
 struct Preparation: Codable {
     var mode: String
     var prepared: Bool
 }
 
 // MARK: - Range
+
 struct Range: Codable {
     var value: StringOrInt?
     var long: IntegerOrStringOrNull?
@@ -426,12 +470,14 @@ struct Range: Codable {
 }
 
 // MARK: - Recharge
+
 struct Recharge: Codable {
     var value: Int?
     var charged: Bool
 }
 
 // MARK: - Save
+
 struct Save: Codable {
     var ability: String
     var dc: Int?
@@ -439,17 +485,20 @@ struct Save: Codable {
 }
 
 // MARK: - Scaling
+
 struct Scaling: Codable {
     var mode, formula: String
 }
 
 // MARK: - Speed
+
 struct Speed: Codable {
     var value: Int?
     var conditions: String
 }
 
 // MARK: - Uses
+
 struct Uses: Codable {
     var value: Int?
     var max: IntegerOrStringOrNull
@@ -477,9 +526,9 @@ enum BoolOrString: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .bool(let x):
+        case let .bool(x):
             try container.encode(x)
-        case .string(let x):
+        case let .string(x):
             try container.encode(x)
         }
     }
@@ -510,9 +559,9 @@ enum IntegerOrStringOrNull: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .integer(let x):
+        case let .integer(x):
             try container.encode(x)
-        case .string(let x):
+        case let .string(x):
             try container.encode(x)
         case .null:
             try container.encodeNil()
@@ -545,9 +594,9 @@ enum StringOrStringArray: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .string(let x):
+        case let .string(x):
             try container.encode(x)
-        case .stringArray(let x):
+        case let .stringArray(x):
             try container.encode(x)
         case .null:
             try container.encodeNil()
@@ -575,9 +624,9 @@ enum BoolOrInt: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .bool(let x):
+        case let .bool(x):
             try container.encode(x)
-        case .integer(let x):
+        case let .integer(x):
             try container.encode(x)
         }
     }
@@ -603,9 +652,9 @@ enum StringOrInt: Codable, Hashable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .integer(let x):
+        case let .integer(x):
             try container.encode(x)
-        case .string(let x):
+        case let .string(x):
             try container.encode(x)
         }
     }
@@ -631,9 +680,9 @@ enum StringOrDouble: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .double(let x):
+        case let .double(x):
             try container.encode(x)
-        case .string(let x):
+        case let .string(x):
             try container.encode(x)
         }
     }
@@ -642,8 +691,7 @@ enum StringOrDouble: Codable {
 // MARK: - Encode/decode helpers
 
 @objcMembers class JSONNull: NSObject, Codable {
-
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+    public static func == (_: JSONNull, _: JSONNull) -> Bool {
         return true
     }
 
@@ -665,7 +713,7 @@ enum StringOrDouble: Codable {
 class JSONCodingKey: CodingKey {
     let key: String
 
-    required init?(intValue: Int) {
+    required init?(intValue _: Int) {
         return nil
     }
 
@@ -683,7 +731,6 @@ class JSONCodingKey: CodingKey {
 }
 
 @objcMembers class JSONAny: NSObject, Codable {
-
     let value: Any
 
     static func decodingError(forCodingPath codingPath: [CodingKey]) -> DecodingError {
@@ -854,25 +901,25 @@ class JSONCodingKey: CodingKey {
 
     public required init(from decoder: Decoder) throws {
         if var arrayContainer = try? decoder.unkeyedContainer() {
-            self.value = try JSONAny.decodeArray(from: &arrayContainer)
+            value = try JSONAny.decodeArray(from: &arrayContainer)
         } else if var container = try? decoder.container(keyedBy: JSONCodingKey.self) {
-            self.value = try JSONAny.decodeDictionary(from: &container)
+            value = try JSONAny.decodeDictionary(from: &container)
         } else {
             let container = try decoder.singleValueContainer()
-            self.value = try JSONAny.decode(from: container)
+            value = try JSONAny.decode(from: container)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
-        if let arr = self.value as? [Any] {
+        if let arr = value as? [Any] {
             var container = encoder.unkeyedContainer()
             try JSONAny.encode(to: &container, array: arr)
-        } else if let dict = self.value as? [String: Any] {
+        } else if let dict = value as? [String: Any] {
             var container = encoder.container(keyedBy: JSONCodingKey.self)
             try JSONAny.encode(to: &container, dictionary: dict)
         } else {
             var container = encoder.singleValueContainer()
-            try JSONAny.encode(to: &container, value: self.value)
+            try JSONAny.encode(to: &container, value: value)
         }
     }
 }

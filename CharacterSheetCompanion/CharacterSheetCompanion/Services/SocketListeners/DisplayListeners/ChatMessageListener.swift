@@ -10,30 +10,30 @@ import SocketIO
 
 class ChatMessageListener: SocketListener {
     let socket: SocketIOClient
-    
-    var chatMessageCallback: (([ChatMessageModel]?)->Void)?
-    
+
+    var chatMessageCallback: (([ChatMessageModel]?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_CHAT_DATA) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_CHAT_DATA) { data, _ in
             do {
                 try self.chatMessageCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func getChatMessages(userId: String, actorId: String, completionHandler: @escaping ([ChatMessageModel]?) -> Void) {
         socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_CHAT_DATA, userId, actorId)
         chatMessageCallback = completionHandler
     }
-    
+
     func sendChatMessage(userId: String, actorId: String, message: String) {
         socket.emit(SocketEvents.IOS.SEND_FOUNDRY_CHAT_MESSAGE, userId, actorId, message)
     }

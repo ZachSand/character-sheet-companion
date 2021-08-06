@@ -11,17 +11,17 @@ struct CharacterSpellView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
     @State private var selection: Set<SpellSummary> = []
     var foundryActor: ActorModel
-    
+
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
         characterSpellVM = CharacterSpellViewModel(foundryActor: foundryActor)
     }
-    
+
     var body: some View {
         VStack {
             List {
                 ForEach(characterSpellVM.getSpellCategories()) { spellCategory in
-                    Section(header: HStack{
+                    Section(header: HStack {
                         Text(spellCategory.id)
                         if let spellSlotRemaining = spellCategory.spellSlotRemaining, let maxSpellSlot = spellCategory.maxSpellSlot {
                             Spacer()
@@ -33,7 +33,6 @@ struct CharacterSpellView: View {
                                 .onTapGesture {
                                     characterSpellVM.getSpellDialog(spellId: spellSummary.id)
                                     self.selectDeselect(spellSummary)
-                                    
                                 }
                         }
                     }
@@ -41,12 +40,12 @@ struct CharacterSpellView: View {
             }
         }
     }
-    
+
     private func selectDeselect(_ spellSummary: SpellSummary) {
-            if selection.contains(spellSummary) {
-                selection.remove(spellSummary)
-            } else {
-                selection.insert(spellSummary)
-            }
+        if selection.contains(spellSummary) {
+            selection.remove(spellSummary)
+        } else {
+            selection.insert(spellSummary)
         }
+    }
 }

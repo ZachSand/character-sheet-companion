@@ -11,6 +11,7 @@ struct SocketEvents {
     struct IOS {
         // extended by each listener
     }
+
     struct SERVER {
         // extended by each listener
     }

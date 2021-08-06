@@ -10,25 +10,25 @@ import SocketIO
 
 class ActorListener: SocketListener {
     let socket: SocketIOClient
-    
-    var actorCallback: ((ActorModel?)->Void)?
+
+    var actorCallback: ((ActorModel?) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ACTOR_DATA) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ACTOR_DATA) { data, _ in
             do {
                 try self.actorCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func getActorData(actorId: String, completionHandler: @escaping (ActorModel?) -> Void) {
         socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ACTOR_DATA, actorId)
         actorCallback = completionHandler
@@ -44,5 +44,5 @@ extension SocketEvents.SERVER {
 }
 
 extension ListenerEvents {
-     static let ACTOR_DATA = "ACTOR_DATA"
+    static let ACTOR_DATA = "ACTOR_DATA"
 }

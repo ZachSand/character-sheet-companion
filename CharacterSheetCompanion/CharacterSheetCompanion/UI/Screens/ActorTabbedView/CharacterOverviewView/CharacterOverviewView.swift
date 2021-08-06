@@ -11,15 +11,15 @@ struct CharacterOverviewView: View {
     @ObservedObject var characterOverviewVM: CharacterOverviewViewModel
     @State private var showHpSheet = false
     var foundryActor: ActorModel
-    
+
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
         characterOverviewVM = CharacterOverviewViewModel(foundryActor: foundryActor)
     }
-    
+
     var body: some View {
         VStack {
-            HStack{
+            HStack {
                 Text(characterOverviewVM.getAC())
                 Spacer()
                 Text(foundryActor.actor.name).font(.headline)
@@ -30,20 +30,16 @@ struct CharacterOverviewView: View {
                     HpModifierSheet()
                 })
             }
-            HStack{
-                Button("Conditions") {
-                    
-                }
+            HStack {
+                Button("Conditions") {}
                 Spacer()
                 if let imageData = Data(base64Encoded: foundryActor.actor.img), let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .frame(width: 75, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 75, height: 50, alignment: .center/*@END_MENU_TOKEN@*/)
                 }
                 Spacer()
-                Button("Rest") {
-                    
-                }
+                Button("Rest") {}
             }
             HStack {
                 Text(characterOverviewVM.getProficiencyBonus())
@@ -58,7 +54,7 @@ struct CharacterOverviewView: View {
     }
 }
 
-struct HpModifierSheet : View {
+struct HpModifierSheet: View {
     var body: some View {
         Text("Make some HP changes here!")
     }

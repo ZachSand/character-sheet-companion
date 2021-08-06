@@ -12,7 +12,7 @@ export class CharacterSheetCompanionSetup {
     Hooks.on("init", () => {
       game.settings.register(
         "character-sheet-companion",
-        "character-sheet-companion-uuid",
+        CHARACTER_SHEET_COMPANION_SETTING_KEY,
         {
           name: "Character Sheet Companion ID",
           hint: "ID for app connectivity",
@@ -24,12 +24,12 @@ export class CharacterSheetCompanionSetup {
 
       const id = game.settings.get(
         "character-sheet-companion",
-        "character-sheet-companion-uuid"
+        CHARACTER_SHEET_COMPANION_SETTING_KEY
       );
       if (!id) {
         game.settings.set(
           "character-sheet-companion",
-          "character-sheet-companion-uuid",
+          CHARACTER_SHEET_COMPANION_SETTING_KEY,
           generateId()
         );
       }

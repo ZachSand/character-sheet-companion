@@ -11,26 +11,26 @@ import SocketIO
 class AbilityListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
-    
-    var abilityRollCallback: ((AbilityRollModel?)->Void)?
-    
+
+    var abilityRollCallback: ((AbilityRollModel?) -> Void)?
+
     init(socket: SocketIOClient) {
-        self.socket = socket;
+        self.socket = socket
         jsonEncoder = JSONEncoder()
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ABILITY_ROLL) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ABILITY_ROLL) { data, _ in
             do {
                 try self.abilityRollCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func rollAbility(abilityRoll: AbilityRollModel, completionHandler: @escaping (AbilityRollModel?) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(abilityRoll)
@@ -38,9 +38,7 @@ class AbilityListener: SocketListener {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ABILITY_ROLL, json)
                 abilityRollCallback = completionHandler
             }
-        } catch {
-            
-        }
+        } catch {}
     }
 }
 
@@ -53,5 +51,5 @@ extension SocketEvents.SERVER {
 }
 
 extension ListenerEvents {
-     static let ABILITY = "ABILITY"
+    static let ABILITY = "ABILITY"
 }

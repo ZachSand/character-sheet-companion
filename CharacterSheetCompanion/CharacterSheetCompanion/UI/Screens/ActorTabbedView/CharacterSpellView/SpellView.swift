@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct SpellView : View {
+struct SpellView: View {
     var characterSpellVM: CharacterSpellViewModel
     let spellSummary: SpellSummary
     let isExpanded: Bool
-    
-    
+
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 if let imageData = Data(base64Encoded: spellSummary.img), let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()

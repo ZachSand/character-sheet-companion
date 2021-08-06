@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct FoundryConnectView : View {
+struct FoundryConnectView: View {
     @ObservedObject var foundryConnectVM: FoundryConnectViewModel
-    
+
     init() {
         foundryConnectVM = FoundryConnectViewModel()
     }
-    
+
     var body: some View {
         VStack {
             Image("logo")
@@ -22,19 +22,20 @@ struct FoundryConnectView : View {
                 .clipShape(Circle())
                 .shadow(radius: 10)
                 .padding(.bottom, 50)
-            
+
             TextField(
-                "Character Sheet Companion ID", text: $foundryConnectVM.id)
-                .padding()
-                .background(Color.themeTextField)
-                .cornerRadius(20.0)
-                .shadow(radius: 10.0, x: 20, y: 10)
-                .padding([.leading, .trailing], 27.5)
-                .disableAutocorrection(true)
-                .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                .font(Font.system(size: 15, design: .default))
-            
-            Button(action: {
+                "Character Sheet Companion ID", text: $foundryConnectVM.characterCompanionId
+            )
+            .padding()
+            .background(Color.themeTextField)
+            .cornerRadius(20.0)
+            .shadow(radius: 10.0, x: 20, y: 10)
+            .padding([.leading, .trailing], 27.5)
+            .disableAutocorrection(true)
+            .autocapitalization(/*@START_MENU_TOKEN@*/ .none/*@END_MENU_TOKEN@*/)
+            .font(Font.system(size: 15, design: .default))
+
+            Button {
                 foundryConnectVM.connect()
                 if foundryConnectVM.connectSuccess {
                     if let window = UIApplication.shared.windows.first {
@@ -42,7 +43,7 @@ struct FoundryConnectView : View {
                         window.makeKeyAndVisible()
                     }
                 }
-            }) {
+            } label: {
                 Text("Connect")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -52,12 +53,10 @@ struct FoundryConnectView : View {
                     .cornerRadius(15.0)
                     .opacity(foundryConnectVM.isIdValid() ? 1 : 0.6)
             }.disabled(!foundryConnectVM.isIdValid())
-            
+
             Spacer()
-            
-            Button(action: {
-                
-            }) {
+
+            Button {} label: {
                 Text("Need Help?").font(.callout)
             }
         }
@@ -69,6 +68,6 @@ struct FoundryConnectView : View {
 
 extension Color {
     static var themeTextField: Color {
-        return Color(red: 220.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, opacity: 1.0)
+        return Color(red: 220.0 / 255.0, green: 230.0 / 255.0, blue: 230.0 / 255.0, opacity: 1.0)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 class CharacterSkillViewModel: ObservableObject {
     @Published var foundryActor: ActorModel
     var skillListener: SkillListener?
-    
+
     let skillNameMapping: [String: String] = [
         "acr": "Acrobatics",
         "ani": "Animal Handling",
@@ -31,45 +31,43 @@ class CharacterSkillViewModel: ObservableObject {
         "ste": "Stealth",
         "sur": "Survival",
     ]
-    
+
     init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor;
+        self.foundryActor = foundryActor
         do {
             try skillListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {
-            
-        }
+        } catch {}
     }
-    
+
     func getSkills() -> [ActorSkill] {
         var skillMap: [ActorSkill] = []
-        foundryActor.actor.actorData.skills.sorted( by: { $0.0 < $1.0 }).forEach { (key: String, value: Skill) in
+        foundryActor.actor.actorData.skills.sorted(by: { $0.0 < $1.0 }).forEach { (key: String, value: Skill) in
             skillMap.append(ActorSkill(id: key,
-                name: getSkillText(skillId: key),
-                ability: value.ability,
-                modifier: getModifierText(modifier: value.total),
-                passive: String(value.passive),
-                prof: value.prof > 0))
+                                       name: getSkillText(skillId: key),
+                                       ability: value.ability,
+                                       modifier: getModifierText(modifier: value.total),
+                                       passive: String(value.passive),
+                                       prof: value.prof > 0))
         }
         return skillMap
     }
-    
+
     func getSkillText(skillId: String) -> String {
         if let skillText = skillNameMapping[skillId] {
             return skillText
         }
         return "Unknown"
     }
-    
+
     func getModifierText(modifier: Int) -> String {
         if modifier > 0 {
             return "+\(modifier)"
         }
         return String(modifier)
     }
-    
+
     func rollSkillCheck(actorSkill: ActorSkill, advantage: Bool, disadvantage: Bool) {
-        let roll = SkillRollModel(actorId: self.foundryActor.actor.id, skill: actorSkill.id, advantage: advantage, disadvantage: disadvantage, result: 0)
+        let roll = SkillRollModel(actorId: foundryActor.actor.id, skill: actorSkill.id, advantage: advantage, disadvantage: disadvantage, result: 0)
         if let listener = skillListener {
             DispatchQueue.main.async {
                 listener.rollSkill(skillRoll: roll) { skillRollModel in

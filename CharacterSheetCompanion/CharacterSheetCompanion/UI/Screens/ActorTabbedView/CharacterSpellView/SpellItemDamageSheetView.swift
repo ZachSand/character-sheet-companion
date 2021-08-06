@@ -18,14 +18,13 @@ struct SpellItemDamageSheetView: View {
         VStack {
             Toggle("Versatile", isOn: $versatile)
             Toggle("Critical", isOn: $critical)
-            
+
             Button("Roll Damage for " + spellSummary.name) {
                 characterSpellVM.rollItemDamage(spellSummary: spellSummary, critical: critical, versatile: versatile)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
             .buttonStyle(ItemDamageButtonStyle())
-            
         }
     }
 }

@@ -11,7 +11,7 @@ struct SpellDialogModel: Codable, Hashable {
     static func == (lhs: SpellDialogModel, rhs: SpellDialogModel) -> Bool {
         lhs.spellId == rhs.spellId
     }
-    
+
     var spellId: String
     var canCast: Bool
     var hasSlots: Bool

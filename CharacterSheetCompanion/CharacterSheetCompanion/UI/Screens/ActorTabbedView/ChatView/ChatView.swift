@@ -11,13 +11,13 @@ struct ChatView: View {
     @State var typingMessage: String = ""
     @ObservedObject var chatVM: ChatViewModel
     @ObservedObject private var keyboard = KeyboardResponder()
-    
+
     init(user: UserModel, foundryActor: ActorModel) {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().tableFooterView = UIView()
         chatVM = ChatViewModel(user: user, foundryActor: foundryActor)
     }
-    
+
     var body: some View {
         VStack {
             List {
@@ -56,9 +56,9 @@ struct ChatView: View {
             }.frame(minHeight: CGFloat(50)).padding()
         }
         .padding(.bottom, keyboard.currentHeight)
-        .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading: .bottom)
+        .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
     }
-    
+
     func sendMessage() {
         chatVM.sendMessage(message: typingMessage)
         typingMessage = ""
@@ -70,7 +70,7 @@ struct ContentMessageView<Header: View, Footer: View>: View {
     let footer: Footer
     var contentMessage: String
     var isCurrentUser: Bool
-    
+
     var body: some View {
         VStack {
             header.fixedSize()
@@ -86,7 +86,7 @@ struct ContentMessageView<Header: View, Footer: View>: View {
         }
         .padding(10)
         .foregroundColor(isCurrentUser ? Color.white : Color.black)
-        .background(isCurrentUser ? Color.blue : Color(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)))
+        .background(isCurrentUser ? Color.blue : Color(UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)))
         .cornerRadius(10)
         .scaledToFit()
     }

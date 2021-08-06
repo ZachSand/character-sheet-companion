@@ -515,6 +515,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC0442EF268AD93000B49CC8 /* Build configuration list for PBXNativeTarget "CharacterSheetCompanion" */;
 			buildPhases = (
+				BC09FC7026BDAEF5001876E0 /* ShellScript */,
 				BC0442C6268AD92F00B49CC8 /* Sources */,
 				BC0442C7268AD92F00B49CC8 /* Frameworks */,
 				BC0442C8268AD92F00B49CC8 /* Resources */,
@@ -609,6 +610,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BC09FC7026BDAEF5001876E0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd BuildTools\nSDKROOT=macosx\n#swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswift run -c release swiftformat \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BC0442C6268AD92F00B49CC8 /* Sources */ = {
@@ -762,6 +783,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -816,6 +838,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -829,7 +852,7 @@
 				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -850,7 +873,7 @@
 				DEVELOPMENT_ASSET_PATHS = CharacterSheetCompanion/Resources/PreviewContent;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CharacterSheetCompanion/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

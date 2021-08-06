@@ -11,9 +11,9 @@ struct WorldUserActorView: View {
     @ObservedObject var worldUserActorVM: WorldUserActorViewModel
     @State var selectedUser: UserModel?
     @State var selectedActor: UserActorModel?
-    
+
     init() {
-        self.worldUserActorVM = WorldUserActorViewModel()
+        worldUserActorVM = WorldUserActorViewModel()
         if let users = worldUserActorVM.foundryUsers {
             selectedUser = users[0]
         }
@@ -21,7 +21,7 @@ struct WorldUserActorView: View {
             selectedActor = userActors[0]
         }
     }
-    
+
     var body: some View {
         VStack {
             if let worldData = worldUserActorVM.worldData {
@@ -32,16 +32,16 @@ struct WorldUserActorView: View {
                     Text("Foundry System: \(worldData.system)").font(.footnote)
                 }
             }
-            
+
             Divider()
-            
+
             GeometryReader { geometry in
                 VStack(spacing: 5) {
                     if let users = worldUserActorVM.foundryUsers {
-                        HStack{
+                        HStack {
                             Section(header: Text("User")) {
                                 Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
-                                    ForEach(users) {user in
+                                    ForEach(users) { user in
                                         Text(user.userName).tag(user as UserModel?)
                                     }
                                 }
@@ -52,7 +52,7 @@ struct WorldUserActorView: View {
                     } else {
                         Text("No Users Found")
                     }
-                    
+
                     if let userActors = worldUserActorVM.foundryUserActors {
                         HStack {
                             Section(header: Text("Actor")) {
@@ -68,16 +68,15 @@ struct WorldUserActorView: View {
                     }
                 }
             }
-            
-            Button(action: {
+
+            Button {
                 if let window = UIApplication.shared.windows.first {
                     if let userActor = selectedActor, let user = selectedUser {
                         window.rootViewController = UIHostingController(rootView: ActorTabbedView(userActor: userActor, user: user))
-                           window.makeKeyAndVisible()
-                       }
+                        window.makeKeyAndVisible()
+                    }
                 }
-            })
-            {
+            } label: {
                 Text("Load Character Sheet")
                     .font(.headline)
                     .foregroundColor(.white)

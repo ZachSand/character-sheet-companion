@@ -11,26 +11,26 @@ import SocketIO
 class ItemConsumeListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
-    
-    var itemConsumeRollCallback: ((ItemConsumeRollModel?)->Void)?
-    
+
+    var itemConsumeRollCallback: ((ItemConsumeRollModel?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
         jsonEncoder = JSONEncoder()
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_CONSUME_ROLL) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_CONSUME_ROLL) { data, _ in
             do {
                 try self.itemConsumeRollCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func rollItemConsume(itemConsumeRoll: ItemConsumeRollModel, completionHandler: @escaping (ItemConsumeRollModel?) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(itemConsumeRoll)
@@ -38,9 +38,7 @@ class ItemConsumeListener: SocketListener {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, json)
                 itemConsumeRollCallback = completionHandler
             }
-        } catch {
-            
-        }
+        } catch {}
     }
 }
 

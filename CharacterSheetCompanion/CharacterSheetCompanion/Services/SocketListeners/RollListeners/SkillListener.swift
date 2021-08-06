@@ -11,26 +11,26 @@ import SocketIO
 class SkillListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
-    
-    var skillRollCallback: ((SkillRollModel?)->Void)?
-    
+
+    var skillRollCallback: ((SkillRollModel?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
         jsonEncoder = JSONEncoder()
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_SKILL_ROLL) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_SKILL_ROLL) { data, _ in
             do {
                 try self.skillRollCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func rollSkill(skillRoll: SkillRollModel, completionHandler: @escaping (SkillRollModel?) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(skillRoll)
@@ -38,9 +38,7 @@ class SkillListener: SocketListener {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_SKILL_ROLL, json)
                 skillRollCallback = completionHandler
             }
-        } catch {
-            
-        }
+        } catch {}
     }
 }
 
@@ -53,5 +51,5 @@ extension SocketEvents.SERVER {
 }
 
 extension ListenerEvents {
-     static let SKILL = "SKILL"
+    static let SKILL = "SKILL"
 }

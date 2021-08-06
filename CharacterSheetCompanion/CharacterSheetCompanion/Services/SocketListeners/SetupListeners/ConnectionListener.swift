@@ -10,26 +10,26 @@ import SocketIO
 
 class ConnectionListener: SocketListener {
     let socket: SocketIOClient
-    
-    var socketConnectionCallback: ((Bool)->Void)?
+
+    var socketConnectionCallback: ((Bool) -> Void)?
     var roomId: String?
-    
+
     init(socket: SocketIOClient) {
         self.socket = socket
     }
-    
+
     func addSocketHandlers() {
-        socket.on(clientEvent: .connect) {data, ack in
+        socket.on(clientEvent: .connect) { _, _ in
             if let socketRoomId = self.roomId {
                 self.socket.emit(SocketEvents.IOS.JOIN_ROOM, socketRoomId)
             }
         }
-        
-        socket.on(SocketEvents.SERVER.SEND_IOS_JOINED_ROOM) {data, ack in
+
+        socket.on(SocketEvents.SERVER.SEND_IOS_JOINED_ROOM) { _, _ in
             self.socketConnectionCallback?(true)
         }
     }
-    
+
     func socketConnect(completionHandler: @escaping (Bool) -> Void) {
         socket.connect()
         socketConnectionCallback = completionHandler
@@ -45,6 +45,5 @@ extension SocketEvents.SERVER {
 }
 
 extension ListenerEvents {
-     static let CONNECT = "CONNECT"
+    static let CONNECT = "CONNECT"
 }
-

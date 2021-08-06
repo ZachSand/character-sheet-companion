@@ -14,7 +14,7 @@ class CharacterInventoryViewModel: ObservableObject {
     var itemConsumeListener: ItemConsumeListener?
     var itemDisplayListener: ItemDisplayListener?
     var itemToolListener: ItemToolListener?
-    
+
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
         do {
@@ -23,11 +23,9 @@ class CharacterInventoryViewModel: ObservableObject {
             try itemConsumeListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemToolListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {
-            
-        }
+        } catch {}
     }
-    
+
     func getInventoryCategories() -> [InventoryCategory] {
         var inventoryCategories: [InventoryCategory] = []
         inventoryCategories.append(InventoryCategory(id: "Weapons", items: getWeapons()))
@@ -38,23 +36,23 @@ class CharacterInventoryViewModel: ObservableObject {
         inventoryCategories.append(InventoryCategory(id: "Loot", items: getLoot()))
         return inventoryCategories
     }
-    
+
     func hasAttack(inventoryItemSummary: InventoryItemSummary) -> Bool {
         if let actionType = inventoryItemSummary.actionType {
             return actionType == "mwak" || actionType == "rwak" || actionType == "msak" || actionType == "rsak"
         }
         return false
     }
-    
+
     func getCurrency() -> String {
-        let currency = foundryActor.actor.actorData.currency;
+        let currency = foundryActor.actor.actorData.currency
         return "Currency: \(currency.cp) Copper, \(currency.sp) Silver, \(currency.ep) Electrum, \(currency.gp) Gold, \(currency.pp) Platinum"
     }
-    
+
     func isConsumable(inventoryItemSummary: InventoryItemSummary) -> Bool {
         return inventoryItemSummary.type == "consumable"
     }
-    
+
     func rollItemAttack(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
         if let listener = itemAttackListener {
             let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
@@ -67,7 +65,7 @@ class CharacterInventoryViewModel: ObservableObject {
             }
         }
     }
-    
+
     func rollItemDamage(inventoryItemSummary: InventoryItemSummary, critical: Bool, versatile: Bool) {
         if let listener = itemDamageListener {
             let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, critical: critical, versatile: versatile, result: 0)
@@ -80,7 +78,7 @@ class CharacterInventoryViewModel: ObservableObject {
             }
         }
     }
-    
+
     func rollItemConsume(inventoryItemSummary: InventoryItemSummary, consume: Bool) {
         if let listener = itemConsumeListener {
             let itemConsumeRoll = ItemConsumeRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, consume: consume, result: 0)
@@ -93,7 +91,7 @@ class CharacterInventoryViewModel: ObservableObject {
             }
         }
     }
-    
+
     func rollItemToolRoll(inventoryItemSummary: InventoryItemSummary, advantage: Bool, disadvantage: Bool) {
         if let listener = itemToolListener {
             let itemToolRoll = ItemToolRollModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
@@ -106,7 +104,7 @@ class CharacterInventoryViewModel: ObservableObject {
             }
         }
     }
-    
+
     func displayItem(inventoryItemSummary: InventoryItemSummary) {
         if let listener = itemDisplayListener {
             let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: inventoryItemSummary.id)
@@ -115,38 +113,38 @@ class CharacterInventoryViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getConsumeText(inventoryItemSummary: InventoryItemSummary) -> String {
         if let usageRemaining = inventoryItemSummary.useRemaining, let useMax = inventoryItemSummary.useMax {
             return "This item has \(usageRemaining) of \(useMax) uses remaining. Consuming will remove one use."
         }
         return "This item has no usage data"
     }
-    
+
     private func getWeapons() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.weapon)
     }
-    
+
     private func getEquipment() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.equipment)
     }
-    
+
     private func getConsumables() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.consumable)
     }
-    
+
     private func getTools() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.tool)
     }
-    
+
     private func getContainers() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.backpack)
     }
-    
+
     private func getLoot() -> [InventoryItemSummary] {
         return getItemSummary(itemData: foundryActor.actor.actorItems.inventory.loot)
     }
-    
+
     private func getItemSummary(itemData: [ActorItem]) -> [InventoryItemSummary] {
         var itemSummaries: [InventoryItemSummary] = []
         for item in itemData {
@@ -167,7 +165,8 @@ class CharacterInventoryViewModel: ObservableObject {
                     useMax: item.data.uses?.max,
                     quantity: item.data.quantity,
                     weight: item.data.weight,
-                    price: item.data.price))
+                    price: item.data.price
+                ))
         }
         return itemSummaries
     }
@@ -185,18 +184,18 @@ struct InventoryItemSummary: Identifiable, Hashable {
     var description: String
     var type: String
     var hasDamage: Bool
-    
+
     var actionType: String?
     var useRemaining: Int?
     var useMax: IntegerOrStringOrNull?
     var quantity: Int?
     var weight: StringOrDouble?
     var price: StringOrDouble?
-    
-    static func ==(lhs: InventoryItemSummary, rhs: InventoryItemSummary) -> Bool {
+
+    static func == (lhs: InventoryItemSummary, rhs: InventoryItemSummary) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

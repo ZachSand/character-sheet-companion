@@ -11,26 +11,26 @@ import SocketIO
 class ItemAttackListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
-    
-    var itemAttackRollCallback: ((ItemAttackRollModel?)->Void)?
-    
+
+    var itemAttackRollCallback: ((ItemAttackRollModel?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
         jsonEncoder = JSONEncoder()
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_ATTACK_ROLL) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_ATTACK_ROLL) { data, _ in
             do {
                 try self.itemAttackRollCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func rollItemAttack(attackRoll: ItemAttackRollModel, completionHandler: @escaping (ItemAttackRollModel?) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(attackRoll)
@@ -38,9 +38,7 @@ class ItemAttackListener: SocketListener {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL, json)
                 itemAttackRollCallback = completionHandler
             }
-        } catch {
-            
-        }
+        } catch {}
     }
 }
 

@@ -11,26 +11,26 @@ import SocketIO
 class InitiativeListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
-    
-    var initiativeRollCallback: ((InitiativeRollModel?)->Void)?
-    
+
+    var initiativeRollCallback: ((InitiativeRollModel?) -> Void)?
+
     init(socket: SocketIOClient) {
         self.socket = socket
         jsonEncoder = JSONEncoder()
     }
-    
+
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_INITIATIVE_ROLL) {data, ack in
+        socket.on(SocketEvents.SERVER.SEND_INITIATIVE_ROLL) { data, _ in
             do {
                 try self.initiativeRollCallback?(SocketListenerUtility.parseSocketEventData(data))
-            } catch FoundryJSONError.errorMessage(let errorMessage) {
+            } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
                 print(error)
             }
         }
     }
-    
+
     func rollInitiative(initiativeRoll: InitiativeRollModel, completionHandler: @escaping (InitiativeRollModel?) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(initiativeRoll)
@@ -38,9 +38,7 @@ class InitiativeListener: SocketListener {
                 socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_INITIATIVE_ROLL, json)
                 initiativeRollCallback = completionHandler
             }
-        } catch {
-            
-        }
+        } catch {}
     }
 }
 

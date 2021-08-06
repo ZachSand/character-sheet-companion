@@ -21,8 +21,8 @@ struct AbilityView: View {
             Text(ability.name)
                 .font(.system(size: 10))
                 .bold()
-            .frame(maxWidth: .infinity, alignment: .top)
-        ){
+                .frame(maxWidth: .infinity, alignment: .top)
+        ) {
             VStack {
                 ZStack {
                     GeometryReader { geometry in
@@ -34,19 +34,18 @@ struct AbilityView: View {
                                         .frame(alignment: .leading)
                                         .padding(.all, 0)
                                 })
-                                .toggleStyle(CheckToggleStyle())
-                                .frame(width: geometry.size.width, height: geometry.size.height / 3, alignment: .leading)
-                                    
+                                    .toggleStyle(CheckToggleStyle())
+                                    .frame(width: geometry.size.width, height: geometry.size.height / 3, alignment: .leading)
+
                                 Toggle(isOn: $disadvantage, label: {
                                     Text("Dis")
                                         .font(.system(size: 8))
                                         .frame(alignment: .leading)
                                         .padding(.all, 0)
                                 })
-                                .toggleStyle(CheckToggleStyle())
-                                .frame(width: geometry.size.width, height: geometry.size.height / 3, alignment: .leading)
-                                
-                                
+                                    .toggleStyle(CheckToggleStyle())
+                                    .frame(width: geometry.size.width, height: geometry.size.height / 3, alignment: .leading)
+
                                 HStack(spacing: 5) {
                                     Button(action: {
                                         showRollMode.toggle()
@@ -55,7 +54,7 @@ struct AbilityView: View {
                                             .font(.system(size: 8))
                                             .frame(width: geometry.size.width / 2, height: geometry.size.height / 3, alignment: .center)
                                     }
-                                    
+
                                     Button(action: {
                                         characterAbilityVM.rollAbility(actorAbility: ability, isSave: isSave, advantage: advantage, disadvantage: disadvantage)
                                         showRollMode.toggle()
@@ -63,11 +62,11 @@ struct AbilityView: View {
                                         Text("Roll")
                                             .font(.system(size: 12))
                                             .foregroundColor(.green)
-                                            .frame(width: geometry.size.width/2, height: geometry.size.height / 3, alignment: .center)
+                                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 3, alignment: .center)
                                     }
                                 }
                                 .fixedSize(horizontal: true, vertical: true)
-                                .frame(width: geometry.size.width/2, height: geometry.size.height / 3, alignment: .center)
+                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 3, alignment: .center)
                             }
                         } else {
                             VStack {
@@ -87,7 +86,7 @@ struct AbilityView: View {
         }
         .cornerRadius(10)
         .shadow(color: .white, radius: 10, x: -10, y: -10)
-        .shadow(color: Color(red: 164/255, green: 174/255, blue: 192/255).opacity(0.4), radius: 10, x: 10, y: 10)
+        .shadow(color: Color(red: 164 / 255, green: 174 / 255, blue: 192 / 255).opacity(0.4), radius: 10, x: 10, y: 10)
         .toast(isPresented: $characterAbilityVM.showRollResult, dismissAfter: 2.5) {
             let rollResult = characterAbilityVM.getRollResult()
             ToastView("\(rollResult.ability) Roll: \(rollResult.result)!")

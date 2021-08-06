@@ -12,18 +12,16 @@ class ChatViewModel: ObservableObject {
     let user: UserModel
     var chatMessageListener: ChatMessageListener?
     @Published var chatMessages: [ChatMessageModel]?
-    
+
     init(user: UserModel, foundryActor: ActorModel) {
         self.user = user
         self.foundryActor = foundryActor
         do {
             try chatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {
-            
-        }
-        self.getMessageData()
+        } catch {}
+        getMessageData()
     }
-    
+
     func getMessageData() {
         if let listener = chatMessageListener {
             DispatchQueue.main.async {
@@ -35,7 +33,7 @@ class ChatViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getDateForTime(epochTime: Double) -> String {
         let date = Date(timeIntervalSince1970: epochTime / 1000)
         let dateFormatter = DateFormatter()
@@ -44,7 +42,7 @@ class ChatViewModel: ObservableObject {
         dateFormatter.timeZone = .current
         return dateFormatter.string(from: date)
     }
-    
+
     func sendMessage(message: String) {
         if let listener = chatMessageListener {
             DispatchQueue.main.async {

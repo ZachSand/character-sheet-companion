@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct ActorTabbedView : View {
+struct ActorTabbedView: View {
     @ObservedObject var actorTabbedVM: ActorTabbedViewModel
     var userActor: UserActorModel
     var user: UserModel
-    
+
     init(userActor: UserActorModel, user: UserModel) {
         self.userActor = userActor
         self.user = user
         actorTabbedVM = ActorTabbedViewModel(userActor: userActor)
     }
-    
+
     var body: some View {
         if let foundryActor = actorTabbedVM.foundryActor {
             CharacterOverviewView(foundryActor: foundryActor)
@@ -25,31 +25,31 @@ struct ActorTabbedView : View {
             Divider()
             TabView {
                 CharacterAbilityView(foundryActor: foundryActor)
-                    .tabItem{
+                    .tabItem {
                         Label("Character", systemImage: "person.crop.circle")
                     }
                     .tag(1)
                 CharacterSkillView(foundryActor: foundryActor)
-                    .tabItem{
+                    .tabItem {
                         Label("Skills", systemImage: "list.dash")
                     }
                 CharacterSpellView(foundryActor: foundryActor)
-                    .tabItem{
+                    .tabItem {
                         Label("Spells", systemImage: "book")
                     }
                     .tag(3)
                 CharacterInventoryView(foundryActor: foundryActor)
-                    .tabItem{
+                    .tabItem {
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
-                CharacterBiographyView(foundryActor: foundryActor) 
-                    .tabItem{
+                CharacterBiographyView(foundryActor: foundryActor)
+                    .tabItem {
                         Label("Biography", systemImage: "info.circle")
                     }
                     .tag(5)
-                ChatView(user: user, foundryActor: foundryActor )
-                    .tabItem{
+                ChatView(user: user, foundryActor: foundryActor)
+                    .tabItem {
                         Label("Chat", systemImage: "message")
                     }
                     .tag(6)

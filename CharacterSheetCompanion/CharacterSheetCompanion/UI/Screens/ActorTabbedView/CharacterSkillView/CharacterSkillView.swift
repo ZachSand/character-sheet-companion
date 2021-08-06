@@ -10,12 +10,12 @@ import SwiftUI
 struct CharacterSkillView: View {
     @ObservedObject var characterSkillVM: CharacterSkillViewModel
     var foundryActor: ActorModel
-    
+
     init(foundryActor: ActorModel) {
         self.foundryActor = foundryActor
         characterSkillVM = CharacterSkillViewModel(foundryActor: foundryActor)
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -36,7 +36,7 @@ struct CharacterSkillView: View {
                     .frame(width: 45)
             }
             Divider()
-            List(characterSkillVM.getSkills()) {skill in
+            List(characterSkillVM.getSkills()) { skill in
                 HStack {
                     if skill.prof {
                         Circle()
@@ -57,7 +57,7 @@ struct CharacterSkillView: View {
                         characterSkillVM.rollSkillCheck(actorSkill: skill, advantage: false, disadvantage: false)
                     }) {
                         Text(skill.modifier)
-                        .frame(width: 30, height: 50, alignment: .trailing)
+                            .frame(width: 30, height: 50, alignment: .trailing)
                     }
                     Text(skill.passive)
                         .frame(width: 45, height: 50, alignment: .trailing)

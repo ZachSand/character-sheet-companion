@@ -13,7 +13,7 @@ class CharacterSpellViewModel: ObservableObject {
     var itemDamageListener: ItemDamageListener?
     var itemDisplayListener: ItemDisplayListener?
     var spellDialogListener: SpellDialogListener?
-    
+
     var spellLevelMapping: [Int: String] = [
         0: "Cantrip",
         1: "1st Level",
@@ -24,26 +24,24 @@ class CharacterSpellViewModel: ObservableObject {
         6: "6th Level",
         7: "7th Level",
         8: "8th Level",
-        9: "9th Level"
+        9: "9th Level",
     ]
-    
+
     var spellDialogMapping: [String: [SpellDialogModel]]
-    
+
     init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor;
-        self.spellDialogMapping = [:]
-        
+        self.foundryActor = foundryActor
+        spellDialogMapping = [:]
+
         do {
             try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDamageListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
             try spellDialogListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {
-            
-        }
+        } catch {}
     }
-    
-    func rollItemAttack(spellSummary: SpellSummary, advantage: Bool, disadvantage: Bool, consumeSpellSlot: Bool) {
+
+    func rollItemAttack(spellSummary: SpellSummary, advantage: Bool, disadvantage: Bool, consumeSpellSlot _: Bool) {
         if let listener = itemAttackListener {
             let itemAttackRoll = ItemAttackRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
@@ -55,7 +53,7 @@ class CharacterSpellViewModel: ObservableObject {
             }
         }
     }
-    
+
     func rollItemDamage(spellSummary: SpellSummary, critical: Bool, versatile: Bool) {
         if let listener = itemDamageListener {
             let itemDamageRoll = ItemDamageRollModel(actorId: foundryActor.actor.id, itemId: spellSummary.id, critical: critical, versatile: versatile, result: 0)
@@ -68,7 +66,7 @@ class CharacterSpellViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getSpellDialog(spellId: String) {
         if let listener = spellDialogListener {
             DispatchQueue.main.async {
@@ -80,18 +78,19 @@ class CharacterSpellViewModel: ObservableObject {
             }
         }
     }
-    
+
     func getSpellCategories() -> [SpellCategory] {
         var spells: [SpellCategory] = []
-        spellLevelMapping.sorted( by: { $0.0 < $1.0 }).forEach { (key: Int, value: String) in
+        spellLevelMapping.sorted(by: { $0.0 < $1.0 }).forEach { (key: Int, value: String) in
             let spellsForLevel = getSpellForLevel(spellLevel: key)
             if !spellsForLevel.isEmpty {
-                if(key > 0) {
+                if key > 0 {
                     spells.append(SpellCategory(
                         id: value,
                         items: spellsForLevel,
                         spellSlotRemaining: foundryActor.actor.actorData.spells.spell1.value,
-                        maxSpellSlot: foundryActor.actor.actorData.spells.spell1.max))
+                        maxSpellSlot: foundryActor.actor.actorData.spells.spell1.max
+                    ))
                 } else {
                     spells.append(SpellCategory(id: value, items: spellsForLevel))
                 }
@@ -99,12 +98,12 @@ class CharacterSpellViewModel: ObservableObject {
         }
         return spells
     }
-    
+
     func getSpellForLevel(spellLevel: Int) -> [SpellSummary] {
         var spellSummaries: [SpellSummary] = []
         for spell in foundryActor.actor.actorItems.spells {
             if let sLevel = spell.data.level {
-                if(sLevel == spellLevel) {
+                if sLevel == spellLevel {
                     var hasDamage = false
                     if let damage = spell.data.damage {
                         hasDamage = damage.parts.count > 0
@@ -117,36 +116,35 @@ class CharacterSpellViewModel: ObservableObject {
                         level: sLevel,
                         hasDamage: hasDamage,
                         actionType: spell.data.actionType,
-                        quantity: spell.data.uses?.value))
+                        quantity: spell.data.uses?.value
+                    ))
                 }
             }
         }
         return spellSummaries
     }
-    
+
     func hasAttack(spellSummary: SpellSummary) -> Bool {
         if let actionType = spellSummary.actionType {
             return actionType == "mwak" || actionType == "rwak" || actionType == "msak" || actionType == "rsak"
         }
         return false
     }
-    
+
     func displayItem(spellSummary: SpellSummary) {
         if let listener = itemDisplayListener {
             let displayItem = ItemDisplayModel(actorId: foundryActor.actor.id, itemId: spellSummary.id)
             listener.displayItemCard(displayItem: displayItem)
         }
     }
-    
-    func getSpellDialog() {
-        
-    }
+
+    func getSpellDialog() {}
 }
 
 struct SpellCategory: Identifiable {
     var id: String
     var items: [SpellSummary]
-    
+
     var spellSlotRemaining: Int?
     var maxSpellSlot: Int?
 }
@@ -158,14 +156,14 @@ struct SpellSummary: Identifiable, Hashable {
     var description: String
     var level: Int
     var hasDamage: Bool
-    
+
     var actionType: String?
     var quantity: Int?
-    
-    static func ==(lhs: SpellSummary, rhs: SpellSummary) -> Bool {
+
+    static func == (lhs: SpellSummary, rhs: SpellSummary) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
