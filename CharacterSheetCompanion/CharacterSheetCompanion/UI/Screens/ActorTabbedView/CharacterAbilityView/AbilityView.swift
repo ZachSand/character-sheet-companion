@@ -11,7 +11,7 @@ import ToastUI
 struct AbilityView: View {
     @ObservedObject var characterAbilityVM: CharacterAbilityViewModel
     @State var isSave = false
-    @State var ability: ActorAbility
+    @State var ability: AbilityModel
     @State var showRollMode = false
     @State private var advantage = false
     @State private var disadvantage = false
@@ -56,7 +56,7 @@ struct AbilityView: View {
                                     }
 
                                     Button(action: {
-                                        characterAbilityVM.rollAbility(actorAbility: ability, isSave: isSave, advantage: advantage, disadvantage: disadvantage)
+                                        characterAbilityVM.rollAbility(ability: ability, isSave: isSave, advantage: advantage, disadvantage: disadvantage)
                                         showRollMode.toggle()
                                     }) {
                                         Text("Roll")
@@ -71,12 +71,12 @@ struct AbilityView: View {
                         } else {
                             VStack {
                                 Spacer()
-                                Button(ability.mod) {
+                                Button(getMod(modifier: ability.bonusModifier)) {
                                     showRollMode.toggle()
                                 }
                                 Spacer()
                                 if !isSave {
-                                    Text(ability.total).font(.footnote)
+                                    Text(String(ability.totalScore)).font(.footnote)
                                 }
                             }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                         }
@@ -92,4 +92,22 @@ struct AbilityView: View {
             ToastView("\(rollResult.ability) Roll: \(rollResult.result)!")
         }
     }
+
+    func getMod(modifier: Int) -> String {
+        if modifier > 0 {
+            return "+\(modifier)"
+        }
+        return String(modifier)
+    }
 }
+
+#if DEBUG
+    struct AbilityView_Previews: PreviewProvider {
+        static var previews: some View {
+            AbilityView(
+                characterAbilityVM: CharacterAbilityViewModel(abilities: AbilityModel.mockedData),
+                ability: AbilityModel.mockedData[0]
+            )
+        }
+    }
+#endif

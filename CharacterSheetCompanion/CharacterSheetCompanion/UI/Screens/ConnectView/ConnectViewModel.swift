@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FoundryConnectViewModel: ObservableObject {
+class ConnectViewModel: ObservableObject {
     @Published var characterCompanionId: String
     @Published var connectSuccess: Bool
     var connectionListener: ConnectionListener?
@@ -27,11 +27,9 @@ class FoundryConnectViewModel: ObservableObject {
     func connect() {
         if let listener = connectionListener {
             listener.roomId = characterCompanionId
-            // DispatchQueue.main.async {
             listener.socketConnect { _ in
                 self.connectSuccess = true
             }
-            // }
         }
     }
 }

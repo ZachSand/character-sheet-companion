@@ -10,9 +10,9 @@ import SwiftUI
 struct CharacterInventoryView: View {
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
     @State private var selection: Set<InventoryItemSummary> = []
-    var foundryActor: ActorModel
+    var foundryActor: ActorDataModel
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         characterInventoryVM = CharacterInventoryViewModel(foundryActor: foundryActor)
     }

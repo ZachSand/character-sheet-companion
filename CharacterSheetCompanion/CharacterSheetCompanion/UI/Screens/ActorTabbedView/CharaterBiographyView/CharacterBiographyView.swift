@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CharacterBiographyView: View {
     @ObservedObject var characterBiographyVM: CharacterBiographyViewModel
-    let foundryActor: ActorModel
+    let foundryActor: ActorDataModel
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         characterBiographyVM = CharacterBiographyViewModel(foundryActor: foundryActor)
     }

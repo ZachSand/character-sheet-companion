@@ -4,10 +4,10 @@ import {
   getFoundrySocketFromRoom,
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
-import { UserActor } from "../../interfaces/setup/UserActor";
+import { Actor } from "../../interfaces/setup/Actor";
 
-export const userActorListener = (io: Server, socket: Socket): void => {
-  const getFoundryUserActors = () => {
+export const actorListener = (io: Server, socket: Socket): void => {
+  const getFoundryActors = () => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
@@ -17,22 +17,16 @@ export const userActorListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveFoundryUserActors = (
-    userActors: UserActor[],
-    iosSocketId: string
-  ) => {
+  const receiveFoundryActors = (actors: Actor[], iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(
         SOCKET_EVENTS.SERVER.SEND_FOUNDRY_USER_ACTORS,
-        JSON.stringify(userActors)
+        JSON.stringify(actors)
       );
     }
   };
 
-  socket.on(
-    SOCKET_EVENTS.IOS.REQUEST_FOUNDRY_USER_ACTORS,
-    getFoundryUserActors
-  );
-  socket.on(SOCKET_EVENTS.FOUNDRY.SEND_USER_ACTORS, receiveFoundryUserActors);
+  socket.on(SOCKET_EVENTS.IOS.REQUEST_FOUNDRY_ACTORS, getFoundryActors);
+  socket.on(SOCKET_EVENTS.FOUNDRY.SEND_ACTORS, receiveFoundryActors);
 };

@@ -8,7 +8,7 @@
 import Foundation
 
 class CharacterSkillViewModel: ObservableObject {
-    @Published var foundryActor: ActorModel
+    @Published var foundryActor: ActorDataModel
     var skillListener: SkillListener?
 
     let skillNameMapping: [String: String] = [
@@ -32,7 +32,7 @@ class CharacterSkillViewModel: ObservableObject {
         "sur": "Survival",
     ]
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         do {
             try skillListener = FoundrySocketIOManager.sharedInstance.getListener()

@@ -8,12 +8,12 @@
 import Foundation
 
 class ChatViewModel: ObservableObject {
-    let foundryActor: ActorModel
+    let foundryActor: ActorDataModel
     let user: UserModel
     var chatMessageListener: ChatMessageListener?
     @Published var chatMessages: [ChatMessageModel]?
 
-    init(user: UserModel, foundryActor: ActorModel) {
+    init(user: UserModel, foundryActor: ActorDataModel) {
         self.user = user
         self.foundryActor = foundryActor
         do {

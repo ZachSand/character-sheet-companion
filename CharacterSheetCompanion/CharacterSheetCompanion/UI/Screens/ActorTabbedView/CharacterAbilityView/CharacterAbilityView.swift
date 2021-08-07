@@ -9,17 +9,16 @@ import SwiftUI
 
 struct CharacterAbilityView: View {
     @ObservedObject var characterAbilityVM: CharacterAbilityViewModel
-    var foundryActor: ActorModel
+    let abilities: [AbilityModel]
 
-    init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor
-        characterAbilityVM = CharacterAbilityViewModel(foundryActor: foundryActor)
+    init(abilities: [AbilityModel]) {
+        self.abilities = abilities
+        characterAbilityVM = CharacterAbilityViewModel(abilities: abilities)
     }
 
     var body: some View {
         ZStack {
             ScrollView {
-                let abilities = characterAbilityVM.getAbilities()
                 Group {
                     Section(header: Text("Abilities")) {
                         HStack {
@@ -63,28 +62,36 @@ struct CharacterAbilityView: View {
                     }
                 }
 
-                Group {
-                    Spacer()
-                    Divider()
-
-                    Section(header: Text("Senses")) {
-                        ForEach(characterAbilityVM.getSenses(), id: \.self) { sense in
-                            Text(sense)
-                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-
-                Group {
-                    Spacer()
-                    Divider()
-
-                    Section(header: Text("Languages")) {
-                        ForEach(characterAbilityVM.getLanguages(), id: \.self) { language in
-                            Text(language)
-                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    }
-                }
+//                Group {
+//                    Spacer()
+//                    Divider()
+//
+//                    Section(header: Text("Senses")) {
+//                        ForEach(characterAbilityVM.getSenses(), id: \.self) { sense in
+//                            Text(sense)
+//                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+//                    }
+//                }
+//
+//                Group {
+//                    Spacer()
+//                    Divider()
+//
+//                    Section(header: Text("Languages")) {
+//                        ForEach(characterAbilityVM.getLanguages(), id: \.self) { language in
+//                            Text(language)
+//                        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+//                    }
+//                }
             }
         }
     }
 }
+
+#if DEBUG
+    struct CharacterAbilityView_Previews: PreviewProvider {
+        static var previews: some View {
+            CharacterAbilityView(abilities: AbilityModel.mockedData)
+        }
+    }
+#endif

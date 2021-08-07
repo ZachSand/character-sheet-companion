@@ -12,7 +12,7 @@ struct ChatView: View {
     @ObservedObject var chatVM: ChatViewModel
     @ObservedObject private var keyboard = KeyboardResponder()
 
-    init(user: UserModel, foundryActor: ActorModel) {
+    init(user: UserModel, foundryActor: ActorDataModel) {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().tableFooterView = UIView()
         chatVM = ChatViewModel(user: user, foundryActor: foundryActor)

@@ -8,14 +8,14 @@
 import Foundation
 
 class CharacterInventoryViewModel: ObservableObject {
-    @Published var foundryActor: ActorModel
+    @Published var foundryActor: ActorDataModel
     var itemAttackListener: ItemAttackListener?
     var itemDamageListener: ItemDamageListener?
     var itemConsumeListener: ItemConsumeListener?
     var itemDisplayListener: ItemDisplayListener?
     var itemToolListener: ItemToolListener?
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         do {
             try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()

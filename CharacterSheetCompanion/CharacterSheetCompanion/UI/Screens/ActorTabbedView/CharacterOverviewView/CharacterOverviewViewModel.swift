@@ -8,27 +8,32 @@
 import Foundation
 
 class CharacterOverviewViewModel: ObservableObject {
-    @Published var foundryActor: ActorModel
+    @Published var actorOverview: ActorOverviewModel
     var initiativeListener: InitiativeListener?
 
-    init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor
+    let MAX_CHARACTER_NAME_SIZE = 25
+
+    init(actorOverview: ActorOverviewModel) {
+        self.actorOverview = actorOverview
         do {
             try initiativeListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
     }
 
-    func getAC() -> String {
-        "AC " + String(foundryActor.actor.actorData.attributes.ac.value)
+    func getCharacterArmorClass() -> String {
+        "AC " + String(actorOverview.armorClass)
+    }
+
+    func getCharacterName() -> String {
+        actorOverview.name
     }
 
     func getHealth() -> String {
-        let healthData = foundryActor.actor.actorData.attributes.hp
-        return "HP " + String(healthData.value) + "/" + String(healthData.max)
+        "HP " + String(actorOverview.currentHealth) + "/" + String(actorOverview.maxHealth)
     }
 
     func getProficiencyBonus() -> String {
-        let profBonus = foundryActor.actor.actorData.attributes.prof
+        let profBonus = actorOverview.proficiencyBonus
         if profBonus > 0 {
             return "PROF +" + String(profBonus)
         }
@@ -36,7 +41,7 @@ class CharacterOverviewViewModel: ObservableObject {
     }
 
     func getInitiativeBonus() -> String {
-        let initBonus = foundryActor.actor.actorData.attributes.attributesInit.mod
+        let initBonus = actorOverview.initiativeBonus
         if initBonus > 0 {
             return "INIT +" + String(initBonus)
         }
@@ -44,18 +49,12 @@ class CharacterOverviewViewModel: ObservableObject {
     }
 
     func getClassInfo() -> String {
-        var classInfo = ""
-        for data in foundryActor.actor.actorData.classes {
-            classInfo += data.name + " " + String(data.levels)
-            classInfo += "/"
-        }
-        classInfo.removeLast()
-        return classInfo
+        actorOverview.mainClass + " \(actorOverview.overallLevel)"
     }
 
     func rollInitiative() {
         if let listener = initiativeListener {
-            let rollModel = InitiativeRollModel(actorId: foundryActor.actor.id, result: 0)
+            let rollModel = InitiativeRollModel(actorId: actorOverview.id, result: 0)
             DispatchQueue.main.async {
                 listener.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
                     if let rollResult = initiativeRollResult {

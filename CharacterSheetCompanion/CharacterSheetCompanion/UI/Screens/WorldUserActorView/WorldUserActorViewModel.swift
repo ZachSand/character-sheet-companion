@@ -9,12 +9,12 @@ import Foundation
 
 class WorldUserActorViewModel: ObservableObject {
     @Published var worldData: WorldDataModel?
-    @Published var foundryUserActors: [UserActorModel]?
-    @Published var foundryUsers: [UserModel]?
+    @Published var actors: [ActorModel]?
+    @Published var users: [UserModel]?
 
     var usersListener: UsersListener?
     var worldDataListener: WorldDataListener?
-    var userActorListener: UserActorListener?
+    var userActorListener: ActorListener?
 
     init() {
         do {
@@ -35,25 +35,29 @@ class WorldUserActorViewModel: ObservableObject {
 
     func fetchUsers() {
         if let listener = usersListener {
-            listener.getUsers { users in
-                self.foundryUsers = users
+            DispatchQueue.main.async {
+                listener.getUsers { users in
+                    self.users = users
+                }
             }
         }
     }
 
     func fetchWorldData() {
         if let listener = worldDataListener {
-            listener.getWorldData { worldData in
-                self.worldData = worldData
+            DispatchQueue.main.async {
+                listener.getWorldData { worldData in
+                    self.worldData = worldData
+                }
             }
         }
     }
 
     func fetchUserActors() {
         if let listener = userActorListener {
-            listener.getUserActors { userActors in
-                DispatchQueue.main.async {
-                    self.foundryUserActors = userActors
+            DispatchQueue.main.async {
+                listener.getActors { actors in
+                    self.actors = actors
                 }
             }
         }

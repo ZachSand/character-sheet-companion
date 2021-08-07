@@ -8,9 +8,9 @@
 import Foundation
 
 class CharacterBiographyViewModel: ObservableObject {
-    var foundryActor: ActorModel
+    var foundryActor: ActorDataModel
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
     }
 

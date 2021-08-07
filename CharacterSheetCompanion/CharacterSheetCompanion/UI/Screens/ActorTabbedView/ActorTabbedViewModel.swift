@@ -8,16 +8,16 @@
 import Foundation
 
 class ActorTabbedViewModel: ObservableObject {
-    @Published var foundryActor: ActorModel?
-    var actorDataListener: ActorListener?
-    var userActor: UserActorModel
+    @Published var foundryActor: ActorDataModel?
+    var actorDataListener: ActorDataListener?
+    var actor: ActorModel
 
-    init(userActor: UserActorModel) {
-        self.userActor = userActor
+    init(actor: ActorModel) {
+        self.actor = actor
         do {
             try actorDataListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
-        fetchActorData(actorId: self.userActor.actorId)
+        fetchActorData(actorId: actor.id)
     }
 
     func fetchActorData(actorId: String) {

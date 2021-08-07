@@ -1,5 +1,5 @@
 //
-//  ActorListener.swift
+//  UserActorListener.swift
 //  CharacterSheetCompanion
 //
 //  Created by Zachary Sanders on 8/2/21.
@@ -11,16 +11,16 @@ import SocketIO
 class ActorListener: SocketListener {
     let socket: SocketIOClient
 
-    var actorCallback: ((ActorModel?) -> Void)?
+    var actorsCallback: (([ActorModel]?) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ACTOR_DATA) { data, _ in
+        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ACTORS) { data, _ in
             do {
-                try self.actorCallback?(SocketListenerUtility.parseSocketEventData(data))
+                try self.actorsCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -29,20 +29,20 @@ class ActorListener: SocketListener {
         }
     }
 
-    func getActorData(actorId: String, completionHandler: @escaping (ActorModel?) -> Void) {
-        socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ACTOR_DATA, actorId)
-        actorCallback = completionHandler
+    func getActors(completionHandler: @escaping ([ActorModel]?) -> Void) {
+        socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ACTORS)
+        actorsCallback = completionHandler
     }
 }
 
 extension SocketEvents.IOS {
-    static let REQUEST_FOUNDRY_ACTOR_DATA = "ios:requestFoundryActorData"
+    static let REQUEST_FOUNDRY_ACTORS = "ios:requestFoundryActors"
 }
 
 extension SocketEvents.SERVER {
-    static let SEND_FOUNDRY_ACTOR_DATA = "server:sendFoundryActorData"
+    static let SEND_FOUNDRY_ACTORS = "server:sendFoundryActors"
 }
 
 extension ListenerEvents {
-    static let ACTOR_DATA = "ACTOR_DATA"
+    static let ACTORS = "ACTORS"
 }

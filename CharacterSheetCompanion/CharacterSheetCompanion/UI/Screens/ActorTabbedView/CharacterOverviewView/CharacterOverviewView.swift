@@ -10,46 +10,80 @@ import SwiftUI
 struct CharacterOverviewView: View {
     @ObservedObject var characterOverviewVM: CharacterOverviewViewModel
     @State private var showHpSheet = false
-    var foundryActor: ActorModel
+    var actorOverview: ActorOverviewModel
 
-    init(foundryActor: ActorModel) {
-        self.foundryActor = foundryActor
-        characterOverviewVM = CharacterOverviewViewModel(foundryActor: foundryActor)
+    init(actorOverview: ActorOverviewModel) {
+        self.actorOverview = actorOverview
+        characterOverviewVM = CharacterOverviewViewModel(actorOverview: actorOverview)
     }
 
     var body: some View {
         VStack {
             HStack {
-                Text(characterOverviewVM.getAC())
-                Spacer()
-                Text(foundryActor.actor.name).font(.headline)
-                Spacer()
-                Button(characterOverviewVM.getHealth()) {
+                Text(characterOverviewVM.getCharacterArmorClass())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 5)
+
+                Text(characterOverviewVM.getCharacterName())
+                    .bold()
+                    .font(.system(size: 12))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+
+                Button {
                     showHpSheet.toggle()
+                } label: {
+                    Text(characterOverviewVM.getHealth())
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding(.trailing, 5)
                 }.sheet(isPresented: $showHpSheet, content: {
                     HpModifierSheet()
                 })
-            }
+            }.padding([.all], 0)
+
             HStack {
-                Button("Conditions") {}
-                Spacer()
-                if let imageData = Data(base64Encoded: foundryActor.actor.img), let uiImage = UIImage(data: imageData) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .frame(width: 75, height: 50, alignment: .center/*@END_MENU_TOKEN@*/)
+                Button {} label: {
+                    Text("Conditions")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 5)
                 }
-                Spacer()
-                Button("Rest") {}
-            }
+
+                getActorImage()
+                    .resizable()
+                    .frame(width: 75, height: 50, alignment: .center)
+
+                Button {} label: {
+                    Text("Rest")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding(.trailing, 5)
+                }
+            }.padding([.all], 0)
+
             HStack {
                 Text(characterOverviewVM.getProficiencyBonus())
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 5)
+
                 Text(characterOverviewVM.getClassInfo()).font(.footnote)
-                Spacer()
-                Button(characterOverviewVM.getInitiativeBonus()) {
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                Button {
                     characterOverviewVM.rollInitiative()
+                } label: {
+                    Text(characterOverviewVM.getInitiativeBonus())
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding(.trailing, 5)
                 }
-            }
+            }.padding([.all], 0)
+        }
+    }
+
+    func getActorImage() -> Image {
+        if let imageData = actorOverview.imageData, let uiImage = UIImage(data: imageData) {
+            return Image(uiImage: uiImage)
+        } else {
+            return Image(systemName: "person.fill")
         }
     }
 }
@@ -59,3 +93,11 @@ struct HpModifierSheet: View {
         Text("Make some HP changes here!")
     }
 }
+
+#if DEBUG
+    struct CharacterOverviewView_Previews: PreviewProvider {
+        static var previews: some View {
+            CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
+        }
+    }
+#endif

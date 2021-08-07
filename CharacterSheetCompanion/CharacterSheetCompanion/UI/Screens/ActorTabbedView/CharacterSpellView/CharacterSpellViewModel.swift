@@ -8,7 +8,7 @@
 import Foundation
 
 class CharacterSpellViewModel: ObservableObject {
-    @Published var foundryActor: ActorModel
+    @Published var foundryActor: ActorDataModel
     var itemAttackListener: ItemAttackListener?
     var itemDamageListener: ItemDamageListener?
     var itemDisplayListener: ItemDisplayListener?
@@ -29,7 +29,7 @@ class CharacterSpellViewModel: ObservableObject {
 
     var spellDialogMapping: [String: [SpellDialogModel]]
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         spellDialogMapping = [:]
 

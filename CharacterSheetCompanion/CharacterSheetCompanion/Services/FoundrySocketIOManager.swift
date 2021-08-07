@@ -24,8 +24,8 @@ class FoundrySocketIOManager: NSObject {
             // Setup Listeners
             ConnectionListener(socket: socket),
             UsersListener(socket: socket),
-            UserActorListener(socket: socket),
             ActorListener(socket: socket),
+            ActorDataListener(socket: socket),
             WorldDataListener(socket: socket),
 
             // Roll Listeners

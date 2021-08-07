@@ -10,9 +10,9 @@ import SwiftUI
 struct CharacterSpellView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
     @State private var selection: Set<SpellSummary> = []
-    var foundryActor: ActorModel
+    var foundryActor: ActorDataModel
 
-    init(foundryActor: ActorModel) {
+    init(foundryActor: ActorDataModel) {
         self.foundryActor = foundryActor
         characterSpellVM = CharacterSpellViewModel(foundryActor: foundryActor)
     }

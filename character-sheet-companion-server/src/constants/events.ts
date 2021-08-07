@@ -2,7 +2,7 @@ export const SOCKET_EVENTS = {
   FOUNDRY: {
     JOIN_ROOM: "foundry:join",
     SEND_USERS: "foundry:sendUsers",
-    SEND_USER_ACTORS: "foundry:sendUserActors",
+    SEND_ACTORS: "foundry:sendActors",
     SEND_ACTOR_DATA: "foundry:sendActorData",
     SEND_ABILITY_ROLL: "foundry:sendAbilityRoll",
     SEND_SKILL_ROLL: "foundry:sendSkillRoll",
@@ -18,7 +18,7 @@ export const SOCKET_EVENTS = {
   IOS: {
     JOIN_ROOM: "ios:join",
     REQUEST_FOUNDRY_USERS: "ios:requestFoundryUsers",
-    REQUEST_FOUNDRY_USER_ACTORS: "ios:requestFoundryUserActor",
+    REQUEST_FOUNDRY_ACTORS: "ios:requestFoundryActor",
     REQUEST_FOUNDRY_ACTOR_DATA: "ios:requestFoundryActorData",
     REQUEST_FOUNDRY_ABILITY_ROLL: "ios:requestFoundryAbilityRoll",
     REQUEST_FOUNDRY_SKILL_ROLL: "ios:requestFoundrySkillRoll",

@@ -9,22 +9,22 @@ import SwiftUI
 
 struct ActorTabbedView: View {
     @ObservedObject var actorTabbedVM: ActorTabbedViewModel
-    var userActor: UserActorModel
+    var actor: ActorModel
     var user: UserModel
 
-    init(userActor: UserActorModel, user: UserModel) {
-        self.userActor = userActor
+    init(actor: ActorModel, user: UserModel) {
+        self.actor = actor
         self.user = user
-        actorTabbedVM = ActorTabbedViewModel(userActor: userActor)
+        actorTabbedVM = ActorTabbedViewModel(actor: actor)
     }
 
     var body: some View {
         if let foundryActor = actorTabbedVM.foundryActor {
-            CharacterOverviewView(foundryActor: foundryActor)
+            CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
                 .frame(alignment: .top)
             Divider()
             TabView {
-                CharacterAbilityView(foundryActor: foundryActor)
+                CharacterAbilityView(abilities: AbilityModel.mockedData)
                     .tabItem {
                         Label("Character", systemImage: "person.crop.circle")
                     }
@@ -57,8 +57,19 @@ struct ActorTabbedView: View {
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         } else {
-            Text("Loading Actor data for \(userActor.name)")
+            Text("Loading ActorData data for \(actor.name)")
             ProgressView()
         }
     }
 }
+
+#if DEBUG
+    struct ActorTabbedView_Previews: PreviewProvider {
+        static var previews: some View {
+            ActorTabbedView(
+                actor: ActorModel.mockedData[0],
+                user: UserModel.mockedData[0]
+            )
+        }
+    }
+#endif
