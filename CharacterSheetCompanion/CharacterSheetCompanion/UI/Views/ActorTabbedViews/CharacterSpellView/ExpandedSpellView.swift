@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ExpandedSpellView: View {
-    var characterSpellVM: CharacterSpellViewModel
-    let spellSummary: SpellSummary
+    @ObservedObject var characterSpellVM: CharacterSpellViewModel
+    var spell: SpellModel
 
     @State private var showingAttackSheet = false
     @State private var showingDamageSheet = false
@@ -17,30 +17,38 @@ struct ExpandedSpellView: View {
     var body: some View {
         VStack {
             Button("Display in VTT") {
-                characterSpellVM.displayItem(spellSummary: spellSummary)
+                characterSpellVM.displayItem(spell: spell)
             }
             .buttonStyle(ItemDisplayButtonStyle())
 
-            if characterSpellVM.hasAttack(spellSummary: spellSummary) {
+            if spell.hasAttack {
                 Button("Cast Spell") {
                     showingAttackSheet.toggle()
                 }.sheet(isPresented: $showingAttackSheet, content: {
-                    SpellItemAttackSheetView(characterSpellVM: characterSpellVM, spellSummary: spellSummary)
+                    SpellItemAttackSheetView(characterSpellVM: characterSpellVM, spell: spell)
                 })
                     .buttonStyle(ItemAttackButtonStyle())
             }
 
-            if spellSummary.hasDamage {
+            if spell.hasDamage {
                 Button("Roll Damage") {
                     showingDamageSheet.toggle()
                 }.sheet(isPresented: $showingDamageSheet, content: {
-                    SpellItemDamageSheetView(characterSpellVM: characterSpellVM, spellSummary: spellSummary)
+                    SpellItemDamageSheetView(characterSpellVM: characterSpellVM, spell: spell)
                 })
                     .buttonStyle(ItemDamageButtonStyle())
             }
 
             Divider()
-            Text(spellSummary.description).font(.footnote)
+            Text(spell.description).font(.footnote)
         }
     }
 }
+
+#if DEBUG
+    struct ExpandedSpellView_Previews: PreviewProvider {
+        static var previews: some View {
+            ExpandedSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData), spell: SpellModel.mockedData[0])
+        }
+    }
+#endif

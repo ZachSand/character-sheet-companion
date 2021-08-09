@@ -8,24 +8,23 @@
 import Foundation
 
 class ChatViewModel: ObservableObject {
-    let foundryActor: ActorDataModel
+    @Published var chatMessages: [ChatMessageModel]
     let user: UserModel
-    var chatMessageListener: ChatMessageListener?
-    @Published var chatMessages: [ChatMessageModel]?
 
-    init(user: UserModel, foundryActor: ActorDataModel) {
+    var chatMessageListener: ChatMessageListener?
+
+    init(user: UserModel, chatMessages: [ChatMessageModel]) {
         self.user = user
-        self.foundryActor = foundryActor
         do {
             try chatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
-        getMessageData()
+        self.chatMessages = chatMessages
     }
 
     func getMessageData() {
         if let listener = chatMessageListener {
             DispatchQueue.main.async {
-                listener.getChatMessages(userId: self.user.id, actorId: self.foundryActor.actor.id, completionHandler: { chatMessageModels in
+                listener.getChatMessages(userId: self.user.id, actorId: "", completionHandler: { chatMessageModels in
                     if let chatMessages = chatMessageModels {
                         self.chatMessages = chatMessages
                     }
@@ -46,7 +45,7 @@ class ChatViewModel: ObservableObject {
     func sendMessage(message: String) {
         if let listener = chatMessageListener {
             DispatchQueue.main.async {
-                listener.sendChatMessage(userId: self.user.id, actorId: self.foundryActor.actor.id, message: message)
+                listener.sendChatMessage(userId: self.user.id, actorId: "", message: message)
             }
         }
     }

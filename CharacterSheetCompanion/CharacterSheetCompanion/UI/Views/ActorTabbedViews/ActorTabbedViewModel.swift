@@ -8,7 +8,7 @@
 import Foundation
 
 class ActorTabbedViewModel: ObservableObject {
-    @Published var foundryActor: ActorDataModel?
+    @Published var dataLoadComplete: Bool?
     var actorDataListener: ActorDataListener?
     var actor: ActorModel
 
@@ -23,8 +23,8 @@ class ActorTabbedViewModel: ObservableObject {
     func fetchActorData(actorId: String) {
         if let listener = actorDataListener {
             DispatchQueue.main.async {
-                listener.getActorData(actorId: actorId) { actor in
-                    self.foundryActor = actor
+                listener.getActorData(actorId: actorId) { _ in
+                    self.dataLoadComplete = true
                 }
             }
         }

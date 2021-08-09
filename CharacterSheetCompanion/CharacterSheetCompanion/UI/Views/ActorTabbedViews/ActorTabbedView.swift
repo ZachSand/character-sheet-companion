@@ -19,36 +19,36 @@ struct ActorTabbedView: View {
     }
 
     var body: some View {
-        if let foundryActor = actorTabbedVM.foundryActor {
+        if let dataLoadCompleted = actorTabbedVM.dataLoadComplete {
             CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
                 .frame(alignment: .top)
             Divider()
             TabView {
-                CharacterAbilityView(abilities: AbilityModel.mockedData)
+                CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: AbilityModel.mockedData))
                     .tabItem {
                         Label("Character", systemImage: "person.crop.circle")
                     }
                     .tag(1)
-                CharacterSkillView(foundryActor: foundryActor)
+                CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: SkillModel.mockedData))
                     .tabItem {
                         Label("Skills", systemImage: "list.dash")
                     }
-                CharacterSpellView(foundryActor: foundryActor)
+                CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData))
                     .tabItem {
                         Label("Spells", systemImage: "book")
                     }
                     .tag(3)
-                CharacterInventoryView(foundryActor: foundryActor)
+                CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData))
                     .tabItem {
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
-                CharacterBiographyView(foundryActor: foundryActor)
+                CharacterBiographyView(characterBiographyVM: CharacterBiographyViewModel(biography: ActorBiographyModel.mockedData))
                     .tabItem {
                         Label("Biography", systemImage: "info.circle")
                     }
                     .tag(5)
-                ChatView(user: user, foundryActor: foundryActor)
+                ChatView(chatVM: ChatViewModel(user: UserModel.mockedData[0], chatMessages: ChatMessageModel.mockedData))
                     .tabItem {
                         Label("Chat", systemImage: "message")
                     }
