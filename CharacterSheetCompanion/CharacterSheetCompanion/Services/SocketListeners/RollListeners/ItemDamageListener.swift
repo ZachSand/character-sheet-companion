@@ -20,7 +20,7 @@ class ItemDamageListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_DAMAGE_ROLL) { data, _ in
+        socket.on(SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_DAMAGE_ROLL) { data, _ in
             do {
                 try self.itemDamageRollCallback?(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -35,17 +35,17 @@ class ItemDamageListener: SocketListener {
         do {
             let jsonData = try jsonEncoder.encode(damageRoll)
             if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, json)
+                socket.emit(SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, json)
                 itemDamageRollCallback = completionHandler
             }
         } catch {}
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.ROLL {
     static let REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL = "ios:requestFoundryItemDamageRoll"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.ROLL.SEND {
     static let SEND_FOUNDRY_ITEM_DAMAGE_ROLL = "server:sendFoundryItemDamageRoll"
 }

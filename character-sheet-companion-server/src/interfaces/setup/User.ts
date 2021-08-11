@@ -1,5 +1,5 @@
 export interface User {
-  userId: string;
+  id: string;
   isActive: boolean;
-  userName: string;
+  name: string;
 }

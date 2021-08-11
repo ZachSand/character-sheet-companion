@@ -13,8 +13,10 @@ class FoundrySocketIOManager: NSObject {
 
     let manager: SocketManager
     let socket: SocketIOClient
-
     let listeners: [SocketListener]
+
+    var user: UserModel?
+    var actor: ActorModel?
 
     override init() {
         manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(false), .compress])
@@ -25,8 +27,15 @@ class FoundrySocketIOManager: NSObject {
             ConnectionListener(socket: socket),
             UsersListener(socket: socket),
             ActorListener(socket: socket),
-            ActorDataListener(socket: socket),
             WorldDataListener(socket: socket),
+
+            // Actor Listeners
+            ActorAbilityListener(socket: socket),
+            ActorBiographyListener(socket: socket),
+            ActorInventoryListener(socket: socket),
+            ActorOverviewListener(socket: socket),
+            ActorSkillListener(socket: socket),
+            ActorSpellSlotListener(socket: socket),
 
             // Roll Listeners
             AbilityListener(socket: socket),
@@ -40,7 +49,6 @@ class FoundrySocketIOManager: NSObject {
             // Display Listeners
             ItemDisplayListener(socket: socket),
             ChatMessageListener(socket: socket),
-            SpellDialogListener(socket: socket),
         ]
 
         super.init()

@@ -20,7 +20,7 @@ class InitiativeListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_INITIATIVE_ROLL) { data, _ in
+        socket.on(SocketEvents.SERVER.ROLL.SEND.SEND_INITIATIVE_ROLL) { data, _ in
             do {
                 try self.initiativeRollCallback?(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -35,17 +35,17 @@ class InitiativeListener: SocketListener {
         do {
             let jsonData = try jsonEncoder.encode(initiativeRoll)
             if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_INITIATIVE_ROLL, json)
+                socket.emit(SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_INITIATIVE_ROLL, json)
                 initiativeRollCallback = completionHandler
             }
         } catch {}
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.ROLL {
     static let REQUEST_FOUNDRY_INITIATIVE_ROLL = "ios:requestFoundryInitiativeRoll"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.ROLL.SEND {
     static let SEND_INITIATIVE_ROLL = "foundry:sendInitiativeRoll"
 }

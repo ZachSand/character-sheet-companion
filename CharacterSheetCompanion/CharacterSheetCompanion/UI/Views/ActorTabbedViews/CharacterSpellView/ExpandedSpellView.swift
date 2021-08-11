@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExpandedSpellView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
-    var spell: SpellModel
+    var spell: ActorSpellModel
 
     @State private var showingAttackSheet = false
     @State private var showingDamageSheet = false
@@ -48,7 +48,7 @@ struct ExpandedSpellView: View {
 #if DEBUG
     struct ExpandedSpellView_Previews: PreviewProvider {
         static var previews: some View {
-            ExpandedSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData), spell: SpellModel.mockedData[0])
+            ExpandedSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData), spell: ActorSpellModel.mockedData[0])
         }
     }
 #endif

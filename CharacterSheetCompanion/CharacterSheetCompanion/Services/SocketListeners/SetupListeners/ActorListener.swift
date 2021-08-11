@@ -18,7 +18,7 @@ class ActorListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ACTORS) { data, _ in
+        socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_FOUNDRY_ACTORS) { data, _ in
             do {
                 try self.actorsCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -30,19 +30,15 @@ class ActorListener: SocketListener {
     }
 
     func getActors(completionHandler: @escaping ([ActorModel]?) -> Void) {
-        socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ACTORS)
+        socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_ACTORS)
         actorsCallback = completionHandler
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.SETUP {
     static let REQUEST_FOUNDRY_ACTORS = "ios:requestFoundryActors"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.SETUP.SEND {
     static let SEND_FOUNDRY_ACTORS = "server:sendFoundryActors"
-}
-
-extension ListenerEvents {
-    static let ACTORS = "ACTORS"
 }

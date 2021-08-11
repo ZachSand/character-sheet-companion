@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterInventoryView: View {
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
-    @State private var selection: Set<InventoryItemModel> = []
+    @State private var selection: Set<ActorInventoryItemModel> = []
 
     var body: some View {
         VStack {
@@ -33,7 +33,7 @@ struct CharacterInventoryView: View {
         }
     }
 
-    private func selectDeselect(_ inventoryItem: InventoryItemModel) {
+    private func selectDeselect(_ inventoryItem: ActorInventoryItemModel) {
         if selection.contains(inventoryItem) {
             selection.remove(inventoryItem)
         } else {
@@ -58,7 +58,7 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
 #if DEBUG
     struct CharacterInventoryView_Previews: PreviewProvider {
         static var previews: some View {
-            CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData))
+            CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData))
         }
     }
 #endif

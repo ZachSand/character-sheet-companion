@@ -10,7 +10,7 @@ import SwiftUI
 struct InventoryItemDamageSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
-    @State var inventoryItem: InventoryItemModel
+    @State var inventoryItem: ActorInventoryItemModel
     @State private var versatile = false
     @State private var critical = false
 
@@ -34,8 +34,8 @@ struct InventoryItemDamageSheetView: View {
     struct InventoryItemDamageSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemDamageSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData),
-                inventoryItem: InventoryItemModel.mockedDataWeapons[0]
+                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                inventoryItem: ActorInventoryItemModel.mockedDataWeapons[0]
             )
         }
     }

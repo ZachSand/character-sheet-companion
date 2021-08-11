@@ -3,9 +3,10 @@ import {
   generateId,
 } from "../utils/id-generator.js";
 import { SOCKET_EVENTS } from "../events/events.js";
-import { addDisplayListeners } from "../listeners/display/displayListenerWrapper.js";
-import { addSetupListeners } from "../listeners/setup/setupListenerWrapper.js";
-import { addRollListeners } from "../listeners/rolls/rollListenerWrapper.js";
+import { displayListenerWrapper } from "../listeners/display/displayListenerWrapper.js";
+import { setupListenerWrapper } from "../listeners/setup/setupListenerWrapper.js";
+import { rollListenerWrapper } from "../listeners/rolls/rollListenerWrapper.js";
+import { actorListenerWrapper } from "../listeners/actor/actorListenerWrapper";
 
 export class CharacterSheetCompanionSetup {
   static setup() {
@@ -55,9 +56,10 @@ export class CharacterSheetCompanionSetup {
           );
         });
 
-        addDisplayListeners(socket);
-        addSetupListeners(socket);
-        addRollListeners(socket);
+        displayListenerWrapper(socket);
+        setupListenerWrapper(socket);
+        rollListenerWrapper(socket);
+        actorListenerWrapper(socket);
 
         socket.connect();
 

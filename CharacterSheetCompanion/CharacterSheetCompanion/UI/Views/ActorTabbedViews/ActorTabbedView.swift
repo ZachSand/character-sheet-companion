@@ -19,26 +19,26 @@ struct ActorTabbedView: View {
     }
 
     var body: some View {
-        if let dataLoadCompleted = actorTabbedVM.dataLoadComplete {
+        if actorTabbedVM.dataLoadComplete {
             CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
                 .frame(alignment: .top)
             Divider()
             TabView {
-                CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: AbilityModel.mockedData))
+                CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: ActorAbilityModel.mockedData))
                     .tabItem {
                         Label("Character", systemImage: "person.crop.circle")
                     }
                     .tag(1)
-                CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: SkillModel.mockedData))
+                CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData))
                     .tabItem {
                         Label("Skills", systemImage: "list.dash")
                     }
-                CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData))
+                CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData))
                     .tabItem {
                         Label("Spells", systemImage: "book")
                     }
                     .tag(3)
-                CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData))
+                CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData))
                     .tabItem {
                         Label("Inventory", systemImage: "bag")
                     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct InventoryItemToolSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
-    @State var inventoryItem: InventoryItemModel
+    @State var inventoryItem: ActorInventoryItemModel
     @State private var advantage = false
     @State private var disadvantage = false
 
@@ -33,8 +33,8 @@ struct InventoryItemToolSheetView: View {
     struct InventoryItemToolSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemToolSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData),
-                inventoryItem: InventoryItemModel.mockedDataTools[0]
+                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                inventoryItem: ActorInventoryItemModel.mockedDataTools[0]
             )
         }
     }

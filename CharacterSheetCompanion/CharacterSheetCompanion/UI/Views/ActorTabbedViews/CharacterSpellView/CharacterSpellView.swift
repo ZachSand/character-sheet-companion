@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterSpellView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
-    @State private var selection: Set<SpellModel> = []
+    @State private var selection: Set<ActorSpellModel> = []
 
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct CharacterSpellView: View {
         }
     }
 
-    private func selectDeselect(_ spell: SpellModel) {
+    private func selectDeselect(_ spell: ActorSpellModel) {
         if selection.contains(spell) {
             selection.remove(spell)
         } else {
@@ -50,7 +50,7 @@ struct CharacterSpellView: View {
 #if DEBUG
     struct CharacterSpellView_Previews: PreviewProvider {
         static var previews: some View {
-            CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData))
+            CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData))
         }
     }
 #endif

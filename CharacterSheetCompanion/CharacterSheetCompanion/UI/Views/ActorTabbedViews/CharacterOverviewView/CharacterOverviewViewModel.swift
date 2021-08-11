@@ -53,8 +53,8 @@ class CharacterOverviewViewModel: ObservableObject {
     }
 
     func rollInitiative() {
-        if let listener = initiativeListener {
-            let rollModel = InitiativeRollModel(actorId: actorOverview.id, result: 0)
+        if let listener = initiativeListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let rollModel = InitiativeRollModel(actorId: actor.id, result: 0)
             DispatchQueue.main.async {
                 listener.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
                     if let rollResult = initiativeRollResult {

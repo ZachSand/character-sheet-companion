@@ -25,12 +25,12 @@ class ItemDisplayListener: SocketListener {
         do {
             let jsonData = try jsonEncoder.encode(displayItem)
             if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_DISPLAY_ITEM, json)
+                socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_DISPLAY_ITEM, json)
             }
         } catch {}
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.DISPLAY {
     static let REQUEST_FOUNDRY_DISPLAY_ITEM = "ios:requestFoundryDisplayItem"
 }

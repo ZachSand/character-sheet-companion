@@ -21,11 +21,11 @@ class ConnectionListener: SocketListener {
     func addSocketHandlers() {
         socket.on(clientEvent: .connect) { _, _ in
             if let socketRoomId = self.roomId {
-                self.socket.emit(SocketEvents.IOS.JOIN_ROOM, socketRoomId)
+                self.socket.emit(SocketEvents.IOS.SETUP.JOIN_ROOM, socketRoomId)
             }
         }
 
-        socket.on(SocketEvents.SERVER.SEND_IOS_JOINED_ROOM) { _, _ in
+        socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_IOS_JOINED_ROOM) { _, _ in
             self.socketConnectionCallback?(true)
         }
     }
@@ -36,14 +36,10 @@ class ConnectionListener: SocketListener {
     }
 }
 
-extension SocketEvents.IOS {
-    static let JOIN_ROOM = "ios:join"
+extension SocketEvents.IOS.SETUP {
+    static let JOIN_ROOM = "ios:joinRoom"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.SETUP.SEND {
     static let SEND_IOS_JOINED_ROOM = "server:sendIosJoinedRoom"
-}
-
-extension ListenerEvents {
-    static let CONNECT = "CONNECT"
 }

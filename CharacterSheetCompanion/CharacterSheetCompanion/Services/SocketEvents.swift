@@ -8,11 +8,30 @@
 import Foundation
 
 struct SocketEvents {
-    struct IOS {
-        // extended by each listener
+    // extended by each listener
+    enum IOS {
+        struct SETUP {}
+        struct ACTOR {}
+        struct ROLL {}
+        struct DISPLAY {}
     }
 
-    struct SERVER {
-        // extended by each listener
+    // extended by each listener
+    enum SERVER {
+        enum SETUP {
+            struct SEND {}
+        }
+
+        enum ACTOR {
+            struct SEND {}
+        }
+
+        enum ROLL {
+            struct SEND {}
+        }
+
+        enum DISPLAY {
+            struct SEND {}
+        }
     }
 }

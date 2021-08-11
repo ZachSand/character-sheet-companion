@@ -20,7 +20,7 @@ class ItemConsumeListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ITEM_CONSUME_ROLL) { data, _ in
+        socket.on(SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_CONSUME_ROLL) { data, _ in
             do {
                 try self.itemConsumeRollCallback?(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -35,17 +35,17 @@ class ItemConsumeListener: SocketListener {
         do {
             let jsonData = try jsonEncoder.encode(itemConsumeRoll)
             if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, json)
+                socket.emit(SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, json)
                 itemConsumeRollCallback = completionHandler
             }
         } catch {}
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.ROLL {
     static let REQUEST_FOUNDRY_ITEM_CONSUME_ROLL = "ios:requestFoundryItemConsumeRoll"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.ROLL.SEND {
     static let SEND_FOUNDRY_ITEM_CONSUME_ROLL = "server:sendFoundryItemConsumeRoll"
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 class CharacterInventoryViewModel: ObservableObject {
-    @Published var inventory: InventoryModel
+    @Published var inventory: ActorInventoryModel
 
     var itemAttackListener: ItemAttackListener?
     var itemDamageListener: ItemDamageListener?
@@ -16,7 +16,7 @@ class CharacterInventoryViewModel: ObservableObject {
     var itemDisplayListener: ItemDisplayListener?
     var itemToolListener: ItemToolListener?
 
-    init(inventory: InventoryModel) {
+    init(inventory: ActorInventoryModel) {
         self.inventory = inventory
         do {
             try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
@@ -41,9 +41,9 @@ class CharacterInventoryViewModel: ObservableObject {
          InventorySection(id: "Loot", inventoryItems: inventory.loot)]
     }
 
-    func rollItemAttack(inventoryItem: InventoryItemModel, advantage: Bool, disadvantage: Bool) {
-        if let listener = itemAttackListener {
-            let itemAttackRoll = ItemAttackRollModel(actorId: "", itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
+    func rollItemAttack(inventoryItem: ActorInventoryItemModel, advantage: Bool, disadvantage: Bool) {
+        if let listener = itemAttackListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let itemAttackRoll = ItemAttackRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
                     if let itemAttackRollResult = attackRollResult {
@@ -54,9 +54,9 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
 
-    func rollItemDamage(inventoryItem: InventoryItemModel, critical: Bool, versatile: Bool) {
-        if let listener = itemDamageListener {
-            let itemDamageRoll = ItemDamageRollModel(actorId: "", itemId: inventoryItem.id, critical: critical, versatile: versatile, result: 0)
+    func rollItemDamage(inventoryItem: ActorInventoryItemModel, critical: Bool, versatile: Bool) {
+        if let listener = itemDamageListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let itemDamageRoll = ItemDamageRollModel(actorId: actor.id, itemId: inventoryItem.id, critical: critical, versatile: versatile, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
                     if let itemDamageRollResult = damageRollResult {
@@ -67,9 +67,9 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
 
-    func rollItemConsume(inventoryItem: InventoryItemModel, consume: Bool) {
-        if let listener = itemConsumeListener {
-            let itemConsumeRoll = ItemConsumeRollModel(actorId: "", itemId: inventoryItem.id, consume: consume, result: 0)
+    func rollItemConsume(inventoryItem: ActorInventoryItemModel, consume: Bool) {
+        if let listener = itemConsumeListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let itemConsumeRoll = ItemConsumeRollModel(actorId: actor.id, itemId: inventoryItem.id, consume: consume, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
                     if let itemConsumeRollResult = consumeRollResult {
@@ -80,9 +80,9 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
 
-    func rollItemToolRoll(inventoryItem: InventoryItemModel, advantage: Bool, disadvantage: Bool) {
-        if let listener = itemToolListener {
-            let itemToolRoll = ItemToolRollModel(actorId: "", itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
+    func rollItemToolRoll(inventoryItem: ActorInventoryItemModel, advantage: Bool, disadvantage: Bool) {
+        if let listener = itemToolListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let itemToolRoll = ItemToolRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemTool(itemToolRoll: itemToolRoll) { toolRollResult in
                     if let itemToolRollResult = toolRollResult {
@@ -93,16 +93,16 @@ class CharacterInventoryViewModel: ObservableObject {
         }
     }
 
-    func displayItem(inventoryItem: InventoryItemModel) {
-        if let listener = itemDisplayListener {
-            let displayItem = ItemDisplayModel(actorId: "", itemId: inventoryItem.id)
+    func displayItem(inventoryItem: ActorInventoryItemModel) {
+        if let listener = itemDisplayListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let displayItem = ItemDisplayModel(actorId: actor.id, itemId: inventoryItem.id)
             DispatchQueue.main.async {
                 listener.displayItemCard(displayItem: displayItem)
             }
         }
     }
 
-    func getConsumeText(inventoryItem: InventoryItemModel) -> String {
+    func getConsumeText(inventoryItem: ActorInventoryItemModel) -> String {
         if let usageRemaining = inventoryItem.numUsagesRemaining, let useMax = inventoryItem.maxUsages {
             return "This item has \(usageRemaining) of \(useMax) uses remaining. Consuming will remove one use."
         }
@@ -112,5 +112,5 @@ class CharacterInventoryViewModel: ObservableObject {
 
 struct InventorySection: Identifiable, Hashable {
     var id: String
-    var inventoryItems: [InventoryItemModel]
+    var inventoryItems: [ActorInventoryItemModel]
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SkillView: View {
     @ObservedObject var characterSkillVM: CharacterSkillViewModel
-    @State var skill: SkillModel
+    @State var skill: ActorSkillModel
 
     var body: some View {
         HStack {
@@ -54,7 +54,7 @@ struct SkillView: View {
 #if DEBUG
     struct SkillView_Previews: PreviewProvider {
         static var previews: some View {
-            SkillView(characterSkillVM: CharacterSkillViewModel(skills: SkillModel.mockedData), skill: SkillModel.mockedData[0])
+            SkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData), skill: ActorSkillModel.mockedData[0])
         }
     }
 #endif

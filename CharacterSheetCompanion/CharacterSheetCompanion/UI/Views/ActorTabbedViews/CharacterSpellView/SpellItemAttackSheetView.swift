@@ -12,7 +12,7 @@ struct SpellItemAttackSheetView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
 
     @State var spellConsumeSelection = ""
-    @State var spell: SpellModel
+    @State var spell: ActorSpellModel
     @State private var advantage = false
     @State private var disadvantage = false
     @State private var consumeSpellSlot = false
@@ -38,7 +38,7 @@ struct SpellItemAttackSheetView: View {
 #if DEBUG
     struct SpellItemAttackSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            SpellItemAttackSheetView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData), spell: SpellModel.mockedData[1])
+            SpellItemAttackSheetView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData), spell: ActorSpellModel.mockedData[1])
         }
     }
 #endif

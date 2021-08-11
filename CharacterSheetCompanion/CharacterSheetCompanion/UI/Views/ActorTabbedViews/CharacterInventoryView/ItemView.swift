@@ -10,7 +10,7 @@ import SwiftUI
 struct ItemView: View {
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
 
-    @State var inventoryItem: InventoryItemModel
+    @State var inventoryItem: ActorInventoryItemModel
     @State var isExpanded: Bool
     @State private var showingAttackSheet = false
     @State private var showingDamageSheet = false

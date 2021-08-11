@@ -63,7 +63,7 @@ struct CharacterAbilityView: View {
 #if DEBUG
     struct CharacterAbilityView_Previews: PreviewProvider {
         static var previews: some View {
-            CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: AbilityModel.mockedData))
+            CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: ActorAbilityModel.mockedData))
         }
     }
 #endif

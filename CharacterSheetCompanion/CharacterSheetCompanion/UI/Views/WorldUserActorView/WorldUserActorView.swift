@@ -67,6 +67,8 @@ struct WorldUserActorView: View {
                     if let actor = selectedActor, let user = selectedUser {
                         window.rootViewController = UIHostingController(rootView: ActorTabbedView(actor: actor, user: user))
                         window.makeKeyAndVisible()
+                        worldUserActorVM.setActor(actor: actor)
+                        worldUserActorVM.setUser(user: user)
                     }
                 }
             } label: {

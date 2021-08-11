@@ -18,7 +18,7 @@ class WorldDataListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_WORLD_DATA) { data, _ in
+        socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_FOUNDRY_WORLD_DATA) { data, _ in
             do {
                 try self.worldDataCallback?(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -30,15 +30,15 @@ class WorldDataListener: SocketListener {
     }
 
     func getWorldData(completionHandler: @escaping (WorldDataModel?) -> Void) {
-        socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_WORLD_DATA)
+        socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_WORLD_DATA)
         worldDataCallback = completionHandler
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.SETUP {
     static let REQUEST_FOUNDRY_WORLD_DATA = "ios:requestFoundryWorldData"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.SETUP.SEND {
     static let SEND_FOUNDRY_WORLD_DATA = "server:sendFoundryWorldData"
 }

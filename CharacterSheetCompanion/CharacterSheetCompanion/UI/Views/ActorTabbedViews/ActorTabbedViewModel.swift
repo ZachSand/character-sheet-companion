@@ -8,25 +8,11 @@
 import Foundation
 
 class ActorTabbedViewModel: ObservableObject {
-    @Published var dataLoadComplete: Bool?
-    var actorDataListener: ActorDataListener?
+    @Published var dataLoadComplete: Bool
     var actor: ActorModel
 
     init(actor: ActorModel) {
+        dataLoadComplete = false
         self.actor = actor
-        do {
-            try actorDataListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-        fetchActorData(actorId: actor.id)
-    }
-
-    func fetchActorData(actorId: String) {
-        if let listener = actorDataListener {
-            DispatchQueue.main.async {
-                listener.getActorData(actorId: actorId) { _ in
-                    self.dataLoadComplete = true
-                }
-            }
-        }
     }
 }

@@ -8,14 +8,14 @@ export const displayItemListener = (io: Server, socket: Socket): void => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
-        SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_DISPLAY_ITEM,
+        SOCKET_EVENTS.SERVER.DISPLAY.REQUEST.REQUEST_FOUNDRY_DISPLAY_ITEM,
         itemDisplay
       );
     }
   };
 
   socket.on(
-    SOCKET_EVENTS.IOS.REQUEST_FOUNDRY_DISPLAY_ITEM,
+    SOCKET_EVENTS.IOS.DISPLAY.REQUEST_FOUNDRY_DISPLAY_ITEM,
     requestFoundryDisplayItem
   );
 };

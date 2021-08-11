@@ -20,7 +20,7 @@ class AbilityListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_ABILITY_ROLL) { data, _ in
+        socket.on(SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ABILITY_ROLL) { data, _ in
             do {
                 try self.abilityRollCallback?(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -35,21 +35,17 @@ class AbilityListener: SocketListener {
         do {
             let jsonData = try jsonEncoder.encode(abilityRoll)
             if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_ABILITY_ROLL, json)
+                socket.emit(SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ABILITY_ROLL, json)
                 abilityRollCallback = completionHandler
             }
         } catch {}
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.ROLL {
     static let REQUEST_FOUNDRY_ABILITY_ROLL = "ios:requestFoundryAbilityRoll"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.ROLL.SEND {
     static let SEND_FOUNDRY_ABILITY_ROLL = "server:sendFoundryAbilityRoll"
-}
-
-extension ListenerEvents {
-    static let ABILITY = "ABILITY"
 }

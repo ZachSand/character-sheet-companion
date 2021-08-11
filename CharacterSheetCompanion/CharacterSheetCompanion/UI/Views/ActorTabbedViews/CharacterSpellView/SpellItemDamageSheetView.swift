@@ -10,7 +10,7 @@ import SwiftUI
 struct SpellItemDamageSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
-    @State var spell: SpellModel
+    @State var spell: ActorSpellModel
     @State private var versatile = false
     @State private var critical = false
 
@@ -32,7 +32,7 @@ struct SpellItemDamageSheetView: View {
 #if DEBUG
     struct SpellItemDamageSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            SpellItemDamageSheetView(characterSpellVM: CharacterSpellViewModel(spellSlots: SpellSlotModel.mockedData), spell: SpellModel.mockedData[1])
+            SpellItemDamageSheetView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData), spell: ActorSpellModel.mockedData[1])
         }
     }
 #endif

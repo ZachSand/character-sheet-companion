@@ -1,12 +1,12 @@
 import { Server, Socket } from "socket.io";
-import { userListener } from "./usersListener";
-import { actorListener } from "./actorsListener";
-import { actorDataListener } from "./actorDataListener";
-import { worldDataListener } from "./worldDataListener";
+import { setupUsersListener } from "./setupUsersListener";
+import { setupActorsListener } from "./setupActorsListener";
+import { setupWorldDataListener } from "./setupWorldDataListener";
+import { setupRoomJoinListener } from "./setupRoomJoinListener";
 
 export const setupListenerWrapper = (io: Server, socket: Socket): void => {
-  userListener(io, socket);
-  actorListener(io, socket);
-  actorDataListener(io, socket);
-  worldDataListener(io, socket);
+  setupUsersListener(io, socket);
+  setupActorsListener(io, socket);
+  setupWorldDataListener(io, socket);
+  setupRoomJoinListener(io, socket);
 };

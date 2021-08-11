@@ -11,20 +11,20 @@ class ChatViewModel: ObservableObject {
     @Published var chatMessages: [ChatMessageModel]
     let user: UserModel
 
-    var chatMessageListener: ChatMessageListener?
+    var displayChatMessageListener: ChatMessageListener?
 
     init(user: UserModel, chatMessages: [ChatMessageModel]) {
         self.user = user
         do {
-            try chatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try displayChatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
         self.chatMessages = chatMessages
     }
 
     func getMessageData() {
-        if let listener = chatMessageListener {
+        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
             DispatchQueue.main.async {
-                listener.getChatMessages(userId: self.user.id, actorId: "", completionHandler: { chatMessageModels in
+                listener.getChatMessages(userId: self.user.id, actorId: actor.id, completionHandler: { chatMessageModels in
                     if let chatMessages = chatMessageModels {
                         self.chatMessages = chatMessages
                     }
@@ -43,9 +43,9 @@ class ChatViewModel: ObservableObject {
     }
 
     func sendMessage(message: String) {
-        if let listener = chatMessageListener {
+        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
             DispatchQueue.main.async {
-                listener.sendChatMessage(userId: self.user.id, actorId: "", message: message)
+                listener.sendChatMessage(userId: self.user.id, actorId: actor.id, message: message)
             }
         }
     }

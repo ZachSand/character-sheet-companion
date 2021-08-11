@@ -10,7 +10,7 @@ import SwiftUI
 struct InventoryItemConsumableSheetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
-    @State var inventoryItem: InventoryItemModel
+    @State var inventoryItem: ActorInventoryItemModel
 
     @State private var consume = false
     var body: some View {
@@ -32,8 +32,8 @@ struct InventoryItemConsumableSheetView: View {
     struct InventoryItemConsumableSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemConsumableSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: InventoryModel.mockedData),
-                inventoryItem: InventoryItemModel.mockedDataConsumables[0]
+                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                inventoryItem: ActorInventoryItemModel.mockedDataConsumables[0]
             )
         }
     }

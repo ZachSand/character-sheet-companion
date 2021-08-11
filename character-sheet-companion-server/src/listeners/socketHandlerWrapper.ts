@@ -4,6 +4,7 @@ import { generalListenerWrapper } from "./general/generalListenerWrapper";
 import { rollListenerWrapper } from "./rolls/rollListenerWrapper";
 import { setupListenerWrapper } from "./setup/setupListenerWrapper";
 import { displayListenerWrapper } from "./display/displayListenerWrapper";
+import { actorListenerWrapper } from "./actor/actorListenerWrapper";
 
 export const socketHandlerWrapper = (io: Server, socket: Socket): void => {
   Logger.debug(`Client socket connected: ${socket.id}`);
@@ -12,6 +13,7 @@ export const socketHandlerWrapper = (io: Server, socket: Socket): void => {
   rollListenerWrapper(io, socket);
   setupListenerWrapper(io, socket);
   displayListenerWrapper(io, socket);
+  actorListenerWrapper(io, socket);
 
   if (Logger.isDebugEnabled()) {
     socket.onAny((event) => {

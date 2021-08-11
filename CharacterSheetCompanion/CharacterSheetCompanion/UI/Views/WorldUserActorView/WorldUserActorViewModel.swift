@@ -13,24 +13,18 @@ class WorldUserActorViewModel: ObservableObject {
     @Published var users: [UserModel]?
 
     var usersListener: UsersListener?
-    var worldDataListener: WorldDataListener?
+    var setupWorldDataListener: WorldDataListener?
     var userActorListener: ActorListener?
 
     init() {
         do {
             try usersListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try worldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try setupWorldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
             try userActorListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
-        DispatchQueue.main.async {
-            self.fetchUsers()
-        }
-        DispatchQueue.main.async {
-            self.fetchWorldData()
-        }
-        DispatchQueue.main.async {
-            self.fetchUserActors()
-        }
+        fetchUsers()
+        fetchWorldData()
+        fetchUserActors()
     }
 
     func fetchUsers() {
@@ -44,7 +38,7 @@ class WorldUserActorViewModel: ObservableObject {
     }
 
     func fetchWorldData() {
-        if let listener = worldDataListener {
+        if let listener = setupWorldDataListener {
             DispatchQueue.main.async {
                 listener.getWorldData { worldData in
                     self.worldData = worldData
@@ -61,5 +55,13 @@ class WorldUserActorViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func setActor(actor: ActorModel) {
+        FoundrySocketIOManager.sharedInstance.actor = actor
+    }
+
+    func setUser(user: UserModel) {
+        FoundrySocketIOManager.sharedInstance.user = user
     }
 }

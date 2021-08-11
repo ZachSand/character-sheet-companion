@@ -43,7 +43,7 @@ struct CharacterSkillView: View {
 #if DEBUG
     struct CharacterSkillView_Previews: PreviewProvider {
         static var previews: some View {
-            CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: SkillModel.mockedData))
+            CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData))
         }
     }
 #endif

@@ -11,7 +11,7 @@ import ToastUI
 struct AbilityView: View {
     @ObservedObject var characterAbilityVM: CharacterAbilityViewModel
     @State var isSave = false
-    @State var ability: AbilityModel
+    @State var ability: ActorAbilityModel
     @State var showRollMode = false
     @State private var advantage = false
     @State private var disadvantage = false
@@ -105,8 +105,8 @@ struct AbilityView: View {
     struct AbilityView_Previews: PreviewProvider {
         static var previews: some View {
             AbilityView(
-                characterAbilityVM: CharacterAbilityViewModel(abilities: AbilityModel.mockedData),
-                ability: AbilityModel.mockedData[0]
+                characterAbilityVM: CharacterAbilityViewModel(abilities: ActorAbilityModel.mockedData),
+                ability: ActorAbilityModel.mockedData[0]
             )
         }
     }

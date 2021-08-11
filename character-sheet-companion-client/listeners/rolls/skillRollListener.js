@@ -6,20 +6,20 @@ export function createAndEmitSkillRoll(socket, skillRoll, iosSocketId) {
     let actor = game.actors.get(skillRollObj.actorId);
 
     if (skillRollObj && actor) {
-      let rollOptions = {
-        advantage: skillRollObj.advantage,
-        disadvantage: skillRollObj.disadvantage,
-        fastForward: true,
-      };
-
-      actor.rollSkill(skillRollObj.skill, rollOptions).then((roll) => {
-        skillRollObj.result = roll._total;
-        socket.emit(
-          SOCKET_EVENTS.FOUNDRY.SEND_SKILL_ROLL,
-          skillRollObj,
-          iosSocketId
-        );
-      });
+      actor
+        .rollSkill(skillRollObj.skill, {
+          advantage: skillRollObj.advantage,
+          disadvantage: skillRollObj.disadvantage,
+          fastForward: true,
+        })
+        .then((roll) => {
+          skillRollObj.result = roll._total;
+          socket.emit(
+            SOCKET_EVENTS.FOUNDRY.ROLL.SEND_SKILL_ROLL,
+            skillRollObj,
+            iosSocketId
+          );
+        });
     }
   }
 }

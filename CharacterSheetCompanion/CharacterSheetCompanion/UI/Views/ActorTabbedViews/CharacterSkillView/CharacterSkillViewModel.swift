@@ -8,20 +8,20 @@
 import Foundation
 
 class CharacterSkillViewModel: ObservableObject {
-    @Published var skills: [SkillModel]
+    @Published var skills: [ActorSkillModel]
 
     var skillListener: SkillListener?
 
-    init(skills: [SkillModel]) {
+    init(skills: [ActorSkillModel]) {
         self.skills = skills
         do {
             try skillListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
     }
 
-    func rollSkillCheck(skill: SkillModel, advantage: Bool, disadvantage: Bool) {
-        let roll = SkillRollModel(actorId: "", skill: skill.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-        if let listener = skillListener {
+    func rollSkillCheck(skill: ActorSkillModel, advantage: Bool, disadvantage: Bool) {
+        if let listener = skillListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let roll = SkillRollModel(actorId: actor.id, skill: skill.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
                 listener.rollSkill(skillRoll: roll) { skillRollModel in
                     if let rollResult = skillRollModel {
@@ -31,13 +31,4 @@ class CharacterSkillViewModel: ObservableObject {
             }
         }
     }
-}
-
-struct ActorSkill: Identifiable {
-    var id: String
-    var name: String
-    var ability: String
-    var modifier: String
-    var passive: String
-    var prof: Bool
 }

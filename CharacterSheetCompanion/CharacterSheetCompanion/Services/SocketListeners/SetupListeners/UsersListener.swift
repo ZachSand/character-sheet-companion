@@ -18,7 +18,7 @@ class UsersListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SEND_FOUNDRY_USERS) { data, _ in
+        socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_FOUNDRY_USERS) { data, _ in
             do {
                 try self.usersCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -30,19 +30,15 @@ class UsersListener: SocketListener {
     }
 
     func getUsers(completionHandler: @escaping ([UserModel]?) -> Void) {
-        socket.emit(SocketEvents.IOS.REQUEST_FOUNDRY_USERS)
+        socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_USERS)
         usersCallback = completionHandler
     }
 }
 
-extension SocketEvents.IOS {
+extension SocketEvents.IOS.SETUP {
     static let REQUEST_FOUNDRY_USERS = "ios:requestFoundryUsers"
 }
 
-extension SocketEvents.SERVER {
+extension SocketEvents.SERVER.SETUP.SEND {
     static let SEND_FOUNDRY_USERS = "server:sendFoundryUsers"
-}
-
-extension ListenerEvents {
-    static let USERS = "USERS"
 }
