@@ -1,12 +1,10 @@
-import { authorizationListener } from "./authorizationListener";
-import { errorListener } from "./errorListener";
-import { disconnectListener } from "./disconnectListener";
-import { roomJoinListener } from "./roomJoinListener";
+import { generalAuthorizationListener } from "./generalAuthorizationListener";
+import { generalErrorListener } from "./generalErrorListener";
+import { generalDisconnectListener } from "./generalDisconnectListener";
 import { Server, Socket } from "socket.io";
 
 export const generalListenerWrapper = (io: Server, socket: Socket): void => {
-  authorizationListener(io, socket);
-  errorListener(io, socket);
-  disconnectListener(io, socket);
-  roomJoinListener(io, socket);
+  generalAuthorizationListener(io, socket);
+  generalErrorListener(io, socket);
+  generalDisconnectListener(io, socket);
 };

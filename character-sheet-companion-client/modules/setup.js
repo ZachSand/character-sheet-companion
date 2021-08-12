@@ -1,99 +1,114 @@
-import { generateId, CHARACTER_SHEET_COMPANION_SETTING_KEY } from "../utils/id-generator.js";
+import {
+  CHARACTER_SHEET_COMPANION_SETTING_KEY,
+  generateId,
+} from "../utils/id-generator.js";
 import { SOCKET_EVENTS } from "../events/events.js";
-import { getAndEmitUsers } from "../listeners/userListener.js"
-import { getAndEmitUserActors} from "../listeners/userActorListener.js";
-import { getAndEmitActorData} from "../listeners/actorDataListener.js";
-import { createAndEmitAbilityRoll } from "../listeners/abilityRollListener.js";
-import { createAndEmitSkillRoll } from "../listeners/skillRollListener.js";
-import { createAndEmitAttackRoll } from "../listeners/itemAttackRollListener.js";
-import { displayItemCard } from "../listeners/displayItemListener.js";
-import { getAndEmitWorldData } from "../listeners/worldDataListener.js";
-import { createAndEmitItemDamageRoll } from "../listeners/itemDamageRollListener.js";
-import { createAndEmitItemConsumeRoll } from "../listeners/itemConsumeRollListener.js";
-import { createAndEmitItemToolRoll } from "../listeners/itemToolRollListener.js";
+import { displayListenerWrapper } from "../listeners/display/displayListenerWrapper.js";
+import { setupListenerWrapper } from "../listeners/setup/setupListenerWrapper.js";
+import { rollListenerWrapper } from "../listeners/rolls/rollListenerWrapper.js";
+import { actorListenerWrapper } from "../listeners/actor/actorListenerWrapper.js";
 
 export class CharacterSheetCompanionSetup {
-    static setup() {
+  static setup() {
+    Hooks.on("init", () => {
+      game.settings.register(
+        "character-sheet-companion",
+        CHARACTER_SHEET_COMPANION_SETTING_KEY,
+        {
+          name: "Character Sheet Companion ID",
+          hint: "ID for app connectivity",
+          scope: "client",
+          config: true,
+          type: String,
+        }
+      );
 
-        Hooks.on("init", () => {
-            game.settings.register("character-sheet-companion", "character-sheet-companion-uuid", {
-                name: "Character Sheet Companion ID",
-                hint: "ID for app connectivity",
-                scope: "client",
-                config: true,
-                type: String
-            });
+      const id = game.settings.get(
+        "character-sheet-companion",
+        CHARACTER_SHEET_COMPANION_SETTING_KEY
+      );
+      if (!id) {
+        game.settings.set(
+          "character-sheet-companion",
+          CHARACTER_SHEET_COMPANION_SETTING_KEY,
+          generateId()
+        );
+      }
+    });
 
-            const id = game.settings.get("character-sheet-companion", "character-sheet-companion-uuid");
-            if (!id) {
-                game.settings.set("character-sheet-companion", "character-sheet-companion-uuid", generateId());
-            }
+    Hooks.on("ready", () => {
+      // Only allow a GM to connect -- Server will enforce only one GM connects to only have one Foundry client
+      if (game.users.current.isGM) {
+        const socket = io("http://localhost:3000", {
+          autoConnect: false,
+          reconnectionDelayMax: 15000, // Max of 15 seconds between connection attempts
+          reconnectionAttempts: 10, // Max of 10 attempts of reconnection before stopping
+          transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
         });
 
-        Hooks.on("ready", () => {
-
-            // Only allow a GM to connect -- Server will enforce only one GM connects to only have one Foundry client
-            if(game.users.current.isGM) {
-                const socket = io("http://localhost:3000", {
-                    autoConnect: false,
-                    reconnectionDelayMax: 15000,  // Max of 15 seconds between connection attempts
-                    reconnectionAttempts: 10,      // Max of 10 attempts of reconnection before stopping
-                    transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
-                });
-                socket.on("connect", () => {
-                    socket.emit(SOCKET_EVENTS.FOUNDRY.JOIN_ROOM, game.settings.get("character-sheet-companion", CHARACTER_SHEET_COMPANION_SETTING_KEY));
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USERS, (iosSocketId) => {
-                    getAndEmitUsers(socket, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_USER_ACTORS, (iosSocketId) => {
-                    getAndEmitUserActors(socket, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ACTOR_DATA, async (actorId, iosSocketId) => {
-                    await getAndEmitActorData(socket, actorId, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ABILITY_ROLL, (abilityRoll, iosSocketId) => {
-                    createAndEmitAbilityRoll(socket, abilityRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_SKILL_ROLL, (skillRoll, iosSocketId) => {
-                    createAndEmitSkillRoll(socket, skillRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL, (itemAttackRoll, iosSocketId) => {
-                    createAndEmitAttackRoll(socket, itemAttackRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL, (itemDamageRoll, iosSocketId) => {
-                    createAndEmitItemDamageRoll(socket, itemDamageRoll, iosSocketId)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL, (itemConsumeRoll, iosSocketId) => {
-                    createAndEmitItemConsumeRoll(socket, itemConsumeRoll, iosSocketId);
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_ITEM_TOOL_ROLL, (itemToolRoll, iosSocketId) => {
-                    createAndEmitItemToolRoll(socket, itemToolRoll, iosSocketId);
-                })
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_DISPLAY_ITEM, (displayItem) => {
-                    displayItemCard(displayItem)
-                });
-
-                socket.on(SOCKET_EVENTS.SERVER.REQUEST_FOUNDRY_WORLD_DATA, (iosSocketId) => {
-                    getAndEmitWorldData(socket, iosSocketId)
-                });
-
-                socket.connect();
-
-                // Select the token, get the image data, then unselect the token
-                // Get the canvas (~168Kb)
-                //game.canvas.app.renderer.plugins.extract.base64(game.canvas.app.stage, "image/jpeg", 0.15)
-            }
+        socket.on("connect", () => {
+          socket.emit(
+            SOCKET_EVENTS.FOUNDRY.SETUP.JOIN_ROOM,
+            game.settings.get(
+              "character-sheet-companion",
+              CHARACTER_SHEET_COMPANION_SETTING_KEY
+            )
+          );
         });
-    }
+
+        displayListenerWrapper(socket);
+        setupListenerWrapper(socket);
+        rollListenerWrapper(socket);
+        actorListenerWrapper(socket);
+
+        socket.connect();
+
+        Hooks.on("updateActor", (entity, data, options, userId) => {
+          // if it is a user connected to the character companion room -- need to save actors that are connected along with
+          // their iosSocketId
+          // easiest thing to do would be to regenerate the model and send it as an event rather than try to figure out what changed
+          // though that could lead to changes that don't make a difference.. could cache the latest model that was sent and check if it is
+          // different??
+          console.log(data);
+
+          // hp, attributes, senses, skills, biography,
+          if (entity) {
+            entity.data._id;
+          }
+
+          if (data) {
+          }
+        });
+
+        Hooks.on("updateItem", (entity, data, options, userId) => {
+          // spell updates, like spell level consumption
+          // item updates, like potion consumption,
+          // item description change, image change, etc.
+          // Basically is the item was update, regenerate it into the model and send it as a socket event
+          console.log(data);
+        });
+
+        Hooks.on("createItem", (entity, options, userId) => {
+          // Send new item as an event
+          console.log(entity);
+          console.log(options);
+          console.log(userId);
+        });
+
+        Hooks.on("createActiveEffect", (entity, options, userId) => {
+          // active effects (fire, death, custom, etc.)
+          console.log(entity);
+        });
+
+        // Select the token, get the image data, then unselect the token
+        // Get the canvas (~168Kb)
+        //game.canvas.app.renderer.plugins.extract.base64(game.canvas.app.stage, "image/jpeg", 0.15)
+
+        // only activates after initial chat log rendering
+        // Hooks.on("renderChatMessage", () => {
+        //     createAndEmitChatData()
+        // });
+      }
+    });
+  }
 }

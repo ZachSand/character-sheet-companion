@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var socketConnectSuccess = false
-    
     var body: some View {
-        return Group {
-            if(socketConnectSuccess) {
-                UserActorPickerView()
-            } else {
-                FoundryConnectView(connectSuccess: $socketConnectSuccess)
-            }
-        }
+        ConnectView()
     }
 }
+
+#if DEBUG
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
+    }
+#endif

@@ -1,16 +1,18 @@
 import { Server, Socket } from "socket.io";
-import { abilityRollListener } from "./abilityRollListener";
-import { skillRollListener } from "./skillRollListener";
-import { itemAttackRollListener } from "./itemAttackRollListener";
-import { itemDamageRollListener } from "./itemDamageRollListener";
-import { itemConsumeRollListener } from "./itemConsumeRollListener";
-import { itemToolRollListener } from "./itemToolRollListener";
+import { rollAbilityListener } from "./rollAbilityListener";
+import { rollSkillListener } from "./rollSkillListener";
+import { rollItemAttackListener } from "./rollItemAttackListener";
+import { rollItemDamageListener } from "./rollItemDamageListener";
+import { rollItemConsumeListener } from "./rollItemConsumeListener";
+import { rollItemToolListener } from "./rollItemToolListener";
+import { rollInitiativeListener } from "./rollInitiativeListener";
 
 export const rollListenerWrapper = (io: Server, socket: Socket): void => {
-  abilityRollListener(io, socket);
-  skillRollListener(io, socket);
-  itemAttackRollListener(io, socket);
-  itemDamageRollListener(io, socket);
-  itemConsumeRollListener(io, socket);
-  itemToolRollListener(io, socket);
+  rollAbilityListener(io, socket);
+  rollSkillListener(io, socket);
+  rollItemAttackListener(io, socket);
+  rollItemDamageListener(io, socket);
+  rollItemConsumeListener(io, socket);
+  rollItemToolListener(io, socket);
+  rollInitiativeListener(io, socket);
 };
