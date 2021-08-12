@@ -8,10 +8,10 @@
 import Foundation
 import SocketIO
 
-class ChatMessageListener: SocketListener {
+class DisplayChatMessageListener: SocketListener {
     let socket: SocketIOClient
 
-    var chatMessageCallback: (([ChatMessageModel]?) -> Void)?
+    var chatMessageCallback: (([ChatMessageModel]) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class ChatMessageListener: SocketListener {
         }
     }
 
-    func getChatMessages(userId: String, actorId: String, completionHandler: @escaping ([ChatMessageModel]?) -> Void) {
+    func getChatMessages(userId: String, actorId: String, completionHandler: @escaping ([ChatMessageModel]) -> Void) {
         socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_CHAT_DATA, userId, actorId)
         chatMessageCallback = completionHandler
     }

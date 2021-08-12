@@ -6,7 +6,7 @@ import { SOCKET_EVENTS } from "../events/events.js";
 import { displayListenerWrapper } from "../listeners/display/displayListenerWrapper.js";
 import { setupListenerWrapper } from "../listeners/setup/setupListenerWrapper.js";
 import { rollListenerWrapper } from "../listeners/rolls/rollListenerWrapper.js";
-import { actorListenerWrapper } from "../listeners/actor/actorListenerWrapper";
+import { actorListenerWrapper } from "../listeners/actor/actorListenerWrapper.js";
 
 export class CharacterSheetCompanionSetup {
   static setup() {
@@ -48,7 +48,7 @@ export class CharacterSheetCompanionSetup {
 
         socket.on("connect", () => {
           socket.emit(
-            SOCKET_EVENTS.FOUNDRY.JOIN_ROOM,
+            SOCKET_EVENTS.FOUNDRY.SETUP.JOIN_ROOM,
             game.settings.get(
               "character-sheet-companion",
               CHARACTER_SHEET_COMPANION_SETTING_KEY
@@ -62,6 +62,43 @@ export class CharacterSheetCompanionSetup {
         actorListenerWrapper(socket);
 
         socket.connect();
+
+        Hooks.on("updateActor", (entity, data, options, userId) => {
+          // if it is a user connected to the character companion room -- need to save actors that are connected along with
+          // their iosSocketId
+          // easiest thing to do would be to regenerate the model and send it as an event rather than try to figure out what changed
+          // though that could lead to changes that don't make a difference.. could cache the latest model that was sent and check if it is
+          // different??
+          console.log(data);
+
+          // hp, attributes, senses, skills, biography,
+          if (entity) {
+            entity.data._id;
+          }
+
+          if (data) {
+          }
+        });
+
+        Hooks.on("updateItem", (entity, data, options, userId) => {
+          // spell updates, like spell level consumption
+          // item updates, like potion consumption,
+          // item description change, image change, etc.
+          // Basically is the item was update, regenerate it into the model and send it as a socket event
+          console.log(data);
+        });
+
+        Hooks.on("createItem", (entity, options, userId) => {
+          // Send new item as an event
+          console.log(entity);
+          console.log(options);
+          console.log(userId);
+        });
+
+        Hooks.on("createActiveEffect", (entity, options, userId) => {
+          // active effects (fire, death, custom, etc.)
+          console.log(entity);
+        });
 
         // Select the token, get the image data, then unselect the token
         // Get the canvas (~168Kb)

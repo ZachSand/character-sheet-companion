@@ -21,7 +21,7 @@ export const setupActorsListener = (io: Server, socket: Socket): void => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(
-        SOCKET_EVENTS.SERVER.SETUP.SEND.SEND_FOUNDRY_USERS,
+        SOCKET_EVENTS.SERVER.SETUP.SEND.SEND_FOUNDRY_ACTORS,
         JSON.stringify(actors)
       );
     }

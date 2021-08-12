@@ -11,23 +11,23 @@ import SocketIO
 class FoundrySocketIOManager: NSObject {
     static let sharedInstance = FoundrySocketIOManager()
 
-    let manager: SocketManager
-    let socket: SocketIOClient
-    let listeners: [SocketListener]
+    private let manager: SocketManager
+    private let socket: SocketIOClient
+    private let listeners: [SocketListener]
 
     var user: UserModel?
     var actor: ActorModel?
 
-    override init() {
+    override private init() {
         manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(false), .compress])
         socket = manager.defaultSocket
 
         listeners = [
             // Setup Listeners
-            ConnectionListener(socket: socket),
-            UsersListener(socket: socket),
-            ActorListener(socket: socket),
-            WorldDataListener(socket: socket),
+            SetupConnectionListener(socket: socket),
+            SetupUsersListener(socket: socket),
+            SetupActorsListener(socket: socket),
+            SetupWorldDataListener(socket: socket),
 
             // Actor Listeners
             ActorAbilityListener(socket: socket),
@@ -38,17 +38,17 @@ class FoundrySocketIOManager: NSObject {
             ActorSpellSlotListener(socket: socket),
 
             // Roll Listeners
-            AbilityListener(socket: socket),
-            SkillListener(socket: socket),
-            ItemAttackListener(socket: socket),
-            ItemDamageListener(socket: socket),
-            ItemConsumeListener(socket: socket),
-            ItemToolListener(socket: socket),
-            InitiativeListener(socket: socket),
+            RollAbilityListener(socket: socket),
+            RollSkillListener(socket: socket),
+            RollItemAttackListener(socket: socket),
+            RollItemDamageListener(socket: socket),
+            RollItemConsumeListener(socket: socket),
+            RollToolListener(socket: socket),
+            RollInitiativeListener(socket: socket),
 
             // Display Listeners
-            ItemDisplayListener(socket: socket),
-            ChatMessageListener(socket: socket),
+            DisplayItemListener(socket: socket),
+            DisplayChatMessageListener(socket: socket),
         ]
 
         super.init()

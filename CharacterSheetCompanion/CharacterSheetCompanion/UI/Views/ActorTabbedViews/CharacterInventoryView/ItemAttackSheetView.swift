@@ -33,7 +33,7 @@ struct InventoryItemAttackSheetView: View {
     struct InventoryItemAttackSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemAttackSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                characterInventoryVM: CharacterInventoryViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataWeapons[0]
             )
         }

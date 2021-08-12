@@ -12,52 +12,45 @@ struct WorldUserActorView: View {
     @State var selectedUser: UserModel?
     @State var selectedActor: ActorModel?
 
-    let users: [UserModel]
-    let actors: [ActorModel]
-    let worldData: WorldDataModel
-
-    init(users: [UserModel], actors: [ActorModel], worldData: WorldDataModel) {
-        self.users = users
-        self.actors = actors
-        self.worldData = worldData
-        worldUserActorVM = WorldUserActorViewModel()
-        selectedUser = users[0]
-        selectedActor = actors[0]
-    }
-
     var body: some View {
         VStack {
-            WorldDataView(worldData: worldData)
+            if let worldData = worldUserActorVM.worldData {
+                WorldDataView(worldData: worldData)
+            }
             Divider()
 
             GeometryReader { geometry in
                 VStack(spacing: 5) {
-                    HStack {
-                        Spacer()
-                        Section(header: Text("User")) {
-                            Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
-                                ForEach(users) { user in
-                                    Text(user.name).tag(user as UserModel?)
+                    if let users = worldUserActorVM.users {
+                        HStack {
+                            Spacer()
+                            Section(header: Text("User")) {
+                                Picker(selection: $selectedUser, label: Text("Select Foundry User")) {
+                                    ForEach(users) { user in
+                                        Text(user.name).tag(user as UserModel?)
+                                    }
                                 }
+                                .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
+                                .clipped()
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
-                            .clipped()
+                            Spacer()
                         }
-                        Spacer()
                     }
 
-                    HStack {
-                        Spacer()
-                        Section(header: Text("Actor")) {
-                            Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
-                                ForEach(actors) { actor in
-                                    Text(actor.name).tag(actor as ActorModel)
+                    if let actors = worldUserActorVM.actors {
+                        HStack {
+                            Spacer()
+                            Section(header: Text("Actor")) {
+                                Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
+                                    ForEach(actors) { actor in
+                                        Text(actor.name).tag(actor as ActorModel?)
+                                    }
                                 }
+                                .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
+                                .clipped()
                             }
-                            .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
-                            .clipped()
+                            Spacer()
                         }
-                        Spacer()
                     }
                 }
             }
@@ -65,10 +58,10 @@ struct WorldUserActorView: View {
             Button {
                 if let window = UIApplication.shared.windows.first {
                     if let actor = selectedActor, let user = selectedUser {
-                        window.rootViewController = UIHostingController(rootView: ActorTabbedView(actor: actor, user: user))
-                        window.makeKeyAndVisible()
                         worldUserActorVM.setActor(actor: actor)
                         worldUserActorVM.setUser(user: user)
+                        window.rootViewController = UIHostingController(rootView: ActorTabbedView(actor: actor, user: user))
+                        window.makeKeyAndVisible()
                     }
                 }
             } label: {
@@ -87,12 +80,16 @@ struct WorldUserActorView: View {
 
 #if DEBUG
     struct WorldUserActorView_Previews: PreviewProvider {
+        static let worldUserActorVM: WorldUserActorViewModel = {
+            let worldUserActorVM = WorldUserActorViewModel()
+            worldUserActorVM.actors = ActorModel.mockedData
+            worldUserActorVM.users = UserModel.mockedData
+            worldUserActorVM.worldData = WorldDataModel.mockedData
+            return worldUserActorVM
+        }()
+
         static var previews: some View {
-            WorldUserActorView(
-                users: UserModel.mockedData,
-                actors: ActorModel.mockedData,
-                worldData: WorldDataModel.mockedData
-            )
+            WorldUserActorView(worldUserActorVM: worldUserActorVM)
         }
     }
 #endif

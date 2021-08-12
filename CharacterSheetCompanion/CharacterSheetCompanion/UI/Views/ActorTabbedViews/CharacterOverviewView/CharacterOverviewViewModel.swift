@@ -5,51 +5,77 @@
 //  Created by Zachary Sanders on 7/21/21.
 //
 
+import Combine
 import Foundation
 
 class CharacterOverviewViewModel: ObservableObject {
-    @Published var actorOverview: ActorOverviewModel
-    var initiativeListener: InitiativeListener?
+    @Published var actorOverview: ActorOverviewModel?
 
-    let MAX_CHARACTER_NAME_SIZE = 25
+    var initiativeListener: RollInitiativeListener?
+    var overviewListener: ActorOverviewListener?
+    var subscription = Set<AnyCancellable>()
 
-    init(actorOverview: ActorOverviewModel) {
-        self.actorOverview = actorOverview
+    init() {
         do {
             try initiativeListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try overviewListener = FoundrySocketIOManager.sharedInstance.getListener()
+            overviewListener?.overviewPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { model in
+                    self.actorOverview = model
+                })
+                .store(in: &subscription)
         } catch {}
     }
 
     func getCharacterArmorClass() -> String {
-        "AC " + String(actorOverview.armorClass)
+        if let overview = actorOverview {
+            return "AC " + String(overview.armorClass)
+        }
+        return ""
     }
 
     func getCharacterName() -> String {
-        actorOverview.name
+        if let overview = actorOverview {
+            return overview.name
+        }
+        return ""
     }
 
     func getHealth() -> String {
-        "HP " + String(actorOverview.currentHealth) + "/" + String(actorOverview.maxHealth)
+        if let overview = actorOverview {
+            return "HP " + String(overview.currentHealth) + "/" + String(overview.maxHealth)
+        }
+        return ""
     }
 
     func getProficiencyBonus() -> String {
-        let profBonus = actorOverview.proficiencyBonus
-        if profBonus > 0 {
-            return "PROF +" + String(profBonus)
+        if let overview = actorOverview {
+            let profBonus = overview.proficiencyBonus
+            if profBonus > 0 {
+                return "PROF +" + String(profBonus)
+            }
+            return "PROF " + String(profBonus)
         }
-        return "PROF " + String(profBonus)
+        return ""
     }
 
     func getInitiativeBonus() -> String {
-        let initBonus = actorOverview.initiativeBonus
-        if initBonus > 0 {
-            return "INIT +" + String(initBonus)
+        if let overview = actorOverview {
+            let initBonus = overview.initiativeBonus
+            if initBonus > 0 {
+                return "INIT +" + String(initBonus)
+            }
+            return "INIT " + String(initBonus)
         }
-        return "INIT " + String(initBonus)
+        return ""
     }
 
     func getClassInfo() -> String {
-        actorOverview.mainClass + " \(actorOverview.overallLevel)"
+        if let overview = actorOverview {
+            return overview.mainClass + " \(overview.overallLevel)"
+        }
+        return ""
     }
 
     func rollInitiative() {
@@ -57,9 +83,7 @@ class CharacterOverviewViewModel: ObservableObject {
             let rollModel = InitiativeRollModel(actorId: actor.id, result: 0)
             DispatchQueue.main.async {
                 listener.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
-                    if let rollResult = initiativeRollResult {
-                        print(rollResult)
-                    }
+                    print(initiativeRollResult)
                 }
             }
         }

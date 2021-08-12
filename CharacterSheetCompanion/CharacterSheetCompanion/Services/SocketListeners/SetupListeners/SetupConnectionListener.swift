@@ -8,7 +8,7 @@
 import Foundation
 import SocketIO
 
-class ConnectionListener: SocketListener {
+class SetupConnectionListener: SocketListener {
     let socket: SocketIOClient
 
     var socketConnectionCallback: ((Bool) -> Void)?

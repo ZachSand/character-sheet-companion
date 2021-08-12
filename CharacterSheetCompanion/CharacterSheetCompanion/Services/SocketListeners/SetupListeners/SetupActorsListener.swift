@@ -8,10 +8,10 @@
 import Foundation
 import SocketIO
 
-class ActorListener: SocketListener {
+class SetupActorsListener: SocketListener {
     let socket: SocketIOClient
 
-    var actorsCallback: (([ActorModel]?) -> Void)?
+    var actorsCallback: (([ActorModel]) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class ActorListener: SocketListener {
         }
     }
 
-    func getActors(completionHandler: @escaping ([ActorModel]?) -> Void) {
+    func getActors(completionHandler: @escaping ([ActorModel]) -> Void) {
         socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_ACTORS)
         actorsCallback = completionHandler
     }

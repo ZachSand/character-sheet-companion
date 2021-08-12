@@ -54,7 +54,10 @@ struct SkillView: View {
 #if DEBUG
     struct SkillView_Previews: PreviewProvider {
         static var previews: some View {
-            SkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData), skill: ActorSkillModel.mockedData[0])
+            SkillView(
+                characterSkillVM: CharacterSkillViewModel(),
+                skill: ActorSkillModel.mockedData[0]
+            )
         }
     }
 #endif

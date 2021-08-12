@@ -12,26 +12,26 @@ class WorldUserActorViewModel: ObservableObject {
     @Published var actors: [ActorModel]?
     @Published var users: [UserModel]?
 
-    var usersListener: UsersListener?
-    var setupWorldDataListener: WorldDataListener?
-    var userActorListener: ActorListener?
+    var usersListener: SetupUsersListener?
+    var setupWorldDataListener: SetupWorldDataListener?
+    var actorsListener: SetupActorsListener?
 
     init() {
         do {
             try usersListener = FoundrySocketIOManager.sharedInstance.getListener()
             try setupWorldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try userActorListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try actorsListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
         fetchUsers()
         fetchWorldData()
-        fetchUserActors()
+        fetchActors()
     }
 
     func fetchUsers() {
         if let listener = usersListener {
             DispatchQueue.main.async {
-                listener.getUsers { users in
-                    self.users = users
+                listener.getUsers { userModels in
+                    self.users = userModels
                 }
             }
         }
@@ -40,18 +40,18 @@ class WorldUserActorViewModel: ObservableObject {
     func fetchWorldData() {
         if let listener = setupWorldDataListener {
             DispatchQueue.main.async {
-                listener.getWorldData { worldData in
-                    self.worldData = worldData
+                listener.getWorldData { worldDataModel in
+                    self.worldData = worldDataModel
                 }
             }
         }
     }
 
-    func fetchUserActors() {
-        if let listener = userActorListener {
+    func fetchActors() {
+        if let listener = actorsListener {
             DispatchQueue.main.async {
-                listener.getActors { actors in
-                    self.actors = actors
+                listener.getActors { actorModels in
+                    self.actors = actorModels
                 }
             }
         }

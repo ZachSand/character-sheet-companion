@@ -4,7 +4,7 @@ export function createAndEmitSkills(socket, actorId, iosSocketId) {
   let actor = game.actors.get(actorId);
   if (actor) {
     socket.emit(
-      SOCKET_EVENTS.FOUNDRY.SEND_ACTOR_SKILLS,
+      SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_SKILLS,
       Object.entries(actor.data.data.skills).map((skillEntry) => {
         let skillId = skillEntry[0];
         let skill = skillEntry[1];

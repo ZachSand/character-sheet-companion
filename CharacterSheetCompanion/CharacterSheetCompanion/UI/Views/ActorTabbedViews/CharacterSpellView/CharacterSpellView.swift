@@ -13,23 +13,25 @@ struct CharacterSpellView: View {
 
     var body: some View {
         VStack {
-            List {
-                ForEach(characterSpellVM.spellSlots) { spellSlot in
-                    Section(header: HStack {
-                        Text(spellSlot.spellLevelLabel)
-                        if spellSlot.maxSpellSlots > 0 {
-                            Spacer()
-                            Text("\(spellSlot.currentSpellSlots)/\(spellSlot.maxSpellSlots)")
-                        }
-                    }) {
-                        ForEach(spellSlot.spells) { spell in
-                            SpellView(
-                                characterSpellVM: characterSpellVM,
-                                spell: spell, isExpanded:
-                                self.selection.contains(spell)
-                            )
-                            .onTapGesture {
-                                self.selectDeselect(spell)
+            if let spellSlots = characterSpellVM.spellSlots {
+                List {
+                    ForEach(spellSlots) { spellSlot in
+                        Section(header: HStack {
+                            Text(spellSlot.spellLevelLabel)
+                            if spellSlot.maxSpellSlots > 0 {
+                                Spacer()
+                                Text("\(spellSlot.currentSpellSlots)/\(spellSlot.maxSpellSlots)")
+                            }
+                        }) {
+                            ForEach(spellSlot.spells) { spell in
+                                SpellView(
+                                    characterSpellVM: characterSpellVM,
+                                    spell: spell, isExpanded:
+                                    self.selection.contains(spell)
+                                )
+                                .onTapGesture {
+                                    self.selectDeselect(spell)
+                                }
                             }
                         }
                     }
@@ -49,8 +51,14 @@ struct CharacterSpellView: View {
 
 #if DEBUG
     struct CharacterSpellView_Previews: PreviewProvider {
+        static let characterSpellVM: CharacterSpellViewModel = {
+            let characterSpellVM = CharacterSpellViewModel()
+            characterSpellVM.spellSlots = ActorSpellSlotModel.mockedData
+            return characterSpellVM
+        }()
+
         static var previews: some View {
-            CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData))
+            CharacterSpellView(characterSpellVM: characterSpellVM)
         }
     }
 #endif

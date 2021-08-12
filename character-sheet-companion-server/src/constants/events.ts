@@ -1,6 +1,6 @@
 const foundryEventPrefix = "foundry:";
 const serverEventPrefix = "server:";
-const iosEventPrefix = "ios";
+const iosEventPrefix = "ios:";
 
 const requestFoundryEventPrefix = "requestFoundry";
 const sendFoundryEventPrefix = "sendFoundry";
@@ -44,7 +44,7 @@ export const SOCKET_EVENTS = {
       REQUEST_FOUNDRY_USERS:
         iosEventPrefix + requestFoundryEventPrefix + "Users",
       REQUEST_FOUNDRY_ACTORS:
-        iosEventPrefix + requestFoundryEventPrefix + "Actor",
+        iosEventPrefix + requestFoundryEventPrefix + "Actors",
       REQUEST_FOUNDRY_WORLD_DATA:
         iosEventPrefix + requestFoundryEventPrefix + "WorldData",
     },

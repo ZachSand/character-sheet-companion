@@ -10,32 +10,24 @@ import Foundation
 struct SocketListenerUtility {
     static let jsonDecoder = JSONDecoder()
 
-    static func parseSocketEventData<FoundryModel: Decodable>(_ data: [Any]) throws -> FoundryModel? {
-        let data = data[0] as? String
-        var foundryModel: FoundryModel?
-        if let rollData = data {
-            if let json = rollData.data(using: .utf8) {
-                try parseFoundryModel(&foundryModel, json)
-            }
+    static func parseSocketEventData<FoundryModel: Decodable>(_ data: [Any]) throws -> FoundryModel {
+        if let socketData = data[0] as? String, let json = socketData.data(using: .utf8) {
+            return try parseModel(json)
         }
-        return foundryModel
+        throw FoundryJSONError.errorMessage("Unable to unwrap data")
     }
 
-    static func parseSocketEventDataArray<FoundryModel: Decodable>(_ data: [Any]) throws -> [FoundryModel]? {
-        let data = data[0] as? String
-        var foundryModel: [FoundryModel]?
-        if let rollData = data {
-            if let json = rollData.data(using: .utf8) {
-                try parseFoundryModel(&foundryModel, json)
-            }
+    static func parseSocketEventDataArray<FoundryModel: Decodable>(_ data: [Any]) throws -> [FoundryModel] {
+        if let socketData = data[0] as? String, let json = socketData.data(using: .utf8) {
+            return try parseModel(json)
         }
-        return foundryModel
+        throw FoundryJSONError.errorMessage("Unable to unwrap data")
     }
 
-    static func parseFoundryModel<FoundryModel: Decodable>(_ foundryModel: inout FoundryModel?, _ json: Data) throws {
+    static func parseModel<FoundryModel: Decodable>(_ json: Data) throws -> FoundryModel {
         var errorMessage: String
         do {
-            foundryModel = try jsonDecoder.decode(FoundryModel.self, from: json)
+            return try jsonDecoder.decode(FoundryModel.self, from: json)
         } catch let DecodingError.keyNotFound(key, context) {
             errorMessage = context.codingPath.description
             errorMessage += "could not find key \(key) in JSON: \(context.debugDescription)"

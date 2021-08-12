@@ -61,7 +61,7 @@ struct ChatView: View {
 #if DEBUG
     struct ChatViewPreviews: PreviewProvider {
         static var previews: some View {
-            ChatView(chatVM: ChatViewModel(user: UserModel.mockedData[0], chatMessages: ChatMessageModel.mockedData))
+            ChatView(chatVM: ChatViewModel(chatMessages: ChatMessageModel.mockedData))
         }
     }
 #endif

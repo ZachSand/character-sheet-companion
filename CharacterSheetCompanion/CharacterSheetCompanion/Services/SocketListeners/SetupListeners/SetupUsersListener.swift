@@ -8,10 +8,10 @@
 import Foundation
 import SocketIO
 
-class UsersListener: SocketListener {
+class SetupUsersListener: SocketListener {
     let socket: SocketIOClient
 
-    var usersCallback: (([UserModel]?) -> Void)?
+    var usersCallback: (([UserModel]) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class UsersListener: SocketListener {
         }
     }
 
-    func getUsers(completionHandler: @escaping ([UserModel]?) -> Void) {
+    func getUsers(completionHandler: @escaping ([UserModel]) -> Void) {
         socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_USERS)
         usersCallback = completionHandler
     }

@@ -8,11 +8,11 @@
 import Foundation
 import SocketIO
 
-class AbilityListener: SocketListener {
+class RollAbilityListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
 
-    var abilityRollCallback: ((AbilityRollModel?) -> Void)?
+    var abilityRollCallback: ((AbilityRollModel) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -31,7 +31,7 @@ class AbilityListener: SocketListener {
         }
     }
 
-    func rollAbility(abilityRoll: AbilityRollModel, completionHandler: @escaping (AbilityRollModel?) -> Void) {
+    func rollAbility(abilityRoll: AbilityRollModel, completionHandler: @escaping (AbilityRollModel) -> Void) {
         do {
             let jsonData = try jsonEncoder.encode(abilityRoll)
             if let json = String(data: jsonData, encoding: .utf8) {

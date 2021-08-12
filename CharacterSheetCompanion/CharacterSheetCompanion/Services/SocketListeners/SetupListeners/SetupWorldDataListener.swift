@@ -8,10 +8,10 @@
 import Foundation
 import SocketIO
 
-class WorldDataListener: SocketListener {
+class SetupWorldDataListener: SocketListener {
     let socket: SocketIOClient
 
-    var worldDataCallback: ((WorldDataModel?) -> Void)?
+    var worldDataCallback: ((WorldDataModel) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class WorldDataListener: SocketListener {
         }
     }
 
-    func getWorldData(completionHandler: @escaping (WorldDataModel?) -> Void) {
+    func getWorldData(completionHandler: @escaping (WorldDataModel) -> Void) {
         socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_WORLD_DATA)
         worldDataCallback = completionHandler
     }

@@ -5,22 +5,25 @@
 //  Created by Zachary Sanders on 8/11/21.
 //
 
+import Combine
 import Foundation
 import SocketIO
 
-class ActorInventoryListener: SocketListener {
+class ActorInventoryListener: SocketListener, ActorListener, ObservableObject {
+    let inventoryPublisher: AnyPublisher<ActorInventoryModel?, Never>
     let socket: SocketIOClient
 
-    var actorInventoryCallback: ((ActorInventoryModel?) -> Void)?
+    private let inventorySubject = CurrentValueSubject<ActorInventoryModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
+        inventoryPublisher = inventorySubject.eraseToAnyPublisher()
         self.socket = socket
     }
 
     func addSocketHandlers() {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_INVENTORY) { data, _ in
             do {
-                try self.actorInventoryCallback?(SocketListenerUtility.parseSocketEventData(data))
+                try self.inventorySubject.send(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -29,9 +32,12 @@ class ActorInventoryListener: SocketListener {
         }
     }
 
-    func getActorInventory(actorId: String, completionHandler: @escaping (ActorInventoryModel?) -> Void) {
+    func requestInitialActorData(actorId: String) {
         socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_INVENTORY, actorId)
-        actorInventoryCallback = completionHandler
+    }
+
+    func isReady() -> Bool {
+        true
     }
 }
 

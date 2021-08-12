@@ -12,33 +12,35 @@ struct CharacterBiographyView: View {
 
     var body: some View {
         VStack {
-            ScrollView {
-                Section(header: Text("Appearance").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.appearance)
-                }
+            if let biography = characterBiographyVM.biography {
+                ScrollView {
+                    Section(header: Text("Appearance").font(.subheadline)) {
+                        Text(biography.appearance)
+                    }
 
-                Divider()
-                Section(header: Text("Personality Traits").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.personalityTraits)
-                }
+                    Divider()
+                    Section(header: Text("Personality Traits").font(.subheadline)) {
+                        Text(biography.personalityTraits)
+                    }
 
-                Divider()
-                Section(header: Text("Ideals").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.ideals)
-                }
+                    Divider()
+                    Section(header: Text("Ideals").font(.subheadline)) {
+                        Text(biography.ideals)
+                    }
 
-                Divider()
-                Section(header: Text("Bonds").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.bonds)
-                }
+                    Divider()
+                    Section(header: Text("Bonds").font(.subheadline)) {
+                        Text(biography.bonds)
+                    }
 
-                Divider()
-                Section(header: Text("Flaws").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.flaws)
-                }
+                    Divider()
+                    Section(header: Text("Flaws").font(.subheadline)) {
+                        Text(biography.flaws)
+                    }
 
-                Section(header: Text("Biography").font(.subheadline)) {
-                    Text(characterBiographyVM.biography.biography)
+                    Section(header: Text("Biography").font(.subheadline)) {
+                        Text(biography.biography)
+                    }
                 }
             }
         }
@@ -47,8 +49,14 @@ struct CharacterBiographyView: View {
 
 #if DEBUG
     struct CharacterBiographyView_Previews: PreviewProvider {
+        static let characterBiographyVM: CharacterBiographyViewModel = {
+            let characterBiographyVM = CharacterBiographyViewModel()
+            characterBiographyVM.biography = ActorBiographyModel.mockedData
+            return characterBiographyVM
+        }()
+
         static var previews: some View {
-            CharacterBiographyView(characterBiographyVM: CharacterBiographyViewModel(biography: ActorBiographyModel.mockedData))
+            CharacterBiographyView(characterBiographyVM: characterBiographyVM)
         }
     }
 #endif

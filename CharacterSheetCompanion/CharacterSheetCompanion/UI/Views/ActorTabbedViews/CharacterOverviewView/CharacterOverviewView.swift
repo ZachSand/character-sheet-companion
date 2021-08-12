@@ -10,12 +10,6 @@ import SwiftUI
 struct CharacterOverviewView: View {
     @ObservedObject var characterOverviewVM: CharacterOverviewViewModel
     @State private var showHpSheet = false
-    var actorOverview: ActorOverviewModel
-
-    init(actorOverview: ActorOverviewModel) {
-        self.actorOverview = actorOverview
-        characterOverviewVM = CharacterOverviewViewModel(actorOverview: actorOverview)
-    }
 
     var body: some View {
         VStack {
@@ -80,11 +74,14 @@ struct CharacterOverviewView: View {
     }
 
     func getActorImage() -> Image {
-        if let imageData = actorOverview.imageData, let uiImage = UIImage(data: imageData) {
-            return Image(uiImage: uiImage)
-        } else {
-            return Image(systemName: "person.fill")
+        if let overview = characterOverviewVM.actorOverview {
+            if let imageData = overview.imageData, let uiImage = UIImage(data: imageData) {
+                return Image(uiImage: uiImage)
+            } else {
+                return Image(systemName: "person.fill")
+            }
         }
+        return Image(systemName: "person.fill")
     }
 }
 
@@ -96,8 +93,14 @@ struct HpModifierSheet: View {
 
 #if DEBUG
     struct CharacterOverviewView_Previews: PreviewProvider {
+        static let characterOverviewVM: CharacterOverviewViewModel = {
+            let characterOverviewVM = CharacterOverviewViewModel()
+            characterOverviewVM.actorOverview = ActorOverviewModel.mockedData
+            return characterOverviewVM
+        }()
+
         static var previews: some View {
-            CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
+            CharacterOverviewView(characterOverviewVM: characterOverviewVM)
         }
     }
 #endif

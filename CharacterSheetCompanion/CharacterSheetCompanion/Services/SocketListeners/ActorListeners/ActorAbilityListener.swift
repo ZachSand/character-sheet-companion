@@ -5,22 +5,25 @@
 //  Created by Zachary Sanders on 8/11/21.
 //
 
+import Combine
 import Foundation
 import SocketIO
 
-class ActorAbilityListener: SocketListener {
+class ActorAbilityListener: SocketListener, ActorListener, ObservableObject {
     let socket: SocketIOClient
+    let abilitiesPublisher: AnyPublisher<[ActorAbilityModel]?, Never>
 
-    var actorAbilitiesCallback: (([ActorAbilityModel]?) -> Void)?
+    private let abilitySubject = CurrentValueSubject<[ActorAbilityModel]?, Never>(nil)
 
     init(socket: SocketIOClient) {
         self.socket = socket
+        abilitiesPublisher = abilitySubject.eraseToAnyPublisher()
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.ROLL.SEND.SEND_INITIATIVE_ROLL) { data, _ in
+        socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_ABILITIES) { data, _ in
             do {
-                try self.actorAbilitiesCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
+                self.abilitySubject.send(try SocketListenerUtility.parseSocketEventDataArray(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -29,9 +32,12 @@ class ActorAbilityListener: SocketListener {
         }
     }
 
-    func getActorAbilities(actorId: String, completionHandler: @escaping ([ActorAbilityModel]?) -> Void) {
+    func requestInitialActorData(actorId: String) {
         socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ABILITIES, actorId)
-        actorAbilitiesCallback = completionHandler
+    }
+
+    func isReady() -> Bool {
+        true
     }
 }
 

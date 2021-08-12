@@ -8,47 +8,47 @@
 import SwiftUI
 
 struct ActorTabbedView: View {
-    @ObservedObject var actorTabbedVM: ActorTabbedViewModel
+    @ObservedObject var actorListenerWrapper: ActorListenerWrapper
     var actor: ActorModel
     var user: UserModel
 
     init(actor: ActorModel, user: UserModel) {
         self.actor = actor
         self.user = user
-        actorTabbedVM = ActorTabbedViewModel(actor: actor)
+        actorListenerWrapper = ActorListenerWrapper()
     }
 
     var body: some View {
-        if actorTabbedVM.dataLoadComplete {
-            CharacterOverviewView(actorOverview: ActorOverviewModel.mockedData)
+        if actorListenerWrapper.isActorDataReady {
+            CharacterOverviewView(characterOverviewVM: CharacterOverviewViewModel())
                 .frame(alignment: .top)
             Divider()
             TabView {
-                CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel(abilities: ActorAbilityModel.mockedData))
+                CharacterAbilityView(characterAbilityVM: CharacterAbilityViewModel())
                     .tabItem {
                         Label("Character", systemImage: "person.crop.circle")
                     }
                     .tag(1)
-                CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData))
+                CharacterSkillView(characterSkillVM: CharacterSkillViewModel())
                     .tabItem {
                         Label("Skills", systemImage: "list.dash")
                     }
-                CharacterSpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData))
+                CharacterSpellView(characterSpellVM: CharacterSpellViewModel())
                     .tabItem {
                         Label("Spells", systemImage: "book")
                     }
                     .tag(3)
-                CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData))
+                CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel())
                     .tabItem {
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
-                CharacterBiographyView(characterBiographyVM: CharacterBiographyViewModel(biography: ActorBiographyModel.mockedData))
+                CharacterBiographyView(characterBiographyVM: CharacterBiographyViewModel())
                     .tabItem {
                         Label("Biography", systemImage: "info.circle")
                     }
                     .tag(5)
-                ChatView(chatVM: ChatViewModel(user: UserModel.mockedData[0], chatMessages: ChatMessageModel.mockedData))
+                ChatView(chatVM: ChatViewModel(chatMessages: ChatMessageModel.mockedData))
                     .tabItem {
                         Label("Chat", systemImage: "message")
                     }

@@ -9,12 +9,10 @@ import Foundation
 
 class ChatViewModel: ObservableObject {
     @Published var chatMessages: [ChatMessageModel]
-    let user: UserModel
 
-    var displayChatMessageListener: ChatMessageListener?
+    var displayChatMessageListener: DisplayChatMessageListener?
 
-    init(user: UserModel, chatMessages: [ChatMessageModel]) {
-        self.user = user
+    init(chatMessages: [ChatMessageModel]) {
         do {
             try displayChatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
@@ -22,12 +20,10 @@ class ChatViewModel: ObservableObject {
     }
 
     func getMessageData() {
-        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor, let user = FoundrySocketIOManager.sharedInstance.user {
             DispatchQueue.main.async {
-                listener.getChatMessages(userId: self.user.id, actorId: actor.id, completionHandler: { chatMessageModels in
-                    if let chatMessages = chatMessageModels {
-                        self.chatMessages = chatMessages
-                    }
+                listener.getChatMessages(userId: user.id, actorId: actor.id, completionHandler: { chatMessageModels in
+                    self.chatMessages = chatMessageModels
                 })
             }
         }
@@ -43,9 +39,9 @@ class ChatViewModel: ObservableObject {
     }
 
     func sendMessage(message: String) {
-        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor, let user = FoundrySocketIOManager.sharedInstance.user {
             DispatchQueue.main.async {
-                listener.sendChatMessage(userId: self.user.id, actorId: actor.id, message: message)
+                listener.sendChatMessage(userId: user.id, actorId: actor.id, message: message)
             }
         }
     }

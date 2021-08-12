@@ -17,9 +17,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
     var quantity: Int
     var weight: Double
     var cost: Double
+    var numUsagesRemaining: Int
+    var maxUsages: Int
 
-    var numUsagesRemaining: Int?
-    var maxUsages: Int?
     var image: Data?
 
     func isConsumable() -> Bool {
@@ -43,7 +43,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: true,
                 quantity: 2,
                 weight: 3,
-                cost: 15
+                cost: 15,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -54,7 +56,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: true,
                 quantity: 1,
                 weight: 2,
-                cost: 50
+                cost: 50,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "3",
@@ -65,7 +69,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: true,
                 quantity: 1,
                 weight: 2,
-                cost: 2
+                cost: 2,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
         ]
 
@@ -79,7 +85,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 55,
-                cost: 75
+                cost: 75,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -90,7 +98,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 55,
-                cost: 45
+                cost: 45,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "3",
@@ -159,7 +169,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 8,
-                cost: 50
+                cost: 50,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -170,7 +182,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 6,
-                cost: 30
+                cost: 30,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "3",
@@ -181,7 +195,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 6,
-                cost: 0.1
+                cost: 0.1,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
         ]
 
@@ -195,7 +211,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 5,
-                cost: 2
+                cost: 2,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -206,7 +224,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 1,
-                cost: 1
+                cost: 1,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "3",
@@ -217,7 +237,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 1,
-                cost: 1
+                cost: 1,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
         ]
 
@@ -231,7 +253,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 3,
-                cost: 50
+                cost: 50,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -242,7 +266,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 1,
                 weight: 2,
-                cost: 1
+                cost: 1,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
             ActorInventoryItemModel(
                 id: "2",
@@ -253,7 +279,9 @@ struct ActorInventoryItemModel: Codable, Identifiable, Hashable {
                 hasDamage: false,
                 quantity: 2,
                 weight: 2,
-                cost: 1
+                cost: 1,
+                numUsagesRemaining: 0,
+                maxUsages: 0
             ),
         ]
     }

@@ -6,13 +6,6 @@
 //
 
 import Foundation
+import SwiftUI
 
-class ActorTabbedViewModel: ObservableObject {
-    @Published var dataLoadComplete: Bool
-    var actor: ActorModel
-
-    init(actor: ActorModel) {
-        dataLoadComplete = false
-        self.actor = actor
-    }
-}
+class ActorTabbedViewModel: ObservableObject {}

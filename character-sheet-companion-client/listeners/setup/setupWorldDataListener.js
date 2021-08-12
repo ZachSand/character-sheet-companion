@@ -1,9 +1,9 @@
 import { SOCKET_EVENTS } from "../../events/events.js";
-import { removeHtml } from "../../utils/commonUtilities";
+import { removeHtml } from "../../utils/commonUtilities.js";
 
 export function getAndEmitWorldData(socket, iosSocketId) {
   socket.emit(
-    SOCKET_EVENTS.FOUNDRY.SEND_WORLD_DATA,
+    SOCKET_EVENTS.FOUNDRY.SETUP.SEND_WORLD_DATA,
     {
       id: game.world.id,
       title: game.world.data.title,

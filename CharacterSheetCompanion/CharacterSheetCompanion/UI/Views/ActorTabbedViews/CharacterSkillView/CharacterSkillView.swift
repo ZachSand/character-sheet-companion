@@ -33,8 +33,10 @@ struct CharacterSkillView: View {
                 Spacer()
             }
             Divider()
-            List(characterSkillVM.skills) { skill in
-                SkillView(characterSkillVM: characterSkillVM, skill: skill)
+            if let skills = characterSkillVM.skills {
+                List(skills) { skill in
+                    SkillView(characterSkillVM: characterSkillVM, skill: skill)
+                }
             }
         }
     }
@@ -43,7 +45,7 @@ struct CharacterSkillView: View {
 #if DEBUG
     struct CharacterSkillView_Previews: PreviewProvider {
         static var previews: some View {
-            CharacterSkillView(characterSkillVM: CharacterSkillViewModel(skills: ActorSkillModel.mockedData))
+            CharacterSkillView(characterSkillVM: CharacterSkillViewModel())
         }
     }
 #endif

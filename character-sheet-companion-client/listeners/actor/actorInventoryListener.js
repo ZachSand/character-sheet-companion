@@ -28,16 +28,18 @@ export async function createAndEmitInventory(socket, actorId, iosSocketId) {
             type: item.data.type,
             hasAttack: item.hasAttack,
             hasDamage: item.hasDamage,
-            quantity: item.data.data.quantity || 0,
-            weight: item.data.data.weight || 0,
-            cost: item.data.data.price || 0,
+            quantity: Number(item.data.data.quantity) || 0,
+            weight: Number(item.data.data.weight) || 0,
+            cost: Number(item.data.data.price) || 0,
             image: await getBase64ImageData(item.data.img).then((imageData) => {
               return removeBase64Metadata(imageData);
             }),
             numUsagesRemaining: item.data.data.uses
-              ? item.data.data.uses.value
-              : null,
-            maxUsages: item.data.data.uses ? item.data.data.uses.max : null,
+              ? Number(item.data.data.uses.value)
+              : 0,
+            maxUsages: item.data.data.uses
+              ? Number(item.data.data.uses.max)
+              : 0,
           };
         })
     ).then((items) => {

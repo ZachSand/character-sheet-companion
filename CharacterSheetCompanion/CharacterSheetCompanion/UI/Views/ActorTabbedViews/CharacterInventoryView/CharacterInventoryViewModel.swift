@@ -5,40 +5,59 @@
 //  Created by Zachary Sanders on 7/20/21.
 //
 
+import Combine
 import Foundation
 
 class CharacterInventoryViewModel: ObservableObject {
-    @Published var inventory: ActorInventoryModel
+    @Published var inventory: ActorInventoryModel?
 
-    var itemAttackListener: ItemAttackListener?
-    var itemDamageListener: ItemDamageListener?
-    var itemConsumeListener: ItemConsumeListener?
-    var itemDisplayListener: ItemDisplayListener?
-    var itemToolListener: ItemToolListener?
+    var subscription = Set<AnyCancellable>()
 
-    init(inventory: ActorInventoryModel) {
-        self.inventory = inventory
+    var itemAttackListener: RollItemAttackListener?
+    var itemDamageListener: RollItemDamageListener?
+    var itemConsumeListener: RollItemConsumeListener?
+    var itemDisplayListener: DisplayItemListener?
+    var itemToolListener: RollToolListener?
+    var inventoryListener: ActorInventoryListener?
+
+    init() {
         do {
             try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDamageListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemConsumeListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
             try itemToolListener = FoundrySocketIOManager.sharedInstance.getListener()
+
+            try inventoryListener = FoundrySocketIOManager.sharedInstance.getListener()
+            inventoryListener?.inventoryPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { model in
+                    self.inventory = model
+                })
+                .store(in: &subscription)
         } catch {}
     }
 
     func getCurrency() -> String {
-        let currency = inventory.currency
-        return "\(currency.copper) Copper, \(currency.silver) Silver, \(currency.electrum) Electrum, \(currency.gold) Gold, \(currency.platinum) Platinum"
+        if let actorInventory = inventory {
+            let currency = actorInventory.currency
+            return "\(currency.copper) Copper, \(currency.silver) Silver, \(currency.electrum) Electrum, \(currency.gold) Gold, \(currency.platinum) Platinum"
+        }
+        return ""
     }
 
     func getInventorySections() -> [InventorySection] {
-        [InventorySection(id: "Weapons", inventoryItems: inventory.weapons),
-         InventorySection(id: "Equipment", inventoryItems: inventory.equipment),
-         InventorySection(id: "Consumables", inventoryItems: inventory.consumables),
-         InventorySection(id: "Tools", inventoryItems: inventory.tools),
-         InventorySection(id: "Containers", inventoryItems: inventory.containers),
-         InventorySection(id: "Loot", inventoryItems: inventory.loot)]
+        if let actorInventory = inventory {
+            return [
+                InventorySection(id: "Weapons", inventoryItems: actorInventory.weapons),
+                InventorySection(id: "Equipment", inventoryItems: actorInventory.equipment),
+                InventorySection(id: "Consumables", inventoryItems: actorInventory.consumables),
+                InventorySection(id: "Tools", inventoryItems: actorInventory.tools),
+                InventorySection(id: "Containers", inventoryItems: actorInventory.containers),
+                InventorySection(id: "Loot", inventoryItems: actorInventory.loot),
+            ]
+        }
+        return []
     }
 
     func rollItemAttack(inventoryItem: ActorInventoryItemModel, advantage: Bool, disadvantage: Bool) {
@@ -46,9 +65,7 @@ class CharacterInventoryViewModel: ObservableObject {
             let itemAttackRoll = ItemAttackRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
-                    if let itemAttackRollResult = attackRollResult {
-                        print(itemAttackRollResult)
-                    }
+                    print(attackRollResult)
                 }
             }
         }
@@ -59,9 +76,7 @@ class CharacterInventoryViewModel: ObservableObject {
             let itemDamageRoll = ItemDamageRollModel(actorId: actor.id, itemId: inventoryItem.id, critical: critical, versatile: versatile, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemDamage(damageRoll: itemDamageRoll) { damageRollResult in
-                    if let itemDamageRollResult = damageRollResult {
-                        print(itemDamageRollResult)
-                    }
+                    print(damageRollResult)
                 }
             }
         }
@@ -72,9 +87,7 @@ class CharacterInventoryViewModel: ObservableObject {
             let itemConsumeRoll = ItemConsumeRollModel(actorId: actor.id, itemId: inventoryItem.id, consume: consume, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
-                    if let itemConsumeRollResult = consumeRollResult {
-                        print(itemConsumeRollResult)
-                    }
+                    print(consumeRollResult)
                 }
             }
         }
@@ -85,9 +98,7 @@ class CharacterInventoryViewModel: ObservableObject {
             let itemToolRoll = ItemToolRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
             DispatchQueue.main.async {
                 listener.rollItemTool(itemToolRoll: itemToolRoll) { toolRollResult in
-                    if let itemToolRollResult = toolRollResult {
-                        print(itemToolRollResult)
-                    }
+                    print(toolRollResult)
                 }
             }
         }
@@ -103,10 +114,7 @@ class CharacterInventoryViewModel: ObservableObject {
     }
 
     func getConsumeText(inventoryItem: ActorInventoryItemModel) -> String {
-        if let usageRemaining = inventoryItem.numUsagesRemaining, let useMax = inventoryItem.maxUsages {
-            return "This item has \(usageRemaining) of \(useMax) uses remaining. Consuming will remove one use."
-        }
-        return "This item has no usage data"
+        "This item has \(inventoryItem.numUsagesRemaining) of \(inventoryItem.maxUsages) uses remaining. Consuming will remove one use."
     }
 }
 

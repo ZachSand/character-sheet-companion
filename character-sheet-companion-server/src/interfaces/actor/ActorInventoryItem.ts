@@ -9,7 +9,6 @@ export interface ActorInventoryItem {
   weight: number;
   cost: number;
   image: string;
-
-  numUsagesRemaining?: number;
-  maxUsages?: number;
+  numUsagesRemaining: number;
+  maxUsages: number;
 }

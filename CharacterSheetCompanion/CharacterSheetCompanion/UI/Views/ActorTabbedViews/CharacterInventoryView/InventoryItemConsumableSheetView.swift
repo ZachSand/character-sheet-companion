@@ -32,7 +32,7 @@ struct InventoryItemConsumableSheetView: View {
     struct InventoryItemConsumableSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemConsumableSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                characterInventoryVM: CharacterInventoryViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataConsumables[0]
             )
         }

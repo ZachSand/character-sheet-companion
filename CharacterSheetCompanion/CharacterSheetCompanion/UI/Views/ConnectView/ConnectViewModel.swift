@@ -10,7 +10,7 @@ import Foundation
 class ConnectViewModel: ObservableObject {
     @Published var characterCompanionId: String
     @Published var connectSuccess: Bool
-    var connectionListener: ConnectionListener?
+    var connectionListener: SetupConnectionListener?
 
     init() {
         characterCompanionId = ""

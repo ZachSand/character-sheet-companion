@@ -105,7 +105,7 @@ struct AbilityView: View {
     struct AbilityView_Previews: PreviewProvider {
         static var previews: some View {
             AbilityView(
-                characterAbilityVM: CharacterAbilityViewModel(abilities: ActorAbilityModel.mockedData),
+                characterAbilityVM: CharacterAbilityViewModel(),
                 ability: ActorAbilityModel.mockedData[0]
             )
         }

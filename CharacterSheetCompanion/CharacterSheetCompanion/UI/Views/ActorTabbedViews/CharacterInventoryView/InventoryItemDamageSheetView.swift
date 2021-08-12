@@ -34,7 +34,7 @@ struct InventoryItemDamageSheetView: View {
     struct InventoryItemDamageSheetView_Previews: PreviewProvider {
         static var previews: some View {
             InventoryItemDamageSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData),
+                characterInventoryVM: CharacterInventoryViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataWeapons[0]
             )
         }

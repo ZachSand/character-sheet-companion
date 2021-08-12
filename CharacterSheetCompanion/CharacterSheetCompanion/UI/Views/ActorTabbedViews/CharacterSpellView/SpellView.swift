@@ -37,7 +37,10 @@ struct SpellView: View {
 #if DEBUG
     struct SpellView_Previews: PreviewProvider {
         static var previews: some View {
-            SpellView(characterSpellVM: CharacterSpellViewModel(spellSlots: ActorSpellSlotModel.mockedData), spell: ActorSpellModel.mockedData[0], isExpanded: true)
+            SpellView(
+                characterSpellVM: CharacterSpellViewModel(),
+                spell: ActorSpellModel.mockedData[0], isExpanded: true
+            )
         }
     }
 #endif

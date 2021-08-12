@@ -5,22 +5,25 @@
 //  Created by Zachary Sanders on 8/11/21.
 //
 
+import Combine
 import Foundation
 import SocketIO
 
-class ActorBiographyListener: SocketListener {
+class ActorBiographyListener: SocketListener, ActorListener, ObservableObject {
+    let biographyPublisher: AnyPublisher<ActorBiographyModel?, Never>
     let socket: SocketIOClient
 
-    var actorBiographyCallback: ((ActorBiographyModel?) -> Void)?
+    private let biographySubject = CurrentValueSubject<ActorBiographyModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
         self.socket = socket
+        biographyPublisher = biographySubject.eraseToAnyPublisher()
     }
 
     func addSocketHandlers() {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_BIOGRAPHY) { data, _ in
             do {
-                try self.actorBiographyCallback?(SocketListenerUtility.parseSocketEventData(data))
+                try self.biographySubject.send(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -29,9 +32,12 @@ class ActorBiographyListener: SocketListener {
         }
     }
 
-    func getActorBiography(actorId: String, completionHandler: @escaping (ActorBiographyModel?) -> Void) {
+    func requestInitialActorData(actorId: String) {
         socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_BIOGRAPHY, actorId)
-        actorBiographyCallback = completionHandler
+    }
+
+    func isReady() -> Bool {
+        true
     }
 }
 

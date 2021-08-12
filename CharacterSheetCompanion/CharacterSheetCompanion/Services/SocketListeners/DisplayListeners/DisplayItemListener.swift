@@ -8,7 +8,7 @@
 import Foundation
 import SocketIO
 
-class ItemDisplayListener: SocketListener {
+class DisplayItemListener: SocketListener {
     let socket: SocketIOClient
     let jsonEncoder: JSONEncoder
 

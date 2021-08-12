@@ -5,22 +5,25 @@
 //  Created by Zachary Sanders on 8/11/21.
 //
 
+import Combine
 import Foundation
 import SocketIO
 
-class ActorOverviewListener: SocketListener {
+class ActorOverviewListener: SocketListener, ActorListener, ObservableObject {
+    let overviewPublisher: AnyPublisher<ActorOverviewModel?, Never>
     let socket: SocketIOClient
 
-    var actorOverviewCallback: ((ActorOverviewModel?) -> Void)?
+    private let overviewSubject = CurrentValueSubject<ActorOverviewModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
+        overviewPublisher = overviewSubject.eraseToAnyPublisher()
         self.socket = socket
     }
 
     func addSocketHandlers() {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_OVERVIEW) { data, _ in
             do {
-                try self.actorOverviewCallback?(SocketListenerUtility.parseSocketEventData(data))
+                try self.overviewSubject.send(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -29,9 +32,12 @@ class ActorOverviewListener: SocketListener {
         }
     }
 
-    func getActorInventory(actorId: String, completionHandler: @escaping (ActorOverviewModel?) -> Void) {
+    func requestInitialActorData(actorId: String) {
         socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_OVERVIEW, actorId)
-        actorOverviewCallback = completionHandler
+    }
+
+    func isReady() -> Bool {
+        true
     }
 }
 

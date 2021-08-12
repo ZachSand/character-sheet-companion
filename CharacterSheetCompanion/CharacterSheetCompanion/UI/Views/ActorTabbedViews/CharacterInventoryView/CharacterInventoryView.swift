@@ -57,8 +57,14 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
 
 #if DEBUG
     struct CharacterInventoryView_Previews: PreviewProvider {
+        static let characterInventoryVM: CharacterInventoryViewModel = {
+            let characterInventoryVM = CharacterInventoryViewModel()
+            characterInventoryVM.inventory = ActorInventoryModel.mockedData
+            return characterInventoryVM
+        }()
+
         static var previews: some View {
-            CharacterInventoryView(characterInventoryVM: CharacterInventoryViewModel(inventory: ActorInventoryModel.mockedData))
+            CharacterInventoryView(characterInventoryVM: characterInventoryVM)
         }
     }
 #endif

@@ -78,3 +78,15 @@ struct ItemView: View {
         .contentShape(Rectangle())
     }
 }
+
+#if DEBUG
+    struct ItemView_Previews: PreviewProvider {
+        static var previews: some View {
+            ItemView(
+                characterInventoryVM: CharacterInventoryViewModel(),
+                inventoryItem: ActorInventoryItemModel.mockedDataTools[0],
+                isExpanded: true
+            )
+        }
+    }
+#endif

@@ -42,7 +42,7 @@ struct ConnectView: View {
                 foundryConnectVM.connect()
                 if foundryConnectVM.connectSuccess {
                     if let window = UIApplication.shared.windows.first {
-                        window.rootViewController = UIHostingController(rootView: WorldUserActorView(users: UserModel.mockedData, actors: ActorModel.mockedData, worldData: WorldDataModel.mockedData))
+                        window.rootViewController = UIHostingController(rootView: WorldUserActorView(worldUserActorVM: WorldUserActorViewModel()))
                         window.makeKeyAndVisible()
                     }
                 }
