@@ -26,8 +26,8 @@ class FoundrySocketIOManager: NSObject {
             // Setup Listeners
             SetupConnectionListener(socket: socket),
             SetupUsersListener(socket: socket),
-            SetupActorsListener(socket: socket),
             SetupWorldDataListener(socket: socket),
+            SetupUserAuthenticationListener(socket: socket),
 
             // Actor Listeners
             ActorAbilityListener(socket: socket),
@@ -36,6 +36,8 @@ class FoundrySocketIOManager: NSObject {
             ActorOverviewListener(socket: socket),
             ActorSkillListener(socket: socket),
             ActorSpellSlotListener(socket: socket),
+            ActorSpellListener(socket: socket),
+            ActorCurrencyListener(socket: socket),
 
             // Roll Listeners
             RollAbilityListener(socket: socket),
@@ -64,11 +66,21 @@ class FoundrySocketIOManager: NSObject {
         throw SocketListenerError.errorMessage("Could not find Socket Listener")
     }
 
+    func finishSetup(user: UserModel, actor: ActorModel) {
+        self.user = user
+        self.actor = actor
+        socket.emit(SocketEvents.IOS.SETUP.SEND_IOS_SETUP_COMPLETE, actor.id, user.id)
+    }
+
     private func addSocketHandlers() {
         listeners.forEach { listener in
             listener.addSocketHandlers()
         }
     }
+}
+
+extension SocketEvents.IOS.SETUP {
+    static let SEND_IOS_SETUP_COMPLETE = "ios:sendSetupComplete"
 }
 
 enum FoundryJSONError: Error {

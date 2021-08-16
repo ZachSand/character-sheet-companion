@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CharacterSpellView: View {
     @ObservedObject var characterSpellVM: CharacterSpellViewModel
-    @State private var selection: Set<ActorSpellModel> = []
 
     var body: some View {
         VStack {
@@ -23,28 +22,11 @@ struct CharacterSpellView: View {
                                 Text("\(spellSlot.currentSpellSlots)/\(spellSlot.maxSpellSlots)")
                             }
                         }) {
-                            ForEach(spellSlot.spells) { spell in
-                                SpellView(
-                                    characterSpellVM: characterSpellVM,
-                                    spell: spell, isExpanded:
-                                    self.selection.contains(spell)
-                                )
-                                .onTapGesture {
-                                    self.selectDeselect(spell)
-                                }
-                            }
+                            SpellListView(spellListVM: SpellListViewModel(spellLevel: spellSlot.spellLevel))
                         }
                     }
                 }
             }
-        }
-    }
-
-    private func selectDeselect(_ spell: ActorSpellModel) {
-        if selection.contains(spell) {
-            selection.remove(spell)
-        } else {
-            selection.insert(spell)
         }
     }
 }

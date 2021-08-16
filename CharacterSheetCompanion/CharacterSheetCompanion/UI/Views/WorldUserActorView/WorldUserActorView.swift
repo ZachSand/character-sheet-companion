@@ -9,8 +9,9 @@ import SwiftUI
 
 struct WorldUserActorView: View {
     @ObservedObject var worldUserActorVM: WorldUserActorViewModel
-    @State var selectedUser: UserModel?
-    @State var selectedActor: ActorModel?
+    @State private var selectedUser: UserModel?
+    @State private var selectedActor: ActorModel?
+    @State private var showingUserAuthSheet = false
 
     var body: some View {
         VStack {
@@ -18,10 +19,9 @@ struct WorldUserActorView: View {
                 WorldDataView(worldData: worldData)
             }
             Divider()
-
-            GeometryReader { geometry in
-                VStack(spacing: 5) {
-                    if let users = worldUserActorVM.users {
+            if let users = worldUserActorVM.users {
+                GeometryReader { geometry in
+                    VStack(spacing: 5) {
                         HStack {
                             Spacer()
                             Section(header: Text("User")) {
@@ -30,19 +30,34 @@ struct WorldUserActorView: View {
                                         Text(user.name).tag(user as UserModel?)
                                     }
                                 }
+                                .onAppear {
+                                    if users.count > 0 {
+                                        selectedUser = users[0]
+                                        worldUserActorVM.updateActors(selectedUser: users[0])
+                                        if worldUserActorVM.actors.count > 0 {
+                                            selectedActor = worldUserActorVM.actors[0]
+                                        }
+                                    }
+                                }
+                                .onChange(of: selectedUser) { tag in
+                                    if let user = tag {
+                                        worldUserActorVM.updateActors(selectedUser: user)
+                                        if worldUserActorVM.actors.count > 0 {
+                                            selectedActor = worldUserActorVM.actors[0]
+                                        }
+                                    }
+                                }
                                 .frame(maxWidth: (geometry.size.width / 4) * 3, maxHeight: geometry.size.height / 2.5)
                                 .clipped()
                             }
                             Spacer()
                         }
-                    }
 
-                    if let actors = worldUserActorVM.actors {
                         HStack {
                             Spacer()
                             Section(header: Text("Actor")) {
                                 Picker(selection: $selectedActor, label: Text("Select Foundry Actor")) {
-                                    ForEach(actors) { actor in
+                                    ForEach(worldUserActorVM.actors) { actor in
                                         Text(actor.name).tag(actor as ActorModel?)
                                     }
                                 }
@@ -56,22 +71,18 @@ struct WorldUserActorView: View {
             }
 
             Button {
-                if let window = UIApplication.shared.windows.first {
-                    if let actor = selectedActor, let user = selectedUser {
-                        worldUserActorVM.setActor(actor: actor)
-                        worldUserActorVM.setUser(user: user)
-                        window.rootViewController = UIHostingController(rootView: ActorTabbedView(actor: actor, user: user))
-                        window.makeKeyAndVisible()
-                    }
-                }
+                showingUserAuthSheet.toggle()
             } label: {
-                Text("Load Character Sheet")
+                Text("Login")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
                     .frame(width: 300, height: 30)
                     .background(Color.green)
                     .cornerRadius(15.0)
+            }
+            .sheet(isPresented: $showingUserAuthSheet) {
+                UserAuthSheet(userAuthenticationSheetVM: UserAuthenticationViewModel(), user: $selectedUser, actor: $selectedActor)
             }
             Spacer()
         }
@@ -82,7 +93,6 @@ struct WorldUserActorView: View {
     struct WorldUserActorView_Previews: PreviewProvider {
         static let worldUserActorVM: WorldUserActorViewModel = {
             let worldUserActorVM = WorldUserActorViewModel()
-            worldUserActorVM.actors = ActorModel.mockedData
             worldUserActorVM.users = UserModel.mockedData
             worldUserActorVM.worldData = WorldDataModel.mockedData
             return worldUserActorVM

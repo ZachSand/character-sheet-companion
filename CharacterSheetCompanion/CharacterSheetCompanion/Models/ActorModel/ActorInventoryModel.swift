@@ -10,7 +10,6 @@ import Foundation
 struct ActorInventoryModel: Codable {
     var currentCapacity: Double
     var carryingCapacity: Int
-    var currency: ActorCurrencyModel
     var weapons: [ActorInventoryItemModel]
     var equipment: [ActorInventoryItemModel]
     var consumables: [ActorInventoryItemModel]
@@ -24,7 +23,6 @@ struct ActorInventoryModel: Codable {
         static let mockedData = ActorInventoryModel(
             currentCapacity: 125.0,
             carryingCapacity: 200,
-            currency: ActorCurrencyModel.mockedData,
             weapons: ActorInventoryItemModel.mockedDataWeapons,
             equipment: ActorInventoryItemModel.mockedDataEquipment,
             consumables: ActorInventoryItemModel.mockedDataConsumables,

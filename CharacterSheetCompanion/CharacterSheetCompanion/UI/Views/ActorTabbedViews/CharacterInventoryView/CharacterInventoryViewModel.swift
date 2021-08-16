@@ -38,14 +38,6 @@ class CharacterInventoryViewModel: ObservableObject {
         } catch {}
     }
 
-    func getCurrency() -> String {
-        if let actorInventory = inventory {
-            let currency = actorInventory.currency
-            return "\(currency.copper) Copper, \(currency.silver) Silver, \(currency.electrum) Electrum, \(currency.gold) Gold, \(currency.platinum) Platinum"
-        }
-        return ""
-    }
-
     func getInventorySections() -> [InventorySection] {
         if let actorInventory = inventory {
             return [

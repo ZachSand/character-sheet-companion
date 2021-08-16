@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpandedSpellView: View {
-    @ObservedObject var characterSpellVM: CharacterSpellViewModel
+    @ObservedObject var spellListVM: SpellListViewModel
     var spell: ActorSpellModel
 
     @State private var showingAttackSheet = false
@@ -17,7 +17,7 @@ struct ExpandedSpellView: View {
     var body: some View {
         VStack {
             Button("Display in VTT") {
-                characterSpellVM.displayItem(spell: spell)
+                spellListVM.displayItem(spell: spell)
             }
             .buttonStyle(ItemDisplayButtonStyle())
 
@@ -25,7 +25,7 @@ struct ExpandedSpellView: View {
                 Button("Cast Spell") {
                     showingAttackSheet.toggle()
                 }.sheet(isPresented: $showingAttackSheet, content: {
-                    SpellItemAttackSheetView(characterSpellVM: characterSpellVM, spell: spell)
+                    SpellItemAttackSheetView(spellListVM: spellListVM, spell: spell)
                 })
                     .buttonStyle(ItemAttackButtonStyle())
             }
@@ -34,7 +34,7 @@ struct ExpandedSpellView: View {
                 Button("Roll Damage") {
                     showingDamageSheet.toggle()
                 }.sheet(isPresented: $showingDamageSheet, content: {
-                    SpellItemDamageSheetView(characterSpellVM: characterSpellVM, spell: spell)
+                    SpellItemDamageSheetView(spellListVM: spellListVM, spell: spell)
                 })
                     .buttonStyle(ItemDamageButtonStyle())
             }
@@ -49,7 +49,7 @@ struct ExpandedSpellView: View {
     struct ExpandedSpellView_Previews: PreviewProvider {
         static var previews: some View {
             ExpandedSpellView(
-                characterSpellVM: CharacterSpellViewModel(),
+                spellListVM: SpellListViewModel(spellLevel: 0),
                 spell: ActorSpellModel.mockedData[0]
             )
         }

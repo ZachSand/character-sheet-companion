@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import SocketIO
 
-class ActorSpellSlotListener: SocketListener, ActorListener, ObservableObject {
+class ActorSpellSlotListener: SocketListener, ActorListener {
     let spellSlotPublisher: AnyPublisher<[ActorSpellSlotModel]?, Never>
     let socket: SocketIOClient
 
