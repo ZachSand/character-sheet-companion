@@ -39,6 +39,8 @@ class FoundrySocketIOManager: NSObject {
             ActorSpellListener(socket: socket),
             ActorCurrencyListener(socket: socket),
             ActorBaseDataListener(socket: socket),
+            ActorClassesListener(socket: socket),
+            ActorTraitsListener(socket: socket),
 
             // Roll Listeners
             RollAbilityListener(socket: socket),

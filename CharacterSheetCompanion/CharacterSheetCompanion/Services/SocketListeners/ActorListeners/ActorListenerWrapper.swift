@@ -26,6 +26,8 @@ class ActorListenerWrapper: ObservableObject {
         var currencyListener: ActorCurrencyListener?
         var spellsListener: ActorSpellListener?
         var baseDataListener: ActorBaseDataListener?
+        var classesListener: ActorClassesListener?
+        var traitsListener: ActorTraitsListener?
 
         do {
             try abilityListener = FoundrySocketIOManager.sharedInstance.getListener()
@@ -37,6 +39,8 @@ class ActorListenerWrapper: ObservableObject {
             try currencyListener = FoundrySocketIOManager.sharedInstance.getListener()
             try spellsListener = FoundrySocketIOManager.sharedInstance.getListener()
             try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try classesListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try traitsListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
 
         actorListeners = [
@@ -49,6 +53,8 @@ class ActorListenerWrapper: ObservableObject {
             currencyListener!,
             spellsListener!,
             baseDataListener!,
+            classesListener!,
+            traitsListener!,
         ]
 
         requestActorData()
