@@ -25,7 +25,6 @@ export function removeHtml(text) {
 export function shouldHandleHookEvent(entity) {
   if (entity) {
     let actorId = entity.data._id;
-    console.log(IOS_DATA_MAP);
     return !!IOS_DATA_MAP.get(actorId);
   }
 }

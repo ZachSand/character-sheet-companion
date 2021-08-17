@@ -9,21 +9,21 @@ import Combine
 import Foundation
 import SocketIO
 
-class ActorBiographyListener: SocketListener, ActorListener {
-    let biographyPublisher: AnyPublisher<ActorBiographyModel?, Never>
+class ActorDetailsListener: SocketListener, ActorListener {
+    let detailsPublisher: AnyPublisher<ActorDetailsModel?, Never>
     let socket: SocketIOClient
 
-    private let biographySubject = CurrentValueSubject<ActorBiographyModel?, Never>(nil)
+    private let detailsSubject = CurrentValueSubject<ActorDetailsModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
         self.socket = socket
-        biographyPublisher = biographySubject.eraseToAnyPublisher()
+        detailsPublisher = detailsSubject.eraseToAnyPublisher()
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_BIOGRAPHY) { data, _ in
+        socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_DETAILS) { data, _ in
             do {
-                try self.biographySubject.send(SocketListenerUtility.parseSocketEventData(data))
+                try self.detailsSubject.send(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -33,7 +33,7 @@ class ActorBiographyListener: SocketListener, ActorListener {
     }
 
     func requestInitialActorData(actorId: String) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_BIOGRAPHY, actorId)
+        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_DETAILS, actorId)
     }
 
     func isReady() -> Bool {
@@ -42,9 +42,9 @@ class ActorBiographyListener: SocketListener, ActorListener {
 }
 
 extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_BIOGRAPHY = "ios:requestActorBiography"
+    static let REQUEST_ACTOR_DETAILS = "ios:requestActorDetails"
 }
 
 extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_BIOGRAPHY = "server:sendActorBiography"
+    static let SEND_ACTOR_DETAILS = "server:sendActorDetails"
 }

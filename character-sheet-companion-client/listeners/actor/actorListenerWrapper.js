@@ -1,18 +1,21 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
 import { createAndEmitInventory } from "./actorInventoryListener.js";
-import { createAndEmitActorOverview } from "./actorOverviewListener.js";
-import { createAndEmitActorBiography } from "./actorBiographyListener.js";
+import { createAndEmitActorAttributes } from "./actorAttributesListener.js";
+import { createAndEmitActorDetails } from "./actorDetailsListener.js";
 import { createAndEmitActorAbilities } from "./actorAbilityListener.js";
 import { createAndEmitSkills } from "./actorSkillListener.js";
 import { createAndEmitSpellSlots } from "./actorSpellSlotListener.js";
 import { createAndEmitCurrency } from "./actorCurrencyListener.js";
 import { createAndEmitSpells } from "./actorSpellListener.js";
+import { createAndEmitActorBaseData } from "./actorBaseDataListener.js";
+import { createAndEmitActorClasses } from "./actorClassesListener.js";
+import { createAndEmitActorTraits } from "./actorTraitsListener.js";
 
 export function actorListenerWrapper(socket) {
   socket.on(
-    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_OVERVIEW,
-    async (actorId, iosSocketId) => {
-      await createAndEmitActorOverview(socket, actorId, iosSocketId);
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_ATTRIBUTES,
+    (actorId, iosSocketId) => {
+      createAndEmitActorAttributes(socket, actorId, iosSocketId);
     }
   );
 
@@ -45,9 +48,9 @@ export function actorListenerWrapper(socket) {
   );
 
   socket.on(
-    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_BIOGRAPHY,
-    async (actorId, iosSocketId) => {
-      await createAndEmitActorBiography(socket, actorId, iosSocketId);
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_DETAILS,
+    (actorId, iosSocketId) => {
+      createAndEmitActorDetails(socket, actorId, iosSocketId);
     }
   );
 
@@ -62,6 +65,27 @@ export function actorListenerWrapper(socket) {
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SPELLS,
     async (actorId, iosSocketId) => {
       await createAndEmitSpells(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_BASE_DATA,
+    async (actorId, iosSocketId) => {
+      await createAndEmitActorBaseData(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_CLASSES,
+    (actorId, iosSocketId) => {
+      createAndEmitActorClasses(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_TRAITS,
+    (actorId, iosSocketId) => {
+      createAndEmitActorTraits(socket, actorId, iosSocketId);
     }
   );
 }

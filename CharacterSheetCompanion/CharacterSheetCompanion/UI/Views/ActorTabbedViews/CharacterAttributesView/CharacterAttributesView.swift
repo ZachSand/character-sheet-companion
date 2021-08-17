@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CharacterOverviewView: View {
-    @ObservedObject var characterOverviewVM: CharacterOverviewViewModel
+struct CharacterAttributesView: View {
+    @ObservedObject var characterOverviewVM: CharacterAttributesViewModel
     @State private var showHpSheet = false
 
     var body: some View {
@@ -74,8 +74,8 @@ struct CharacterOverviewView: View {
     }
 
     func getActorImage() -> Image {
-        if let overview = characterOverviewVM.actorOverview {
-            if let imageData = overview.imageData, let uiImage = UIImage(data: imageData) {
+        if let baseData = characterOverviewVM.baseData {
+            if let imageData = baseData.image, let uiImage = UIImage(data: imageData) {
                 return Image(uiImage: uiImage)
             } else {
                 return Image(systemName: "person.fill")
@@ -93,14 +93,16 @@ struct HpModifierSheet: View {
 
 #if DEBUG
     struct CharacterOverviewView_Previews: PreviewProvider {
-        static let characterOverviewVM: CharacterOverviewViewModel = {
-            let characterOverviewVM = CharacterOverviewViewModel()
-            characterOverviewVM.actorOverview = ActorOverviewModel.mockedData
+        static let characterOverviewVM: CharacterAttributesViewModel = {
+            let characterOverviewVM = CharacterAttributesViewModel()
+            characterOverviewVM.attributes = ActorAttributesModel.mockedData
+            characterOverviewVM.baseData = ActorBaseDataModel(id: "1", name: "Beauregard")
+            characterOverviewVM.classes = [ActorClassModel(id: "monk", description: "monk", levels: 16, subclass: "Drunken Monk")]
             return characterOverviewVM
         }()
 
         static var previews: some View {
-            CharacterOverviewView(characterOverviewVM: characterOverviewVM)
+            CharacterAttributesView(characterOverviewVM: characterOverviewVM)
         }
     }
 #endif

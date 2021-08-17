@@ -20,7 +20,7 @@ struct ActorTabbedView: View {
 
     var body: some View {
         if actorListenerWrapper.isActorDataReady {
-            CharacterOverviewView(characterOverviewVM: CharacterOverviewViewModel())
+            CharacterAttributesView(characterOverviewVM: CharacterAttributesViewModel())
                 .frame(alignment: .top)
             Divider()
             TabView {
@@ -43,7 +43,7 @@ struct ActorTabbedView: View {
                         Label("Inventory", systemImage: "bag")
                     }
                     .tag(4)
-                CharacterBiographyView(characterBiographyVM: CharacterBiographyViewModel())
+                CharacterDetailsView(characterDetailsVM: CharacterDetailsViewModel())
                     .tabItem {
                         Label("Biography", systemImage: "info.circle")
                     }

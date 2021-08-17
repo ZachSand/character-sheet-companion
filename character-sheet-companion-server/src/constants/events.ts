@@ -18,15 +18,19 @@ export const SOCKET_EVENTS = {
       USER_AUTH: foundryEventPrefix + "UserAuthentication",
     },
     ACTOR: {
-      SEND_ACTOR_OVERVIEW: foundryEventPrefix + sendActorPrefix + "Overview",
+      SEND_ACTOR_ATTRIBUTES:
+        foundryEventPrefix + sendActorPrefix + "Attributes",
       SEND_ACTOR_ABILITIES: foundryEventPrefix + sendActorPrefix + "Abilities",
       SEND_ACTOR_SKILLS: foundryEventPrefix + sendActorPrefix + "Skills",
       SEND_ACTOR_SPELL_SLOTS:
         foundryEventPrefix + sendActorPrefix + "SpellSlots",
       SEND_ACTOR_INVENTORY: foundryEventPrefix + sendActorPrefix + "Inventory",
-      SEND_ACTOR_BIOGRAPHY: foundryEventPrefix + sendActorPrefix + "Biography",
+      SEND_ACTOR_DETAILS: foundryEventPrefix + sendActorPrefix + "Details",
       SEND_ACTOR_CURRENCY: foundryEventPrefix + sendActorPrefix + "Currency",
       SEND_ACTOR_SPELLS: foundryEventPrefix + sendActorPrefix + "Spells",
+      SEND_ACTOR_BASE_DATA: foundryEventPrefix + sendActorPrefix + "BaseData",
+      SEND_ACTOR_CLASSES: foundryEventPrefix + sendActorPrefix + "Classes",
+      SEND_ACTOR_TRAITS: foundryEventPrefix + sendActorPrefix + "Traits",
     },
     ROLL: {
       SEND_ABILITY_ROLL: foundryEventPrefix + "sendAbilityRoll",
@@ -53,8 +57,8 @@ export const SOCKET_EVENTS = {
       SEND_IOS_SETUP_COMPLETE: iosEventPrefix + "sendSetupComplete",
     },
     ACTOR: {
-      REQUEST_ACTOR_OVERVIEW:
-        iosEventPrefix + requestActorEventPrefix + "Overview",
+      REQUEST_ACTOR_ATTRIBUTES:
+        iosEventPrefix + requestActorEventPrefix + "Attributes",
       REQUEST_ACTOR_ABILITIES:
         iosEventPrefix + requestActorEventPrefix + "Abilities",
       REQUEST_ACTOR_SKILLS: iosEventPrefix + requestActorEventPrefix + "Skills",
@@ -62,11 +66,16 @@ export const SOCKET_EVENTS = {
         iosEventPrefix + requestActorEventPrefix + "SpellSlots",
       REQUEST_ACTOR_INVENTORY:
         iosEventPrefix + requestActorEventPrefix + "Inventory",
-      REQUEST_ACTOR_BIOGRAPHY:
-        iosEventPrefix + requestActorEventPrefix + "Biography",
+      REQUEST_ACTOR_DETAILS:
+        iosEventPrefix + requestActorEventPrefix + "Details",
       REQUEST_ACTOR_CURRENCY:
         iosEventPrefix + requestActorEventPrefix + "Currency",
       REQUEST_ACTOR_SPELLS: iosEventPrefix + requestActorEventPrefix + "Spells",
+      REQUEST_ACTOR_BASE_DATA:
+        iosEventPrefix + requestActorEventPrefix + "BaseData",
+      REQUEST_ACTOR_CLASSES:
+        iosEventPrefix + requestActorEventPrefix + "Classes",
+      REQUEST_ACTOR_TRAITS: iosEventPrefix + requestActorEventPrefix + "Traits",
     },
     ROLL: {
       REQUEST_FOUNDRY_ABILITY_ROLL:
@@ -119,8 +128,8 @@ export const SOCKET_EVENTS = {
     },
     ACTOR: {
       REQUEST: {
-        REQUEST_ACTOR_OVERVIEW:
-          serverEventPrefix + requestActorEventPrefix + "Overview",
+        REQUEST_ACTOR_ATTRIBUTES:
+          serverEventPrefix + requestActorEventPrefix + "Attributes",
         REQUEST_ACTOR_ABILITIES:
           serverEventPrefix + requestActorEventPrefix + "Abilities",
         REQUEST_ACTOR_SKILLS:
@@ -129,23 +138,33 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "SpellSlots",
         REQUEST_ACTOR_INVENTORY:
           serverEventPrefix + requestActorEventPrefix + "Inventory",
-        REQUEST_ACTOR_BIOGRAPHY:
-          serverEventPrefix + requestActorEventPrefix + "Biography",
+        REQUEST_ACTOR_DETAILS:
+          serverEventPrefix + requestActorEventPrefix + "Details",
         REQUEST_ACTOR_CURRENCY:
           serverEventPrefix + requestActorEventPrefix + "Currency",
         REQUEST_ACTOR_SPELLS:
           serverEventPrefix + requestActorEventPrefix + "Spells",
+        REQUEST_ACTOR_BASE_DATA:
+          serverEventPrefix + requestActorEventPrefix + "BaseData",
+        REQUEST_ACTOR_CLASSES:
+          serverEventPrefix + requestActorEventPrefix + "Classes",
+        REQUEST_ACTOR_TRAITS:
+          serverEventPrefix + requestActorEventPrefix + "Traits",
       },
       SEND: {
-        SEND_ACTOR_OVERVIEW: serverEventPrefix + sendActorPrefix + "Overview",
+        SEND_ACTOR_ATTRIBUTES:
+          serverEventPrefix + sendActorPrefix + "Attributes",
         SEND_ACTOR_ABILITIES: serverEventPrefix + sendActorPrefix + "Abilities",
         SEND_ACTOR_SKILLS: serverEventPrefix + sendActorPrefix + "Skills",
         SEND_ACTOR_SPELL_SLOTS:
           serverEventPrefix + sendActorPrefix + "SpellSlots",
         SEND_ACTOR_INVENTORY: serverEventPrefix + sendActorPrefix + "Inventory",
-        SEND_ACTOR_BIOGRAPHY: serverEventPrefix + sendActorPrefix + "Biography",
+        SEND_ACTOR_DETAILS: serverEventPrefix + sendActorPrefix + "Details",
         SEND_ACTOR_CURRENCY: serverEventPrefix + sendActorPrefix + "Currency",
         SEND_ACTOR_SPELLS: serverEventPrefix + sendActorPrefix + "Spells",
+        SEND_ACTOR_BASE_DATA: serverEventPrefix + sendActorPrefix + "BaseData",
+        SEND_ACTOR_CLASSES: serverEventPrefix + sendActorPrefix + "Classes",
+        SEND_ACTOR_TRAITS: serverEventPrefix + sendActorPrefix + "Traits",
       },
     },
     ROLL: {

@@ -18,34 +18,37 @@ class ActorListenerWrapper: ObservableObject {
         dataLoadCount = 0
 
         var abilityListener: ActorAbilityListener?
-        var biographyListener: ActorBiographyListener?
+        var detailsListener: ActorDetailsListener?
         var inventoryListener: ActorInventoryListener?
-        var overviewListener: ActorOverviewListener?
+        var overviewListener: ActorAttributesListener?
         var skillListener: ActorSkillListener?
         var spellSlotsListener: ActorSpellSlotListener?
         var currencyListener: ActorCurrencyListener?
         var spellsListener: ActorSpellListener?
+        var baseDataListener: ActorBaseDataListener?
 
         do {
             try abilityListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try biographyListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try detailsListener = FoundrySocketIOManager.sharedInstance.getListener()
             try inventoryListener = FoundrySocketIOManager.sharedInstance.getListener()
             try overviewListener = FoundrySocketIOManager.sharedInstance.getListener()
             try skillListener = FoundrySocketIOManager.sharedInstance.getListener()
             try spellSlotsListener = FoundrySocketIOManager.sharedInstance.getListener()
             try currencyListener = FoundrySocketIOManager.sharedInstance.getListener()
             try spellsListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
 
         actorListeners = [
             abilityListener!,
-            biographyListener!,
+            detailsListener!,
             inventoryListener!,
             overviewListener!,
             skillListener!,
             spellSlotsListener!,
             currencyListener!,
             spellsListener!,
+            baseDataListener!,
         ]
 
         requestActorData()

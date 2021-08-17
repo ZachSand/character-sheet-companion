@@ -51,8 +51,6 @@ export class CharacterSheetCompanionSetup {
         socket.connect();
 
         Hooks.on("updateActor", async (entity, data, options, userId) => {
-          console.log(entity);
-          console.log(shouldHandleHookEvent(entity));
           if (shouldHandleHookEvent(entity)) {
             await handleUpdateActorHookEvent(
               socket,

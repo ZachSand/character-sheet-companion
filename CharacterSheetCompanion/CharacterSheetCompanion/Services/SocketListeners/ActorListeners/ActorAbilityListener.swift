@@ -13,6 +13,8 @@ class ActorAbilityListener: SocketListener, ActorListener {
     let socket: SocketIOClient
     let abilitiesPublisher: AnyPublisher<[ActorAbilityModel]?, Never>
 
+    private var receivedFirstMessage = false
+    private var subscription = Set<AnyCancellable>()
     private let abilitySubject = CurrentValueSubject<[ActorAbilityModel]?, Never>(nil)
 
     init(socket: SocketIOClient) {
@@ -37,7 +39,13 @@ class ActorAbilityListener: SocketListener, ActorListener {
     }
 
     func isReady() -> Bool {
-        true
+        abilitySubject
+            .count()
+            .sink { count in
+                self.receivedFirstMessage = count > 0
+            }
+            .store(in: &subscription)
+        return receivedFirstMessage
     }
 }
 

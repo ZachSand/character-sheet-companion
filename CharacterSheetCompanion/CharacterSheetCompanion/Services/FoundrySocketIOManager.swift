@@ -31,13 +31,14 @@ class FoundrySocketIOManager: NSObject {
 
             // Actor Listeners
             ActorAbilityListener(socket: socket),
-            ActorBiographyListener(socket: socket),
+            ActorDetailsListener(socket: socket),
             ActorInventoryListener(socket: socket),
-            ActorOverviewListener(socket: socket),
+            ActorAttributesListener(socket: socket),
             ActorSkillListener(socket: socket),
             ActorSpellSlotListener(socket: socket),
             ActorSpellListener(socket: socket),
             ActorCurrencyListener(socket: socket),
+            ActorBaseDataListener(socket: socket),
 
             // Roll Listeners
             RollAbilityListener(socket: socket),

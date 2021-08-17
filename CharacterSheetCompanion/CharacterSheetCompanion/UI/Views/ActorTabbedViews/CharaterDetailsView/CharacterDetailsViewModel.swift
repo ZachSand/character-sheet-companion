@@ -8,19 +8,19 @@
 import Combine
 import Foundation
 
-class CharacterBiographyViewModel: ObservableObject {
-    @Published var biography: ActorBiographyModel?
+class CharacterDetailsViewModel: ObservableObject {
+    @Published var details: ActorDetailsModel?
 
     var subscription = Set<AnyCancellable>()
-    var biographyListener: ActorBiographyListener?
+    var detailsListener: ActorDetailsListener?
 
     init() {
         do {
-            try biographyListener = FoundrySocketIOManager.sharedInstance.getListener()
-            biographyListener?.biographyPublisher
+            try detailsListener = FoundrySocketIOManager.sharedInstance.getListener()
+            detailsListener?.detailsPublisher
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { model in
-                    self.biography = model
+                    self.details = model
                 })
                 .store(in: &subscription)
         } catch {

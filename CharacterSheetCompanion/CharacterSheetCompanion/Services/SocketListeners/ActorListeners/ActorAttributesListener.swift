@@ -9,21 +9,21 @@ import Combine
 import Foundation
 import SocketIO
 
-class ActorOverviewListener: SocketListener, ActorListener {
-    let overviewPublisher: AnyPublisher<ActorOverviewModel?, Never>
+class ActorAttributesListener: SocketListener, ActorListener {
+    let attributesPublisher: AnyPublisher<ActorAttributesModel?, Never>
     let socket: SocketIOClient
 
-    private let overviewSubject = CurrentValueSubject<ActorOverviewModel?, Never>(nil)
+    private let attributesSubject = CurrentValueSubject<ActorAttributesModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
-        overviewPublisher = overviewSubject.eraseToAnyPublisher()
+        attributesPublisher = attributesSubject.eraseToAnyPublisher()
         self.socket = socket
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_OVERVIEW) { data, _ in
+        socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_ATTRIBUTES) { data, _ in
             do {
-                try self.overviewSubject.send(SocketListenerUtility.parseSocketEventData(data))
+                try self.attributesSubject.send(SocketListenerUtility.parseSocketEventData(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -33,7 +33,7 @@ class ActorOverviewListener: SocketListener, ActorListener {
     }
 
     func requestInitialActorData(actorId: String) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_OVERVIEW, actorId)
+        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES, actorId)
     }
 
     func isReady() -> Bool {
@@ -42,9 +42,9 @@ class ActorOverviewListener: SocketListener, ActorListener {
 }
 
 extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_OVERVIEW = "ios:requestActorOverview"
+    static let REQUEST_ACTOR_ATTRIBUTES = "ios:requestActorAttributes"
 }
 
 extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_OVERVIEW = "server:sendActorOverview"
+    static let SEND_ACTOR_ATTRIBUTES = "server:sendActorAttributes"
 }

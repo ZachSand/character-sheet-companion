@@ -1,11 +1,11 @@
 import { removeHtml } from "../../utils/commonUtilities.js";
 import { SOCKET_EVENTS } from "../../constants/events.js";
 
-export function createAndEmitActorBiography(socket, actorId, iosSocketId) {
+export function createAndEmitActorDetails(socket, actorId, iosSocketId) {
   let actor = game.actors.get(actorId);
   if (actor) {
     socket.emit(
-      SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_BIOGRAPHY,
+      SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_DETAILS,
       {
         biography: removeHtml(actor.data.data.details.biography.value),
         appearance: removeHtml(actor.data.data.details.appearance),

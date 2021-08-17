@@ -8,49 +8,77 @@
 import Combine
 import Foundation
 
-class CharacterOverviewViewModel: ObservableObject {
-    @Published var actorOverview: ActorOverviewModel?
+class CharacterAttributesViewModel: ObservableObject {
+    @Published var attributes: ActorAttributesModel?
+    @Published var baseData: ActorBaseDataModel?
+    @Published var classes: [ActorClassModel]?
 
     var initiativeListener: RollInitiativeListener?
-    var overviewListener: ActorOverviewListener?
+    var attributesListener: ActorAttributesListener?
+    var baseDataListener: ActorBaseDataListener?
+    var classesListener: ActorClassesListener?
     var subscription = Set<AnyCancellable>()
 
     init() {
         do {
             try initiativeListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try overviewListener = FoundrySocketIOManager.sharedInstance.getListener()
-            overviewListener?.overviewPublisher
+
+            try attributesListener = FoundrySocketIOManager.sharedInstance.getListener()
+            attributesListener?.attributesPublisher
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { model in
-                    self.actorOverview = model
+                    self.attributes = model
+                })
+                .store(in: &subscription)
+
+            try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+            baseDataListener?.baseDataPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { model in
+                    self.baseData = model
+                })
+                .store(in: &subscription)
+
+            try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+            classesListener?.classesPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { model in
+                    self.classes = model
                 })
                 .store(in: &subscription)
         } catch {}
     }
 
+    func getClassInfo() -> String {
+        if let classes = classes {
+            return classes[0].id + " \(classes[0].levels)"
+        }
+        return ""
+    }
+
     func getCharacterArmorClass() -> String {
-        if let overview = actorOverview {
+        if let overview = attributes {
             return "AC " + String(overview.armorClass)
         }
         return ""
     }
 
     func getCharacterName() -> String {
-        if let overview = actorOverview {
-            return overview.name
+        if let baseData = self.baseData {
+            return baseData.name
         }
         return ""
     }
 
     func getHealth() -> String {
-        if let overview = actorOverview {
+        if let overview = attributes {
             return "HP " + String(overview.currentHealth) + "/" + String(overview.maxHealth)
         }
         return ""
     }
 
     func getProficiencyBonus() -> String {
-        if let overview = actorOverview {
+        if let overview = attributes {
             let profBonus = overview.proficiencyBonus
             if profBonus > 0 {
                 return "PROF +" + String(profBonus)
@@ -61,19 +89,12 @@ class CharacterOverviewViewModel: ObservableObject {
     }
 
     func getInitiativeBonus() -> String {
-        if let overview = actorOverview {
+        if let overview = attributes {
             let initBonus = overview.initiativeBonus
             if initBonus > 0 {
                 return "INIT +" + String(initBonus)
             }
             return "INIT " + String(initBonus)
-        }
-        return ""
-    }
-
-    func getClassInfo() -> String {
-        if let overview = actorOverview {
-            return overview.mainClass + " \(overview.overallLevel)"
         }
         return ""
     }

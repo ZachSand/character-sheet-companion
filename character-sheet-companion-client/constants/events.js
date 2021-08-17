@@ -17,15 +17,19 @@ export const SOCKET_EVENTS = {
       USER_AUTH: foundryEventPrefix + "UserAuthentication",
     },
     ACTOR: {
-      SEND_ACTOR_OVERVIEW: foundryEventPrefix + sendActorPrefix + "Overview",
+      SEND_ACTOR_ATTRIBUTES:
+        foundryEventPrefix + sendActorPrefix + "Attributes",
       SEND_ACTOR_ABILITIES: foundryEventPrefix + sendActorPrefix + "Abilities",
       SEND_ACTOR_SKILLS: foundryEventPrefix + sendActorPrefix + "Skills",
       SEND_ACTOR_SPELL_SLOTS:
         foundryEventPrefix + sendActorPrefix + "SpellSlots",
       SEND_ACTOR_INVENTORY: foundryEventPrefix + sendActorPrefix + "Inventory",
-      SEND_ACTOR_BIOGRAPHY: foundryEventPrefix + sendActorPrefix + "Biography",
+      SEND_ACTOR_DETAILS: foundryEventPrefix + sendActorPrefix + "Details",
       SEND_ACTOR_CURRENCY: foundryEventPrefix + sendActorPrefix + "Currency",
       SEND_ACTOR_SPELLS: foundryEventPrefix + sendActorPrefix + "Spells",
+      SEND_ACTOR_BASE_DATA: foundryEventPrefix + sendActorPrefix + "BaseData",
+      SEND_ACTOR_CLASSES: foundryEventPrefix + sendActorPrefix + "Classes",
+      SEND_ACTOR_TRAITS: foundryEventPrefix + sendActorPrefix + "Traits",
     },
     ROLL: {
       SEND_ABILITY_ROLL: foundryEventPrefix + "sendAbilityRoll",
@@ -57,8 +61,8 @@ export const SOCKET_EVENTS = {
     },
     ACTOR: {
       REQUEST: {
-        REQUEST_ACTOR_OVERVIEW:
-          serverEventPrefix + requestActorEventPrefix + "Overview",
+        REQUEST_ACTOR_ATTRIBUTES:
+          serverEventPrefix + requestActorEventPrefix + "Attributes",
         REQUEST_ACTOR_ABILITIES:
           serverEventPrefix + requestActorEventPrefix + "Abilities",
         REQUEST_ACTOR_SKILLS:
@@ -67,12 +71,18 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "SpellSlots",
         REQUEST_ACTOR_INVENTORY:
           serverEventPrefix + requestActorEventPrefix + "Inventory",
-        REQUEST_ACTOR_BIOGRAPHY:
-          serverEventPrefix + requestActorEventPrefix + "Biography",
+        REQUEST_ACTOR_DETAILS:
+          serverEventPrefix + requestActorEventPrefix + "Details",
         REQUEST_ACTOR_CURRENCY:
           serverEventPrefix + requestActorEventPrefix + "Currency",
         REQUEST_ACTOR_SPELLS:
           serverEventPrefix + requestActorEventPrefix + "Spells",
+        REQUEST_ACTOR_BASE_DATA:
+          serverEventPrefix + requestActorEventPrefix + "BaseData",
+        REQUEST_ACTOR_CLASSES:
+          serverEventPrefix + requestActorEventPrefix + "Classes",
+        REQUEST_ACTOR_TRAITS:
+          serverEventPrefix + requestActorEventPrefix + "Traits",
       },
     },
     ROLL: {

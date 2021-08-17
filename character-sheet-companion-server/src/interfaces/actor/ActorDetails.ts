@@ -1,4 +1,4 @@
-export interface ActorBiography {
+export interface ActorDetails {
   biography: string;
   appearance: string;
   flaws: string;
