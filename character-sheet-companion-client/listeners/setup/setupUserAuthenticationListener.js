@@ -1,3 +1,5 @@
+import { SOCKET_EVENTS } from "../../constants/events.js";
+
 export async function userAuthListener(socket, userId, password, iosSocketId) {
   await verifyUserAuth({
     userid: userId,
@@ -8,6 +10,7 @@ export async function userAuthListener(socket, userId, password, iosSocketId) {
     if (response.ok) {
       socket.emit(SOCKET_EVENTS.FOUNDRY.SETUP.USER_AUTH, true, iosSocketId);
     } else {
+      socket.emit(SOCKET_EVENTS.FOUNDRY.SETUP.USER_AUTH, false, iosSocketId);
     }
   });
 

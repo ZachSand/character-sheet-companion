@@ -1,3 +1,5 @@
+import { IOS_DATA_MAP } from "../listeners/setup/setupIosCompleteListener.js";
+
 export async function getBase64ImageData(url) {
   return fetch(url)
     .then((response) => response.blob())
@@ -18,4 +20,12 @@ export function removeBase64Metadata(imageData) {
 
 export function removeHtml(text) {
   return jQuery("<p>" + text + "</p>").text();
+}
+
+export function shouldHandleHookEvent(entity) {
+  if (entity) {
+    let actorId = entity.data._id;
+    console.log(IOS_DATA_MAP);
+    return !!IOS_DATA_MAP.get(actorId);
+  }
 }

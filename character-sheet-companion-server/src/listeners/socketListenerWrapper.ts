@@ -6,7 +6,7 @@ import { setupListenerWrapper } from "./setup/setupListenerWrapper";
 import { displayListenerWrapper } from "./display/displayListenerWrapper";
 import { actorListenerWrapper } from "./actor/actorListenerWrapper";
 
-export const socketHandlerWrapper = (io: Server, socket: Socket): void => {
+export const socketListenerWrapper = (io: Server, socket: Socket): void => {
   Logger.debug(`Client socket connected: ${socket.id}`);
 
   generalListenerWrapper(io, socket);

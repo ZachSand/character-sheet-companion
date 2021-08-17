@@ -4,7 +4,7 @@ import Logger from "./loaders/logger";
 import loaders from "./loaders";
 import http from "http";
 import { Server, Socket } from "socket.io";
-import { socketHandlerWrapper } from "./listeners/socketHandlerWrapper";
+import { socketListenerWrapper } from "./listeners/socketListenerWrapper";
 
 async function startServer() {
   const app = express();
@@ -27,7 +27,7 @@ async function startServer() {
     });
 
   const onConnection = (socket: Socket) => {
-    socketHandlerWrapper(io, socket);
+    socketListenerWrapper(io, socket);
   };
 
   io.on("connection", onConnection);

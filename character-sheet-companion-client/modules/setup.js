@@ -2,11 +2,12 @@ import {
   CHARACTER_SHEET_COMPANION_SETTING_KEY,
   generateId,
 } from "../utils/id-generator.js";
-import { SOCKET_EVENTS } from "../events/events.js";
-import { displayListenerWrapper } from "../listeners/display/displayListenerWrapper.js";
-import { setupListenerWrapper } from "../listeners/setup/setupListenerWrapper.js";
-import { rollListenerWrapper } from "../listeners/rolls/rollListenerWrapper.js";
-import { actorListenerWrapper } from "../listeners/actor/actorListenerWrapper.js";
+import { socketListenerWrapper } from "../listeners/socketListenerWrapper.js";
+import { shouldHandleHookEvent } from "../utils/commonUtilities.js";
+import { handleUpdateActorHookEvent } from "../handlers/updateActorHookEventHandler.js";
+import { handleUpdateItemHookEvent } from "../handlers/updateItemHookEventHandler.js";
+import { handleCreateItemHookEvent } from "../handlers/createItemHookEventHandler.js";
+import { handleCreateActiveEffectHookEvent } from "../handlers/createActiveEffectHookEventHandler.js";
 
 export class CharacterSheetCompanionSetup {
   static setup() {
@@ -46,58 +47,39 @@ export class CharacterSheetCompanionSetup {
           transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
         });
 
-        socket.on("connect", () => {
-          socket.emit(
-            SOCKET_EVENTS.FOUNDRY.SETUP.JOIN_ROOM,
-            game.settings.get(
-              "character-sheet-companion",
-              CHARACTER_SHEET_COMPANION_SETTING_KEY
-            )
-          );
-        });
-
-        displayListenerWrapper(socket);
-        setupListenerWrapper(socket);
-        rollListenerWrapper(socket);
-        actorListenerWrapper(socket);
-
+        socketListenerWrapper(socket);
         socket.connect();
 
-        Hooks.on("updateActor", (entity, data, options, userId) => {
-          // if it is a user connected to the character companion room -- need to save actors that are connected along with
-          // their iosSocketId
-          // easiest thing to do would be to regenerate the model and send it as an event rather than try to figure out what changed
-          // though that could lead to changes that don't make a difference.. could cache the latest model that was sent and check if it is
-          // different??
-          console.log(data);
-
-          // hp, attributes, senses, skills, biography,
-          if (entity) {
-            entity.data._id;
-          }
-
-          if (data) {
+        Hooks.on("updateActor", async (entity, data, options, userId) => {
+          console.log(entity);
+          console.log(shouldHandleHookEvent(entity));
+          if (shouldHandleHookEvent(entity)) {
+            await handleUpdateActorHookEvent(
+              socket,
+              entity,
+              data,
+              options,
+              userId
+            );
           }
         });
 
         Hooks.on("updateItem", (entity, data, options, userId) => {
-          // spell updates, like spell level consumption
-          // item updates, like potion consumption,
-          // item description change, image change, etc.
-          // Basically is the item was update, regenerate it into the model and send it as a socket event
-          console.log(data);
+          if (shouldHandleHookEvent(entity)) {
+            handleUpdateItemHookEvent(socket, entity, data, options, userId);
+          }
         });
 
         Hooks.on("createItem", (entity, options, userId) => {
-          // Send new item as an event
-          console.log(entity);
-          console.log(options);
-          console.log(userId);
+          if (shouldHandleHookEvent(entity)) {
+            handleCreateItemHookEvent(socket, entity, options, userId);
+          }
         });
 
         Hooks.on("createActiveEffect", (entity, options, userId) => {
-          // active effects (fire, death, custom, etc.)
-          console.log(entity);
+          if (shouldHandleHookEvent(entity)) {
+            handleCreateActiveEffectHookEvent(socket, entity, options, userId);
+          }
         });
 
         // Select the token, get the image data, then unselect the token

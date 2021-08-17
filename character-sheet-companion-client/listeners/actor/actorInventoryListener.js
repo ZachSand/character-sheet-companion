@@ -3,7 +3,7 @@ import {
   removeBase64Metadata,
   removeHtml,
 } from "../../utils/commonUtilities.js";
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 
 export async function createAndEmitInventory(socket, actorId, iosSocketId) {
   let actor = game.actors.get(actorId);
@@ -51,13 +51,6 @@ export async function createAndEmitInventory(socket, actorId, iosSocketId) {
         {
           currentCapacity: actor.data.data.attributes.encumbrance.value,
           carryingCapacity: actor.data.data.attributes.encumbrance.max,
-          currency: {
-            copper: actor.data.data.currency.cp,
-            silver: actor.data.data.currency.sp,
-            electrum: actor.data.data.currency.cp,
-            gold: actor.data.data.currency.gp,
-            platinum: actor.data.data.currency.pp,
-          },
           weapons: inventory.weapon,
           equipment: inventory.equipment,
           consumables: inventory.consumable,

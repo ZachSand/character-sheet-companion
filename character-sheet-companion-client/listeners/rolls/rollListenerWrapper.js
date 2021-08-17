@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 import { createAndEmitAbilityRoll } from "./rollAbilityListener.js";
 import { createAndEmitSkillRoll } from "./skillRollListener.js";
 import { createAndEmitAttackRoll } from "./rollItemAttackListener.js";

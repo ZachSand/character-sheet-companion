@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 
 export function createAndEmitActorAbilities(socket, actorId, iosSocketId) {
   let actor = game.actors.get(actorId);

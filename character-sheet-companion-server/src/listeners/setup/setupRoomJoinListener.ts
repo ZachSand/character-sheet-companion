@@ -1,8 +1,9 @@
 import Logger from "../../loaders/logger";
 import { Server, Socket } from "socket.io";
 import { SOCKET_EVENTS } from "../../constants/events";
+import { getFoundrySocketFromRoom } from "../../utilities/SocketUtilities";
 
-export const setupRoomJoinListener = (io: Server, socket: Socket): void => {
+export const setupRoomJoinListener = (server: Server, socket: Socket): void => {
   const foundryJoin = (roomId: string) => {
     Logger.debug(`Foundry client connecting to room: ${roomId}`);
     socket.join(roomId);
@@ -13,19 +14,19 @@ export const setupRoomJoinListener = (io: Server, socket: Socket): void => {
   };
 
   const iosJoin = (roomId: string) => {
-    const clients = io.sockets.adapter.rooms.get(roomId);
+    const clients = server.sockets.adapter.rooms.get(roomId);
     if (clients) {
       const numClients = clients ? clients.size : 0;
       if (numClients == 0) {
-        handleEmptyRoom();
-      } else if (numClients == 1) {
-        joinRoom();
+        handleEmptyRoomForIos();
+      } else {
+        handleIosJoinRoom();
       }
     } else {
-      handleSocketRoomMissing();
+      handleIosNoRoomToJoin();
     }
 
-    function handleEmptyRoom() {
+    function handleEmptyRoomForIos() {
       Logger.error(
         `iOS client attempted to connect to room ${roomId} but there wasn't another socket in the room`
       );
@@ -35,16 +36,18 @@ export const setupRoomJoinListener = (io: Server, socket: Socket): void => {
       );
     }
 
-    function joinRoom() {
+    function handleIosJoinRoom() {
       Logger.debug(`iOS client connecting to room: ${roomId}`);
       socket.join(roomId);
       socket.data.foundry = false;
       socket.data.ios = true;
       socket.data.fccId = roomId;
       socket.emit(SOCKET_EVENTS.SERVER.SETUP.SEND.SEND_IOS_JOINED_ROOM);
+
+      const foundrySocket = getFoundrySocketFromRoom(server, socket);
     }
 
-    function handleSocketRoomMissing() {
+    function handleIosNoRoomToJoin() {
       Logger.error(`Couldn't determine client count for room: ${roomId}`);
       socket.emit(
         SOCKET_EVENTS.ERROR.SETUP.JOIN_ROOM,

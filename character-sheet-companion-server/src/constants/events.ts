@@ -15,6 +15,7 @@ export const SOCKET_EVENTS = {
       SEND_USERS: foundryEventPrefix + "sendUsers",
       SEND_ACTORS: foundryEventPrefix + "sendActors",
       SEND_WORLD_DATA: foundryEventPrefix + "sendWorldData",
+      USER_AUTH: foundryEventPrefix + "UserAuthentication",
     },
     ACTOR: {
       SEND_ACTOR_OVERVIEW: foundryEventPrefix + sendActorPrefix + "Overview",
@@ -24,6 +25,8 @@ export const SOCKET_EVENTS = {
         foundryEventPrefix + sendActorPrefix + "SpellSlots",
       SEND_ACTOR_INVENTORY: foundryEventPrefix + sendActorPrefix + "Inventory",
       SEND_ACTOR_BIOGRAPHY: foundryEventPrefix + sendActorPrefix + "Biography",
+      SEND_ACTOR_CURRENCY: foundryEventPrefix + sendActorPrefix + "Currency",
+      SEND_ACTOR_SPELLS: foundryEventPrefix + sendActorPrefix + "Spells",
     },
     ROLL: {
       SEND_ABILITY_ROLL: foundryEventPrefix + "sendAbilityRoll",
@@ -43,10 +46,11 @@ export const SOCKET_EVENTS = {
       JOIN_ROOM: iosEventPrefix + "joinRoom",
       REQUEST_FOUNDRY_USERS:
         iosEventPrefix + requestFoundryEventPrefix + "Users",
-      REQUEST_FOUNDRY_ACTORS:
-        iosEventPrefix + requestFoundryEventPrefix + "Actors",
       REQUEST_FOUNDRY_WORLD_DATA:
         iosEventPrefix + requestFoundryEventPrefix + "WorldData",
+      REQUEST_FOUNDRY_USER_AUTH:
+        iosEventPrefix + requestFoundryEventPrefix + "UserAuthentication",
+      SEND_IOS_SETUP_COMPLETE: iosEventPrefix + "sendSetupComplete",
     },
     ACTOR: {
       REQUEST_ACTOR_OVERVIEW:
@@ -60,6 +64,9 @@ export const SOCKET_EVENTS = {
         iosEventPrefix + requestActorEventPrefix + "Inventory",
       REQUEST_ACTOR_BIOGRAPHY:
         iosEventPrefix + requestActorEventPrefix + "Biography",
+      REQUEST_ACTOR_CURRENCY:
+        iosEventPrefix + requestActorEventPrefix + "Currency",
+      REQUEST_ACTOR_SPELLS: iosEventPrefix + requestActorEventPrefix + "Spells",
     },
     ROLL: {
       REQUEST_FOUNDRY_ABILITY_ROLL:
@@ -91,21 +98,23 @@ export const SOCKET_EVENTS = {
       REQUEST: {
         REQUEST_FOUNDRY_USERS:
           serverEventPrefix + requestFoundryEventPrefix + "Users",
-        REQUEST_FOUNDRY_ACTORS:
-          serverEventPrefix + requestFoundryEventPrefix + "Actors",
         REQUEST_FOUNDRY_WORLD_DATA:
           serverEventPrefix + requestFoundryEventPrefix + "WorldData",
+        REQUEST_FOUNDRY_USER_AUTH:
+          serverEventPrefix + requestFoundryEventPrefix + "UserAuthentication",
       },
       SEND: {
         SEND_FOUNDRY_USERS:
           serverEventPrefix + sendFoundryEventPrefix + "Users",
-        SEND_FOUNDRY_ACTORS:
-          serverEventPrefix + sendFoundryEventPrefix + "Actors",
         SEND_FOUNDRY_WORLD_DATA:
           serverEventPrefix + sendFoundryEventPrefix + "WorldData",
         SEND_IOS_JOINED_ROOM: serverEventPrefix + "sendIosJoinedRoom",
         SEND_FOUNDRY_JOINED_ROOM:
           serverEventPrefix + sendFoundryEventPrefix + "JoinedRoom",
+        SEND_IOS_SETUP_COMPLETE:
+          serverEventPrefix + sendFoundryEventPrefix + "iosSetupComplete",
+        SEND_USER_AUTH:
+          serverEventPrefix + sendFoundryEventPrefix + "UserAuthentication",
       },
     },
     ACTOR: {
@@ -122,6 +131,10 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "Inventory",
         REQUEST_ACTOR_BIOGRAPHY:
           serverEventPrefix + requestActorEventPrefix + "Biography",
+        REQUEST_ACTOR_CURRENCY:
+          serverEventPrefix + requestActorEventPrefix + "Currency",
+        REQUEST_ACTOR_SPELLS:
+          serverEventPrefix + requestActorEventPrefix + "Spells",
       },
       SEND: {
         SEND_ACTOR_OVERVIEW: serverEventPrefix + sendActorPrefix + "Overview",
@@ -131,6 +144,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + sendActorPrefix + "SpellSlots",
         SEND_ACTOR_INVENTORY: serverEventPrefix + sendActorPrefix + "Inventory",
         SEND_ACTOR_BIOGRAPHY: serverEventPrefix + sendActorPrefix + "Biography",
+        SEND_ACTOR_CURRENCY: serverEventPrefix + sendActorPrefix + "Currency",
+        SEND_ACTOR_SPELLS: serverEventPrefix + sendActorPrefix + "Spells",
       },
     },
     ROLL: {
