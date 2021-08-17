@@ -1,6 +1,5 @@
 const foundryEventPrefix = "foundry:";
 const serverEventPrefix = "server:";
-const iosEventPrefix = "ios:";
 
 const requestFoundryEventPrefix = "requestFoundry";
 const sendFoundryEventPrefix = "sendFoundry";
@@ -15,6 +14,7 @@ export const SOCKET_EVENTS = {
       SEND_USERS: foundryEventPrefix + "sendUsers",
       SEND_ACTORS: foundryEventPrefix + "sendActors",
       SEND_WORLD_DATA: foundryEventPrefix + "sendWorldData",
+      USER_AUTH: foundryEventPrefix + "UserAuthentication",
     },
     ACTOR: {
       SEND_ACTOR_OVERVIEW: foundryEventPrefix + sendActorPrefix + "Overview",
@@ -24,6 +24,8 @@ export const SOCKET_EVENTS = {
         foundryEventPrefix + sendActorPrefix + "SpellSlots",
       SEND_ACTOR_INVENTORY: foundryEventPrefix + sendActorPrefix + "Inventory",
       SEND_ACTOR_BIOGRAPHY: foundryEventPrefix + sendActorPrefix + "Biography",
+      SEND_ACTOR_CURRENCY: foundryEventPrefix + sendActorPrefix + "Currency",
+      SEND_ACTOR_SPELLS: foundryEventPrefix + sendActorPrefix + "Spells",
     },
     ROLL: {
       SEND_ABILITY_ROLL: foundryEventPrefix + "sendAbilityRoll",
@@ -43,10 +45,14 @@ export const SOCKET_EVENTS = {
       REQUEST: {
         REQUEST_FOUNDRY_USERS:
           serverEventPrefix + requestFoundryEventPrefix + "Users",
-        REQUEST_FOUNDRY_ACTORS:
-          serverEventPrefix + requestFoundryEventPrefix + "Actors",
         REQUEST_FOUNDRY_WORLD_DATA:
           serverEventPrefix + requestFoundryEventPrefix + "WorldData",
+        REQUEST_FOUNDRY_USER_AUTH:
+          serverEventPrefix + requestFoundryEventPrefix + "UserAuthentication",
+      },
+      SEND: {
+        SEND_IOS_SETUP_COMPLETE:
+          serverEventPrefix + sendFoundryEventPrefix + "iosSetupComplete",
       },
     },
     ACTOR: {
@@ -63,6 +69,10 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "Inventory",
         REQUEST_ACTOR_BIOGRAPHY:
           serverEventPrefix + requestActorEventPrefix + "Biography",
+        REQUEST_ACTOR_CURRENCY:
+          serverEventPrefix + requestActorEventPrefix + "Currency",
+        REQUEST_ACTOR_SPELLS:
+          serverEventPrefix + requestActorEventPrefix + "Spells",
       },
     },
     ROLL: {

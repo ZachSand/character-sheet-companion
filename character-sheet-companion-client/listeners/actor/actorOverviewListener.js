@@ -2,7 +2,7 @@ import {
   getBase64ImageData,
   removeBase64Metadata,
 } from "../../utils/commonUtilities.js";
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 
 export async function createAndEmitActorOverview(socket, actorId, iosSocketId) {
   let actor = game.actors.get(actorId);

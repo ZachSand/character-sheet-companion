@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 import { displayItemCard } from "./displayItemListener.js";
 import {
   createAndEmitChatData,

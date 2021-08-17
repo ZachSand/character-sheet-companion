@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct InventoryItemDamageSheetView: View {
+struct ItemDamageSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @ObservedObject var itemDamageSheetVM: ItemDamageSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
     @State private var versatile = false
     @State private var critical = false
@@ -20,21 +20,21 @@ struct InventoryItemDamageSheetView: View {
             Toggle("Critical", isOn: $critical)
 
             Button("Roll Damage for " + inventoryItem.name) {
-                characterInventoryVM.rollItemDamage(inventoryItem: inventoryItem, critical: critical, versatile: versatile)
+                itemDamageSheetVM.rollItemDamage(inventoryItem: inventoryItem, critical: critical, versatile: versatile)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
             .padding()
-            .buttonStyle(RoundedRectangleButtonStyle())
+            .buttonStyle(ItemDamageButtonStyle())
         }
     }
 }
 
 #if DEBUG
-    struct InventoryItemDamageSheetView_Previews: PreviewProvider {
+    struct ItemDamageSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            InventoryItemDamageSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(),
+            ItemDamageSheetView(
+                itemDamageSheetVM: ItemDamageSheetViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataWeapons[0]
             )
         }

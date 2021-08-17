@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SpellItemDamageSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterSpellVM: CharacterSpellViewModel
+    @ObservedObject var spellItemDamageSheetVM: SpellItemDamageSheetViewModel
     @State var spell: ActorSpellModel
     @State private var versatile = false
     @State private var critical = false
@@ -20,7 +20,7 @@ struct SpellItemDamageSheetView: View {
             Toggle("Critical", isOn: $critical)
 
             Button("Roll Damage for " + spell.name) {
-                characterSpellVM.rollItemDamage(spell: spell, critical: critical, versatile: versatile)
+                spellItemDamageSheetVM.rollItemDamage(spell: spell, critical: critical, versatile: versatile)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
@@ -33,7 +33,7 @@ struct SpellItemDamageSheetView: View {
     struct SpellItemDamageSheetView_Previews: PreviewProvider {
         static var previews: some View {
             SpellItemDamageSheetView(
-                characterSpellVM: CharacterSpellViewModel(),
+                spellItemDamageSheetVM: SpellItemDamageSheetViewModel(),
                 spell: ActorSpellModel.mockedData[1]
             )
         }

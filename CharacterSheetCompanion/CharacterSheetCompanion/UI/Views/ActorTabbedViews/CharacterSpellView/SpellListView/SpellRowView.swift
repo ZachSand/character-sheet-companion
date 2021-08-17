@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct SpellView: View {
-    @ObservedObject var characterSpellVM: CharacterSpellViewModel
+struct SpellRowView: View {
     let spell: ActorSpellModel
     let isExpanded: Bool
 
@@ -27,7 +26,7 @@ struct SpellView: View {
                 Text(spell.name).font(.headline)
             }
             if isExpanded {
-                ExpandedSpellView(characterSpellVM: characterSpellVM, spell: spell)
+                ExpandedSpellRowView(expandedSpellRowVM: ExpandedSpellRowViewModel(), spell: spell)
             }
         }
         .contentShape(Rectangle())
@@ -37,8 +36,7 @@ struct SpellView: View {
 #if DEBUG
     struct SpellView_Previews: PreviewProvider {
         static var previews: some View {
-            SpellView(
-                characterSpellVM: CharacterSpellViewModel(),
+            SpellRowView(
                 spell: ActorSpellModel.mockedData[0], isExpanded: true
             )
         }

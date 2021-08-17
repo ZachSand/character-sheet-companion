@@ -5,6 +5,8 @@ import { actorInventoryListener } from "./actorInventoryListener";
 import { actorOverviewListener } from "./actorOverviewListener";
 import { actorSpellSlotListener } from "./actorSpellSlotListener";
 import { actorSkillListener } from "./actorSkillListener";
+import { actorCurrencyListener } from "./actorCurrencyListener";
+import { actorSpellsListener } from "./actorSpellListener";
 
 export const actorListenerWrapper = (io: Server, socket: Socket): void => {
   actorAbilityListener(io, socket);
@@ -13,4 +15,6 @@ export const actorListenerWrapper = (io: Server, socket: Socket): void => {
   actorOverviewListener(io, socket);
   actorSpellSlotListener(io, socket);
   actorSkillListener(io, socket);
+  actorCurrencyListener(io, socket);
+  actorSpellsListener(io, socket);
 };

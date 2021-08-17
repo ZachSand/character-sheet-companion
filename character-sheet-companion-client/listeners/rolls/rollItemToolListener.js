@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 
 export function createAndEmitItemToolRoll(socket, itemToolRoll, iosSocketId) {
   if (itemToolRoll) {

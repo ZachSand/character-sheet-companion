@@ -7,32 +7,32 @@
 
 import SwiftUI
 
-struct InventoryItemConsumableSheetView: View {
+struct ItemConsumableSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @ObservedObject var itemConsumableSheetVM: ItemConsumableSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
 
     @State private var consume = false
     var body: some View {
         VStack {
             Toggle("Consume", isOn: $consume)
-            Text(characterInventoryVM.getConsumeText(inventoryItem: inventoryItem)).font(.footnote)
+            Text(itemConsumableSheetVM.getConsumeText(inventoryItem: inventoryItem)).font(.footnote)
             Button("Consume " + inventoryItem.name) {
-                characterInventoryVM.rollItemConsume(inventoryItem: inventoryItem, consume: consume)
+                itemConsumableSheetVM.rollItemConsume(inventoryItem: inventoryItem, consume: consume)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
             .padding()
 
-        }.buttonStyle(RoundedRectangleButtonStyle())
+        }.buttonStyle(ItemDamageButtonStyle())
     }
 }
 
 #if DEBUG
     struct InventoryItemConsumableSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            InventoryItemConsumableSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(),
+            ItemConsumableSheetView(
+                itemConsumableSheetVM: ItemConsumableSheetViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataConsumables[0]
             )
         }

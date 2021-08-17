@@ -8,23 +8,16 @@
 import Foundation
 
 class WorldUserActorViewModel: ObservableObject {
-    @Published var worldData: WorldDataModel?
-    @Published var actors: [ActorModel]?
     @Published var users: [UserModel]?
+    @Published var actors: [ActorModel] = []
 
     var usersListener: SetupUsersListener?
-    var setupWorldDataListener: SetupWorldDataListener?
-    var actorsListener: SetupActorsListener?
 
     init() {
         do {
             try usersListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try setupWorldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try actorsListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
         fetchUsers()
-        fetchWorldData()
-        fetchActors()
     }
 
     func fetchUsers() {
@@ -37,31 +30,19 @@ class WorldUserActorViewModel: ObservableObject {
         }
     }
 
-    func fetchWorldData() {
-        if let listener = setupWorldDataListener {
-            DispatchQueue.main.async {
-                listener.getWorldData { worldDataModel in
-                    self.worldData = worldDataModel
+    func completeSetup(user: UserModel, actor: ActorModel) {
+        FoundrySocketIOManager.sharedInstance.finishSetup(user: user, actor: actor)
+    }
+
+    func updateActors(selectedUser: UserModel) {
+        if let users = users?.filter({ user in
+            user.id == selectedUser.id
+        }) {
+            if users.count == 1 {
+                if let userActors = users[0].actors {
+                    actors = userActors
                 }
             }
         }
-    }
-
-    func fetchActors() {
-        if let listener = actorsListener {
-            DispatchQueue.main.async {
-                listener.getActors { actorModels in
-                    self.actors = actorModels
-                }
-            }
-        }
-    }
-
-    func setActor(actor: ActorModel) {
-        FoundrySocketIOManager.sharedInstance.actor = actor
-    }
-
-    func setUser(user: UserModel) {
-        FoundrySocketIOManager.sharedInstance.user = user
     }
 }

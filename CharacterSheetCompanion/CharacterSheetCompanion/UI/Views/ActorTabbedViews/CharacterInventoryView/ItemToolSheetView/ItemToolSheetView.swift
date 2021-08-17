@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct InventoryItemToolSheetView: View {
+struct ItemToolSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @ObservedObject var itemToolSheetVM: ItemToolSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
     @State private var advantage = false
     @State private var disadvantage = false
@@ -20,7 +20,7 @@ struct InventoryItemToolSheetView: View {
             Toggle("Disadvantage", isOn: $disadvantage)
 
             Button("Use " + inventoryItem.name) {
-                characterInventoryVM.rollItemToolRoll(inventoryItem: inventoryItem, advantage: advantage, disadvantage: disadvantage)
+                itemToolSheetVM.rollItemToolRoll(inventoryItem: inventoryItem, advantage: advantage, disadvantage: disadvantage)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
@@ -30,10 +30,10 @@ struct InventoryItemToolSheetView: View {
 }
 
 #if DEBUG
-    struct InventoryItemToolSheetView_Previews: PreviewProvider {
+    struct ItemToolSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            InventoryItemToolSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(),
+            ItemToolSheetView(
+                itemToolSheetVM: ItemToolSheetViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataTools[0]
             )
         }

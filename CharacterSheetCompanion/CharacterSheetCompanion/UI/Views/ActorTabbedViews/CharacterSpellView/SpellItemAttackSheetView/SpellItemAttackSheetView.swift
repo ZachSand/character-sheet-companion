@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SpellItemAttackSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterSpellVM: CharacterSpellViewModel
+    @ObservedObject var spellItemAttackSheetVM: SpellItemAttackSheetViewModel
 
     @State var spellConsumeSelection = ""
     @State var spell: ActorSpellModel
@@ -26,7 +26,7 @@ struct SpellItemAttackSheetView: View {
             }
 
             Button("Roll Attack for " + spell.name) {
-                characterSpellVM.rollItemAttack(spell: spell, advantage: advantage, disadvantage: disadvantage, consumeSpellSlot: consumeSpellSlot)
+                spellItemAttackSheetVM.rollItemAttack(spell: spell, advantage: advantage, disadvantage: disadvantage, consumeSpellSlot: consumeSpellSlot)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
@@ -39,7 +39,7 @@ struct SpellItemAttackSheetView: View {
     struct SpellItemAttackSheetView_Previews: PreviewProvider {
         static var previews: some View {
             SpellItemAttackSheetView(
-                characterSpellVM: CharacterSpellViewModel(),
+                spellItemAttackSheetVM: SpellItemAttackSheetViewModel(),
                 spell: ActorSpellModel.mockedData[1]
             )
         }

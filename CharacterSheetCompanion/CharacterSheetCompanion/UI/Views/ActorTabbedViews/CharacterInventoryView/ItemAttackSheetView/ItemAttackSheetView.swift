@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct InventoryItemAttackSheetView: View {
+struct ItemAttackSheetView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
+    @ObservedObject var itemAttackSheetVM: ItemAttackSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
     @State private var advantage = false
     @State private var disadvantage = false
@@ -20,7 +20,7 @@ struct InventoryItemAttackSheetView: View {
             Toggle("Disadvantage", isOn: $disadvantage)
 
             Button("Roll Attack for " + inventoryItem.name) {
-                characterInventoryVM.rollItemAttack(inventoryItem: inventoryItem, advantage: advantage, disadvantage: disadvantage)
+                itemAttackSheetVM.rollItemAttack(inventoryItem: inventoryItem, advantage: advantage, disadvantage: disadvantage)
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.title)
@@ -30,10 +30,10 @@ struct InventoryItemAttackSheetView: View {
 }
 
 #if DEBUG
-    struct InventoryItemAttackSheetView_Previews: PreviewProvider {
+    struct ItemAttackSheetView_Previews: PreviewProvider {
         static var previews: some View {
-            InventoryItemAttackSheetView(
-                characterInventoryVM: CharacterInventoryViewModel(),
+            ItemAttackSheetView(
+                itemAttackSheetVM: ItemAttackSheetViewModel(),
                 inventoryItem: ActorInventoryItemModel.mockedDataWeapons[0]
             )
         }

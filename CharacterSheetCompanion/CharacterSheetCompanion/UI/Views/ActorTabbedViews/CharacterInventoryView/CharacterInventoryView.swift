@@ -9,49 +9,19 @@ import SwiftUI
 
 struct CharacterInventoryView: View {
     @ObservedObject var characterInventoryVM: CharacterInventoryViewModel
-    @State private var selection: Set<ActorInventoryItemModel> = []
 
     var body: some View {
         VStack {
             Text("Inventory")
-            HStack {
-                Image(systemName: "dollarsign.square")
-                    .resizable()
-                    .frame(width: 15, height: 15, alignment: .leading)
-                Text(characterInventoryVM.getCurrency()).font(.footnote)
-            }
+            CharacterCurrencyView(characterCurrencyVM: CharacterCurrencyViewModel())
             List {
                 ForEach(characterInventoryVM.getInventorySections()) { inventorySection in
                     Section(header: Text(inventorySection.id)) {
-                        ForEach(inventorySection.inventoryItems) { inventoryItem in
-                            ItemView(characterInventoryVM: characterInventoryVM, inventoryItem: inventoryItem, isExpanded: self.selection.contains(inventoryItem))
-                                .onTapGesture { self.selectDeselect(inventoryItem) }
-                        }
+                        ItemListView(inventorySection: inventorySection)
                     }
                 }
             }
         }
-    }
-
-    private func selectDeselect(_ inventoryItem: ActorInventoryItemModel) {
-        if selection.contains(inventoryItem) {
-            selection.remove(inventoryItem)
-        } else {
-            selection.insert(inventoryItem)
-        }
-    }
-}
-
-struct RoundedRectangleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            Spacer()
-            configuration.label.foregroundColor(.black)
-            Spacer()
-        }
-        .padding()
-        .background(Color.yellow.cornerRadius(8))
-        .scaleEffect(configuration.isPressed ? 0.95 : 1)
     }
 }
 

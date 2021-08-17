@@ -1,4 +1,4 @@
-import { SOCKET_EVENTS } from "../../events/events.js";
+import { SOCKET_EVENTS } from "../../constants/events.js";
 import { removeHtml } from "../../utils/commonUtilities.js";
 
 export function getAndEmitWorldData(socket, iosSocketId) {

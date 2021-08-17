@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import SocketIO
 
-class ActorOverviewListener: SocketListener, ActorListener, ObservableObject {
+class ActorOverviewListener: SocketListener, ActorListener {
     let overviewPublisher: AnyPublisher<ActorOverviewModel?, Never>
     let socket: SocketIOClient
 
