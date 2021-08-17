@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ExpandedSpellView: View {
-    @ObservedObject var spellListVM: SpellListViewModel
+struct ExpandedSpellRowView: View {
+    @ObservedObject var expandedSpellRowVM: ExpandedSpellRowViewModel
     var spell: ActorSpellModel
 
     @State private var showingAttackSheet = false
@@ -17,7 +17,7 @@ struct ExpandedSpellView: View {
     var body: some View {
         VStack {
             Button("Display in VTT") {
-                spellListVM.displayItem(spell: spell)
+                expandedSpellRowVM.displayItem(spell: spell)
             }
             .buttonStyle(ItemDisplayButtonStyle())
 
@@ -25,7 +25,7 @@ struct ExpandedSpellView: View {
                 Button("Cast Spell") {
                     showingAttackSheet.toggle()
                 }.sheet(isPresented: $showingAttackSheet, content: {
-                    SpellItemAttackSheetView(spellListVM: spellListVM, spell: spell)
+                    SpellItemAttackSheetView(spellItemAttackSheetVM: SpellItemAttackSheetViewModel(), spell: spell)
                 })
                     .buttonStyle(ItemAttackButtonStyle())
             }
@@ -34,7 +34,7 @@ struct ExpandedSpellView: View {
                 Button("Roll Damage") {
                     showingDamageSheet.toggle()
                 }.sheet(isPresented: $showingDamageSheet, content: {
-                    SpellItemDamageSheetView(spellListVM: spellListVM, spell: spell)
+                    SpellItemDamageSheetView(spellItemDamageSheetVM: SpellItemDamageSheetViewModel(), spell: spell)
                 })
                     .buttonStyle(ItemDamageButtonStyle())
             }
@@ -48,8 +48,8 @@ struct ExpandedSpellView: View {
 #if DEBUG
     struct ExpandedSpellView_Previews: PreviewProvider {
         static var previews: some View {
-            ExpandedSpellView(
-                spellListVM: SpellListViewModel(spellLevel: 0),
+            ExpandedSpellRowView(
+                expandedSpellRowVM: ExpandedSpellRowViewModel(),
                 spell: ActorSpellModel.mockedData[0]
             )
         }

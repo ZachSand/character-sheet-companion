@@ -17,9 +17,8 @@ struct SpellListView: View {
                 spell.spellLevel == spellListVM.spellLevel
             }) { spell in
                 SpellRowView(
-                    spellListVM: spellListVM,
-                    spell: spell, isExpanded:
-                    self.selection.contains(spell)
+                    spell: spell,
+                    isExpanded: self.selection.contains(spell)
                 )
                 .onTapGesture {
                     self.selectDeselect(spell)

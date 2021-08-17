@@ -8,20 +8,16 @@
 import Foundation
 
 class WorldUserActorViewModel: ObservableObject {
-    @Published var worldData: WorldDataModel?
     @Published var users: [UserModel]?
     @Published var actors: [ActorModel] = []
 
     var usersListener: SetupUsersListener?
-    var setupWorldDataListener: SetupWorldDataListener?
 
     init() {
         do {
             try usersListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try setupWorldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
         } catch {}
         fetchUsers()
-        fetchWorldData()
     }
 
     func fetchUsers() {
@@ -29,16 +25,6 @@ class WorldUserActorViewModel: ObservableObject {
             DispatchQueue.main.async {
                 listener.getUsers { userModels in
                     self.users = userModels
-                }
-            }
-        }
-    }
-
-    func fetchWorldData() {
-        if let listener = setupWorldDataListener {
-            DispatchQueue.main.async {
-                listener.getWorldData { worldDataModel in
-                    self.worldData = worldDataModel
                 }
             }
         }

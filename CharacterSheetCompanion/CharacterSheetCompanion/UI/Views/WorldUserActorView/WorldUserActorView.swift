@@ -15,9 +15,7 @@ struct WorldUserActorView: View {
 
     var body: some View {
         VStack {
-            if let worldData = worldUserActorVM.worldData {
-                WorldDataView(worldData: worldData)
-            }
+            WorldDataView(worldDataVM: WorldDataViewModel())
             Divider()
             if let users = worldUserActorVM.users {
                 GeometryReader { geometry in
@@ -94,7 +92,6 @@ struct WorldUserActorView: View {
         static let worldUserActorVM: WorldUserActorViewModel = {
             let worldUserActorVM = WorldUserActorViewModel()
             worldUserActorVM.users = UserModel.mockedData
-            worldUserActorVM.worldData = WorldDataModel.mockedData
             return worldUserActorVM
         }()
 
