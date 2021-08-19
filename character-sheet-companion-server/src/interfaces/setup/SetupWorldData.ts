@@ -1,4 +1,4 @@
-export interface World {
+export interface SetupWorldData {
   id: string;
   title: string;
   version: string;

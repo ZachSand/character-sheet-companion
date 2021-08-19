@@ -8,7 +8,7 @@
 import Foundation
 
 class ExpandedSpellRowViewModel: ObservableObject {
-    var itemDisplayListener: DisplayItemListener?
+    private var itemDisplayListener: DisplayItemListener?
 
     init() {
         do {

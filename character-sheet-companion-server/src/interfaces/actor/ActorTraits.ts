@@ -1,4 +1,4 @@
-import { Senses } from "./Senses";
+import { ActorSenses } from "./ActorSenses";
 
 export interface ActorTraits {
   languages: string[];
@@ -10,5 +10,5 @@ export interface ActorTraits {
   damageResistances: string[];
   damageVulnerabilities: string[];
   conditionImmunities: string[];
-  senses: Senses;
+  senses: ActorSenses;
 }

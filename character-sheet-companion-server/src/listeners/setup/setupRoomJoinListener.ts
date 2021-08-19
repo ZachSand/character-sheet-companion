@@ -1,7 +1,6 @@
 import Logger from "../../loaders/logger";
 import { Server, Socket } from "socket.io";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { getFoundrySocketFromRoom } from "../../utilities/SocketUtilities";
 
 export const setupRoomJoinListener = (server: Server, socket: Socket): void => {
   const foundryJoin = (roomId: string) => {
@@ -43,8 +42,6 @@ export const setupRoomJoinListener = (server: Server, socket: Socket): void => {
       socket.data.ios = true;
       socket.data.fccId = roomId;
       socket.emit(SOCKET_EVENTS.SERVER.SETUP.SEND.SEND_IOS_JOINED_ROOM);
-
-      const foundrySocket = getFoundrySocketFromRoom(server, socket);
     }
 
     function handleIosNoRoomToJoin() {

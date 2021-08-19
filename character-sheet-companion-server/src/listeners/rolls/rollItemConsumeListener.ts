@@ -4,10 +4,10 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ItemConsumeRoll } from "../../interfaces/rolls/ItemConsumeRoll";
+import { RollItemConsume } from "../../interfaces/rolls/RollItemConsume";
 
 export const rollItemConsumeListener = (io: Server, socket: Socket): void => {
-  const requestFoundryItemConsumeRoll = (itemConsumeRoll: ItemConsumeRoll) => {
+  const requestFoundryItemConsumeRoll = (itemConsumeRoll: RollItemConsume) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
@@ -19,7 +19,7 @@ export const rollItemConsumeListener = (io: Server, socket: Socket): void => {
   };
 
   const receiveFoundryItemConsumeRoll = (
-    itemConsumeRoll: ItemConsumeRoll,
+    itemConsumeRoll: RollItemConsume,
     iosSocketId: string
   ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);

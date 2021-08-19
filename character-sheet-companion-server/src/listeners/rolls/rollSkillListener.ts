@@ -4,10 +4,10 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { SkillRoll } from "../../interfaces/rolls/SkillRoll";
+import { RollSkill } from "../../interfaces/rolls/RollSkill";
 
 export const rollSkillListener = (io: Server, socket: Socket): void => {
-  const requestFoundrySkillRoll = (skillRoll: SkillRoll) => {
+  const requestFoundrySkillRoll = (skillRoll: RollSkill) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
@@ -19,7 +19,7 @@ export const rollSkillListener = (io: Server, socket: Socket): void => {
   };
 
   const receiveFoundrySkillRoll = (
-    skillRoll: SkillRoll,
+    skillRoll: RollSkill,
     iosSocketId: string
   ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);

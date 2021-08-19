@@ -1,8 +1,7 @@
-export interface AbilityRoll {
+export interface RollItemTool {
   actorId: string;
-  ability: string;
+  itemId: string;
   advantage: boolean;
   disadvantage: boolean;
-  isSave: boolean;
   result: number;
 }

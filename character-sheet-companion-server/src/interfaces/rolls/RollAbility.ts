@@ -1,7 +1,8 @@
-export interface SkillRoll {
+export interface RollAbility {
   actorId: string;
-  skill: string;
+  ability: string;
   advantage: boolean;
   disadvantage: boolean;
+  isSave: boolean;
   result: number;
 }

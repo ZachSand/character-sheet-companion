@@ -11,10 +11,9 @@ import Foundation
 class CharacterSkillViewModel: ObservableObject {
     @Published var skills: [ActorSkillModel]?
 
-    var subscription = Set<AnyCancellable>()
-
-    var skillListener: RollSkillListener?
-    var skillsListener: ActorSkillListener?
+    private var subscription = Set<AnyCancellable>()
+    private var skillListener: RollSkillListener?
+    private var skillsListener: ActorSkillListener?
 
     init() {
         do {

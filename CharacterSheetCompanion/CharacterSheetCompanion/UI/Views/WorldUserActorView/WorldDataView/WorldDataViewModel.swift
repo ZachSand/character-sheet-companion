@@ -10,7 +10,7 @@ import Foundation
 class WorldDataViewModel: ObservableObject {
     @Published var worldData: WorldDataModel?
 
-    var worldDataListener: SetupWorldDataListener?
+    private var worldDataListener: SetupWorldDataListener?
 
     init() {
         do {

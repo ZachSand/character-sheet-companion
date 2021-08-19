@@ -8,7 +8,7 @@
 import Foundation
 
 class ItemToolSheetViewModel: ObservableObject {
-    var itemToolListener: RollToolListener?
+    private var itemToolListener: RollToolListener?
 
     init() {
         do {

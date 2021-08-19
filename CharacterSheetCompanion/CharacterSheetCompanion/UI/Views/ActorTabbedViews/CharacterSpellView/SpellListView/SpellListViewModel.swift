@@ -10,11 +10,11 @@ import Foundation
 
 class SpellListViewModel: ObservableObject {
     @Published var spells: [ActorSpellModel]?
-    var subscription = Set<AnyCancellable>()
     let spellLevel: Int
 
-    var spellListener: ActorSpellListener?
-    var itemDisplayListener: DisplayItemListener?
+    private var subscription = Set<AnyCancellable>()
+    private var spellListener: ActorSpellListener?
+    private var itemDisplayListener: DisplayItemListener?
 
     init(spellLevel: Int) {
         self.spellLevel = spellLevel

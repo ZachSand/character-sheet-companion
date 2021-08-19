@@ -1,12 +1,12 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
-import { createAndEmitInventory } from "./actorInventoryListener.js";
+import { createAndEmitActorInventory } from "./actorInventoryListener.js";
 import { createAndEmitActorAttributes } from "./actorAttributesListener.js";
 import { createAndEmitActorDetails } from "./actorDetailsListener.js";
 import { createAndEmitActorAbilities } from "./actorAbilityListener.js";
-import { createAndEmitSkills } from "./actorSkillListener.js";
-import { createAndEmitSpellSlots } from "./actorSpellSlotListener.js";
-import { createAndEmitCurrency } from "./actorCurrencyListener.js";
-import { createAndEmitSpells } from "./actorSpellListener.js";
+import { createAndEmitActorSkills } from "./actorSkillListener.js";
+import { createAndEmitActorSpellSlots } from "./actorSpellSlotListener.js";
+import { createAndEmitActorCurrency } from "./actorCurrencyListener.js";
+import { createAndEmitActorSpells } from "./actorSpellListener.js";
 import { createAndEmitActorBaseData } from "./actorBaseDataListener.js";
 import { createAndEmitActorClasses } from "./actorClassesListener.js";
 import { createAndEmitActorTraits } from "./actorTraitsListener.js";
@@ -22,7 +22,7 @@ export function actorListenerWrapper(socket) {
   socket.on(
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_INVENTORY,
     async (actorId, iosSocketId) => {
-      await createAndEmitInventory(socket, actorId, iosSocketId);
+      await createAndEmitActorInventory(socket, actorId, iosSocketId);
     }
   );
 
@@ -36,14 +36,14 @@ export function actorListenerWrapper(socket) {
   socket.on(
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SKILLS,
     (actorId, iosSocketId) => {
-      createAndEmitSkills(socket, actorId, iosSocketId);
+      createAndEmitActorSkills(socket, actorId, iosSocketId);
     }
   );
 
   socket.on(
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SPELL_SLOTS,
     (actorId, iosSocketId) => {
-      createAndEmitSpellSlots(socket, actorId, iosSocketId);
+      createAndEmitActorSpellSlots(socket, actorId, iosSocketId);
     }
   );
 
@@ -57,14 +57,14 @@ export function actorListenerWrapper(socket) {
   socket.on(
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_CURRENCY,
     (actorId, iosSocketId) => {
-      createAndEmitCurrency(socket, actorId, iosSocketId);
+      createAndEmitActorCurrency(socket, actorId, iosSocketId);
     }
   );
 
   socket.on(
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SPELLS,
     async (actorId, iosSocketId) => {
-      await createAndEmitSpells(socket, actorId, iosSocketId);
+      await createAndEmitActorSpells(socket, actorId, iosSocketId);
     }
   );
 

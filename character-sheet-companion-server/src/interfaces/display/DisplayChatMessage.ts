@@ -1,4 +1,4 @@
-export interface ChatMessage {
+export interface DisplayChatMessage {
   id: string;
   speaker: string;
   userId: string;

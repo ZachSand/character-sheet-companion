@@ -8,7 +8,7 @@
 import Foundation
 
 class SpellItemDamageSheetViewModel: ObservableObject {
-    var itemDamageListener: RollItemDamageListener?
+    private var itemDamageListener: RollItemDamageListener?
 
     init() {
         do {

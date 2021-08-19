@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ChatMessage } from "../../interfaces/display/ChatMessage";
+import { DisplayChatMessage } from "../../interfaces/display/DisplayChatMessage";
 
 export const displayChatMessageListener = (
   io: Server,
@@ -39,7 +39,7 @@ export const displayChatMessageListener = (
   };
 
   const receiveFoundryChatData = (
-    chatMessages: ChatMessage[],
+    chatMessages: DisplayChatMessage[],
     iosSocketId: string
   ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);

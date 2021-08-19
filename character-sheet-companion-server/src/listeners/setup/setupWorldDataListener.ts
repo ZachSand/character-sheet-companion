@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { World } from "../../interfaces/setup/World";
+import { SetupWorldData } from "../../interfaces/setup/SetupWorldData";
 
 export const setupWorldDataListener = (io: Server, socket: Socket): void => {
   const getWorldData = () => {
@@ -17,7 +17,7 @@ export const setupWorldDataListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveWorldData = (world: World, iosSocketId: string) => {
+  const receiveWorldData = (world: SetupWorldData, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(

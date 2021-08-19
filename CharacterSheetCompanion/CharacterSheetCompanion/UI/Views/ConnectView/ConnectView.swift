@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct ConnectView: View {
-    @ObservedObject var foundryConnectVM: ConnectViewModel
-
-    init() {
-        foundryConnectVM = ConnectViewModel()
-    }
+    @ObservedObject var connectVM: ConnectViewModel
 
     var body: some View {
         VStack {
@@ -26,7 +22,7 @@ struct ConnectView: View {
 
             Spacer()
             TextField(
-                "Character Sheet Companion ID", text: $foundryConnectVM.characterCompanionId
+                "Character Sheet Companion ID", text: $connectVM.characterCompanionId
             )
             .multilineTextAlignment(TextAlignment.center)
             .padding()
@@ -38,26 +34,28 @@ struct ConnectView: View {
             .autocapitalization(.none)
             .font(Font.system(size: 15, design: .default))
 
-            Button {
-                foundryConnectVM.connect()
-                if foundryConnectVM.connectSuccess {
-                    if let window = UIApplication.shared.windows.first {
-                        window.rootViewController = UIHostingController(rootView: WorldUserActorView(worldUserActorVM: WorldUserActorViewModel()))
-                        window.makeKeyAndVisible()
-                    }
+            NavigationLink(
+                destination: LazyView(WorldUserActorView()),
+                isActive: $connectVM.connectSuccess,
+                label: {
+                    Button {
+                        connectVM.connect()
+                    } label: {
+                        Text("Connect")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300, height: 30)
+                            .background(Color.green)
+                            .cornerRadius(15.0)
+                            .opacity(connectVM.isIdValid() ? 1 : 0.6)
+                    }.disabled(!connectVM.isIdValid())
                 }
-            } label: {
-                Text("Connect")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 300, height: 30)
-                    .background(Color.green)
-                    .cornerRadius(15.0)
-                    .opacity(foundryConnectVM.isIdValid() ? 1 : 0.6)
-            }.disabled(!foundryConnectVM.isIdValid())
+            )
+            .disabled(!connectVM.isIdValid())
 
             Spacer()
+
             Button {} label: {
                 Text("Need Help?")
                     .font(.callout)
@@ -83,7 +81,7 @@ extension Color {
 #if DEBUG
     struct ConnectView_Previews: PreviewProvider {
         static var previews: some View {
-            ConnectView()
+            ConnectView(connectVM: ConnectViewModel())
         }
     }
 #endif

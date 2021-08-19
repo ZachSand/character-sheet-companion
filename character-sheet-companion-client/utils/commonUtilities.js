@@ -1,4 +1,5 @@
 import { IOS_DATA_MAP } from "../listeners/setup/setupIosCompleteListener.js";
+import { SOCKET_EVENTS } from "../constants/events.js";
 
 export async function getBase64ImageData(url) {
   return fetch(url)
@@ -12,6 +13,14 @@ export async function getBase64ImageData(url) {
           reader.readAsDataURL(blob);
         })
     );
+}
+
+export function getActorOrEmitError(socket, actorId, iosSocketId) {
+  let actor = game.actors.get(actorId);
+  if (actor) {
+    return actor;
+  }
+  socket.emit(SOCKET_EVENTS.ERROR.ACTOR.NO_ACTOR_FOR_ID, actorId, iosSocketId);
 }
 
 export function removeBase64Metadata(imageData) {

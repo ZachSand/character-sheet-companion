@@ -13,7 +13,7 @@
 		BC0442D5268AD93000B49CC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC0442D4268AD93000B49CC8 /* Preview Assets.xcassets */; };
 		BC0ECA8426C479E20076886A /* ActorListenerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0ECA8326C479E20076886A /* ActorListenerWrapper.swift */; };
 		BC0ECA8626C47B300076886A /* ActorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0ECA8526C47B300076886A /* ActorListener.swift */; };
-		BC11B8E926CB111C00C6EB4F /* UserAuthenticationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11B8E826CB111C00C6EB4F /* UserAuthenticationSheet.swift */; };
+		BC11B8E926CB111C00C6EB4F /* UserAuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11B8E826CB111C00C6EB4F /* UserAuthenticationView.swift */; };
 		BC11B8EC26CB143100C6EB4F /* UserAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11B8EB26CB143100C6EB4F /* UserAuthenticationViewModel.swift */; };
 		BC11B8EE26CB1C6A00C6EB4F /* SetupUserAuthenticationListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11B8ED26CB1C6A00C6EB4F /* SetupUserAuthenticationListener.swift */; };
 		BC11B8F126CB71FE00C6EB4F /* WorldDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC11B8F026CB71FE00C6EB4F /* WorldDataViewModel.swift */; };
@@ -61,10 +61,9 @@
 		BC78373426B9DA070031BB64 /* DisplayItemListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78373326B9DA070031BB64 /* DisplayItemListener.swift */; };
 		BC78373A26B9F16E0031BB64 /* CharacterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78373926B9F16E0031BB64 /* CharacterDetailsView.swift */; };
 		BC78373C26B9F1980031BB64 /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78373B26B9F1980031BB64 /* CharacterDetailsViewModel.swift */; };
-		BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */; };
-		BC7CC2EE26AB4EB300FE2D1E /* ActorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2ED26AB4EB300FE2D1E /* ActorModel.swift */; };
+		BC7CC2EC26AB4E9700FE2D1E /* SetupUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EB26AB4E9700FE2D1E /* SetupUserModel.swift */; };
+		BC7CC2EE26AB4EB300FE2D1E /* SetupActorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2ED26AB4EB300FE2D1E /* SetupActorModel.swift */; };
 		BC7CC2F026AB5A9500FE2D1E /* WorldDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */; };
-		BC7CC2F326AB5CC100FE2D1E /* WorldUserActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */; };
 		BC7CC2F526AB5CCD00FE2D1E /* WorldUserActorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */; };
 		BC8E2C2826B89612008619F7 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2726B89612008619F7 /* AbilityView.swift */; };
 		BC8E2C2A26B8963E008619F7 /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */; };
@@ -100,15 +99,25 @@
 		BC9E085826CC657E0035F093 /* ActorTraitsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E085726CC657E0035F093 /* ActorTraitsListener.swift */; };
 		BC9E085C26CC65DC0035F093 /* ActorTraitsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E085B26CC65DC0035F093 /* ActorTraitsModel.swift */; };
 		BC9E085E26CC65FA0035F093 /* ActorSensesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E085D26CC65FA0035F093 /* ActorSensesModel.swift */; };
+		BCA7816D26CDA5390096C23E /* ActorTabbedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7816C26CDA5390096C23E /* ActorTabbedViewModel.swift */; };
+		BCA7816F26CDBA080096C23E /* UserPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7816E26CDBA080096C23E /* UserPickerView.swift */; };
+		BCA7817226CDBA340096C23E /* UserPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7817126CDBA340096C23E /* UserPickerViewModel.swift */; };
+		BCA7817526CDBCFF0096C23E /* ActorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7817426CDBCFF0096C23E /* ActorPickerView.swift */; };
+		BCA7817726CDC5DE0096C23E /* UserActorLoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7817626CDC5DE0096C23E /* UserActorLoginButtonView.swift */; };
+		BCA7817926CE1B4C0096C23E /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA7817826CE1B4C0096C23E /* LazyView.swift */; };
 		BCAA94C826BAE72B0001FD24 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAA94C726BAE72B0001FD24 /* ChatView.swift */; };
 		BCAA94CA26BAE7350001FD24 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAA94C926BAE7350001FD24 /* ChatViewModel.swift */; };
 		BCAA94CC26BAF3A20001FD24 /* DisplayChatMessageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAA94CB26BAF3A20001FD24 /* DisplayChatMessageListener.swift */; };
 		BCAA94D126BAF4850001FD24 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAA94D026BAF4850001FD24 /* ChatMessageModel.swift */; };
 		BCAA94D326BB2FEC0001FD24 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAA94D226BB2FEC0001FD24 /* KeyboardResponder.swift */; };
+		BCC4306326CEC7E50095550D /* CharacterTraitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4306226CEC7E50095550D /* CharacterTraitsView.swift */; };
+		BCC4306526CEC8240095550D /* CharacterTraitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4306426CEC8240095550D /* CharacterTraitsViewModel.swift */; };
+		BCC4306726CEECA10095550D /* CharacterTraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4306626CEECA10095550D /* CharacterTraitView.swift */; };
+		BCC4306926CF07870095550D /* SetupCompleteContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4306826CF07870095550D /* SetupCompleteContainer.swift */; };
+		BCC4306C26CF14340095550D /* CharacterHealthSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC4306B26CF14340095550D /* CharacterHealthSheetView.swift */; };
 		BCCF05DE26B1EF23004BA09C /* ItemConsumeRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */; };
 		BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */; };
 		BCD4D0D526963B1200E991B5 /* ActorTabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */; };
-		BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */; };
 		BCDCA36226C71C150048F816 /* CharacterCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDCA36126C71C150048F816 /* CharacterCurrencyView.swift */; };
 		BCDCA36426C71C200048F816 /* CharacterCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDCA36326C71C200048F816 /* CharacterCurrencyViewModel.swift */; };
 		BCDCA36826C71CE60048F816 /* ActorCurrencyListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDCA36726C71CE60048F816 /* ActorCurrencyListener.swift */; };
@@ -150,7 +159,7 @@
 		BC0442D6268AD93000B49CC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC0ECA8326C479E20076886A /* ActorListenerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorListenerWrapper.swift; sourceTree = "<group>"; };
 		BC0ECA8526C47B300076886A /* ActorListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorListener.swift; sourceTree = "<group>"; };
-		BC11B8E826CB111C00C6EB4F /* UserAuthenticationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationSheet.swift; sourceTree = "<group>"; };
+		BC11B8E826CB111C00C6EB4F /* UserAuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationView.swift; sourceTree = "<group>"; };
 		BC11B8EB26CB143100C6EB4F /* UserAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BC11B8ED26CB1C6A00C6EB4F /* SetupUserAuthenticationListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUserAuthenticationListener.swift; sourceTree = "<group>"; };
 		BC11B8F026CB71FE00C6EB4F /* WorldDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDataViewModel.swift; sourceTree = "<group>"; };
@@ -198,10 +207,9 @@
 		BC78373326B9DA070031BB64 /* DisplayItemListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayItemListener.swift; sourceTree = "<group>"; };
 		BC78373926B9F16E0031BB64 /* CharacterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsView.swift; sourceTree = "<group>"; };
 		BC78373B26B9F1980031BB64 /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
-		BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		BC7CC2ED26AB4EB300FE2D1E /* ActorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorModel.swift; sourceTree = "<group>"; };
+		BC7CC2EB26AB4E9700FE2D1E /* SetupUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupUserModel.swift; sourceTree = "<group>"; };
+		BC7CC2ED26AB4EB300FE2D1E /* SetupActorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupActorModel.swift; sourceTree = "<group>"; };
 		BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDataModel.swift; sourceTree = "<group>"; };
-		BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldUserActorViewModel.swift; sourceTree = "<group>"; };
 		BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldUserActorView.swift; sourceTree = "<group>"; };
 		BC8E2C2726B89612008619F7 /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
@@ -236,15 +244,25 @@
 		BC9E085726CC657E0035F093 /* ActorTraitsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTraitsListener.swift; sourceTree = "<group>"; };
 		BC9E085B26CC65DC0035F093 /* ActorTraitsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTraitsModel.swift; sourceTree = "<group>"; };
 		BC9E085D26CC65FA0035F093 /* ActorSensesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSensesModel.swift; sourceTree = "<group>"; };
+		BCA7816C26CDA5390096C23E /* ActorTabbedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedViewModel.swift; sourceTree = "<group>"; };
+		BCA7816E26CDBA080096C23E /* UserPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPickerView.swift; sourceTree = "<group>"; };
+		BCA7817126CDBA340096C23E /* UserPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPickerViewModel.swift; sourceTree = "<group>"; };
+		BCA7817426CDBCFF0096C23E /* ActorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorPickerView.swift; sourceTree = "<group>"; };
+		BCA7817626CDC5DE0096C23E /* UserActorLoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActorLoginButtonView.swift; sourceTree = "<group>"; };
+		BCA7817826CE1B4C0096C23E /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		BCAA94C726BAE72B0001FD24 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		BCAA94C926BAE7350001FD24 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		BCAA94CB26BAF3A20001FD24 /* DisplayChatMessageListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayChatMessageListener.swift; sourceTree = "<group>"; };
 		BCAA94D026BAF4850001FD24 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		BCAA94D226BB2FEC0001FD24 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		BCC4306226CEC7E50095550D /* CharacterTraitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTraitsView.swift; sourceTree = "<group>"; };
+		BCC4306426CEC8240095550D /* CharacterTraitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTraitsViewModel.swift; sourceTree = "<group>"; };
+		BCC4306626CEECA10095550D /* CharacterTraitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTraitView.swift; sourceTree = "<group>"; };
+		BCC4306826CF07870095550D /* SetupCompleteContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupCompleteContainer.swift; sourceTree = "<group>"; };
+		BCC4306B26CF14340095550D /* CharacterHealthSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterHealthSheetView.swift; sourceTree = "<group>"; };
 		BCCF05DD26B1EF23004BA09C /* ItemConsumeRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemConsumeRollModel.swift; sourceTree = "<group>"; };
 		BCCF05DF26B20B00004BA09C /* ItemToolRollModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToolRollModel.swift; sourceTree = "<group>"; };
 		BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedView.swift; sourceTree = "<group>"; };
-		BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTabbedViewModel.swift; sourceTree = "<group>"; };
 		BCDCA36126C71C150048F816 /* CharacterCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCurrencyView.swift; sourceTree = "<group>"; };
 		BCDCA36326C71C200048F816 /* CharacterCurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCurrencyViewModel.swift; sourceTree = "<group>"; };
 		BCDCA36726C71CE60048F816 /* ActorCurrencyListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCurrencyListener.swift; sourceTree = "<group>"; };
@@ -329,7 +347,7 @@
 		BC11B8EA26CB141100C6EB4F /* UserAuthenticationView */ = {
 			isa = PBXGroup;
 			children = (
-				BC11B8E826CB111C00C6EB4F /* UserAuthenticationSheet.swift */,
+				BC11B8E826CB111C00C6EB4F /* UserAuthenticationView.swift */,
 				BC11B8EB26CB143100C6EB4F /* UserAuthenticationViewModel.swift */,
 			);
 			path = UserAuthenticationView;
@@ -545,10 +563,12 @@
 		BC7CC2F126AB5CA800FE2D1E /* WorldUserActorView */ = {
 			isa = PBXGroup;
 			children = (
+				BCA7817326CDBCF20096C23E /* ActorPickerView */,
+				BCA7817026CDBA230096C23E /* UserPickerView */,
 				BC11B8EF26CB71E900C6EB4F /* WorldDataView */,
 				BC11B8EA26CB141100C6EB4F /* UserAuthenticationView */,
-				BC7CC2F226AB5CC100FE2D1E /* WorldUserActorViewModel.swift */,
 				BC7CC2F426AB5CCD00FE2D1E /* WorldUserActorView.swift */,
+				BCA7817626CDC5DE0096C23E /* UserActorLoginButtonView.swift */,
 			);
 			path = WorldUserActorView;
 			sourceTree = "<group>";
@@ -576,6 +596,23 @@
 			path = ButtonStyles;
 			sourceTree = "<group>";
 		};
+		BCA7817026CDBA230096C23E /* UserPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7816E26CDBA080096C23E /* UserPickerView.swift */,
+				BCA7817126CDBA340096C23E /* UserPickerViewModel.swift */,
+			);
+			path = UserPickerView;
+			sourceTree = "<group>";
+		};
+		BCA7817326CDBCF20096C23E /* ActorPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				BCA7817426CDBCFF0096C23E /* ActorPickerView.swift */,
+			);
+			path = ActorPickerView;
+			sourceTree = "<group>";
+		};
 		BCAA94C626BAE70C0001FD24 /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,9 +627,9 @@
 		BCAA94CD26BAF43C0001FD24 /* SetupModel */ = {
 			isa = PBXGroup;
 			children = (
-				BC7CC2ED26AB4EB300FE2D1E /* ActorModel.swift */,
+				BC7CC2ED26AB4EB300FE2D1E /* SetupActorModel.swift */,
 				BC7CC2EF26AB5A9500FE2D1E /* WorldDataModel.swift */,
-				BC7CC2EB26AB4E9700FE2D1E /* UserModel.swift */,
+				BC7CC2EB26AB4E9700FE2D1E /* SetupUserModel.swift */,
 			);
 			path = SetupModel;
 			sourceTree = "<group>";
@@ -628,9 +665,28 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		BCC4306126CEC7CA0095550D /* CharacterTraitsView */ = {
+			isa = PBXGroup;
+			children = (
+				BCC4306226CEC7E50095550D /* CharacterTraitsView.swift */,
+				BCC4306426CEC8240095550D /* CharacterTraitsViewModel.swift */,
+				BCC4306626CEECA10095550D /* CharacterTraitView.swift */,
+			);
+			path = CharacterTraitsView;
+			sourceTree = "<group>";
+		};
+		BCC4306A26CF14200095550D /* CharacterHealthSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				BCC4306B26CF14340095550D /* CharacterHealthSheetView.swift */,
+			);
+			path = CharacterHealthSheetView;
+			sourceTree = "<group>";
+		};
 		BCD4D0D326963AEC00E991B5 /* ActorTabbedViews */ = {
 			isa = PBXGroup;
 			children = (
+				BCC4306126CEC7CA0095550D /* CharacterTraitsView */,
 				BCAA94C626BAE70C0001FD24 /* ChatView */,
 				BC78373826B9F15A0031BB64 /* CharaterDetailsView */,
 				BCF623C026A8CBC0001B1C18 /* CharacterAttributesView */,
@@ -639,7 +695,7 @@
 				BC53CD8A26A769980021C176 /* CharacterSkillView */,
 				BC53CD8526A766320021C176 /* CharacterAbilityView */,
 				BCD4D0D426963B1200E991B5 /* ActorTabbedView.swift */,
-				BCD7ED0A269E2402001D9F88 /* ActorTabbedViewModel.swift */,
+				BCA7816C26CDA5390096C23E /* ActorTabbedViewModel.swift */,
 			);
 			path = ActorTabbedViews;
 			sourceTree = "<group>";
@@ -684,6 +740,7 @@
 		BCF623C026A8CBC0001B1C18 /* CharacterAttributesView */ = {
 			isa = PBXGroup;
 			children = (
+				BCC4306A26CF14200095550D /* CharacterHealthSheetView */,
 				BCF623C126A8CBD0001B1C18 /* CharacterAttributesView.swift */,
 				BCF623C326A8CBDF001B1C18 /* CharacterAttributesViewModel.swift */,
 			);
@@ -774,6 +831,8 @@
 				BC8E2C2926B8963E008619F7 /* CheckboxToggleStyle.swift */,
 				BC8E2C4D26B8A8D6008619F7 /* Stack.swift */,
 				BCEE3B4626BE50B30092CD15 /* StringExtensions.swift */,
+				BCA7817826CE1B4C0096C23E /* LazyView.swift */,
+				BCC4306826CF07870095550D /* SetupCompleteContainer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -907,6 +966,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC3941FE26C1C05D00C79F0F /* ActorInventoryItemModel.swift in Sources */,
+				BCA7817726CDC5DE0096C23E /* UserActorLoginButtonView.swift in Sources */,
 				BC8E2C3D26B89CC6008619F7 /* RollItemAttackListener.swift in Sources */,
 				BC0ECA8426C479E20076886A /* ActorListenerWrapper.swift in Sources */,
 				BC9E084A26CC49BA0035F093 /* ActorDeathSavesModel.swift in Sources */,
@@ -917,6 +977,7 @@
 				BC914C3B26BC82EB00296E8D /* ItemAttackButtonStyle.swift in Sources */,
 				BC9E085E26CC65FA0035F093 /* ActorSensesModel.swift in Sources */,
 				BC8E2C4126B89CE6008619F7 /* RollItemConsumeListener.swift in Sources */,
+				BCC4306526CEC8240095550D /* CharacterTraitsViewModel.swift in Sources */,
 				BCEE3B4326BDE4DB0092CD15 /* ActorAttributesModel.swift in Sources */,
 				BC0442D0268AD92F00B49CC8 /* ContentView.swift in Sources */,
 				BC9E085626CC57110035F093 /* ActorClassModel.swift in Sources */,
@@ -929,22 +990,25 @@
 				BC11B90A26CB7ACF00C6EB4F /* ExpandedItemRowView.swift in Sources */,
 				BC914C4326BC9EF900296E8D /* SpellItemAttackSheetView.swift in Sources */,
 				BC914C3D26BC832200296E8D /* ItemDamageButtonStyle.swift in Sources */,
+				BCC4306926CF07870095550D /* SetupCompleteContainer.swift in Sources */,
 				BC8E2C3126B89C4D008619F7 /* SetupConnectionListener.swift in Sources */,
 				BC3941F826C1BC5200C79F0F /* temDamageSheetView.swift in Sources */,
 				BC20163526A0FABD009C1CB6 /* AbilityRollModel.swift in Sources */,
+				BCA7817926CE1B4C0096C23E /* LazyView.swift in Sources */,
 				BC8E2C3326B89C6B008619F7 /* SetupUsersListener.swift in Sources */,
 				BC914C4526BC9F1700296E8D /* SpellItemDamageSheetView.swift in Sources */,
 				BC39420226C1C5D500C79F0F /* ItemAttackSheetView.swift in Sources */,
 				BC11B8EE26CB1C6A00C6EB4F /* SetupUserAuthenticationListener.swift in Sources */,
 				BC53CD9826A78BEC0021C176 /* CharacterSpellViewModel.swift in Sources */,
-				BC11B8E926CB111C00C6EB4F /* UserAuthenticationSheet.swift in Sources */,
+				BC11B8E926CB111C00C6EB4F /* UserAuthenticationView.swift in Sources */,
 				BC53CD8E26A769C30021C176 /* CharacterSkillViewModel.swift in Sources */,
-				BC7CC2EC26AB4E9700FE2D1E /* UserModel.swift in Sources */,
+				BC7CC2EC26AB4E9700FE2D1E /* SetupUserModel.swift in Sources */,
 				BC3941EE26C180A300C79F0F /* SkillView.swift in Sources */,
 				BC8E2C4926B89F92008619F7 /* SocketListener.swift in Sources */,
 				BC78373426B9DA070031BB64 /* DisplayItemListener.swift in Sources */,
 				BCCF05E026B20B00004BA09C /* ItemToolRollModel.swift in Sources */,
 				BC53CD8726A7664C0021C176 /* CharacterAbilityView.swift in Sources */,
+				BCA7816F26CDBA080096C23E /* UserPickerView.swift in Sources */,
 				BC39420426C1D7AA00C79F0F /* ActorDetailsModel.swift in Sources */,
 				BC8FD2CA26A23C51005ECB36 /* SkillRollModel.swift in Sources */,
 				BCAA94D326BB2FEC0001FD24 /* KeyboardResponder.swift in Sources */,
@@ -971,10 +1035,13 @@
 				BC11B8F926CB761A00C6EB4F /* ExpandedSpellRowViewModel.swift in Sources */,
 				BC11B90326CB78AE00C6EB4F /* ItemAttackSheetViewModel.swift in Sources */,
 				BC914C4726BC9F3700296E8D /* ExpandedSpellRowView.swift in Sources */,
+				BCC4306726CEECA10095550D /* CharacterTraitView.swift in Sources */,
+				BCA7816D26CDA5390096C23E /* ActorTabbedViewModel.swift in Sources */,
 				BC3941F226C18ECB00C79F0F /* ActorSpellSlotModel.swift in Sources */,
 				BC9E085426CC56CE0035F093 /* ActorClassesListener.swift in Sources */,
 				BC4F094626AF5B7200B7E707 /* ItemDamageRollModel.swift in Sources */,
 				BCE08588268F97DF00026F46 /* FoundrySocketIOManager.swift in Sources */,
+				BCC4306C26CF14340095550D /* CharacterHealthSheetView.swift in Sources */,
 				BCF623C226A8CBD0001B1C18 /* CharacterAttributesView.swift in Sources */,
 				BC8E2C2826B89612008619F7 /* AbilityView.swift in Sources */,
 				BC7CC2F526AB5CCD00FE2D1E /* WorldUserActorView.swift in Sources */,
@@ -1006,20 +1073,21 @@
 				BC11B90526CB790B00C6EB4F /* ItemDamageSheetViewModel.swift in Sources */,
 				BC56BEFB26C39152004F2D3F /* ActorAbilityListener.swift in Sources */,
 				BC39420026C1C0EE00C79F0F /* ActorCurrencyModel.swift in Sources */,
-				BC7CC2F326AB5CC100FE2D1E /* WorldUserActorViewModel.swift in Sources */,
 				BC3941EC26C179ED00C79F0F /* ActorSkillModel.swift in Sources */,
 				BC8E2C2E26B89AC0008619F7 /* InitiativeRollModel.swift in Sources */,
 				BC0ECA8626C47B300076886A /* ActorListener.swift in Sources */,
+				BCA7817526CDBCFF0096C23E /* ActorPickerView.swift in Sources */,
+				BCA7817226CDBA340096C23E /* UserPickerViewModel.swift in Sources */,
 				BCDCA36826C71CE60048F816 /* ActorCurrencyListener.swift in Sources */,
-				BC7CC2EE26AB4EB300FE2D1E /* ActorModel.swift in Sources */,
+				BC7CC2EE26AB4EB300FE2D1E /* SetupActorModel.swift in Sources */,
 				BCAA94CA26BAE7350001FD24 /* ChatViewModel.swift in Sources */,
 				BC11B8F726CB74E100C6EB4F /* SpellItemDamageSheetViewModel.swift in Sources */,
 				BC8E2C4726B89D22008619F7 /* RollInitiativeListener.swift in Sources */,
 				BC8E2C3926B89CA6008619F7 /* RollAbilityListener.swift in Sources */,
 				BCAA94CC26BAF3A20001FD24 /* DisplayChatMessageListener.swift in Sources */,
 				BCE08583268F6F2D00026F46 /* ConnectViewModel.swift in Sources */,
+				BCC4306326CEC7E50095550D /* CharacterTraitsView.swift in Sources */,
 				BC56BEFF26C39464004F2D3F /* ActorInventoryListener.swift in Sources */,
-				BCD7ED0B269E2402001D9F88 /* ActorTabbedViewModel.swift in Sources */,
 				BC3941FC26C1BCEF00C79F0F /* ActorInventoryModel.swift in Sources */,
 				BCDCA36A26C72E3B0048F816 /* ActorSpellListener.swift in Sources */,
 				BCF623BD26A8BF63001B1C18 /* ItemAttackRollModel.swift in Sources */,

@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var setupCompleteContainer = SetupCompleteContainer()
+
     var body: some View {
-        ConnectView()
+        ZStack {
+            if setupCompleteContainer.setupComplete {
+                LazyView(ActorTabbedView(actorTabbedVM: ActorTabbedViewModel()))
+            } else {
+                NavigationView {
+                    ConnectView(connectVM: ConnectViewModel())
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+            }
+        }.environmentObject(setupCompleteContainer)
     }
 }
 

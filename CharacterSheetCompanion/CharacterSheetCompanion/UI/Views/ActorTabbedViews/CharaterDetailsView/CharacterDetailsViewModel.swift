@@ -11,8 +11,8 @@ import Foundation
 class CharacterDetailsViewModel: ObservableObject {
     @Published var details: ActorDetailsModel?
 
-    var subscription = Set<AnyCancellable>()
-    var detailsListener: ActorDetailsListener?
+    private var subscription = Set<AnyCancellable>()
+    private var detailsListener: ActorDetailsListener?
 
     init() {
         do {

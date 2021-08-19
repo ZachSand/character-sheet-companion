@@ -1,4 +1,4 @@
-export interface Actor {
+export interface SetupActor {
   id: string;
   name: string;
 }

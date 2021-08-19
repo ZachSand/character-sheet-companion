@@ -1,12 +1,17 @@
 import {
+  getActorOrEmitError,
   getBase64ImageData,
   removeBase64Metadata,
   removeHtml,
 } from "../../utils/commonUtilities.js";
 import { SOCKET_EVENTS } from "../../constants/events.js";
 
-export async function createAndEmitInventory(socket, actorId, iosSocketId) {
-  let actor = game.actors.get(actorId);
+export async function createAndEmitActorInventory(
+  socket,
+  actorId,
+  iosSocketId
+) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor) {
     const inventory = {
       weapon: [],

@@ -13,6 +13,7 @@ class ActorDetailsListener: SocketListener, ActorListener {
     let detailsPublisher: AnyPublisher<ActorDetailsModel?, Never>
     let socket: SocketIOClient
 
+    private var receivedFirstMessage = false
     private let detailsSubject = CurrentValueSubject<ActorDetailsModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
@@ -24,6 +25,7 @@ class ActorDetailsListener: SocketListener, ActorListener {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_DETAILS) { data, _ in
             do {
                 try self.detailsSubject.send(SocketListenerUtility.parseSocketEventData(data))
+                self.receivedFirstMessage = true
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -37,7 +39,7 @@ class ActorDetailsListener: SocketListener, ActorListener {
     }
 
     func isReady() -> Bool {
-        true
+        receivedFirstMessage
     }
 }
 

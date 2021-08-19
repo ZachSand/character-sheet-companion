@@ -1,4 +1,4 @@
-export interface ItemDamageRoll {
+export interface RollItemDamage {
   actorId: string;
   itemId: string;
   critical: boolean;

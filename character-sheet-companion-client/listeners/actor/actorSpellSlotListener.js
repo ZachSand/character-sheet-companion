@@ -1,7 +1,8 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
+import { getActorOrEmitError } from "../../utils/commonUtilities.js";
 
-export function createAndEmitSpellSlots(socket, actorId, iosSocketId) {
-  let actor = game.actors.get(actorId);
+export function createAndEmitActorSpellSlots(socket, actorId, iosSocketId) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor) {
     socket.emit(
       SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_SPELL_SLOTS,

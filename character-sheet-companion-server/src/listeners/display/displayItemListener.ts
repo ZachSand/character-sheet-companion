@@ -1,10 +1,10 @@
 import { Server, Socket } from "socket.io";
 import { getFoundrySocketFromRoom } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ItemDisplay } from "../../interfaces/display/ItemDisplay";
+import { DisplayItem } from "../../interfaces/display/DisplayItem";
 
 export const displayItemListener = (io: Server, socket: Socket): void => {
-  const requestFoundryDisplayItem = (itemDisplay: ItemDisplay) => {
+  const requestFoundryDisplayItem = (itemDisplay: DisplayItem) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(

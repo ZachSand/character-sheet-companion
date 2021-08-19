@@ -1,4 +1,4 @@
-export interface Encumbrance {
+export interface ActorEncumbrance {
   currentValue: number;
   maxValue: number;
 }

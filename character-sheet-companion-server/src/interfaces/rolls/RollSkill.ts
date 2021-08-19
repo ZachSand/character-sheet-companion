@@ -1,6 +1,6 @@
-export interface ItemAttackRoll {
+export interface RollSkill {
   actorId: string;
-  itemId: string;
+  skill: string;
   advantage: boolean;
   disadvantage: boolean;
   result: number;

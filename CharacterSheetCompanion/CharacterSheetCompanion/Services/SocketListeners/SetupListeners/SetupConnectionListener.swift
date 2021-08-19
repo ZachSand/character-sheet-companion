@@ -11,7 +11,7 @@ import SocketIO
 class SetupConnectionListener: SocketListener {
     let socket: SocketIOClient
 
-    var socketConnectionCallback: ((Bool) -> Void)?
+    private var socketConnectionCallback: ((Bool) -> Void)?
     var roomId: String?
 
     init(socket: SocketIOClient) {

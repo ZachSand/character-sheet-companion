@@ -8,7 +8,7 @@
 import Foundation
 
 class ItemConsumableSheetViewModel: ObservableObject {
-    var itemConsumeListener: RollItemConsumeListener?
+    private var itemConsumeListener: RollItemConsumeListener?
 
     init() {
         do {

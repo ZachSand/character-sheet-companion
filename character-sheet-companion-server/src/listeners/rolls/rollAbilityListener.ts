@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { AbilityRoll } from "../../interfaces/rolls/AbilityRoll";
+import { RollAbility } from "../../interfaces/rolls/RollAbility";
 import {
   getFoundrySocketFromRoom,
   getIosSocketFromRoom,
@@ -7,7 +7,7 @@ import {
 import { SOCKET_EVENTS } from "../../constants/events";
 
 export const rollAbilityListener = (io: Server, socket: Socket): void => {
-  const requestFoundryAbilityRoll = (abilityRoll: AbilityRoll) => {
+  const requestFoundryAbilityRoll = (abilityRoll: RollAbility) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
@@ -19,7 +19,7 @@ export const rollAbilityListener = (io: Server, socket: Socket): void => {
   };
 
   const receiveFoundryAbilityRoll = (
-    abilityRoll: AbilityRoll,
+    abilityRoll: RollAbility,
     iosSocketId: string
   ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);

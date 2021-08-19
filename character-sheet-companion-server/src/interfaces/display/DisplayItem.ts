@@ -1,4 +1,4 @@
-export interface ItemDisplay {
+export interface DisplayItem {
   actorId: string;
   itemId: string;
 }

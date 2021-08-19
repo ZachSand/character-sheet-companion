@@ -10,8 +10,9 @@ import Foundation
 
 class CharacterInventoryViewModel: ObservableObject {
     @Published var inventory: ActorInventoryModel?
-    var subscription = Set<AnyCancellable>()
-    var inventoryListener: ActorInventoryListener?
+
+    private var subscription = Set<AnyCancellable>()
+    private var inventoryListener: ActorInventoryListener?
 
     init() {
         do {

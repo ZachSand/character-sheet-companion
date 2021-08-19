@@ -1,7 +1,8 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
+import { getActorOrEmitError } from "../../utils/commonUtilities.js";
 
 export function createAndEmitActorAttributes(socket, actorId, iosSocketId) {
-  let actor = game.actors.get(actorId);
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor) {
     let attributes = actor.data.data.attributes;
     socket.emit(
@@ -9,7 +10,7 @@ export function createAndEmitActorAttributes(socket, actorId, iosSocketId) {
       {
         deathSaves: {
           success: attributes.death.success,
-          failures: attributes.death.failures,
+          failure: attributes.death.failure,
         },
         encumbrance: {
           currentValue: attributes.encumbrance.value,

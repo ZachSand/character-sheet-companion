@@ -11,7 +11,7 @@ import SocketIO
 class SetupUserAuthenticationListener: SocketListener {
     let socket: SocketIOClient
 
-    var userAuthCallback: ((Bool) -> Void)?
+    private var userAuthCallback: ((Bool) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class SetupUserAuthenticationListener: SocketListener {
         }
     }
 
-    func userLogin(user: UserModel, password: String, completionHandler: @escaping (Bool) -> Void) {
+    func userLogin(user: SetupUserModel, password: String, completionHandler: @escaping (Bool) -> Void) {
         socket.emit(SocketEvents.IOS.SETUP.REQUEST_USER_AUTH, user.id, password)
         userAuthCallback = completionHandler
     }

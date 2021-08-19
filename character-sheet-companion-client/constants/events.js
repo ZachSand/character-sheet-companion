@@ -127,6 +127,9 @@ export const SOCKET_EVENTS = {
     SETUP: {
       JOIN_ROOM: "error:join-room",
     },
+    ACTOR: {
+      NO_ACTOR_FOR_ID: "error:noActorForId",
+    },
   },
   GENERAL: {
     DISCONNECT: "disconnect",

@@ -15,3 +15,16 @@ struct ActorSensesModel: Codable {
     var truesight: Int
     var units: String
 }
+
+#if DEBUG
+    extension ActorSensesModel {
+        static let mockedData = ActorSensesModel(
+            blindsight: 0,
+            darkvision: 60,
+            special: "",
+            tremorsense: 0,
+            truesight: 0,
+            units: "ft"
+        )
+    }
+#endif

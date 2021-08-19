@@ -15,8 +15,8 @@ class FoundrySocketIOManager: NSObject {
     private let socket: SocketIOClient
     private let listeners: [SocketListener]
 
-    var user: UserModel?
-    var actor: ActorModel?
+    var user: SetupUserModel?
+    var actor: SetupActorModel?
 
     override private init() {
         manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(false), .compress])
@@ -69,7 +69,7 @@ class FoundrySocketIOManager: NSObject {
         throw SocketListenerError.errorMessage("Could not find Socket Listener")
     }
 
-    func finishSetup(user: UserModel, actor: ActorModel) {
+    func emitCompletedSetup(user: SetupUserModel, actor: SetupActorModel) {
         self.user = user
         self.actor = actor
         socket.emit(SocketEvents.IOS.SETUP.SEND_IOS_SETUP_COMPLETE, actor.id, user.id)

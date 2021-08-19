@@ -8,7 +8,7 @@
 import Foundation
 
 class ItemAttackSheetViewModel: ObservableObject {
-    var itemAttackListener: RollItemAttackListener?
+    private var itemAttackListener: RollItemAttackListener?
 
     init() {
         do {

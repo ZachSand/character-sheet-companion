@@ -1,12 +1,13 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
 import {
+  getActorOrEmitError,
   getBase64ImageData,
   removeBase64Metadata,
   removeHtml,
 } from "../../utils/commonUtilities.js";
 
-export async function createAndEmitSpells(socket, actorId, iosSocketId) {
-  let actor = game.actors.get(actorId);
+export async function createAndEmitActorSpells(socket, actorId, iosSocketId) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor) {
     socket.emit(
       SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_SPELLS,

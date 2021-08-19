@@ -13,6 +13,7 @@ class ActorCurrencyListener: SocketListener, ActorListener {
     let currencyPublisher: AnyPublisher<ActorCurrencyModel?, Never>
     let socket: SocketIOClient
 
+    private var receivedFirstMessage = false
     private let currencySubject = CurrentValueSubject<ActorCurrencyModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
@@ -24,6 +25,7 @@ class ActorCurrencyListener: SocketListener, ActorListener {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_CURRENCY) { data, _ in
             do {
                 try self.currencySubject.send(SocketListenerUtility.parseSocketEventData(data))
+                self.receivedFirstMessage = true
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -37,7 +39,7 @@ class ActorCurrencyListener: SocketListener, ActorListener {
     }
 
     func isReady() -> Bool {
-        true
+        receivedFirstMessage
     }
 }
 

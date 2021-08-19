@@ -1,4 +1,4 @@
-export interface DeathSaves {
+export interface ActorDeathSaves {
   success: number;
   failure: number;
 }

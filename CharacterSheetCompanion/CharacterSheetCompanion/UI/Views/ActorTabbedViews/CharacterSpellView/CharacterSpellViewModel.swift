@@ -11,9 +11,8 @@ import Foundation
 class CharacterSpellViewModel: ObservableObject {
     @Published var spellSlots: [ActorSpellSlotModel]?
 
-    var subscription = Set<AnyCancellable>()
-
-    var spellSlotListener: ActorSpellSlotListener?
+    private var subscription = Set<AnyCancellable>()
+    private var spellSlotListener: ActorSpellSlotListener?
 
     init() {
         do {

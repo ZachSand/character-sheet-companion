@@ -8,15 +8,13 @@
 import Foundation
 
 class ActorListenerWrapper: ObservableObject {
-    @Published var isActorDataReady: Bool
+    private var isActorDataReady = false
+    private var actorDataReadyCallback: ((Bool) -> Void)?
     private var actorListeners: [ActorListener]
-    private var dataLoadCount: Int
+    private var dataLoadCount = 0
     private var dataLoadTimer: Timer?
 
     init() {
-        isActorDataReady = false
-        dataLoadCount = 0
-
         var abilityListener: ActorAbilityListener?
         var detailsListener: ActorDetailsListener?
         var inventoryListener: ActorInventoryListener?
@@ -56,17 +54,19 @@ class ActorListenerWrapper: ObservableObject {
             classesListener!,
             traitsListener!,
         ]
-
-        requestActorData()
-        dataLoadTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(isActorDataIsReady), userInfo: nil, repeats: true)
     }
 
-    private func requestActorData() {
+    func requestActorData() {
         if let actor = FoundrySocketIOManager.sharedInstance.actor {
             actorListeners.forEach { actorListener in
                 actorListener.requestInitialActorData(actorId: actor.id)
             }
+            dataLoadTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(isActorDataIsReady), userInfo: nil, repeats: true)
         }
+    }
+
+    func isActorDataReady(completionHandler: @escaping (Bool) -> Void) {
+        actorDataReadyCallback = completionHandler
     }
 
     @objc func isActorDataIsReady(dataLoadTimer: Timer) {
@@ -77,6 +77,7 @@ class ActorListenerWrapper: ObservableObject {
 
         if dataLoadCount == 10 || isActorDataReady {
             dataLoadTimer.invalidate()
+            actorDataReadyCallback?(isActorDataReady)
         }
     }
 }

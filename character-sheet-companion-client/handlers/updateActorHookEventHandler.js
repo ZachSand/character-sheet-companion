@@ -1,10 +1,10 @@
 import { createAndEmitActorAttributes } from "../listeners/actor/actorAttributesListener.js";
 import { IOS_DATA_MAP } from "../listeners/setup/setupIosCompleteListener.js";
 import { createAndEmitActorAbilities } from "../listeners/actor/actorAbilityListener.js";
-import { createAndEmitSkills } from "../listeners/actor/actorSkillListener.js";
+import { createAndEmitActorSkills } from "../listeners/actor/actorSkillListener.js";
 import { createAndEmitActorDetails } from "../listeners/actor/actorDetailsListener.js";
-import { createAndEmitCurrency } from "../listeners/actor/actorCurrencyListener.js";
-import { createAndEmitSpellSlots } from "../listeners/actor/actorSpellSlotListener.js";
+import { createAndEmitActorCurrency } from "../listeners/actor/actorCurrencyListener.js";
+import { createAndEmitActorSpellSlots } from "../listeners/actor/actorSpellSlotListener.js";
 import { createAndEmitActorBaseData } from "../listeners/actor/actorBaseDataListener.js";
 import { createAndEmitActorClasses } from "../listeners/actor/actorClassesListener.js";
 import { createAndEmitActorTraits } from "../listeners/actor/actorTraitsListener.js";
@@ -26,7 +26,7 @@ export async function handleUpdateActorHookEvent(
       Object.keys(actorData).map((key) => {
         switch (key) {
           case "skills":
-            createAndEmitSkills(socket, actorId, iosSocketId);
+            createAndEmitActorSkills(socket, actorId, iosSocketId);
             break;
           case "abilities":
             createAndEmitActorAbilities(socket, actorId, iosSocketId);
@@ -38,10 +38,10 @@ export async function handleUpdateActorHookEvent(
             createAndEmitActorDetails(socket, actorId, iosSocketId);
             break;
           case "currency":
-            createAndEmitCurrency(socket, actorId, iosSocketId);
+            createAndEmitActorCurrency(socket, actorId, iosSocketId);
             break;
           case "spells":
-            createAndEmitSpellSlots(socket, actorId, iosSocketId);
+            createAndEmitActorSpellSlots(socket, actorId, iosSocketId);
             break;
           case "classes":
             createAndEmitActorClasses(socket, actorId, iosSocketId);

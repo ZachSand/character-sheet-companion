@@ -13,10 +13,10 @@ class CharacterAbilityViewModel: ObservableObject {
     @Published var abilities: [ActorAbilityModel]?
     @Published var showRollResult: Bool
 
-    var subscription = Set<AnyCancellable>()
-    var rollAbilityListener: RollAbilityListener?
-    var actorAbilityListener: ActorAbilityListener?
-    var rollResultStack = Stack<AbilityRollModel>()
+    private var subscription = Set<AnyCancellable>()
+    private var rollAbilityListener: RollAbilityListener?
+    private var actorAbilityListener: ActorAbilityListener?
+    private var rollResultStack = Stack<AbilityRollModel>()
 
     init() {
         showRollResult = false

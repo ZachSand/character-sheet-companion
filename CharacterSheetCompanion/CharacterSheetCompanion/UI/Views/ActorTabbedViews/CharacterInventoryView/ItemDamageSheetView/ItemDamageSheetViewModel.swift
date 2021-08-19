@@ -8,7 +8,7 @@
 import Foundation
 
 class ItemDamageSheetViewModel: ObservableObject {
-    var itemDamageListener: RollItemDamageListener?
+    private var itemDamageListener: RollItemDamageListener?
 
     init() {
         do {

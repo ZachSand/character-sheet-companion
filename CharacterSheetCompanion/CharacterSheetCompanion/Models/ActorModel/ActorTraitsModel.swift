@@ -19,3 +19,20 @@ struct ActorTraitsModel: Codable {
     var conditionImmunities: [String]
     var senses: ActorSensesModel
 }
+
+#if DEBUG
+    extension ActorTraitsModel {
+        static let mockedData = ActorTraitsModel(
+            languages: ["Common", "Celestial", "Elvish"],
+            size: "Medium",
+            toolProficiencies: ["Dice Set"],
+            weaponProficiencies: ["Martial Weapons"],
+            armorProficiencies: ["Light Armor", "Medium Armor"],
+            damageImmunities: ["Fire", "Lighning"],
+            damageResistances: ["Radiant", "Cold"],
+            damageVulnerabilities: ["Slashing"],
+            conditionImmunities: ["Dazed", "Charmed"],
+            senses: ActorSensesModel.mockedData
+        )
+    }
+#endif

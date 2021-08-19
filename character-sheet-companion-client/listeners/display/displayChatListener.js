@@ -1,8 +1,9 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
+import { getActorOrEmitError } from "../../utils/commonUtilities.js";
 
 export function createAndEmitChatData(socket, userId, actorId, iosSocketId) {
   let chatMessages = game.messages;
-  let actor = game.actors.get(actorId);
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor && chatMessages) {
     socket.emit(
       SOCKET_EVENTS.FOUNDRY.DISPLAY.SEND_CHAT_DATA,

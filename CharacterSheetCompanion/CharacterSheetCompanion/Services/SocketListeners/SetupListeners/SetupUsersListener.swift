@@ -11,7 +11,7 @@ import SocketIO
 class SetupUsersListener: SocketListener {
     let socket: SocketIOClient
 
-    var usersCallback: (([UserModel]) -> Void)?
+    private var usersCallback: (([SetupUserModel]) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -29,7 +29,7 @@ class SetupUsersListener: SocketListener {
         }
     }
 
-    func getUsers(completionHandler: @escaping ([UserModel]) -> Void) {
+    func getUsers(completionHandler: @escaping ([SetupUserModel]) -> Void) {
         socket.emit(SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_USERS)
         usersCallback = completionHandler
     }

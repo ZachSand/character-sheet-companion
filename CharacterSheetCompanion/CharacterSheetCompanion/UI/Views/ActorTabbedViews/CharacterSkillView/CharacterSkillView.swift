@@ -37,6 +37,8 @@ struct CharacterSkillView: View {
                 List(skills) { skill in
                     SkillView(characterSkillVM: characterSkillVM, skill: skill)
                 }
+            } else {
+                Text("No Skills found for Actor")
             }
         }
     }

@@ -11,7 +11,7 @@ import SocketIO
 class SetupWorldDataListener: SocketListener {
     let socket: SocketIOClient
 
-    var worldDataCallback: ((WorldDataModel) -> Void)?
+    private var worldDataCallback: ((WorldDataModel) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket

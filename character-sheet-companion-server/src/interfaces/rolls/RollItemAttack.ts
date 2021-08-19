@@ -1,4 +1,4 @@
-export interface ItemToolRoll {
+export interface RollItemAttack {
   actorId: string;
   itemId: string;
   advantage: boolean;

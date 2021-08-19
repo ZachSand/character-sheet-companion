@@ -1,6 +1,6 @@
-import { DeathSaves } from "./DeathSaves";
-import { Encumbrance } from "./Encumbrance";
-import { Movement } from "./Movement";
+import { ActorDeathSaves } from "./ActorDeathSaves";
+import { ActorEncumbrance } from "./ActorEncumbrance";
+import { ActorMovement } from "./ActorMovement";
 
 export interface ActorAttributes {
   armorClass: number;
@@ -8,12 +8,12 @@ export interface ActorAttributes {
   maxHealth: number;
   proficiencyBonus: number;
   initiativeBonus: number;
-  deathSaves: DeathSaves;
+  deathSaves: ActorDeathSaves;
   inspiration: boolean;
-  encumbrance: Encumbrance;
+  encumbrance: ActorEncumbrance;
   exhaustion: number;
   hitDice: number;
-  movement: Movement;
+  movement: ActorMovement;
   spellDiceCheck: number;
   spellCasting: string;
 }

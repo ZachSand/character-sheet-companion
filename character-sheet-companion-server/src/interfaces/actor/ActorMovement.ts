@@ -1,4 +1,4 @@
-export interface Movement {
+export interface ActorMovement {
   burrow: number;
   climb: number;
   fly: number;

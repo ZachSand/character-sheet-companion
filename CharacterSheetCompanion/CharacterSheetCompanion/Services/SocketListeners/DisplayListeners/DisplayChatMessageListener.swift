@@ -11,7 +11,7 @@ import SocketIO
 class DisplayChatMessageListener: SocketListener {
     let socket: SocketIOClient
 
-    var chatMessageCallback: (([ChatMessageModel]) -> Void)?
+    private var chatMessageCallback: (([ChatMessageModel]) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket

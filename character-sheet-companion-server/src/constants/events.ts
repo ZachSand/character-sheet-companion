@@ -229,6 +229,9 @@ export const SOCKET_EVENTS = {
     SETUP: {
       JOIN_ROOM: "error:join-room",
     },
+    ACTOR: {
+      NO_ACTOR_FOR_ID: "error:noActorForId",
+    },
   },
   GENERAL: {
     DISCONNECT: "disconnect",
@@ -254,6 +257,7 @@ export const VALID_EVENTS = new Set(
     Object.values(SOCKET_EVENTS.SERVER.ACTOR.SEND),
     Object.values(SOCKET_EVENTS.ERROR.GENERAL),
     Object.values(SOCKET_EVENTS.ERROR.SETUP),
+    Object.values(SOCKET_EVENTS.ERROR.ACTOR),
     Object.values(SOCKET_EVENTS.GENERAL)
   )
 );

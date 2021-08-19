@@ -42,6 +42,8 @@ struct CharacterDetailsView: View {
                         Text(details.biography)
                     }
                 }
+            } else {
+                Text("No details found for actor")
             }
         }
     }

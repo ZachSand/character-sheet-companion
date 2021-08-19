@@ -1,4 +1,4 @@
-export interface InitiativeRoll {
+export interface RollInitiative {
   actorId: string;
   result: string;
 }

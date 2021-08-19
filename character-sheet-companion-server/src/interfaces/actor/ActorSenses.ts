@@ -1,4 +1,4 @@
-export interface Senses {
+export interface ActorSenses {
   blindsight: number;
   darkvision: number;
   special: string;

@@ -10,11 +10,11 @@ import SocketIO
 
 class DisplayItemListener: SocketListener {
     let socket: SocketIOClient
-    let jsonEncoder: JSONEncoder
+
+    private let jsonEncoder = JSONEncoder()
 
     init(socket: SocketIOClient) {
         self.socket = socket
-        jsonEncoder = JSONEncoder()
     }
 
     func addSocketHandlers() {

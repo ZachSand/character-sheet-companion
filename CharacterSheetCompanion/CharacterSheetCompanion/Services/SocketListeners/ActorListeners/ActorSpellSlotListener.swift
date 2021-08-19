@@ -13,6 +13,7 @@ class ActorSpellSlotListener: SocketListener, ActorListener {
     let spellSlotPublisher: AnyPublisher<[ActorSpellSlotModel]?, Never>
     let socket: SocketIOClient
 
+    private var receivedFirstMessage = false
     private let spellSlotSubject = CurrentValueSubject<[ActorSpellSlotModel]?, Never>(nil)
 
     init(socket: SocketIOClient) {
@@ -24,6 +25,7 @@ class ActorSpellSlotListener: SocketListener, ActorListener {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_SPELL_SLOTS) { data, _ in
             do {
                 try self.spellSlotSubject.send(SocketListenerUtility.parseSocketEventDataArray(data))
+                self.receivedFirstMessage = true
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -37,7 +39,7 @@ class ActorSpellSlotListener: SocketListener, ActorListener {
     }
 
     func isReady() -> Bool {
-        true
+        receivedFirstMessage
     }
 }
 

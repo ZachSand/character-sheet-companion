@@ -12,7 +12,6 @@ struct CharacterInventoryView: View {
 
     var body: some View {
         VStack {
-            Text("Inventory")
             CharacterCurrencyView(characterCurrencyVM: CharacterCurrencyViewModel())
             List {
                 ForEach(characterInventoryVM.getInventorySections()) { inventorySection in

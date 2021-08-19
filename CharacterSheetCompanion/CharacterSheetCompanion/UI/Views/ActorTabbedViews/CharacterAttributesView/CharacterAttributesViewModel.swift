@@ -13,11 +13,11 @@ class CharacterAttributesViewModel: ObservableObject {
     @Published var baseData: ActorBaseDataModel?
     @Published var classes: [ActorClassModel]?
 
-    var initiativeListener: RollInitiativeListener?
-    var attributesListener: ActorAttributesListener?
-    var baseDataListener: ActorBaseDataListener?
-    var classesListener: ActorClassesListener?
-    var subscription = Set<AnyCancellable>()
+    private var initiativeListener: RollInitiativeListener?
+    private var attributesListener: ActorAttributesListener?
+    private var baseDataListener: ActorBaseDataListener?
+    private var classesListener: ActorClassesListener?
+    private var subscription = Set<AnyCancellable>()
 
     init() {
         do {
@@ -39,7 +39,7 @@ class CharacterAttributesViewModel: ObservableObject {
                 })
                 .store(in: &subscription)
 
-            try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
+            try classesListener = FoundrySocketIOManager.sharedInstance.getListener()
             classesListener?.classesPublisher
                 .receive(on: DispatchQueue.main)
                 .sink(receiveValue: { model in

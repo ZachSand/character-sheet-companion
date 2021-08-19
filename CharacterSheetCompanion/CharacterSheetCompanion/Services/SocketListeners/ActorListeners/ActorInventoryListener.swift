@@ -13,6 +13,7 @@ class ActorInventoryListener: SocketListener, ActorListener {
     let inventoryPublisher: AnyPublisher<ActorInventoryModel?, Never>
     let socket: SocketIOClient
 
+    private var receivedFirstMessage = false
     private let inventorySubject = CurrentValueSubject<ActorInventoryModel?, Never>(nil)
 
     init(socket: SocketIOClient) {
@@ -24,6 +25,7 @@ class ActorInventoryListener: SocketListener, ActorListener {
         socket.on(SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_INVENTORY) { data, _ in
             do {
                 try self.inventorySubject.send(SocketListenerUtility.parseSocketEventData(data))
+                self.receivedFirstMessage = true
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 print(errorMessage)
             } catch {
@@ -37,7 +39,7 @@ class ActorInventoryListener: SocketListener, ActorListener {
     }
 
     func isReady() -> Bool {
-        true
+        receivedFirstMessage
     }
 }
 

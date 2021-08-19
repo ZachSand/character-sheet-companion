@@ -10,13 +10,12 @@ import SocketIO
 
 class RollAbilityListener: SocketListener {
     let socket: SocketIOClient
-    let jsonEncoder: JSONEncoder
 
-    var abilityRollCallback: ((AbilityRollModel) -> Void)?
+    private let jsonEncoder = JSONEncoder()
+    private var abilityRollCallback: ((AbilityRollModel) -> Void)?
 
     init(socket: SocketIOClient) {
         self.socket = socket
-        jsonEncoder = JSONEncoder()
     }
 
     func addSocketHandlers() {

@@ -5,13 +5,13 @@
 //  Created by Zachary Sanders on 8/16/21.
 //
 
+import Combine
 import Foundation
 
 class UserAuthenticationViewModel: ObservableObject {
-    @Published var userAuthSuccessful = false
-    @Published var sentLoginRequest = false
+    @Published var authState: AuthState? = AuthState.NOT_AUTHENTICATING
 
-    var userAuthListener: SetupUserAuthenticationListener?
+    private var userAuthListener: SetupUserAuthenticationListener?
 
     init() {
         do {
@@ -19,17 +19,24 @@ class UserAuthenticationViewModel: ObservableObject {
         } catch {}
     }
 
-    func verifyUserAuth(user: UserModel, password: String) {
-        sentLoginRequest = true
+    func verifyUserAuth(user: SetupUserModel, actor _: SetupActorModel, password: String) {
+        authState = AuthState.AUTHENTICATING
         if let listener = userAuthListener {
             listener.userLogin(user: user, password: password) { loginResult in
-                self.userAuthSuccessful = loginResult
-                self.sentLoginRequest = false
+                if loginResult {
+                    self.authState = AuthState.AUTHENTICATED
+                } else {
+                    self.authState = AuthState.FAILED_AUTHENTICATION
+                }
             }
         }
     }
 
-    func completeSetup(user: UserModel, actor: ActorModel) {
-        FoundrySocketIOManager.sharedInstance.finishSetup(user: user, actor: actor)
+    func completeSetup(user: SetupUserModel, actor: SetupActorModel) {
+        FoundrySocketIOManager.sharedInstance.emitCompletedSetup(user: user, actor: actor)
     }
+}
+
+enum AuthState {
+    case NOT_AUTHENTICATING, AUTHENTICATING, FAILED_AUTHENTICATION, AUTHENTICATED
 }

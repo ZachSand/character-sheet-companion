@@ -26,6 +26,8 @@ struct CharacterSpellView: View {
                         }
                     }
                 }
+            } else {
+                Text("No spells found for actor")
             }
         }
     }
