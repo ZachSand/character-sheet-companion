@@ -40,6 +40,7 @@ export const SOCKET_EVENTS = {
       SEND_ITEM_CONSUME_ROLL: foundryEventPrefix + "sendItemConsumeRoll",
       SEND_ITEM_TOOL_ROLL: foundryEventPrefix + "sendItemToolRoll",
       SEND_INITIATIVE_ROLL: foundryEventPrefix + "sendInitiativeRoll",
+      SEND_DEATH_SAVE_ROLL: foundryEventPrefix + "sendDeathSaveRoll",
     },
     DISPLAY: {
       SEND_CHAT_DATA: foundryEventPrefix + "sendChatData",
@@ -76,6 +77,8 @@ export const SOCKET_EVENTS = {
       REQUEST_ACTOR_CLASSES:
         iosEventPrefix + requestActorEventPrefix + "Classes",
       REQUEST_ACTOR_TRAITS: iosEventPrefix + requestActorEventPrefix + "Traits",
+      REQUEST_ACTOR_HEALTH_CHANGE:
+        iosEventPrefix + requestActorEventPrefix + "HealthChange",
     },
     ROLL: {
       REQUEST_FOUNDRY_ABILITY_ROLL:
@@ -92,6 +95,8 @@ export const SOCKET_EVENTS = {
         iosEventPrefix + requestFoundryEventPrefix + "ItemToolRoll",
       REQUEST_FOUNDRY_INITIATIVE_ROLL:
         iosEventPrefix + requestFoundryEventPrefix + "InitiativeRoll",
+      REQUEST_FOUNDRY_DEATH_SAVE_ROLL:
+        iosEventPrefix + requestFoundryEventPrefix + "DeathSaveRoll",
     },
     DISPLAY: {
       REQUEST_FOUNDRY_DISPLAY_ITEM:
@@ -150,6 +155,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "Classes",
         REQUEST_ACTOR_TRAITS:
           serverEventPrefix + requestActorEventPrefix + "Traits",
+        REQUEST_ACTOR_HEALTH_CHANGE:
+          serverEventPrefix + requestActorEventPrefix + "HealthChange",
       },
       SEND: {
         SEND_ACTOR_ATTRIBUTES:
@@ -183,8 +190,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestFoundryEventPrefix + "ItemToolRoll",
         REQUEST_FOUNDRY_INITIATIVE_ROLL:
           serverEventPrefix + requestFoundryEventPrefix + "InitiativeRoll",
-        REQUEST_FOUNDRY_DISPLAY_ITEM:
-          serverEventPrefix + requestFoundryEventPrefix + "DisplayItem",
+        REQUEST_FOUNDRY_DEATH_SAVE_ROLL:
+          serverEventPrefix + requestFoundryEventPrefix + "DeathSaveRoll",
       },
       SEND: {
         SEND_FOUNDRY_ABILITY_ROLL:
@@ -201,6 +208,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + sendFoundryEventPrefix + "ItemToolRoll",
         SEND_FOUNDRY_INITIATIVE_ROLL:
           serverEventPrefix + sendFoundryEventPrefix + "InitiativeRoll",
+        SEND_FOUNDRY_DEATH_SAVE_ROLL:
+          serverEventPrefix + sendFoundryEventPrefix + "DeathSaveRoll",
       },
     },
     DISPLAY: {

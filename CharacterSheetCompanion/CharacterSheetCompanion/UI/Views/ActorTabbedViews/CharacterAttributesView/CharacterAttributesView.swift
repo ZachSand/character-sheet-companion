@@ -32,7 +32,7 @@ struct CharacterAttributesView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(.trailing, 5)
                 }.sheet(isPresented: $showHpSheet, content: {
-                    HpModifierSheet()
+                    CharacterHealthSheetView(characterHealthSheetVM: CharacterHealthSheetViewModel(), attributes: $characterOverviewVM.attributes)
                 })
             }.padding([.all], 0)
 
@@ -82,12 +82,6 @@ struct CharacterAttributesView: View {
             }
         }
         return Image(systemName: "person.fill")
-    }
-}
-
-struct HpModifierSheet: View {
-    var body: some View {
-        Text("Make some HP changes here!")
     }
 }
 

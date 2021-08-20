@@ -39,6 +39,7 @@ export const SOCKET_EVENTS = {
       SEND_ITEM_CONSUME_ROLL: foundryEventPrefix + "sendItemConsumeRoll",
       SEND_ITEM_TOOL_ROLL: foundryEventPrefix + "sendItemToolRoll",
       SEND_INITIATIVE_ROLL: foundryEventPrefix + "sendInitiativeRoll",
+      SEND_DEATH_SAVE_ROLL: foundryEventPrefix + "sendDeathSaveRoll",
     },
     DISPLAY: {
       SEND_CHAT_DATA: foundryEventPrefix + "sendChatData",
@@ -83,6 +84,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestActorEventPrefix + "Classes",
         REQUEST_ACTOR_TRAITS:
           serverEventPrefix + requestActorEventPrefix + "Traits",
+        REQUEST_ACTOR_HEALTH_CHANGE:
+          serverEventPrefix + requestActorEventPrefix + "HealthChange",
       },
     },
     ROLL: {
@@ -101,8 +104,8 @@ export const SOCKET_EVENTS = {
           serverEventPrefix + requestFoundryEventPrefix + "ItemToolRoll",
         REQUEST_FOUNDRY_INITIATIVE_ROLL:
           serverEventPrefix + requestFoundryEventPrefix + "InitiativeRoll",
-        REQUEST_FOUNDRY_DISPLAY_ITEM:
-          serverEventPrefix + requestFoundryEventPrefix + "DisplayItem",
+        REQUEST_FOUNDRY_DEATH_SAVE_ROLL:
+          serverEventPrefix + requestFoundryEventPrefix + "DeathSaveRoll",
       },
     },
     DISPLAY: {

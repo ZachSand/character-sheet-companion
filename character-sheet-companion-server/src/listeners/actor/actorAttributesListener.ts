@@ -31,6 +31,18 @@ export const actorAttributesListener = (io: Server, socket: Socket): void => {
     }
   };
 
+  const requestActorHealthChange = (actorId: string, healthChange: number) => {
+    const foundrySocket = getFoundrySocketFromRoom(io, socket);
+    if (foundrySocket) {
+      foundrySocket.emit(
+        SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_HEALTH_CHANGE,
+        actorId,
+        healthChange,
+        socket.id
+      );
+    }
+  };
+
   socket.on(
     SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES,
     requestActorAttributes
@@ -38,5 +50,9 @@ export const actorAttributesListener = (io: Server, socket: Socket): void => {
   socket.on(
     SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_ATTRIBUTES,
     receiveActorAttributes
+  );
+  socket.on(
+    SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_HEALTH_CHANGE,
+    requestActorHealthChange
   );
 };

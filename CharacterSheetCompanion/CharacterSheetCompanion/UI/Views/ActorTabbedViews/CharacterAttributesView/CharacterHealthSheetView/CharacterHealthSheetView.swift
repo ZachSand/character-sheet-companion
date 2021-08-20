@@ -8,24 +8,40 @@
 import SwiftUI
 
 struct CharacterHealthSheetView: View {
-    @Binding var attributes: ActorAttributesModel
-    @State var healthModificationAmount = 0
+    var characterHealthSheetVM: CharacterHealthSheetViewModel
+    @Binding var attributes: ActorAttributesModel?
+    @State private var healthModificationAmount = 0
 
     var body: some View {
         VStack {
-            Text("Current Health: \(attributes.currentHealth) / \(attributes.maxHealth)")
-            HStack {
-                Text("Health")
-                Picker(selection: $healthModificationAmount, label: Text("Choose Health Change")) {
-                    LazyVStack {
-                        ForEach(-100...100, id: \.self) { value in
-                            Text(String(value))
+            if let attributes = self.attributes {
+                Text("Health").font(.largeTitle)
+                Spacer()
+                DeathSaveView(deathSaveViewModel: DeathSaveViewModel(), attributes: $attributes)
+                Spacer()
+                Text("Current Health: \(attributes.currentHealth) / \(attributes.maxHealth)").font(.title)
+                Spacer()
+                HStack {
+                    Text("Health")
+                    Picker(selection: $healthModificationAmount, label: Text("Choose Health Change")) {
+                        ForEach(0 ... 100, id: \.self) {
+                            Text("\($0)")
                         }
                     }
                 }
-            }
-            Button("Apply Health Modification") {
-                
+                Spacer()
+
+                HStack {
+                    Button("Healing") {
+                        characterHealthSheetVM.applyDamage(healthChange: -healthModificationAmount)
+                    }.buttonStyle(HealButtonStyle())
+
+                    Button("Damage") {
+                        characterHealthSheetVM.applyDamage(healthChange: healthModificationAmount)
+                    }.buttonStyle(ItemDamageButtonStyle())
+                }
+            } else {
+                Text("No Health data found for actor")
             }
         }
     }
@@ -33,10 +49,10 @@ struct CharacterHealthSheetView: View {
 
 #if DEBUG
     struct CharacterHealthSheetView_Previews: PreviewProvider {
-        @State static var attributes = ActorAttributesModel.mockedData
+        @State static var attributes: ActorAttributesModel? = ActorAttributesModel.mockedData
 
         static var previews: some View {
-            CharacterHealthSheetView(attributes: $attributes)
+            CharacterHealthSheetView(characterHealthSheetVM: CharacterHealthSheetViewModel(), attributes: $attributes)
         }
     }
 #endif

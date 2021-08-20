@@ -34,6 +34,10 @@ class ActorAttributesListener: SocketListener, ActorListener {
         }
     }
 
+    func requestActorHealthChange(actorId: String, healthChange: Int) {
+        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_HEALTH_CHANGE, actorId, healthChange)
+    }
+
     func requestInitialActorData(actorId: String) {
         socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES, actorId)
     }
@@ -45,6 +49,7 @@ class ActorAttributesListener: SocketListener, ActorListener {
 
 extension SocketEvents.IOS.ACTOR {
     static let REQUEST_ACTOR_ATTRIBUTES = "ios:requestActorAttributes"
+    static let REQUEST_ACTOR_HEALTH_CHANGE = "ios:requestActorHealthChange"
 }
 
 extension SocketEvents.SERVER.ACTOR.SEND {

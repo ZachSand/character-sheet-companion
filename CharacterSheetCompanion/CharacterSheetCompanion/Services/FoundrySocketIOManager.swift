@@ -50,6 +50,7 @@ class FoundrySocketIOManager: NSObject {
             RollItemConsumeListener(socket: socket),
             RollToolListener(socket: socket),
             RollInitiativeListener(socket: socket),
+            RollDeathSaveListener(socket: socket),
 
             // Display Listeners
             DisplayItemListener(socket: socket),

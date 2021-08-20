@@ -6,6 +6,7 @@ import { createAndEmitItemDamageRoll } from "./rollItemDamageListener.js";
 import { createAndEmitItemConsumeRoll } from "./rollItemConsumeListener.js";
 import { createAndEmitItemToolRoll } from "./rollItemToolListener.js";
 import { createAndEmitInitiativeRoll } from "./rollInitiativeListener.js";
+import { createAndEmitDeathSaveRoll } from "./rollDeathSaveListener.js";
 
 export function rollListenerWrapper(socket) {
   socket.on(
@@ -54,6 +55,13 @@ export function rollListenerWrapper(socket) {
     SOCKET_EVENTS.SERVER.ROLL.REQUEST.REQUEST_FOUNDRY_INITIATIVE_ROLL,
     (initiativeRoll, iosSocketId) => {
       createAndEmitInitiativeRoll(socket, initiativeRoll, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ROLL.REQUEST.REQUEST_FOUNDRY_DEATH_SAVE_ROLL,
+    (deathSaveRoll, iosSocketId) => {
+      createAndEmitDeathSaveRoll(socket, deathSaveRoll, iosSocketId);
     }
   );
 }

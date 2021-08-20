@@ -1,6 +1,9 @@
 import { SOCKET_EVENTS } from "../../constants/events.js";
 import { createAndEmitActorInventory } from "./actorInventoryListener.js";
-import { createAndEmitActorAttributes } from "./actorAttributesListener.js";
+import {
+  applyHealthChange,
+  createAndEmitActorAttributes,
+} from "./actorAttributesListener.js";
 import { createAndEmitActorDetails } from "./actorDetailsListener.js";
 import { createAndEmitActorAbilities } from "./actorAbilityListener.js";
 import { createAndEmitActorSkills } from "./actorSkillListener.js";
@@ -16,6 +19,13 @@ export function actorListenerWrapper(socket) {
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_ATTRIBUTES,
     (actorId, iosSocketId) => {
       createAndEmitActorAttributes(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_HEALTH_CHANGE,
+    (actorId, healthChange, iosSocketId) => {
+      applyHealthChange(socket, actorId, healthChange, iosSocketId);
     }
   );
 

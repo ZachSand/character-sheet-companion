@@ -19,17 +19,17 @@ export function createAndEmitActorTraits(socket, actorId, iosSocketId) {
           (armorProficiency) =>
             CONFIG.DND5E.armorProficiencies[armorProficiency]
         ),
-        damageImmunities: traits.di.value,
-        damageResistances: traits.dr.value,
-        damageVulnerabilities: traits.dv.value,
-        conditionImmunities: traits.ci.value,
+        damageImmunities: traits.di.value || [],
+        damageResistances: traits.dr.value || [],
+        damageVulnerabilities: traits.dv.value || [],
+        conditionImmunities: traits.ci.value || [],
         senses: {
-          blindsight: traits.senses.blindsight,
-          darkvision: traits.senses.darkvision,
-          special: traits.senses.special,
-          tremorsense: traits.senses.tremorsense,
-          truesight: traits.senses.truesight,
-          units: traits.senses.units,
+          blindsight: traits.senses.blindsight || 0,
+          darkvision: traits.senses.darkvision || 0,
+          special: traits.senses.special || "",
+          tremorsense: traits.senses.tremorsense || 0,
+          truesight: traits.senses.truesight || 0,
+          units: traits.senses.units || "ft",
         },
       },
       iosSocketId

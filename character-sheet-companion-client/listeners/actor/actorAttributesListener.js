@@ -40,3 +40,12 @@ export function createAndEmitActorAttributes(socket, actorId, iosSocketId) {
     );
   }
 }
+
+export function applyHealthChange(socket, actorId, healthChange, iosSocketId) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
+  if (actor) {
+    actor.applyDamage(healthChange).then({
+      // do nothing
+    });
+  }
+}
