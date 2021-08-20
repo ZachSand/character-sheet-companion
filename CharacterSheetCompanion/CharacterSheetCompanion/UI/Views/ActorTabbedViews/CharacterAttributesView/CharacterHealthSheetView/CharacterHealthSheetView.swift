@@ -17,8 +17,14 @@ struct CharacterHealthSheetView: View {
             if let attributes = self.attributes {
                 Text("Health").font(.largeTitle)
                 Spacer()
-                DeathSaveView(deathSaveViewModel: DeathSaveViewModel(), attributes: $attributes)
-                Spacer()
+                
+                if let attributes = self.attributes {
+                    if attributes.currentHealth == 0 {
+                        DeathSaveView(deathSaveViewModel: DeathSaveViewModel(), attributes: $attributes)
+                        Spacer()
+                    }
+                }
+                
                 Text("Current Health: \(attributes.currentHealth) / \(attributes.maxHealth)").font(.title)
                 Spacer()
                 HStack {
