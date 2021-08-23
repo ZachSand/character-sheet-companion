@@ -3,4 +3,6 @@ export interface ActorClass {
   description: string;
   levels: number;
   subclass: string;
+  hitDice: string;
+  hitDiceUsed: number;
 }

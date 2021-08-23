@@ -17,8 +17,8 @@ class ExpandedSpellRowViewModel: ObservableObject {
     }
 
     func displayItem(spell: ActorSpellModel) {
-        if let listener = itemDisplayListener {
-            let displayItem = ItemDisplayModel(actorId: "", itemId: spell.id)
+        if let listener = itemDisplayListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
+            let displayItem = ItemDisplayModel(actorId: actor.id, itemId: spell.id)
             listener.displayItemCard(displayItem: displayItem)
         }
     }

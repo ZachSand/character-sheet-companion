@@ -17,20 +17,20 @@ struct CharacterHealthSheetView: View {
             if let attributes = self.attributes {
                 Text("Health").font(.largeTitle)
                 Spacer()
-                
+
                 if let attributes = self.attributes {
                     if attributes.currentHealth == 0 {
                         DeathSaveView(deathSaveViewModel: DeathSaveViewModel(), attributes: $attributes)
                         Spacer()
                     }
                 }
-                
+
                 Text("Current Health: \(attributes.currentHealth) / \(attributes.maxHealth)").font(.title)
                 Spacer()
                 HStack {
                     Text("Health")
                     Picker(selection: $healthModificationAmount, label: Text("Choose Health Change")) {
-                        ForEach(0 ... 100, id: \.self) {
+                        ForEach(1 ... 100, id: \.self) {
                             Text("\($0)")
                         }
                     }

@@ -44,8 +44,32 @@ export function createAndEmitActorAttributes(socket, actorId, iosSocketId) {
 export function applyHealthChange(socket, actorId, healthChange, iosSocketId) {
   let actor = getActorOrEmitError(socket, actorId, iosSocketId);
   if (actor) {
-    actor.applyDamage(healthChange).then({
+    actor
+      .applyDamage(healthChange)
+      .then
       // do nothing
-    });
+      ();
+  }
+}
+
+export function takeShortRest(socket, actorId, iosSocketId) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
+  if (actor) {
+    actor
+      .shortRest({ dialog: false })
+      .then
+      //do nothing
+      ();
+  }
+}
+
+export function takeLongRest(socket, actorId, iosSocketId) {
+  let actor = getActorOrEmitError(socket, actorId, iosSocketId);
+  if (actor) {
+    actor
+      .longRest({ dialog: false })
+      .then
+      //do nothing
+      ();
   }
 }

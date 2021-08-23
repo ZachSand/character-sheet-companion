@@ -7,6 +7,7 @@ import { rollItemConsumeListener } from "./rollItemConsumeListener";
 import { rollItemToolListener } from "./rollItemToolListener";
 import { rollInitiativeListener } from "./rollInitiativeListener";
 import { rollDeathSaveListener } from "./rollDeathSaveListener";
+import { rollHitDieListener } from "./rollHitDieListener";
 
 export const rollListenerWrapper = (io: Server, socket: Socket): void => {
   rollAbilityListener(io, socket);
@@ -17,4 +18,5 @@ export const rollListenerWrapper = (io: Server, socket: Socket): void => {
   rollItemToolListener(io, socket);
   rollInitiativeListener(io, socket);
   rollDeathSaveListener(io, socket);
+  rollHitDieListener(io, socket);
 };

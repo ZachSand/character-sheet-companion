@@ -51,7 +51,7 @@ export class CharacterSheetCompanionSetup {
         socket.connect();
 
         Hooks.on("updateActor", async (entity, data, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.id)) {
             await handleUpdateActorHookEvent(
               socket,
               entity,
@@ -63,19 +63,19 @@ export class CharacterSheetCompanionSetup {
         });
 
         Hooks.on("updateItem", (entity, data, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.parent.id)) {
             handleUpdateItemHookEvent(socket, entity, data, options, userId);
           }
         });
 
         Hooks.on("createItem", (entity, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.parent.id)) {
             handleCreateItemHookEvent(socket, entity, options, userId);
           }
         });
 
         Hooks.on("createActiveEffect", (entity, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.parent.id)) {
             handleCreateActiveEffectHookEvent(socket, entity, options, userId);
           }
         });

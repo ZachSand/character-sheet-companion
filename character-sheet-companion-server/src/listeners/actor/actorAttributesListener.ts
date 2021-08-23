@@ -43,6 +43,28 @@ export const actorAttributesListener = (io: Server, socket: Socket): void => {
     }
   };
 
+  const requestShortRest = (actorId: string) => {
+    const foundrySocket = getFoundrySocketFromRoom(io, socket);
+    if (foundrySocket) {
+      foundrySocket.emit(
+        SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SHORT_REST,
+        actorId,
+        socket.id
+      );
+    }
+  };
+
+  const requestLongRest = (actorId: string) => {
+    const foundrySocket = getFoundrySocketFromRoom(io, socket);
+    if (foundrySocket) {
+      foundrySocket.emit(
+        SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_LONG_REST,
+        actorId,
+        socket.id
+      );
+    }
+  };
+
   socket.on(
     SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES,
     requestActorAttributes
@@ -55,4 +77,6 @@ export const actorAttributesListener = (io: Server, socket: Socket): void => {
     SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_HEALTH_CHANGE,
     requestActorHealthChange
   );
+  socket.on(SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_SHORT_REST, requestShortRest);
+  socket.on(SOCKET_EVENTS.IOS.ACTOR.REQUEST_ACTOR_LONG_REST, requestLongRest);
 };

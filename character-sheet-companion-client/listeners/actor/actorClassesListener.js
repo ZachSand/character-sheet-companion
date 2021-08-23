@@ -6,6 +6,7 @@ import {
 
 export function createAndEmitActorClasses(socket, actorId, iosSocketId) {
   let actor = getActorOrEmitError(socket, actorId, iosSocketId);
+  console.log("updating actor info");
   if (actor) {
     socket.emit(
       SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_CLASSES,
@@ -16,6 +17,8 @@ export function createAndEmitActorClasses(socket, actorId, iosSocketId) {
           description: removeHtml(actorClass.description.value),
           levels: actorClass.levels,
           subclass: actorClass.subclass,
+          hitDice: actorClass.hitDice,
+          hitDiceUsed: actorClass.hitDiceUsed || 0,
         };
       }),
       iosSocketId

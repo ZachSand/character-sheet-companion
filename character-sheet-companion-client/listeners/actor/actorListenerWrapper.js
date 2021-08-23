@@ -3,6 +3,8 @@ import { createAndEmitActorInventory } from "./actorInventoryListener.js";
 import {
   applyHealthChange,
   createAndEmitActorAttributes,
+  takeLongRest,
+  takeShortRest,
 } from "./actorAttributesListener.js";
 import { createAndEmitActorDetails } from "./actorDetailsListener.js";
 import { createAndEmitActorAbilities } from "./actorAbilityListener.js";
@@ -96,6 +98,20 @@ export function actorListenerWrapper(socket) {
     SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_TRAITS,
     (actorId, iosSocketId) => {
       createAndEmitActorTraits(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_SHORT_REST,
+    (actorId, iosSocketId) => {
+      takeShortRest(socket, actorId, iosSocketId);
+    }
+  );
+
+  socket.on(
+    SOCKET_EVENTS.SERVER.ACTOR.REQUEST.REQUEST_ACTOR_LONG_REST,
+    (actorId, iosSocketId) => {
+      takeLongRest(socket, actorId, iosSocketId);
     }
   );
 }

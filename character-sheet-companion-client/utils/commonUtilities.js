@@ -31,9 +31,8 @@ export function removeHtml(text) {
   return jQuery("<p>" + text + "</p>").text();
 }
 
-export function shouldHandleHookEvent(entity) {
-  if (entity) {
-    let actorId = entity.data._id;
+export function shouldHandleHookEvent(actorId) {
+  if (actorId) {
     return !!IOS_DATA_MAP.get(actorId);
   }
 }

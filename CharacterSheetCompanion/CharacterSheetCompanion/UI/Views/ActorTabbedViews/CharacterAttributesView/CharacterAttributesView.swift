@@ -9,7 +9,9 @@ import SwiftUI
 
 struct CharacterAttributesView: View {
     @ObservedObject var characterOverviewVM: CharacterAttributesViewModel
+
     @State private var showHpSheet = false
+    @State private var showRestSheet = false
 
     var body: some View {
         VStack {
@@ -47,10 +49,14 @@ struct CharacterAttributesView: View {
                     .resizable()
                     .frame(width: 75, height: 50, alignment: .center)
 
-                Button {} label: {
+                Button {
+                    showRestSheet.toggle()
+                } label: {
                     Text("Rest")
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(.trailing, 5)
+                }.sheet(isPresented: $showRestSheet) {
+                    CharacterShortRestSheetView(classes: $characterOverviewVM.classes, attributes: $characterOverviewVM.attributes, characterShortRestVM: CharacterShortRestSheetViewModel())
                 }
             }.padding([.all], 0)
 
@@ -91,7 +97,7 @@ struct CharacterAttributesView: View {
             let characterOverviewVM = CharacterAttributesViewModel()
             characterOverviewVM.attributes = ActorAttributesModel.mockedData
             characterOverviewVM.baseData = ActorBaseDataModel(id: "1", name: "Beauregard")
-            characterOverviewVM.classes = [ActorClassModel(id: "monk", description: "monk", levels: 16, subclass: "Drunken Monk")]
+            characterOverviewVM.classes = ActorClassModel.mockedData
             return characterOverviewVM
         }()
 
