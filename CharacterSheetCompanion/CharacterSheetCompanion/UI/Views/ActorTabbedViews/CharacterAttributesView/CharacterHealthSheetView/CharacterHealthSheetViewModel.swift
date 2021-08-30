@@ -8,17 +8,9 @@
 import Foundation
 
 class CharacterHealthSheetViewModel {
-    private var attributesListener: ActorAttributesListener?
-
-    init() {
-        do {
-            try attributesListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var attributesListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorAttributesListener
 
     func applyDamage(healthChange: Int) {
-        if let listener = attributesListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            listener.requestActorHealthChange(actorId: actor.id, healthChange: healthChange)
-        }
+        attributesListener.requestActorHealthChange(healthChange: healthChange)
     }
 }

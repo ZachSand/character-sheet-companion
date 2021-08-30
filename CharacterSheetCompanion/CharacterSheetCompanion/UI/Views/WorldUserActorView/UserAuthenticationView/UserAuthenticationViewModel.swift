@@ -10,30 +10,32 @@ import Foundation
 
 class UserAuthenticationViewModel: ObservableObject {
     @Published var authState: AuthState? = AuthState.NOT_AUTHENTICATING
+    @Published var setupUserAuthModel = SetupUserAuthModel(id: "", password: "", passwordMatches: false)
 
-    private var userAuthListener: SetupUserAuthenticationListener?
+    private var userAuthListener = SocketManagerWrapper.sharedInstance.setupListenerWrapper.setupUserAuthListener
+    private var subscription = Set<AnyCancellable>()
 
-    init() {
-        do {
-            try userAuthListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    init() {}
 
-    func verifyUserAuth(user: SetupUserModel, actor _: SetupActorModel, password: String) {
+    func verifyUserAuth(user _: SetupUserModel, actor _: SetupActorModel, password _: String) {
         authState = AuthState.AUTHENTICATING
-        if let listener = userAuthListener {
-            listener.userLogin(user: user, password: password) { loginResult in
-                if loginResult {
-                    self.authState = AuthState.AUTHENTICATED
-                } else {
-                    self.authState = AuthState.FAILED_AUTHENTICATION
+        userAuthListener.modelPublisher
+            .sink(receiveValue: { model in
+                if let userAuthModel = model {
+                    self.setupUserAuthModel = userAuthModel
+                    if self.setupUserAuthModel.passwordMatches {
+                        self.authState = AuthState.AUTHENTICATED
+                    } else {
+                        self.authState = AuthState.FAILED_AUTHENTICATION
+                    }
                 }
-            }
-        }
+            })
+            .store(in: &subscription)
+        userAuthListener.request()
     }
 
     func completeSetup(user: SetupUserModel, actor: SetupActorModel) {
-        FoundrySocketIOManager.sharedInstance.emitCompletedSetup(user: user, actor: actor)
+        SocketManagerWrapper.sharedInstance.emitCompletedSetup(user: user, actor: actor)
     }
 }
 

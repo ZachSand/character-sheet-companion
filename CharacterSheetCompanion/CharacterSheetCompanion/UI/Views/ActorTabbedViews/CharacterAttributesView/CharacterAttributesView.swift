@@ -56,7 +56,7 @@ struct CharacterAttributesView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding(.trailing, 5)
                 }.sheet(isPresented: $showRestSheet) {
-                    CharacterShortRestSheetView(classes: $characterOverviewVM.classes, attributes: $characterOverviewVM.attributes, characterShortRestVM: CharacterShortRestSheetViewModel())
+                    CharacterRestSheetView(classes: $characterOverviewVM.classes, attributes: $characterOverviewVM.attributes, characterRestVM: CharacterRestSheetViewModel())
                 }
             }.padding([.all], 0)
 

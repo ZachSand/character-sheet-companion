@@ -10,18 +10,16 @@ import Foundation
 
 class CharacterCurrencyViewModel: ObservableObject {
     @Published var currency: ActorCurrencyModel?
-    var subscription = Set<AnyCancellable>()
-    var currencyListener: ActorCurrencyListener?
+
+    private var subscription = Set<AnyCancellable>()
+    private var currencyListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorCurrencyListener
 
     init() {
-        do {
-            try currencyListener = FoundrySocketIOManager.sharedInstance.getListener()
-            currencyListener?.currencyPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.currency = model
-                })
-                .store(in: &subscription)
-        } catch {}
+        currencyListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.currency = model
+            })
+            .store(in: &subscription)
     }
 }

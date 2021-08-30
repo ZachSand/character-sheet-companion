@@ -29,13 +29,17 @@ class DisplayChatMessageListener: SocketListener {
         }
     }
 
-    func getChatMessages(userId: String, actorId: String, completionHandler: @escaping ([ChatMessageModel]) -> Void) {
-        socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_CHAT_DATA, userId, actorId)
+    func getChatMessages(completionHandler: @escaping ([ChatMessageModel]) -> Void) {
         chatMessageCallback = completionHandler
+        if let actor = SocketManagerWrapper.sharedInstance.actor, let user = SocketManagerWrapper.sharedInstance.user {
+            socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_CHAT_DATA, user.id, actor.id)
+        }
     }
 
-    func sendChatMessage(userId: String, actorId: String, message: String) {
-        socket.emit(SocketEvents.IOS.DISPLAY.SEND_FOUNDRY_CHAT_MESSAGE, userId, actorId, message)
+    func sendChatMessage(message: String) {
+        if let actor = SocketManagerWrapper.sharedInstance.actor, let user = SocketManagerWrapper.sharedInstance.user {
+            socket.emit(SocketEvents.IOS.DISPLAY.SEND_FOUNDRY_CHAT_MESSAGE, user.id, actor.id, message)
+        }
     }
 }
 

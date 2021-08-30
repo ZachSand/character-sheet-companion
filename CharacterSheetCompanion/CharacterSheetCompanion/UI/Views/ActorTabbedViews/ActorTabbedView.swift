@@ -62,7 +62,7 @@ struct ActorTabbedView: View {
                         .tag(7)
                 }
             } else {
-                if let actor = FoundrySocketIOManager.sharedInstance.actor {
+                if let actor = SocketManagerWrapper.sharedInstance.actor {
                     Text("Loading ActorData data for \(actor.name)")
                 }
                 ProgressView()

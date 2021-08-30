@@ -10,17 +10,19 @@ export function createAndEmitActorClasses(socket, actorId, iosSocketId) {
   if (actor) {
     socket.emit(
       SOCKET_EVENTS.FOUNDRY.ACTOR.SEND_ACTOR_CLASSES,
-      Object.keys(actor.data.data.classes).map((className) => {
-        let actorClass = actor.data.data.classes[className];
-        return {
-          id: className,
-          description: removeHtml(actorClass.description.value),
-          levels: actorClass.levels,
-          subclass: actorClass.subclass,
-          hitDice: actorClass.hitDice,
-          hitDiceUsed: actorClass.hitDiceUsed || 0,
-        };
-      }),
+      {
+        classes: Object.keys(actor.data.data.classes).map((className) => {
+          let actorClass = actor.data.data.classes[className];
+          return {
+            id: className,
+            description: removeHtml(actorClass.description.value),
+            levels: actorClass.levels,
+            subclass: actorClass.subclass,
+            hitDice: actorClass.hitDice,
+            hitDiceUsed: actorClass.hitDiceUsed || 0,
+          };
+        }),
+      },
       iosSocketId
     );
   }

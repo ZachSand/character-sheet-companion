@@ -13,27 +13,20 @@ class SpellListViewModel: ObservableObject {
     let spellLevel: Int
 
     private var subscription = Set<AnyCancellable>()
-    private var spellListener: ActorSpellListener?
-    private var itemDisplayListener: DisplayItemListener?
+    private var spellListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorSpellListener
+    private var itemDisplayListener = SocketManagerWrapper.sharedInstance.displayListenerWrapper.displayItemListener
 
     init(spellLevel: Int) {
         self.spellLevel = spellLevel
-        do {
-            try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
-            try spellListener = FoundrySocketIOManager.sharedInstance.getListener()
-            spellListener?.spellsPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.spells = model
-                })
-                .store(in: &subscription)
-        } catch {}
+        spellListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.spells = model?.spells
+            })
+            .store(in: &subscription)
     }
 
     func displayItem(spell: ActorSpellModel) {
-        if let listener = itemDisplayListener, let actor = FoundrySocketIOManager.sharedInstance.actor { {
-            let displayItem = ItemDisplayModel(actorId: actor.id, itemId: spell.id)
-            listener.displayItemCard(displayItem: displayItem)
-        }
+        itemDisplayListener.displayItemCard(itemId: spell.id)
     }
 }

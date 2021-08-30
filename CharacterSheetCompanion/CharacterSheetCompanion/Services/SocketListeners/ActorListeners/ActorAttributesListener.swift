@@ -34,34 +34,31 @@ class ActorAttributesListener: SocketListener, ActorListener {
         }
     }
 
-    func requestActorHealthChange(actorId: String, healthChange: Int) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_HEALTH_CHANGE, actorId, healthChange)
+    func requestActorHealthChange(healthChange: Int) {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_HEALTH_CHANGE, actor.id, healthChange)
+        }
     }
 
-    func requestActorShortRest(actorId: String) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_SHORT_REST, actorId)
+    func requestActorShortRest() {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_SHORT_REST, actor.id)
+        }
     }
 
-    func requestActorLongRest(actorId: String) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_LONG_REST, actorId)
+    func requestActorLongRest() {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_LONG_REST, actor.id)
+        }
     }
 
-    func requestInitialActorData(actorId: String) {
-        socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES, actorId)
+    func requestInitialActorData() {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES, actor.id)
+        }
     }
 
     func isReady() -> Bool {
         receivedFirstMessage
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_ATTRIBUTES = "ios:requestActorAttributes"
-    static let REQUEST_ACTOR_HEALTH_CHANGE = "ios:requestActorHealthChange"
-    static let REQUEST_ACTOR_SHORT_REST = "ios:requestActorShortRest"
-    static let REQUEST_ACTOR_LONG_REST = "ios:requestActorLongRest"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_ATTRIBUTES = "server:sendActorAttributes"
 }

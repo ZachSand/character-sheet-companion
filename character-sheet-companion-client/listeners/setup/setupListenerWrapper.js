@@ -31,8 +31,8 @@ export function setupListenerWrapper(socket) {
 
   socket.on(
     SOCKET_EVENTS.SERVER.SETUP.REQUEST.REQUEST_FOUNDRY_USER_AUTH,
-    async (userId, password, iosSocketId) => {
-      await userAuthListener(socket, userId, password, iosSocketId);
+    async (setupUserAuth, iosSocketId) => {
+      await userAuthListener(socket, setupUserAuth, iosSocketId);
     }
   );
 }

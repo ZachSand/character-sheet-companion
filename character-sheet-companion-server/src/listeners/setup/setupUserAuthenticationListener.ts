@@ -4,32 +4,32 @@ import {
   getFoundrySocketFromRoom,
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
+import { SetupUserAuth } from "../../interfaces/setup/SetupUserAuth";
 
 export const setupUserAuthenticationListener = (
   io: Server,
   socket: Socket
 ): void => {
-  const getUserAuthentication = (userId: string, password: string) => {
+  const getUserAuthentication = (setupUserAuth: SetupUserAuth) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
         SOCKET_EVENTS.SERVER.SETUP.REQUEST.REQUEST_FOUNDRY_USER_AUTH,
-        userId,
-        password,
+        setupUserAuth,
         socket.id
       );
     }
   };
 
   const receiveUserAuthentication = (
-    authResult: boolean,
+    setupUserAuth: SetupUserAuth,
     iosSocketId: string
   ) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(
         SOCKET_EVENTS.SERVER.SETUP.SEND.SEND_USER_AUTH,
-        JSON.stringify(authResult)
+        JSON.stringify(setupUserAuth)
       );
     }
   };

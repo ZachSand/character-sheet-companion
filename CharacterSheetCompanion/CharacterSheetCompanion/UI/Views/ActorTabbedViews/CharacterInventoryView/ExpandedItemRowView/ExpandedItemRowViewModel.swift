@@ -8,18 +8,9 @@
 import Foundation
 
 class ExpandedItemRowViewModel: ObservableObject {
-    private var itemDisplayListener: DisplayItemListener?
-
-    init() {
-        do {
-            try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var itemDisplayListener = SocketManagerWrapper.sharedInstance.displayListenerWrapper.displayItemListener
 
     func displayItem(inventoryItem: ActorInventoryItemModel) {
-        if let listener = itemDisplayListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            let displayItem = ItemDisplayModel(actorId: actor.id, itemId: inventoryItem.id)
-            listener.displayItemCard(displayItem: displayItem)
-        }
+        itemDisplayListener.displayItemCard(itemId: inventoryItem.id)
     }
 }

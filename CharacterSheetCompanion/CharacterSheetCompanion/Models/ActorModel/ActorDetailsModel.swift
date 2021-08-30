@@ -7,13 +7,29 @@
 
 import Foundation
 
-struct ActorDetailsModel: Codable {
+struct ActorDetailsModel: Codable, BaseModel {
     var biography: String
     var appearance: String
     var flaws: String
     var bonds: String
     var personalityTraits: String
     var ideals: String
+
+    static func getRequestEvent() -> String {
+        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_DETAILS
+    }
+
+    static func getReceiveEvent() -> String {
+        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_DETAILS
+    }
+}
+
+extension SocketEvents.IOS.ACTOR {
+    static let REQUEST_ACTOR_DETAILS = "ios:requestActorDetails"
+}
+
+extension SocketEvents.SERVER.ACTOR.SEND {
+    static let SEND_ACTOR_DETAILS = "server:sendActorDetails"
 }
 
 #if DEBUG

@@ -1,10 +1,10 @@
-import { SetupUser } from "../../interfaces/setup/SetupUser";
 import { Server, Socket } from "socket.io";
 import { SOCKET_EVENTS } from "../../constants/events";
 import {
   getFoundrySocketFromRoom,
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
+import { SetupUsers } from "../../interfaces/setup/SetupUsers";
 
 export const setupUsersListener = (io: Server, socket: Socket): void => {
   const getFoundryUsers = () => {
@@ -17,7 +17,7 @@ export const setupUsersListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveFoundryUsers = (users: SetupUser[], iosSocketId: string) => {
+  const receiveFoundryUsers = (users: SetupUsers, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(

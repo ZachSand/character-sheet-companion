@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ActorTraitsModel: Codable {
+struct ActorTraitsModel: Codable, BaseModel {
     var languages: [String]
     var size: String
     var toolProficiencies: [String]
@@ -18,6 +18,22 @@ struct ActorTraitsModel: Codable {
     var damageVulnerabilities: [String]
     var conditionImmunities: [String]
     var senses: ActorSensesModel
+
+    static func getRequestEvent() -> String {
+        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_TRAITS
+    }
+
+    static func getReceiveEvent() -> String {
+        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_TRAITS
+    }
+}
+
+extension SocketEvents.IOS.ACTOR {
+    static let REQUEST_ACTOR_TRAITS = "ios:requestActorTraits"
+}
+
+extension SocketEvents.SERVER.ACTOR.SEND {
+    static let SEND_ACTOR_TRAITS = "server:sendActorTraits"
 }
 
 #if DEBUG

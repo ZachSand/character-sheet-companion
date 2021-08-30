@@ -21,13 +21,10 @@ class DisplayItemListener: SocketListener {
         // No Listener for item display
     }
 
-    func displayItemCard(displayItem: ItemDisplayModel) {
-        do {
-            let jsonData = try jsonEncoder.encode(displayItem)
-            if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_DISPLAY_ITEM, json)
-            }
-        } catch {}
+    func displayItemCard(itemId: String) {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_DISPLAY_ITEM, actor.id, itemId)
+        }
     }
 }
 

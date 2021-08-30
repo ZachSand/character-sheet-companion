@@ -12,18 +12,15 @@ class CharacterInventoryViewModel: ObservableObject {
     @Published var inventory: ActorInventoryModel?
 
     private var subscription = Set<AnyCancellable>()
-    private var inventoryListener: ActorInventoryListener?
+    private var inventoryListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorInventoryListener
 
     init() {
-        do {
-            try inventoryListener = FoundrySocketIOManager.sharedInstance.getListener()
-            inventoryListener?.inventoryPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.inventory = model
-                })
-                .store(in: &subscription)
-        } catch {}
+        inventoryListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.inventory = model
+            })
+            .store(in: &subscription)
     }
 
     func getInventorySections() -> [InventorySection] {

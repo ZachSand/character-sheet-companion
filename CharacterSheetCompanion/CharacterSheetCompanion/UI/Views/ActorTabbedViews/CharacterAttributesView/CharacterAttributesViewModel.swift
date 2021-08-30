@@ -13,40 +13,33 @@ class CharacterAttributesViewModel: ObservableObject {
     @Published var baseData: ActorBaseDataModel?
     @Published var classes: [ActorClassModel]?
 
-    private var initiativeListener: RollInitiativeListener?
-    private var attributesListener: ActorAttributesListener?
-    private var baseDataListener: ActorBaseDataListener?
-    private var classesListener: ActorClassesListener?
+    private var initiativeListener = SocketManagerWrapper.sharedInstance.rollListenerWrapper.initiativeRollListener
+    private var attributesListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorAttributesListener
+    private var baseDataListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorBaseDataListener
+    private var classesListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorClassesListener
     private var subscription = Set<AnyCancellable>()
 
     init() {
-        do {
-            try initiativeListener = FoundrySocketIOManager.sharedInstance.getListener()
+        attributesListener.attributesPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.attributes = model
+            })
+            .store(in: &subscription)
 
-            try attributesListener = FoundrySocketIOManager.sharedInstance.getListener()
-            attributesListener?.attributesPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.attributes = model
-                })
-                .store(in: &subscription)
+        baseDataListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.baseData = model
+            })
+            .store(in: &subscription)
 
-            try baseDataListener = FoundrySocketIOManager.sharedInstance.getListener()
-            baseDataListener?.baseDataPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.baseData = model
-                })
-                .store(in: &subscription)
-
-            try classesListener = FoundrySocketIOManager.sharedInstance.getListener()
-            classesListener?.classesPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.classes = model
-                })
-                .store(in: &subscription)
-        } catch {}
+        classesListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.classes = model?.classes
+            })
+            .store(in: &subscription)
     }
 
     func getClassInfo() -> String {
@@ -100,13 +93,8 @@ class CharacterAttributesViewModel: ObservableObject {
     }
 
     func rollInitiative() {
-        if let listener = initiativeListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            let rollModel = InitiativeRollModel(actorId: actor.id, result: 0)
-            DispatchQueue.main.async {
-                listener.rollInitiative(initiativeRoll: rollModel) { initiativeRollResult in
-                    print(initiativeRollResult)
-                }
-            }
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            initiativeListener.request(model: InitiativeRollModel(actorId: actor.id, result: 0))
         }
     }
 }

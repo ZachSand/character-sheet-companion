@@ -12,18 +12,15 @@ class CharacterTraitsViewModel: ObservableObject {
     @Published var traits: ActorTraitsModel?
 
     private var subscription = Set<AnyCancellable>()
-    private var traitsListener: ActorTraitsListener?
+    private var traitsListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorTraistListener
 
     init() {
-        do {
-            try traitsListener = FoundrySocketIOManager.sharedInstance.getListener()
-            traitsListener?.traitsPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.traits = model
-                })
-                .store(in: &subscription)
-        } catch {}
+        traitsListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.traits = model
+            })
+            .store(in: &subscription)
     }
 
     func getSenses() -> [String] {

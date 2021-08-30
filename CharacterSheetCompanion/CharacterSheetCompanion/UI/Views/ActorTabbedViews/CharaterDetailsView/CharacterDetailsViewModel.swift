@@ -12,19 +12,14 @@ class CharacterDetailsViewModel: ObservableObject {
     @Published var details: ActorDetailsModel?
 
     private var subscription = Set<AnyCancellable>()
-    private var detailsListener: ActorDetailsListener?
+    private var detailsListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorDetailsListener
 
     init() {
-        do {
-            try detailsListener = FoundrySocketIOManager.sharedInstance.getListener()
-            detailsListener?.detailsPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.details = model
-                })
-                .store(in: &subscription)
-        } catch {
-            preconditionFailure("Unable to get ability listeners: ")
-        }
+        detailsListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.details = model
+            })
+            .store(in: &subscription)
     }
 }

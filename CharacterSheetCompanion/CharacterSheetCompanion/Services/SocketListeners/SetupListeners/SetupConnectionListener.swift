@@ -12,27 +12,22 @@ class SetupConnectionListener: SocketListener {
     let socket: SocketIOClient
 
     private var socketConnectionCallback: ((Bool) -> Void)?
-    var roomId: String?
+    var socketRoomId: String?
 
     init(socket: SocketIOClient) {
         self.socket = socket
     }
 
     func addSocketHandlers() {
-        socket.on(clientEvent: .connect) { _, _ in
-            if let socketRoomId = self.roomId {
-                self.socket.emit(SocketEvents.IOS.SETUP.JOIN_ROOM, socketRoomId)
-            }
-        }
-
         socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_IOS_JOINED_ROOM) { _, _ in
             self.socketConnectionCallback?(true)
         }
     }
 
-    func socketConnect(completionHandler: @escaping (Bool) -> Void) {
-        socket.connect()
+    func joinSocketRoom(socketRoomId: String, completionHandler: @escaping (Bool) -> Void) {
+        self.socketRoomId = socketRoomId
         socketConnectionCallback = completionHandler
+        socket.emit(SocketEvents.IOS.SETUP.JOIN_ROOM, socketRoomId)
     }
 }
 

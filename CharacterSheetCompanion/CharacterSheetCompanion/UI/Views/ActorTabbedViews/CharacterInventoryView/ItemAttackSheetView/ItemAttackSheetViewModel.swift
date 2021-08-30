@@ -8,22 +8,11 @@
 import Foundation
 
 class ItemAttackSheetViewModel: ObservableObject {
-    private var itemAttackListener: RollItemAttackListener?
-
-    init() {
-        do {
-            try itemAttackListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var itemAttackListener = SocketManagerWrapper.sharedInstance.rollListenerWrapper.itemAttackRollListener
 
     func rollItemAttack(inventoryItem: ActorInventoryItemModel, advantage: Bool, disadvantage: Bool) {
-        if let listener = itemAttackListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            let itemAttackRoll = ItemAttackRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0)
-            DispatchQueue.main.async {
-                listener.rollItemAttack(attackRoll: itemAttackRoll) { attackRollResult in
-                    print(attackRollResult)
-                }
-            }
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            itemAttackListener.request(model: ItemAttackRollModel(actorId: actor.id, itemId: inventoryItem.id, advantage: advantage, disadvantage: disadvantage, result: 0))
         }
     }
 }

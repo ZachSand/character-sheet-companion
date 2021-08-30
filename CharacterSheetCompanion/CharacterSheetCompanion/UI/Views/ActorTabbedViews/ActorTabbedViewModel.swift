@@ -9,10 +9,9 @@ import Foundation
 
 class ActorTabbedViewModel: ObservableObject {
     @Published var isActorDataReady = false
-    private var actorListenerWrapper: ActorListenerWrapper
+    private var actorListenerWrapper = SocketManagerWrapper.sharedInstance.actorListenerWrapper
 
     init() {
-        actorListenerWrapper = ActorListenerWrapper()
         actorListenerWrapper.isActorDataReady { dataIsReady in
             self.isActorDataReady = dataIsReady
         }

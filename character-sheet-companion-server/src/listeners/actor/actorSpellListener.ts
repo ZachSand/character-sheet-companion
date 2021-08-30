@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ActorSpell } from "../../interfaces/actor/ActorSpell";
+import { ActorSpells } from "../../interfaces/actor/ActorSpells";
 
 export const actorSpellsListener = (io: Server, socket: Socket): void => {
   const requestActorSpells = (actorId: string) => {
@@ -18,7 +18,7 @@ export const actorSpellsListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveActorSpells = (spells: ActorSpell[], iosSocketId: string) => {
+  const receiveActorSpells = (spells: ActorSpells, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(

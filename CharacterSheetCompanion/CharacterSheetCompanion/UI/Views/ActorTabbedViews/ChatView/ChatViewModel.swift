@@ -10,23 +10,16 @@ import Foundation
 class ChatViewModel: ObservableObject {
     @Published var chatMessages: [ChatMessageModel]
 
-    var displayChatMessageListener: DisplayChatMessageListener?
+    var displayChatMessageListener = SocketManagerWrapper.sharedInstance.displayListenerWrapper.displayChatMessageListener
 
     init(chatMessages: [ChatMessageModel]) {
-        do {
-            try displayChatMessageListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
         self.chatMessages = chatMessages
     }
 
     func getMessageData() {
-        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor, let user = FoundrySocketIOManager.sharedInstance.user {
-            DispatchQueue.main.async {
-                listener.getChatMessages(userId: user.id, actorId: actor.id, completionHandler: { chatMessageModels in
-                    self.chatMessages = chatMessageModels
-                })
-            }
-        }
+        displayChatMessageListener.getChatMessages(completionHandler: { chatMessageModels in
+            self.chatMessages = chatMessageModels
+        })
     }
 
     func getDateForTime(epochTime: Double) -> String {
@@ -39,10 +32,6 @@ class ChatViewModel: ObservableObject {
     }
 
     func sendMessage(message: String) {
-        if let listener = displayChatMessageListener, let actor = FoundrySocketIOManager.sharedInstance.actor, let user = FoundrySocketIOManager.sharedInstance.user {
-            DispatchQueue.main.async {
-                listener.sendChatMessage(userId: user.id, actorId: actor.id, message: message)
-            }
-        }
+        displayChatMessageListener.sendChatMessage(message: message)
     }
 }

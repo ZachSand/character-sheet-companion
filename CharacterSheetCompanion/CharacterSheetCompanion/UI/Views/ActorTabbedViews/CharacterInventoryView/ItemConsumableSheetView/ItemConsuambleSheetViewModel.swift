@@ -8,22 +8,11 @@
 import Foundation
 
 class ItemConsumableSheetViewModel: ObservableObject {
-    private var itemConsumeListener: RollItemConsumeListener?
-
-    init() {
-        do {
-            try itemConsumeListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var itemConsumeListener = SocketManagerWrapper.sharedInstance.rollListenerWrapper.itemConsumeRollListener
 
     func rollItemConsume(inventoryItem: ActorInventoryItemModel, consume: Bool) {
-        if let listener = itemConsumeListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            let itemConsumeRoll = ItemConsumeRollModel(actorId: actor.id, itemId: inventoryItem.id, consume: consume, result: 0)
-            DispatchQueue.main.async {
-                listener.rollItemConsume(itemConsumeRoll: itemConsumeRoll) { consumeRollResult in
-                    print(consumeRollResult)
-                }
-            }
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            itemConsumeListener.request(model: ItemConsumeRollModel(actorId: actor.id, itemId: inventoryItem.id, consume: consume, result: 0))
         }
     }
 

@@ -7,13 +7,29 @@
 
 import Foundation
 
-struct WorldDataModel: Codable, Identifiable, Hashable {
+struct WorldDataModel: BaseModel {
     var id: String
     var title: String
     var version: String
     var coreVersion: String
     var system: String
     var description: String
+
+    static func getRequestEvent() -> String {
+        SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_WORLD_DATA
+    }
+
+    static func getReceiveEvent() -> String {
+        SocketEvents.SERVER.SETUP.SEND.SEND_FOUNDRY_WORLD_DATA
+    }
+}
+
+extension SocketEvents.IOS.SETUP {
+    static let REQUEST_FOUNDRY_WORLD_DATA = "ios:requestFoundryWorldData"
+}
+
+extension SocketEvents.SERVER.SETUP.SEND {
+    static let SEND_FOUNDRY_WORLD_DATA = "server:sendFoundryWorldData"
 }
 
 extension WorldDataModel {

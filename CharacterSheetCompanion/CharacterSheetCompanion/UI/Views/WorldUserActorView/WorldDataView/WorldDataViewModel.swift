@@ -5,27 +5,21 @@
 //  Created by Zachary Sanders on 8/16/21.
 //
 
+import Combine
 import Foundation
 
 class WorldDataViewModel: ObservableObject {
     @Published var worldData: WorldDataModel?
+    private var subscription = Set<AnyCancellable>()
 
-    private var worldDataListener: SetupWorldDataListener?
+    private var worldDataListener = SocketManagerWrapper.sharedInstance.setupListenerWrapper.setupWorldListener
 
     init() {
-        do {
-            try worldDataListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-        fetchWorldData()
-    }
-
-    func fetchWorldData() {
-        if let listener = worldDataListener {
-            DispatchQueue.main.async {
-                listener.getWorldData { worldDataModel in
-                    self.worldData = worldDataModel
-                }
-            }
-        }
+        worldDataListener.modelPublisher
+            .sink(receiveValue: { model in
+                self.worldData = model
+            })
+            .store(in: &subscription)
+        worldDataListener.request()
     }
 }

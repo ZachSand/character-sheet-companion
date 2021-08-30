@@ -4,7 +4,7 @@ import {
   getIosSocketFromRoom,
 } from "../../utilities/SocketUtilities";
 import { SOCKET_EVENTS } from "../../constants/events";
-import { ActorSkill } from "../../interfaces/actor/ActorSkill";
+import { ActorSkills } from "../../interfaces/actor/ActorSkills";
 
 export const actorSkillListener = (io: Server, socket: Socket): void => {
   const requestActorSkills = (actorId: string) => {
@@ -18,7 +18,7 @@ export const actorSkillListener = (io: Server, socket: Socket): void => {
     }
   };
 
-  const receiveActorSkills = (skills: ActorSkill[], iosSocketId: string) => {
+  const receiveActorSkills = (skills: ActorSkills, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
       iosSocket.emit(

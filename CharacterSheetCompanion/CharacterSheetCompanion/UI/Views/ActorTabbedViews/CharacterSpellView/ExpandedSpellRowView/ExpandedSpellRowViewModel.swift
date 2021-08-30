@@ -8,18 +8,9 @@
 import Foundation
 
 class ExpandedSpellRowViewModel: ObservableObject {
-    private var itemDisplayListener: DisplayItemListener?
-
-    init() {
-        do {
-            try itemDisplayListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var itemDisplayListener = SocketManagerWrapper.sharedInstance.displayListenerWrapper.displayItemListener
 
     func displayItem(spell: ActorSpellModel) {
-        if let listener = itemDisplayListener, let actor = FoundrySocketIOManager.sharedInstance.actor {
-            let displayItem = ItemDisplayModel(actorId: actor.id, itemId: spell.id)
-            listener.displayItemCard(displayItem: displayItem)
-        }
+        itemDisplayListener.displayItemCard(itemId: spell.id)
     }
 }
