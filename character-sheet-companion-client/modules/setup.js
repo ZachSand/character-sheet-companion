@@ -2,12 +2,14 @@ import {
   CHARACTER_SHEET_COMPANION_SETTING_KEY,
   generateId,
 } from "../utils/id-generator.js";
-import { socketListenerWrapper } from "../listeners/socketListenerWrapper.js";
+import { socketHandlerWrapper } from "../handlers/socket/socketHandlerWrapper.js";
 import { shouldHandleHookEvent } from "../utils/commonUtilities.js";
-import { handleUpdateActorHookEvent } from "../handlers/updateActorHookEventHandler.js";
-import { handleUpdateItemHookEvent } from "../handlers/updateItemHookEventHandler.js";
-import { handleCreateItemHookEvent } from "../handlers/createItemHookEventHandler.js";
-import { handleCreateActiveEffectHookEvent } from "../handlers/createActiveEffectHookEventHandler.js";
+import { handleUpdateActorHookEvent } from "../handlers/hooks/actorHookEventHandler.js";
+import {
+  handleCreateItemHookEvent,
+  handleUpdateItemHookEvent,
+} from "../handlers/hooks/itemHookEventHandler.js";
+import { handleCreateActiveEffectHookEvent } from "../handlers/hooks/activeEffectHookEventHandler.js";
 
 export class CharacterSheetCompanionSetup {
   static setup() {
@@ -47,7 +49,7 @@ export class CharacterSheetCompanionSetup {
           transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
         });
 
-        socketListenerWrapper(socket);
+        socketHandlerWrapper(socket);
         socket.connect();
 
         Hooks.on("updateActor", async (entity, data, options, userId) => {
@@ -62,9 +64,15 @@ export class CharacterSheetCompanionSetup {
           }
         });
 
-        Hooks.on("updateItem", (entity, data, options, userId) => {
+        Hooks.on("updateItem", async (entity, data, options, userId) => {
           if (shouldHandleHookEvent(entity.parent.id)) {
-            handleUpdateItemHookEvent(socket, entity, data, options, userId);
+            await handleUpdateItemHookEvent(
+              socket,
+              entity,
+              data,
+              options,
+              userId
+            );
           }
         });
 

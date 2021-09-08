@@ -15,10 +15,7 @@ class UserAuthenticationViewModel: ObservableObject {
     private var userAuthListener = SocketManagerWrapper.sharedInstance.setupListenerWrapper.setupUserAuthListener
     private var subscription = Set<AnyCancellable>()
 
-    init() {}
-
-    func verifyUserAuth(user _: SetupUserModel, actor _: SetupActorModel, password _: String) {
-        authState = AuthState.AUTHENTICATING
+    init() {
         userAuthListener.modelPublisher
             .sink(receiveValue: { model in
                 if let userAuthModel = model {
@@ -31,7 +28,11 @@ class UserAuthenticationViewModel: ObservableObject {
                 }
             })
             .store(in: &subscription)
-        userAuthListener.request()
+    }
+
+    func verifyUserAuth(user: SetupUserModel, actor _: SetupActorModel, password: String) {
+        authState = AuthState.AUTHENTICATING
+        userAuthListener.request(model: SetupUserAuthModel(id: user.id, password: password, passwordMatches: false))
     }
 
     func completeSetup(user: SetupUserModel, actor: SetupActorModel) {

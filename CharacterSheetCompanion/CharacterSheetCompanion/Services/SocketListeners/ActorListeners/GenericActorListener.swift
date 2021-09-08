@@ -11,7 +11,6 @@ import SocketIO
 
 class GenericActorListener<ModelType: BaseModel>: GenericModelSocketListener<ModelType>, ActorListener {
     private var receivedFirstMessage = false
-    private let modelSubject = CurrentValueSubject<ModelType?, Never>(nil)
 
     override func addSocketHandlers() {
         socket.on(ModelType.getReceiveEvent()) { data, _ in

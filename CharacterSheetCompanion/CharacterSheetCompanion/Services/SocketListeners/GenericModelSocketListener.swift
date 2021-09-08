@@ -12,10 +12,8 @@ import SocketIO
 class GenericModelSocketListener<ModelType: BaseModel>: SocketListener {
     let socket: SocketIOClient
     let modelPublisher: AnyPublisher<ModelType?, Never>
+    let modelSubject = CurrentValueSubject<ModelType?, Never>(nil)
     let jsonEncoder = JSONEncoder()
-
-    private var receivedFirstMessage = false
-    private let modelSubject = CurrentValueSubject<ModelType?, Never>(nil)
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -26,7 +24,6 @@ class GenericModelSocketListener<ModelType: BaseModel>: SocketListener {
         socket.on(ModelType.getReceiveEvent()) { data, _ in
             do {
                 self.modelSubject.send(try SocketListenerUtility.parseSocketEventData(data))
-                self.receivedFirstMessage = true
             } catch let FoundryJSONError.errorMessage(errorMessage) {
                 preconditionFailure("Failed to decode JSON with \(errorMessage)")
             } catch {
