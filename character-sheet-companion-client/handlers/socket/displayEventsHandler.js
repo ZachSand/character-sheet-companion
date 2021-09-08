@@ -8,11 +8,10 @@ import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js"
 
 export function handleDisplayEvents(socket) {
   Object.values(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.DISPLAY
+    ServerSocketRequestEvents.Instance.SERVER_EVENTS.DISPLAY
   ).forEach((displayEvent) => {
     socket.on(
-      ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.DISPLAY +
-        displayEvent,
+      ServerSocketRequestEvents.Instance.SERVER_EVENTS.DISPLAY + displayEvent,
       (...args) => {
         handleDisplayEvent(displayEvent, socket, ...args);
       }
@@ -44,7 +43,7 @@ export function handleDisplayEvent(displayEvent, socket, args) {
     let actor = getValidActor(socket, actorId, iosSocketId);
     if (actor && chatMessages) {
       socket.emit(
-        FoundrySocketEvents.Instance().FOUNDRY_EVENTS.CHAT_DATA,
+        FoundrySocketEvents.Instance.FOUNDRY_EVENTS.CHAT_DATA,
         chatMessages
           .filter(
             (chatMessage) =>

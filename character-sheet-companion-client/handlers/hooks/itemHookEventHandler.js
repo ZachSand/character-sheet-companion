@@ -1,6 +1,6 @@
-import { IOS_DATA_MAP } from "../socket/setupEventsHandler";
-import { handleActorEvent } from "../socket/actorEventHandlers";
-import { CORE_EVENTS } from "../../events/coreEvents";
+import { IOS_DATA_MAP } from "../socket/setupEventsHandler.js";
+import { handleActorEvent } from "../socket/actorEventHandlers.js";
+import { CORE_EVENTS } from "../../events/coreEvents.js";
 
 export function handleCreateItemHookEvent(socket, entity, options, userId) {}
 

@@ -3,16 +3,16 @@ import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js"
 import { CORE_EVENTS } from "../../events/coreEvents.js";
 
 export function handleRollEvents(socket) {
-  Object.values(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ROLL
-  ).forEach((rollEvent) => {
-    socket.on(
-      ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ROLL + rollEvent,
-      (roll, iosSocketId) => {
-        handleRollEvent(rollEvent, socket, roll, iosSocketId);
-      }
-    );
-  });
+  Object.values(ServerSocketRequestEvents.Instance.SERVER_EVENTS.ROLL).forEach(
+    (rollEvent) => {
+      socket.on(
+        ServerSocketRequestEvents.Instance.SERVER_EVENTS.ROLL + rollEvent,
+        (roll, iosSocketId) => {
+          handleRollEvent(rollEvent, socket, roll, iosSocketId);
+        }
+      );
+    }
+  );
 }
 
 export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {

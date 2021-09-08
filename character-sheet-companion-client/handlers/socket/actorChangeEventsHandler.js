@@ -7,11 +7,10 @@ import { CORE_EVENTS } from "../../events/coreEvents.js";
 
 export function handleActorChangeEvents(socket) {
   Object.values(
-    ServerSocketRequestEvents.Instance().SERVER_EVENTS.ACTOR_CHANGE
+    ServerSocketRequestEvents.Instance.SERVER_EVENTS.ACTOR_CHANGE
   ).forEach((actorChangeEvent) => {
     socket.on(
-      ServerSocketRequestEvents.Instance().SERVER_EVENTS.ACTOR +
-        actorChangeEvent,
+      ServerSocketRequestEvents.Instance.SERVER_EVENTS.ACTOR + actorChangeEvent,
       (...args) => {
         handleActorChangeEvent(socket, actorChangeEvent, args);
       }
@@ -45,31 +44,31 @@ export function handleActorChangeEvent(socket, event, args) {
         }
         break;
       default:
-      //TODO: Error here
+        //TODO: Error here
     }
   }
 
   function applyHealthChange(socket, actor, healthChange) {
     actor
-      .applyDamage(healthChange)
-      .then
-      // do nothing
-      ();
+        .applyDamage(healthChange)
+        .then
+        // do nothing
+        ();
   }
 
   function takeShortRest(socket, actor) {
     actor
-      .shortRest({ dialog: false })
-      .then
-      //do nothing
-      ();
+        .shortRest({dialog: false})
+        .then
+        //do nothing
+        ();
   }
 
   function takeLongRest(socket, actor) {
     actor
-      .longRest({ dialog: false })
-      .then
-      //do nothing
-      ();
+        .longRest({dialog: false})
+        .then
+        //do nothing
+        ();
   }
 }

@@ -9,16 +9,16 @@ import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js"
 export const IOS_DATA_MAP = new Map();
 
 export function handleSetupEvents(socket) {
-  Object.values(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.SETUP
-  ).forEach((setupEvent) => {
-    socket.on(
-      ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.SETUP + setupEvent,
-      async (...args) => {
-        await handleSetupEvent(socket, setupEvent, args);
-      }
-    );
-  });
+  Object.values(ServerSocketRequestEvents.Instance.SERVER_EVENTS.SETUP).forEach(
+    (setupEvent) => {
+      socket.on(
+        ServerSocketRequestEvents.Instance.SERVER_EVENTS.SETUP + setupEvent,
+        async (...args) => {
+          await handleSetupEvent(socket, setupEvent, args);
+        }
+      );
+    }
+  );
 }
 
 export async function handleSetupEvent(socket, setupEvent, args) {
@@ -54,7 +54,7 @@ export async function handleSetupEvent(socket, setupEvent, args) {
 
   function getAndEmitWorldData(socket, iosSocketId) {
     socket.emit(
-      FoundrySocketEvents.Instance().FOUNDRY_EVENTS.SETUP.WORLD_DATA,
+      FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_DATA,
       {
         id: game.world.id,
         title: game.world.data.title,
@@ -71,7 +71,7 @@ export async function handleSetupEvent(socket, setupEvent, args) {
 
   function getAndEmitUsers(socket, iosSocketId) {
     socket.emit(
-      FoundrySocketEvents.Instance().FOUNDRY_EVENTS.SETUP.WORLD_USERS,
+      FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USERS,
       {
         users: game.users.map((user) => {
           return {
@@ -106,14 +106,14 @@ export async function handleSetupEvent(socket, setupEvent, args) {
         if (response.ok) {
           setupUserAuthObj.passwordMatches = true;
           socket.emit(
-            FoundrySocketEvents.Instance().FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
+            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
             setupUserAuthObj,
             iosSocketId
           );
         } else {
           setupUserAuthObj.passwordMatches = false;
           socket.emit(
-            FoundrySocketEvents.Instance().FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
+            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
             setupUserAuthObj,
             iosSocketId
           );

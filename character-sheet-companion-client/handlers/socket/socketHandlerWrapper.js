@@ -3,7 +3,7 @@ import { handleDisplayEvents } from "./displayEventsHandler.js";
 import { handleRollEvents } from "./rollEventsHandler.js";
 import { handleActorEvents } from "./actorEventHandlers.js";
 import { handleActorChangeEvents } from "./actorChangeEventsHandler.js";
-import { handleSocketConnect } from "./setupConnectionHandler";
+import { handleSocketConnect } from "./setupConnectionHandler.js";
 
 export function socketHandlerWrapper(socket) {
   handleSocketConnect(socket);

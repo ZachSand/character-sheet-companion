@@ -8,16 +8,16 @@ import {
 import { CORE_EVENTS } from "../../events/coreEvents.js";
 
 export function handleActorEvents(socket) {
-  Object.values(
-    ServerSocketRequestEvents.Instance().SERVER_EVENTS.ACTOR
-  ).forEach((actorEvent) => {
-    socket.on(
-      ServerSocketRequestEvents.Instance().SERVER_EVENTS.ACTOR + actorEvent,
-      async (actorId, iosSocketId) => {
-        await handleActorEvent(actorEvent, socket, actorId, iosSocketId);
-      }
-    );
-  });
+  Object.values(ServerSocketRequestEvents.Instance.SERVER_EVENTS.ACTOR).forEach(
+    (actorEvent) => {
+      socket.on(
+        ServerSocketRequestEvents.Instance.SERVER_EVENTS.ACTOR + actorEvent,
+        async (actorId, iosSocketId) => {
+          await handleActorEvent(actorEvent, socket, actorId, iosSocketId);
+        }
+      );
+    }
+  );
 }
 
 export async function handleActorEvent(event, socket, actorId, iosSocketId) {
@@ -59,7 +59,7 @@ export async function handleActorEvent(event, socket, actorId, iosSocketId) {
 
   function createAndEmitActorAbilities(socket, actor, iosSocketId) {
     socket.emit(
-      ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.ABILITIES,
+      ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.ABILITIES,
       {
         abilities: Object.entries(actor.data.data.abilities).map(
           (abilityEntry) => {
@@ -83,7 +83,7 @@ export async function handleActorEvent(event, socket, actorId, iosSocketId) {
 function createAndEmitActorAttributes(socket, actor, iosSocketId) {
   let attributes = actor.data.data.attributes;
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.ATTRIBUTES,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.ATTRIBUTES,
     {
       deathSaves: {
         success: attributes.death.success,
@@ -119,7 +119,7 @@ function createAndEmitActorAttributes(socket, actor, iosSocketId) {
 
 async function createAndEmitActorBaseData(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.BASE_DATA,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.BASE_DATA,
     {
       id: actor.data._id,
       name: actor.data.name,
@@ -133,7 +133,7 @@ async function createAndEmitActorBaseData(socket, actor, iosSocketId) {
 
 function createAndEmitActorCurrency(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.CURRENCY,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.CURRENCY,
     {
       copper: actor.data.data.currency.cp,
       silver: actor.data.data.currency.sp,
@@ -147,7 +147,7 @@ function createAndEmitActorCurrency(socket, actor, iosSocketId) {
 
 function createAndEmitActorDetails(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.DETAILS,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.DETAILS,
     {
       biography: removeHtml(actor.data.data.details.biography.value),
       appearance: removeHtml(actor.data.data.details.appearance),
@@ -198,7 +198,7 @@ async function createAndEmitActorInventory(socket, actor, iosSocketId) {
       inventory[item.type].push(item);
     });
     socket.emit(
-      ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.INVENTORY,
+      ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.INVENTORY,
       {
         currentCapacity: actor.data.data.attributes.encumbrance.value,
         carryingCapacity: actor.data.data.attributes.encumbrance.max,
@@ -216,7 +216,7 @@ async function createAndEmitActorInventory(socket, actor, iosSocketId) {
 
 function createAndEmitActorSkills(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.SKILLS,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.SKILLS,
     {
       skills: Object.entries(actor.data.data.skills).map((skillEntry) => {
         let skillId = skillEntry[0];
@@ -237,7 +237,7 @@ function createAndEmitActorSkills(socket, actor, iosSocketId) {
 
 async function createAndEmitActorSpells(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.SPELLS,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.SPELLS,
     {
       spells: await Promise.all(
         actor.items
@@ -270,7 +270,7 @@ async function createAndEmitActorSpells(socket, actor, iosSocketId) {
 
 function createAndEmitActorSpellSlots(socket, actor, iosSocketId) {
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.SPELL_SLOTS,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.SPELL_SLOTS,
     {
       spellSlots: Object.entries(actor.data.data.spells).map(
         (spellSlotEntry) => {
@@ -298,7 +298,7 @@ function createAndEmitActorSpellSlots(socket, actor, iosSocketId) {
 function createAndEmitActorTraits(socket, actorId, iosSocketId) {
   let traits = actor.data.data.traits;
   socket.emit(
-    ServerSocketRequestEvents.Instance().FOUNDRY_EVENTS.ACTOR.TRAITS,
+    ServerSocketRequestEvents.Instance.FOUNDRY_EVENTS.ACTOR.TRAITS,
     {
       languages: traits.languages.value,
       size: CONFIG.DND5E.actorSizes[traits.size],

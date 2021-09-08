@@ -1,4 +1,4 @@
-import { handleActorEvent } from "../socket/actorEventHandlers";
+import { handleActorEvent } from "../socket/actorEventHandlers.js";
 import { CORE_EVENTS } from "../../events/coreEvents.js";
 import { IOS_DATA_MAP } from "../socket/setupEventsHandler.js";
 
