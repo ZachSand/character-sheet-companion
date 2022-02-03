@@ -2,12 +2,14 @@ import {
   CHARACTER_SHEET_COMPANION_SETTING_KEY,
   generateId,
 } from "../utils/id-generator.js";
-import { socketListenerWrapper } from "../listeners/socketListenerWrapper.js";
+import { handleSocketEvents } from "../handlers/socket/socketHandlerWrapper.js";
 import { shouldHandleHookEvent } from "../utils/commonUtilities.js";
-import { handleUpdateActorHookEvent } from "../handlers/updateActorHookEventHandler.js";
-import { handleUpdateItemHookEvent } from "../handlers/updateItemHookEventHandler.js";
-import { handleCreateItemHookEvent } from "../handlers/createItemHookEventHandler.js";
-import { handleCreateActiveEffectHookEvent } from "../handlers/createActiveEffectHookEventHandler.js";
+import { handleUpdateActorHookEvent } from "../handlers/hooks/actorHookEventHandler.js";
+import {
+  handleCreateItemHookEvent,
+  handleUpdateItemHookEvent,
+} from "../handlers/hooks/itemHookEventHandler.js";
+import { handleCreateActiveEffectHookEvent } from "../handlers/hooks/activeEffectHookEventHandler.js";
 
 export class CharacterSheetCompanionSetup {
   static setup() {
@@ -47,13 +49,11 @@ export class CharacterSheetCompanionSetup {
           transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
         });
 
-        socketListenerWrapper(socket);
+        handleSocketEvents(socket);
         socket.connect();
 
         Hooks.on("updateActor", async (entity, data, options, userId) => {
-          console.log(entity);
-          console.log(shouldHandleHookEvent(entity));
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.id)) {
             await handleUpdateActorHookEvent(
               socket,
               entity,
@@ -64,20 +64,26 @@ export class CharacterSheetCompanionSetup {
           }
         });
 
-        Hooks.on("updateItem", (entity, data, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
-            handleUpdateItemHookEvent(socket, entity, data, options, userId);
+        Hooks.on("updateItem", async (entity, data, options, userId) => {
+          if (shouldHandleHookEvent(entity.parent.id)) {
+            await handleUpdateItemHookEvent(
+              socket,
+              entity,
+              data,
+              options,
+              userId
+            );
           }
         });
 
         Hooks.on("createItem", (entity, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.parent.id)) {
             handleCreateItemHookEvent(socket, entity, options, userId);
           }
         });
 
         Hooks.on("createActiveEffect", (entity, options, userId) => {
-          if (shouldHandleHookEvent(entity)) {
+          if (shouldHandleHookEvent(entity.parent.id)) {
             handleCreateActiveEffectHookEvent(socket, entity, options, userId);
           }
         });

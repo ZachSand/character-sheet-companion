@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemDamageSheetView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var itemDamageSheetVM: ItemDamageSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
     @State private var versatile = false

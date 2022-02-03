@@ -7,12 +7,20 @@
 
 import Foundation
 
-struct ActorCurrencyModel: Codable {
+struct ActorCurrencyModel: Codable, BaseModel {
     var copper: Int
     var silver: Int
     var electrum: Int
     var gold: Int
     var platinum: Int
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.ACTOR.CURRENCY
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.ACTOR.CURRENCY
+    }
 }
 
 #if DEBUG

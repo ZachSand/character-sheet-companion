@@ -21,7 +21,7 @@ struct SocketListenerUtility {
         if let socketData = data[0] as? String, let json = socketData.data(using: .utf8) {
             return try parseModel(json)
         }
-        throw FoundryJSONError.errorMessage("Unable to unwrap data")
+        throw FoundryJSONError.errorMessage("Unable to unwrap data array")
     }
 
     static func parseModel<FoundryModel: Decodable>(_ json: Data) throws -> FoundryModel {

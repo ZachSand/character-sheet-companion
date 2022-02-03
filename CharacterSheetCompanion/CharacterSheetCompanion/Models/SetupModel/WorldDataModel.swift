@@ -7,13 +7,21 @@
 
 import Foundation
 
-struct WorldDataModel: Codable, Identifiable, Hashable {
+struct WorldDataModel: BaseModel {
     var id: String
     var title: String
     var version: String
     var coreVersion: String
     var system: String
     var description: String
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.SETUP.WORLD_DATA
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.SETUP.WORLD_DATA
+    }
 }
 
 extension WorldDataModel {

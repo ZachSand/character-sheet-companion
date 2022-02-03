@@ -7,7 +7,15 @@
 
 import Foundation
 
-struct InitiativeRollModel: Codable {
+struct InitiativeRollModel: BaseRollModel {
     var actorId: String
     var result: Int
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.ROLL.INITIATIVE
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.ROLL.INITIATIVE
+    }
 }

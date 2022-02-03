@@ -23,7 +23,9 @@ struct ItemRowView: View {
                 }
                 Text(inventoryItem.name).font(.headline)
             }
-            if isExpanded {}
+            if isExpanded {
+                ExpandedItemRowView(expandedItemRowVM: ExpandedItemRowViewModel(), inventoryItem: inventoryItem)
+            }
         }
         .contentShape(Rectangle())
     }

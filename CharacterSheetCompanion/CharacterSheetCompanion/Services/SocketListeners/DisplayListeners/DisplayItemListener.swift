@@ -10,27 +10,18 @@ import SocketIO
 
 class DisplayItemListener: SocketListener {
     let socket: SocketIOClient
-    let jsonEncoder: JSONEncoder
 
     init(socket: SocketIOClient) {
         self.socket = socket
-        jsonEncoder = JSONEncoder()
     }
 
     func addSocketHandlers() {
         // No Listener for item display
     }
 
-    func displayItemCard(displayItem: ItemDisplayModel) {
-        do {
-            let jsonData = try jsonEncoder.encode(displayItem)
-            if let json = String(data: jsonData, encoding: .utf8) {
-                socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_DISPLAY_ITEM, json)
-            }
-        } catch {}
+    func displayItemCard(itemId: String) {
+        if let actor = SocketManagerWrapper.sharedInstance.actor {
+            socket.emit(REQUEST_EVENTS.DISPLAY.ITEM, actor.id, itemId)
+        }
     }
-}
-
-extension SocketEvents.IOS.DISPLAY {
-    static let REQUEST_FOUNDRY_DISPLAY_ITEM = "ios:requestFoundryDisplayItem"
 }

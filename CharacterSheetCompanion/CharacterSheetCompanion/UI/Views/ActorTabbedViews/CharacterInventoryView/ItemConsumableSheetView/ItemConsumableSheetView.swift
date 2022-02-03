@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemConsumableSheetView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var itemConsumableSheetVM: ItemConsumableSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
 

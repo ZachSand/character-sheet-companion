@@ -8,28 +8,18 @@
 import Foundation
 
 class ConnectViewModel: ObservableObject {
-    @Published var characterCompanionId: String
-    @Published var connectSuccess: Bool
-    var connectionListener: SetupConnectionListener?
+    @Published var characterCompanionId = ""
+    @Published var connectSuccess = false
 
-    init() {
-        characterCompanionId = ""
-        connectSuccess = false
-        do {
-            try connectionListener = FoundrySocketIOManager.sharedInstance.getListener()
-        } catch {}
-    }
+    private var connectionListener = SocketManagerWrapper.sharedInstance.setupListenerWrapper.setupConnectionListener
 
     func isIdValid() -> Bool {
         UUID(uuidString: characterCompanionId) != nil
     }
 
     func connect() {
-        if let listener = connectionListener {
-            listener.roomId = characterCompanionId
-            listener.socketConnect { _ in
-                self.connectSuccess = true
-            }
+        connectionListener.joinSocketRoom(socketRoomId: characterCompanionId) { connectionResult in
+            self.connectSuccess = connectionResult
         }
     }
 }

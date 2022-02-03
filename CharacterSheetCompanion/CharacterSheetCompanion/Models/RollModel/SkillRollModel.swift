@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct SkillRollModel: Codable {
+struct SkillRollModel: BaseRollModel {
     var actorId: String
     var skill: String
     var advantage: Bool
     var disadvantage: Bool
     var result: Int
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.ROLL.SKILL
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.ROLL.SKILL
+    }
 }

@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct ItemDamageRollModel: Codable {
+struct ItemDamageRollModel: BaseRollModel {
     var actorId: String
     var itemId: String
     var critical: Bool
     var versatile: Bool
     var result: Int
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.ROLL.ITEM_DAMAGE
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.ROLL.ITEM_DAMAGE
+    }
 }

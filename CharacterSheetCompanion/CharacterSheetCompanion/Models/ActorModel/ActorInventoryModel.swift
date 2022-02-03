@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ActorInventoryModel: Codable {
+struct ActorInventoryModel: Codable, BaseModel {
     var currentCapacity: Double
     var carryingCapacity: Int
     var weapons: [ActorInventoryItemModel]
@@ -16,6 +16,14 @@ struct ActorInventoryModel: Codable {
     var tools: [ActorInventoryItemModel]
     var containers: [ActorInventoryItemModel]
     var loot: [ActorInventoryItemModel]
+
+    static func getRequestEvent() -> String {
+        REQUEST_EVENTS.ACTOR.INVENTORY
+    }
+
+    static func getReceiveEvent() -> String {
+        RECEIVE_EVENTS.ACTOR.INVENTORY
+    }
 }
 
 #if DEBUG

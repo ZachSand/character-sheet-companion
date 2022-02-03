@@ -1,4 +1,4 @@
-import { IOS_DATA_MAP } from "../listeners/setup/setupIosCompleteListener.js";
+import { IOS_DATA_MAP } from "../handlers/socket/setupEventsHandler.js";
 
 export async function getBase64ImageData(url) {
   return fetch(url)
@@ -14,6 +14,24 @@ export async function getBase64ImageData(url) {
     );
 }
 
+export function validSocketArguments(socket, event, args, expected) {
+  if (args && args.length === expected) {
+    return true;
+  }
+
+  //TODO: Some error here
+  socket.emit("SomeError: " + event + args + expected);
+}
+
+export function getValidActor(socket, actorId, iosSocketId) {
+  let actor = game.actors.get(actorId);
+  if (actor) {
+    return actor;
+  }
+  //TODO: Some error
+  socket.emit("Some error");
+}
+
 export function removeBase64Metadata(imageData) {
   return imageData.split(",")[1];
 }
@@ -22,10 +40,8 @@ export function removeHtml(text) {
   return jQuery("<p>" + text + "</p>").text();
 }
 
-export function shouldHandleHookEvent(entity) {
-  if (entity) {
-    let actorId = entity.data._id;
-    console.log(IOS_DATA_MAP);
+export function shouldHandleHookEvent(actorId) {
+  if (actorId) {
     return !!IOS_DATA_MAP.get(actorId);
   }
 }

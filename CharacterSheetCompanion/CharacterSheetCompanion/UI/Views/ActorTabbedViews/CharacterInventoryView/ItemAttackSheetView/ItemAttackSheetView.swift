@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemAttackSheetView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var itemAttackSheetVM: ItemAttackSheetViewModel
     @State var inventoryItem: ActorInventoryItemModel
     @State private var advantage = false

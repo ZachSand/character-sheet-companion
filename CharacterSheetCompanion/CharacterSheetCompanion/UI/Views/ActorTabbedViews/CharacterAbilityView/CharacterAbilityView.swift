@@ -56,6 +56,8 @@ struct CharacterAbilityView: View {
                             .padding([.leading, .trailing], 5)
                         }
                     }
+                } else {
+                    Text("No abilities found for actor")
                 }
             }
         }

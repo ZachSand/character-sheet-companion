@@ -11,22 +11,18 @@ import Foundation
 class CharacterSpellViewModel: ObservableObject {
     @Published var spellSlots: [ActorSpellSlotModel]?
 
-    var subscription = Set<AnyCancellable>()
-
-    var spellSlotListener: ActorSpellSlotListener?
+    private var subscription = Set<AnyCancellable>()
+    private var spellSlotListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorSpellSlotListener
 
     init() {
-        do {
-            try spellSlotListener = FoundrySocketIOManager.sharedInstance.getListener()
-            spellSlotListener?.spellSlotPublisher
-                .receive(on: DispatchQueue.main)
-                .sink(receiveValue: { model in
-                    self.spellSlots = model
-                    self.spellSlots?.sort(by: { spellSlotOne, spellSlotTwo in
-                        spellSlotOne.spellLevel < spellSlotTwo.spellLevel
-                    })
+        spellSlotListener.modelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { model in
+                self.spellSlots = model?.spellSlots
+                self.spellSlots?.sort(by: { spellSlotOne, spellSlotTwo in
+                    spellSlotOne.spellLevel < spellSlotTwo.spellLevel
                 })
-                .store(in: &subscription)
-        } catch {}
+            })
+            .store(in: &subscription)
     }
 }
