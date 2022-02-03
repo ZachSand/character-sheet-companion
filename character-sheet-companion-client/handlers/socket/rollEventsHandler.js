@@ -1,18 +1,12 @@
-import { ServerSocketRequestEvents } from "../../events/socket/ServerSocketRequestEvents.js";
-import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js";
-import { CORE_EVENTS } from "../../events/coreEvents.js";
+import { SERVER_REQUEST_EVENTS } from "../../events/serverRequestEvents.js";
+import { FOUNDRY_EVENTS } from "../../events/foundryEvents.js";
 
 export function handleRollEvents(socket) {
-  Object.values(ServerSocketRequestEvents.Instance.SERVER_EVENTS.ROLL).forEach(
-    (rollEvent) => {
-      socket.on(
-        ServerSocketRequestEvents.Instance.SERVER_EVENTS.ROLL + rollEvent,
-        (roll, iosSocketId) => {
-          handleRollEvent(rollEvent, socket, roll, iosSocketId);
-        }
-      );
-    }
-  );
+  Object.values(SERVER_REQUEST_EVENTS.ROLL).forEach((rollEvent) => {
+    socket.on(rollEvent, (roll, iosSocketId) => {
+      handleRollEvent(rollEvent, socket, roll, iosSocketId);
+    });
+  });
 }
 
 export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
@@ -28,32 +22,32 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
   }
 
   if (rollObj && actor) {
-    switch (_.startCase(_.camelCase(rollEvent))) {
-      case CORE_EVENTS.ABILITY:
+    switch (rollEvent) {
+      case SERVER_REQUEST_EVENTS.ROLL.ABILITY:
         createAndEmitAbilityRoll(socket, rollObj, actor, iosSocketId);
         break;
-      case CORE_EVENTS.DEATH_SAVE:
+      case SERVER_REQUEST_EVENTS.ROLL.DEATH_SAVE:
         createAndEmitDeathSaveRoll(socket, rollObj, actor, iosSocketId);
         break;
-      case CORE_EVENTS.HIT_DIE:
+      case SERVER_REQUEST_EVENTS.ROLL.HIT_DIE:
         createAndEmitHitDieRoll(socket, rollObj, actor, iosSocketId);
         break;
-      case CORE_EVENTS.INITIATIVE:
+      case SERVER_REQUEST_EVENTS.ROLL.INITIATIVE:
         createAndEmitInitiativeRoll(socket, rollObj, actor, iosSocketId);
         break;
-      case CORE_EVENTS.ITEM_ATTACK:
+      case SERVER_REQUEST_EVENTS.ROLL.ITEM_ATTACK:
         createAndEmitItemAttackRoll(socket, rollObj, item, iosSocketId);
         break;
-      case CORE_EVENTS.ITEM_CONSUME:
+      case SERVER_REQUEST_EVENTS.ROLL.ITEM_CONSUME:
         createAndEmitItemConsumeRoll(socket, rollObj, item, iosSocketId);
         break;
-      case CORE_EVENTS.ITEM_DAMAGE:
+      case SERVER_REQUEST_EVENTS.ROLL.ITEM_DAMAGE:
         createAndEmitItemDamageRoll(socket, rollObj, item, iosSocketId);
         break;
-      case CORE_EVENTS.ITEM_TOOL:
+      case SERVER_REQUEST_EVENTS.ROLL.ITEM_TOOL:
         createAndEmitItemToolRoll(socket, rollObj, item, iosSocketId);
         break;
-      case CORE_EVENTS.SKILL:
+      case SERVER_REQUEST_EVENTS.ROLL.SKILL:
         createAndEmitSkillRoll(socket, rollObj, actor, iosSocketId);
         break;
       default:
@@ -83,7 +77,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
         .then((rollResult) =>
           handleRollResult(
             socket,
-            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ABILITY,
+            FOUNDRY_EVENTS.ROLL.ABILITY,
             abilityRoll,
             rollResult,
             iosSocketId
@@ -95,7 +89,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
         .then((rollResult) =>
           handleRollResult(
             socket,
-            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ABILITY,
+            FOUNDRY_EVENTS.ROLL.ABILITY,
             abilityRoll,
             rollResult,
             iosSocketId
@@ -115,7 +109,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.DEATH_SAVE,
+          FOUNDRY_EVENTS.ROLL.DEATH_SAVE,
           deathSaveRoll,
           rollResult,
           iosSocketId
@@ -129,7 +123,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.HIT_DIE,
+          FOUNDRY_EVENTS.ROLL.HIT_DIE,
           hitDieRoll,
           rollResult,
           iosSocketId
@@ -149,7 +143,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.INITIATIVE,
+          FOUNDRY_EVENTS.ROLL.INITIATIVE,
           initiativeRoll,
           rollResult,
           iosSocketId
@@ -168,7 +162,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ITEM_ATTACK,
+          FOUNDRY_EVENTS.ROLL.ITEM_ATTACK,
           itemAttackRoll,
           rollResult,
           iosSocketId
@@ -198,7 +192,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ITEM_CONSUME,
+          FOUNDRY_EVENTS.ROLL.ITEM_CONSUME,
           itemConsumeRoll,
           rollResult,
           iosSocketId
@@ -223,7 +217,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ITEM_DAMAGE,
+          FOUNDRY_EVENTS.ROLL.ITEM_DAMAGE,
           itemDamageRoll,
           rollResult,
           iosSocketId
@@ -237,7 +231,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.ITEM_TOOL,
+          FOUNDRY_EVENTS.ROLL.ITEM_TOOL,
           itemToolRoll,
           rollResult,
           iosSocketId
@@ -251,7 +245,7 @@ export function handleRollEvent(rollEvent, socket, roll, iosSocketId) {
       .then((rollResult) =>
         handleRollResult(
           socket,
-          FoundrySocketEvents.Instance.FOUNDRY_EVENTS.ROLL.SKILL,
+          FOUNDRY_EVENTS.ROLL.SKILL,
           skillRoll,
           rollResult,
           iosSocketId

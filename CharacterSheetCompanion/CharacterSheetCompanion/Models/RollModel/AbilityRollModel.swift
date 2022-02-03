@@ -16,18 +16,10 @@ struct AbilityRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ABILITY_ROLL
+        REQUEST_EVENTS.ROLL.ABILITY
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ABILITY_ROLL
+        RECEIVE_EVENTS.ROLL.ABILITY
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_ABILITY_ROLL = "ios:requestFoundryAbilityRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_FOUNDRY_ABILITY_ROLL = "server:sendFoundryAbilityRoll"
 }

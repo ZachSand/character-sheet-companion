@@ -64,6 +64,8 @@ const genericActorListener = <ModelType>(
 
   const receiveFoundryData = (model: ModelType, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
+    console.log(baseEvent);
+    console.log(ServerSocketSendEvents.Instance.getFromBaseEvent(baseEvent));
     if (iosSocket) {
       iosSocket.emit(
         ServerSocketSendEvents.Instance.getFromBaseEvent(baseEvent),

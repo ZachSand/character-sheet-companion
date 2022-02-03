@@ -1,24 +1,18 @@
-import { ServerSocketRequestEvents } from "../../events/socket/ServerSocketRequestEvents.js";
+import { SERVER_REQUEST_EVENTS } from "../../events/serverRequestEvents.js";
 import {
   removeHtml,
   validSocketArguments,
 } from "../../utils/commonUtilities.js";
-import { CORE_EVENTS } from "../../events/coreEvents.js";
-import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js";
+import { FOUNDRY_EVENTS } from "../../events/foundryEvents.js";
 
 export const IOS_DATA_MAP = new Map();
 
 export function handleSetupEvents(socket) {
-  Object.values(ServerSocketRequestEvents.Instance.SERVER_EVENTS.SETUP).forEach(
-    (setupEvent) => {
-      socket.on(
-        ServerSocketRequestEvents.Instance.SERVER_EVENTS.SETUP + setupEvent,
-        async (...args) => {
-          await handleSetupEvent(socket, setupEvent, args);
-        }
-      );
-    }
-  );
+  Object.values(SERVER_REQUEST_EVENTS.SETUP).forEach((setupEvent) => {
+    socket.on(setupEvent, async (...args) => {
+      await handleSetupEvent(socket, setupEvent, args);
+    });
+  });
 }
 
 export async function handleSetupEvent(socket, setupEvent, args) {
@@ -27,23 +21,23 @@ export async function handleSetupEvent(socket, setupEvent, args) {
   }
 
   let iosSocketId = args[args.length - 1];
-  switch (_.startCase(_.camelCase(setupEvent))) {
-    case CORE_EVENTS.WORLD_DATA:
+  switch (setupEvent) {
+    case SERVER_REQUEST_EVENTS.SETUP.WORLD_DATA:
       if (validSocketArguments(socket, setupEvent, args, 1)) {
         getAndEmitWorldData(socket, iosSocketId);
       }
       break;
-    case CORE_EVENTS.WORLD_USERS:
+    case SERVER_REQUEST_EVENTS.SETUP.WORLD_USERS:
       if (validSocketArguments(socket, setupEvent, args, 1)) {
         getAndEmitUsers(socket, iosSocketId);
       }
       break;
-    case CORE_EVENTS.WORLD_USER_AUTH:
+    case SERVER_REQUEST_EVENTS.SETUP.WORLD_USER_AUTH:
       if (validSocketArguments(socket, setupEvent, args, 2)) {
         await getAndEmitUserAuth(socket, args[0], iosSocketId);
       }
       break;
-    case CORE_EVENTS.SETUP_COMPLETE:
+    case SERVER_REQUEST_EVENTS.SETUP.COMPLETE:
       if (validSocketArguments(socket, setupEvent, args, 3)) {
         completeSetup(args[0], args[1], iosSocketId);
       }
@@ -54,14 +48,14 @@ export async function handleSetupEvent(socket, setupEvent, args) {
 
   function getAndEmitWorldData(socket, iosSocketId) {
     socket.emit(
-      FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_DATA,
+      FOUNDRY_EVENTS.SETUP.WORLD_DATA,
       {
         id: game.world.id,
         title: game.world.data.title,
         version: game.world.data.version,
         description: game.world.data.description
           ? removeHtml(game.world.data.description)
-          : "No description",
+          : "No description provided for world",
         coreVersion: game.world.data.coreVersion,
         system: game.world.data.system,
       },
@@ -71,7 +65,7 @@ export async function handleSetupEvent(socket, setupEvent, args) {
 
   function getAndEmitUsers(socket, iosSocketId) {
     socket.emit(
-      FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USERS,
+      FOUNDRY_EVENTS.SETUP.WORLD_USERS,
       {
         users: game.users.map((user) => {
           return {
@@ -106,14 +100,14 @@ export async function handleSetupEvent(socket, setupEvent, args) {
         if (response.ok) {
           setupUserAuthObj.passwordMatches = true;
           socket.emit(
-            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
+            FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
             setupUserAuthObj,
             iosSocketId
           );
         } else {
           setupUserAuthObj.passwordMatches = false;
           socket.emit(
-            FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
+            FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
             setupUserAuthObj,
             iosSocketId
           );

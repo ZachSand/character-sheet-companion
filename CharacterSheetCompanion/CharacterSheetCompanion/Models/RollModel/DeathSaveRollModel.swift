@@ -14,18 +14,10 @@ struct DeathSaveRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL
+        REQUEST_EVENTS.ROLL.DEATH_SAVE
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_ATTACK_ROLL
+        RECEIVE_EVENTS.ROLL.DEATH_SAVE
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_DEATH_SAVE_ROLL = "ios:requestFoundryDeathSaveRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_DEATH_SAVE_ROLL = "foundry:sendDeathSaveRoll"
 }

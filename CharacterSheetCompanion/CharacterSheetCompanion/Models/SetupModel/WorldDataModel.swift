@@ -16,20 +16,12 @@ struct WorldDataModel: BaseModel {
     var description: String
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.SETUP.REQUEST_FOUNDRY_WORLD_DATA
+        REQUEST_EVENTS.SETUP.WORLD_DATA
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.SETUP.SEND.SEND_FOUNDRY_WORLD_DATA
+        RECEIVE_EVENTS.SETUP.WORLD_DATA
     }
-}
-
-extension SocketEvents.IOS.SETUP {
-    static let REQUEST_FOUNDRY_WORLD_DATA = "ios:requestFoundryWorldData"
-}
-
-extension SocketEvents.SERVER.SETUP.SEND {
-    static let SEND_FOUNDRY_WORLD_DATA = "server:sendFoundryWorldData"
 }
 
 extension WorldDataModel {

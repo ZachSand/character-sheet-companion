@@ -20,7 +20,7 @@ class CharacterAttributesViewModel: ObservableObject {
     private var subscription = Set<AnyCancellable>()
 
     init() {
-        attributesListener.attributesPublisher
+        attributesListener.modelPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { model in
                 self.attributes = model

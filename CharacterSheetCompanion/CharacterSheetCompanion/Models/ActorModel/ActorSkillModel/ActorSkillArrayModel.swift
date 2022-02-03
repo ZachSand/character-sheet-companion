@@ -11,18 +11,10 @@ struct ActorSkillArrayModel: BaseModel {
     var skills: [ActorSkillModel]
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_SKILLS
+        REQUEST_EVENTS.ACTOR.SKILLS
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_SKILLS
+        RECEIVE_EVENTS.ACTOR.SKILLS
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_SKILLS = "ios:requestActorSkills"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_SKILLS = "server:sendActorSkills"
 }

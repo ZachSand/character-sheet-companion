@@ -13,18 +13,10 @@ struct HitDieRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_HIT_DIE_ROLL
+        REQUEST_EVENTS.ROLL.HIT_DIE
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_HIT_DIE_ROLL
+        RECEIVE_EVENTS.ROLL.HIT_DIE
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_HIT_DIE_ROLL = "ios:requestFoundryHitDieRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_HIT_DIE_ROLL = "foundry:sendHitDieRoll"
 }

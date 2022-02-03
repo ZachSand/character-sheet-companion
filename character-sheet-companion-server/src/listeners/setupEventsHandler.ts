@@ -26,6 +26,11 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
     }
   };
 
+  socket.on(
+    IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_USERS,
+    getFoundryUsers
+  );
+
   const receiveFoundryUsers = (users: SetupUsers, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
@@ -35,6 +40,11 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
       );
     }
   };
+
+  socket.on(
+    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USERS,
+    receiveFoundryUsers
+  );
 
   const getWorldData = () => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
@@ -46,6 +56,8 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
     }
   };
 
+  socket.on(IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_DATA, getWorldData);
+
   const receiveWorldData = (world: SetupWorldData, iosSocketId: string) => {
     const iosSocket = getIosSocketFromRoom(io, socket, iosSocketId);
     if (iosSocket) {
@@ -56,6 +68,11 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
     }
   };
 
+  socket.on(
+    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_DATA,
+    receiveWorldData
+  );
+
   const foundryJoin = (roomId: string) => {
     Logger.debug(`Foundry client connecting to room: ${roomId}`);
     socket.join(roomId);
@@ -63,6 +80,11 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
     socket.data.ios = false;
     socket.data.roomId = roomId;
   };
+
+  socket.on(
+    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.JOIN_ROOM,
+    foundryJoin
+  );
 
   const iosJoin = (roomId: string) => {
     const clients = io.sockets.adapter.rooms.get(roomId);
@@ -94,7 +116,7 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
       socket.data.ios = true;
       socket.data.roomId = roomId;
       socket.emit(
-        ServerSocketSendEvents.Instance.SERVER_EVENTS.SETUP.JOINED_ROOM
+        ServerSocketSendEvents.Instance.SERVER_EVENTS.SETUP.JOIN_ROOM
       );
     }
 
@@ -107,17 +129,24 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
     }
   };
 
+  socket.on(IosSocketEvents.Instance.IOS_EVENTS.SETUP.JOIN_ROOM, iosJoin);
+
   const receiveIosSetupComplete = (actorId: string, userId: string) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
     if (foundrySocket) {
       foundrySocket.emit(
-        ServerSocketSendEvents.Instance.SERVER_EVENTS.SETUP.SETUP_COMPLETE,
+        ServerSocketSendEvents.Instance.SERVER_EVENTS.SETUP.COMPLETE,
         actorId,
         userId,
         socket.id
       );
     }
   };
+
+  socket.on(
+    IosSocketEvents.Instance.IOS_EVENTS.SETUP.COMPLETE,
+    receiveIosSetupComplete
+  );
 
   const getUserAuthentication = (setupUserAuth: SetupUserAuth) => {
     const foundrySocket = getFoundrySocketFromRoom(io, socket);
@@ -129,6 +158,11 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
       );
     }
   };
+
+  socket.on(
+    IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_USER_AUTH,
+    getUserAuthentication
+  );
 
   const receiveUserAuthentication = (
     setupUserAuth: SetupUserAuth,
@@ -144,41 +178,7 @@ export const setupEventsHandler = (io: Server, socket: Socket): void => {
   };
 
   socket.on(
-    IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_USERS,
-    getFoundryUsers
-  );
-
-  socket.on(
-    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USERS,
-    receiveFoundryUsers
-  );
-
-  socket.on(
-    IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_USER_AUTH,
-    getUserAuthentication
-  );
-
-  socket.on(
     FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_USER_AUTH,
     receiveUserAuthentication
-  );
-
-  socket.on(
-    IosSocketEvents.Instance.IOS_EVENTS.SETUP.SETUP_COMPLETE,
-    receiveIosSetupComplete
-  );
-
-  socket.on(
-    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.JOIN_ROOM,
-    foundryJoin
-  );
-
-  socket.on(IosSocketEvents.Instance.IOS_EVENTS.SETUP.JOIN_ROOM, iosJoin);
-
-  socket.on(IosSocketEvents.Instance.IOS_EVENTS.SETUP.WORLD_DATA, getWorldData);
-
-  socket.on(
-    FoundrySocketEvents.Instance.FOUNDRY_EVENTS.SETUP.WORLD_DATA,
-    receiveWorldData
   );
 };

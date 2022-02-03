@@ -15,18 +15,10 @@ struct ItemAttackRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_ATTACK_ROLL
+        REQUEST_EVENTS.ROLL.ITEM_ATTACK
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_ATTACK_ROLL
+        RECEIVE_EVENTS.ROLL.ITEM_ATTACK
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_ITEM_ATTACK_ROLL = "ios:requestFoundryItemAttackRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_FOUNDRY_ITEM_ATTACK_ROLL = "server:sendFoundryItemAttackRoll"
 }

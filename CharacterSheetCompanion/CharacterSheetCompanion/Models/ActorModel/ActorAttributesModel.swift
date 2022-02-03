@@ -23,23 +23,12 @@ struct ActorAttributesModel: Codable, BaseModel {
     var spellCasting: String
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_ATTRIBUTES
+        REQUEST_EVENTS.ACTOR.ATTRIBUTES
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_ATTRIBUTES
+        RECEIVE_EVENTS.ACTOR.ATTRIBUTES
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_ATTRIBUTES = "ios:requestActorAttributes"
-    static let REQUEST_ACTOR_HEALTH_CHANGE = "ios:requestActorHealthChange"
-    static let REQUEST_ACTOR_SHORT_REST = "ios:requestActorShortRest"
-    static let REQUEST_ACTOR_LONG_REST = "ios:requestActorLongRest"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_ATTRIBUTES = "server:sendActorAttributes"
 }
 
 #if DEBUG

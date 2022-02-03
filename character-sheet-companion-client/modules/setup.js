@@ -2,7 +2,7 @@ import {
   CHARACTER_SHEET_COMPANION_SETTING_KEY,
   generateId,
 } from "../utils/id-generator.js";
-import { socketHandlerWrapper } from "../handlers/socket/socketHandlerWrapper.js";
+import { handleSocketEvents } from "../handlers/socket/socketHandlerWrapper.js";
 import { shouldHandleHookEvent } from "../utils/commonUtilities.js";
 import { handleUpdateActorHookEvent } from "../handlers/hooks/actorHookEventHandler.js";
 import {
@@ -49,7 +49,7 @@ export class CharacterSheetCompanionSetup {
           transports: ["websocket", "polling"], // Try websocket first, revert to polling if that fails
         });
 
-        socketHandlerWrapper(socket);
+        handleSocketEvents(socket);
         socket.connect();
 
         Hooks.on("updateActor", async (entity, data, options, userId) => {

@@ -18,7 +18,7 @@ class DisplayChatMessageListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.DISPLAY.SEND.SEND_FOUNDRY_CHAT_DATA) { data, _ in
+        socket.on(RECEIVE_EVENTS.DISPLAY.CHAT_DATA) { data, _ in
             do {
                 try self.chatMessageCallback?(SocketListenerUtility.parseSocketEventDataArray(data))
             } catch let FoundryJSONError.errorMessage(errorMessage) {
@@ -32,22 +32,13 @@ class DisplayChatMessageListener: SocketListener {
     func getChatMessages(completionHandler: @escaping ([ChatMessageModel]) -> Void) {
         chatMessageCallback = completionHandler
         if let actor = SocketManagerWrapper.sharedInstance.actor, let user = SocketManagerWrapper.sharedInstance.user {
-            socket.emit(SocketEvents.IOS.DISPLAY.REQUEST_FOUNDRY_CHAT_DATA, user.id, actor.id)
+            socket.emit(REQUEST_EVENTS.DISPLAY.CHAT_DATA, user.id, actor.id)
         }
     }
 
     func sendChatMessage(message: String) {
         if let actor = SocketManagerWrapper.sharedInstance.actor, let user = SocketManagerWrapper.sharedInstance.user {
-            socket.emit(SocketEvents.IOS.DISPLAY.SEND_FOUNDRY_CHAT_MESSAGE, user.id, actor.id, message)
+            socket.emit(REQUEST_EVENTS.DISPLAY.CHAT_MESSAGE, user.id, actor.id, message)
         }
     }
-}
-
-extension SocketEvents.IOS.DISPLAY {
-    static let REQUEST_FOUNDRY_CHAT_DATA = "ios:requestFoundryChatData"
-    static let SEND_FOUNDRY_CHAT_MESSAGE = "ios:sendFoundryChatMessage"
-}
-
-extension SocketEvents.SERVER.DISPLAY.SEND {
-    static let SEND_FOUNDRY_CHAT_DATA = "server:sendFoundryChatData"
 }

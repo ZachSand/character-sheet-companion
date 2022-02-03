@@ -26,10 +26,8 @@ class ActorListenerWrapper: ListenerWrapper {
     let actorCurrencyListener: GenericActorListener<ActorCurrencyModel>
     let actorBaseDataListener: GenericActorListener<ActorBaseDataModel>
     let actorClassesListener: GenericActorListener<ActorClassArrayModel>
-    let actorTraistListener: GenericActorListener<ActorTraitsModel>
-
-    // Not generic
-    let actorAttributesListener: ActorAttributesListener
+    let actorTraitsListener: GenericActorListener<ActorTraitsModel>
+    let actorAttributesListener: GenericActorListener<ActorAttributesModel>
 
     init(socket: SocketIOClient) {
         self.socket = socket
@@ -42,10 +40,8 @@ class ActorListenerWrapper: ListenerWrapper {
         actorCurrencyListener = GenericActorListener<ActorCurrencyModel>(socket: socket)
         actorBaseDataListener = GenericActorListener<ActorBaseDataModel>(socket: socket)
         actorClassesListener = GenericActorListener<ActorClassArrayModel>(socket: socket)
-        actorTraistListener = GenericActorListener<ActorTraitsModel>(socket: socket)
-
-        // Not generic
-        actorAttributesListener = ActorAttributesListener(socket: socket)
+        actorTraitsListener = GenericActorListener<ActorTraitsModel>(socket: socket)
+        actorAttributesListener = GenericActorListener<ActorAttributesModel>(socket: socket)
 
         socketListeners = [
             actorAbilityListener,
@@ -57,9 +53,7 @@ class ActorListenerWrapper: ListenerWrapper {
             actorCurrencyListener,
             actorBaseDataListener,
             actorClassesListener,
-            actorTraistListener,
-
-            // Not Generic
+            actorTraitsListener,
             actorAttributesListener,
         ]
     }

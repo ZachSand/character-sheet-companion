@@ -5,7 +5,7 @@ import { handleActorEvents } from "./actorEventHandlers.js";
 import { handleActorChangeEvents } from "./actorChangeEventsHandler.js";
 import { handleSocketConnect } from "./setupConnectionHandler.js";
 
-export function socketHandlerWrapper(socket) {
+export function handleSocketEvents(socket) {
   handleSocketConnect(socket);
 
   handleSetupEvents(socket);

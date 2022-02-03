@@ -8,9 +8,9 @@
 import Foundation
 
 class CharacterHealthSheetViewModel {
-    private var attributesListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorAttributesListener
+    private var actorChangeListener = SocketManagerWrapper.sharedInstance.actorChangeListener
 
     func applyDamage(healthChange: Int) {
-        attributesListener.requestActorHealthChange(healthChange: healthChange)
+        actorChangeListener.requestActorHealthChange(healthChange: healthChange)
     }
 }

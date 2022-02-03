@@ -12,7 +12,7 @@ class CharacterTraitsViewModel: ObservableObject {
     @Published var traits: ActorTraitsModel?
 
     private var subscription = Set<AnyCancellable>()
-    private var traitsListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorTraistListener
+    private var traitsListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorTraitsListener
 
     init() {
         traitsListener.modelPublisher

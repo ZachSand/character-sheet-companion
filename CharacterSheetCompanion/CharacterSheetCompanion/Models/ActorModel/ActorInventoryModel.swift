@@ -18,20 +18,12 @@ struct ActorInventoryModel: Codable, BaseModel {
     var loot: [ActorInventoryItemModel]
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_INVENTORY
+        REQUEST_EVENTS.ACTOR.INVENTORY
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_INVENTORY
+        RECEIVE_EVENTS.ACTOR.INVENTORY
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_INVENTORY = "ios:requestActorInventory"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_INVENTORY = "server:sendActorInventory"
 }
 
 #if DEBUG

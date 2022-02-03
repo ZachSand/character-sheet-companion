@@ -2,40 +2,37 @@ import {
   getValidActor,
   validSocketArguments,
 } from "../../utils/commonUtilities.js";
-import { ServerSocketRequestEvents } from "../../events/socket/ServerSocketRequestEvents.js";
+import { SERVER_REQUEST_EVENTS } from "../../events/serverRequestEvents.js";
+import { FOUNDRY_EVENTS } from "../../events/foundryEvents.js";
 import { CORE_EVENTS } from "../../events/coreEvents.js";
-import { FoundrySocketEvents } from "../../events/socket/FoundrySocketEvents.js";
 
 export function handleDisplayEvents(socket) {
-  Object.values(
-    ServerSocketRequestEvents.Instance.SERVER_EVENTS.DISPLAY
-  ).forEach((displayEvent) => {
-    socket.on(
-      ServerSocketRequestEvents.Instance.SERVER_EVENTS.DISPLAY + displayEvent,
-      (...args) => {
-        handleDisplayEvent(displayEvent, socket, ...args);
-      }
-    );
+  Object.values(SERVER_REQUEST_EVENTS.DISPLAY).forEach((displayEvent) => {
+    socket.on(displayEvent, (...args) => {
+      handleDisplayEvent(displayEvent, socket, ...args);
+    });
   });
 }
 
 export function handleDisplayEvent(displayEvent, socket, args) {
-  switch (_.startCase(_.camelCase(event))) {
+  switch (displayEvent) {
     case CORE_EVENTS.ITEM:
       if (validSocketArguments(socket, displayEvent, args, 1)) {
         displayItemCard(args[0]);
       }
       break;
-    case CORE_EVENTS.CHAT_DATA:
+    case SERVER_REQUEST_EVENTS.DISPLAY.CHAT_DATA:
       if (validSocketArguments(socket, displayEvent, args, 3)) {
         createAndEmitChatData(socket, args[0], args[1], args[2]);
       }
       break;
-    case CORE_EVENTS.CHAT_MESSAGE:
+    case SERVER_REQUEST_EVENTS.DISPLAY.CHAT_MESSAGE:
       if (validSocketArguments(socket, displayEvent, args, 3)) {
         createChatMessage(args[0], args[1], args[2]);
       }
       break;
+    default:
+    //TODO: Some error
   }
 
   function createAndEmitChatData(socket, userId, actorId, iosSocketId) {
@@ -43,7 +40,7 @@ export function handleDisplayEvent(displayEvent, socket, args) {
     let actor = getValidActor(socket, actorId, iosSocketId);
     if (actor && chatMessages) {
       socket.emit(
-        FoundrySocketEvents.Instance.FOUNDRY_EVENTS.CHAT_DATA,
+        FOUNDRY_EVENTS.CHAT_DATA,
         chatMessages
           .filter(
             (chatMessage) =>

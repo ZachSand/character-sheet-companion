@@ -15,18 +15,10 @@ struct ItemDamageRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL
+        REQUEST_EVENTS.ROLL.ITEM_DAMAGE
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_DAMAGE_ROLL
+        RECEIVE_EVENTS.ROLL.ITEM_DAMAGE
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_ITEM_DAMAGE_ROLL = "ios:requestFoundryItemDamageRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_FOUNDRY_ITEM_DAMAGE_ROLL = "server:sendFoundryItemDamageRoll"
 }

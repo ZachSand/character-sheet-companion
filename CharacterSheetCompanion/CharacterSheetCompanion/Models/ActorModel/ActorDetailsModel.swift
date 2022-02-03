@@ -16,20 +16,12 @@ struct ActorDetailsModel: Codable, BaseModel {
     var ideals: String
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_DETAILS
+        REQUEST_EVENTS.ACTOR.DETAILS
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_DETAILS
+        RECEIVE_EVENTS.ACTOR.DETAILS
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_DETAILS = "ios:requestActorDetails"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_DETAILS = "server:sendActorDetails"
 }
 
 #if DEBUG

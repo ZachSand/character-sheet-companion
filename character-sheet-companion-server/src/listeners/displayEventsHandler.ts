@@ -63,7 +63,7 @@ export const displayEventsHandler = (io: Server, socket: Socket): void => {
   };
 
   socket.on(
-    IosSocketEvents.Instance.IOS_EVENTS.DISPLAY.DISPLAY_ITEM,
+    IosSocketEvents.Instance.IOS_EVENTS.DISPLAY.ITEM,
     requestFoundryDisplayItem
   );
 

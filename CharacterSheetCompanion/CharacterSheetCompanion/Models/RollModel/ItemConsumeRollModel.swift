@@ -14,18 +14,10 @@ struct ItemConsumeRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_ITEM_CONSUME_ROLL
+        REQUEST_EVENTS.ROLL.ITEM_CONSUME
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_FOUNDRY_ITEM_CONSUME_ROLL
+        RECEIVE_EVENTS.ROLL.ITEM_CONSUME
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_ITEM_CONSUME_ROLL = "ios:requestFoundryItemConsumeRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_FOUNDRY_ITEM_CONSUME_ROLL = "server:sendFoundryItemConsumeRoll"
 }

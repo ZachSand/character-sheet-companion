@@ -19,7 +19,7 @@ class SetupConnectionListener: SocketListener {
     }
 
     func addSocketHandlers() {
-        socket.on(SocketEvents.SERVER.SETUP.SEND.SEND_IOS_JOINED_ROOM) { _, _ in
+        socket.on(RECEIVE_EVENTS.SETUP.JOIN_ROOM) { _, _ in
             self.socketConnectionCallback?(true)
         }
     }
@@ -27,14 +27,6 @@ class SetupConnectionListener: SocketListener {
     func joinSocketRoom(socketRoomId: String, completionHandler: @escaping (Bool) -> Void) {
         self.socketRoomId = socketRoomId
         socketConnectionCallback = completionHandler
-        socket.emit(SocketEvents.IOS.SETUP.JOIN_ROOM, socketRoomId)
+        socket.emit(REQUEST_EVENTS.SETUP.JOIN_ROOM, socketRoomId)
     }
-}
-
-extension SocketEvents.IOS.SETUP {
-    static let JOIN_ROOM = "ios:joinRoom"
-}
-
-extension SocketEvents.SERVER.SETUP.SEND {
-    static let SEND_IOS_JOINED_ROOM = "server:sendIosJoinedRoom"
 }

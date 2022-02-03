@@ -9,7 +9,7 @@ import Foundation
 
 class CharacterRestSheetViewModel {
     private var hitDieListener = SocketManagerWrapper.sharedInstance.rollListenerWrapper.hitDieRollListener
-    private var attributeListener = SocketManagerWrapper.sharedInstance.actorListenerWrapper.actorAttributesListener
+    private var actorChangeListener = SocketManagerWrapper.sharedInstance.actorChangeListener
 
     func rollHitDie(actorClass: ActorClassModel) {
         if let actor = SocketManagerWrapper.sharedInstance.actor {
@@ -18,10 +18,10 @@ class CharacterRestSheetViewModel {
     }
 
     func longRest() {
-        attributeListener.requestActorLongRest()
+        actorChangeListener.requestActorLongRest()
     }
 
     func shortRest() {
-        attributeListener.requestActorShortRest()
+        actorChangeListener.requestActorShortRest()
     }
 }

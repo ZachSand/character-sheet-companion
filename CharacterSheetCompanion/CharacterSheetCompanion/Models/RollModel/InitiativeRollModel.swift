@@ -12,18 +12,10 @@ struct InitiativeRollModel: BaseRollModel {
     var result: Int
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ROLL.REQUEST_FOUNDRY_INITIATIVE_ROLL
+        REQUEST_EVENTS.ROLL.INITIATIVE
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ROLL.SEND.SEND_INITIATIVE_ROLL
+        RECEIVE_EVENTS.ROLL.INITIATIVE
     }
-}
-
-extension SocketEvents.IOS.ROLL {
-    static let REQUEST_FOUNDRY_INITIATIVE_ROLL = "ios:requestFoundryInitiativeRoll"
-}
-
-extension SocketEvents.SERVER.ROLL.SEND {
-    static let SEND_INITIATIVE_ROLL = "foundry:sendInitiativeRoll"
 }

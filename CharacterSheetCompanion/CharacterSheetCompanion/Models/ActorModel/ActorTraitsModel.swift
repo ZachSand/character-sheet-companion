@@ -20,20 +20,12 @@ struct ActorTraitsModel: Codable, BaseModel {
     var senses: ActorSensesModel
 
     static func getRequestEvent() -> String {
-        SocketEvents.IOS.ACTOR.REQUEST_ACTOR_TRAITS
+        REQUEST_EVENTS.ACTOR.TRAITS
     }
 
     static func getReceiveEvent() -> String {
-        SocketEvents.SERVER.ACTOR.SEND.SEND_ACTOR_TRAITS
+        RECEIVE_EVENTS.ACTOR.TRAITS
     }
-}
-
-extension SocketEvents.IOS.ACTOR {
-    static let REQUEST_ACTOR_TRAITS = "ios:requestActorTraits"
-}
-
-extension SocketEvents.SERVER.ACTOR.SEND {
-    static let SEND_ACTOR_TRAITS = "server:sendActorTraits"
 }
 
 #if DEBUG

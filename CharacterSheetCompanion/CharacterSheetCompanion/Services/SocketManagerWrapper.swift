@@ -18,6 +18,7 @@ class SocketManagerWrapper: NSObject {
     let setupListenerWrapper: SetupListenerWrapper
     let rollListenerWrapper: RollListenerWrapper
     let displayListenerWrapper: DisplayListenerWrapper
+    let actorChangeListener: ActorChangeListener
 
     var user: SetupUserModel?
     var actor: SetupActorModel?
@@ -31,6 +32,7 @@ class SocketManagerWrapper: NSObject {
         setupListenerWrapper = SetupListenerWrapper(socket: socket)
         rollListenerWrapper = RollListenerWrapper(socket: socket)
         displayListenerWrapper = DisplayListenerWrapper(socket: socket)
+        actorChangeListener = ActorChangeListener(socket: socket)
 
         Array([
             actorListenerWrapper.socketListeners,
@@ -49,12 +51,8 @@ class SocketManagerWrapper: NSObject {
     func emitCompletedSetup(user: SetupUserModel, actor: SetupActorModel) {
         self.user = user
         self.actor = actor
-        socket.emit(SocketEvents.IOS.SETUP.SEND_IOS_SETUP_COMPLETE, actor.id, user.id)
+        socket.emit(REQUEST_EVENTS.SETUP.COMPLETE, actor.id, user.id)
     }
-}
-
-extension SocketEvents.IOS.SETUP {
-    static let SEND_IOS_SETUP_COMPLETE = "ios:sendSetupComplete"
 }
 
 enum FoundryJSONError: Error {
